@@ -28,7 +28,7 @@ INSERT INTO ADVENTURE_OWNER (id) VALUES (4);
 INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Cottage 1', 1.5, 1, 250, '2022-07-06', '2022-08-28', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos, cupiditate! Odio, aliquam soluta vel, eum illum corrupti incidunt nobis porro mollitia itaque reiciendis. Aut, minus dolore! Delectus pariatur praesentium dolorem? In at, quibusdam vero eligendi provident veritatis ipsam suscipit nisi similique nulla est magni harum. Cumque maiores eos alias, aperiam ea deleniti voluptatem culpa a perferendis accusantium, necessitatibus velit laborum');
 INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Cottage 2', 4.5, 1, 300, '2022-08-06', '2022-08-25', 'Najbolji gas od vikendice ikada KEKEKEKEKE');
 INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Cottage 4', 3.5, 1, 220, '2022-08-06', '2022-08-18', 'Dobra vikendica i nista vise!');
-INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Cottage 3', 3, 1, 150, '2022-08-23', '2022-08-15', 'Dobra cijena, dobar provod!!!');
+INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Cottage 3', 3, 1, 150, '2022-08-13', '2022-08-15', 'Dobra cijena, dobar provod!!!');
 --inseting for boats
 INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Boat 1', 5, 1, 225, '2022-05-23', '2022-08-25', 'Dobra cijena, dobar provod(JAHTA)!!!');
 INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Boat 2', 1, 3, 225, '2022-05-23', '2022-08-15', 'Manji brod valjda');
@@ -50,8 +50,8 @@ INSERT INTO IMAGE (entity_id, url) VALUES (8, 'https://i.ibb.co/HHJrLzF/adventur
 
 INSERT INTO COTTAGE (id, owner_id, capacity, address) VALUES (1, 2, 7, 'Sremska Kamenica 13, Novi Sad');
 INSERT INTO COTTAGE (id, owner_id, capacity, address) VALUES (2, 2, 13, 'Svetozara Miletica 2, Veternik(Novi Sad)');
-INSERT INTO COTTAGE (id, owner_id, capacity, address) VALUES (3, 2, 15, 'Sremska Kamenica 13, Novi Sad');
-INSERT INTO COTTAGE (id, owner_id, capacity, address) VALUES (4, 2, 10 , 'Svetozara Miletica 2, Veternik(Novi Sad)');
+INSERT INTO COTTAGE (id, owner_id, capacity, address) VALUES (3, 2, 15, 'Sremska Kamenica 26, Novi Sad');
+INSERT INTO COTTAGE (id, owner_id, capacity, address) VALUES (4, 2, 10 , 'Svetozara Miletica 32, Veternik(Novi Sad)');
 
 INSERT INTO RESERVATION (duration, price, reservation_start, reservation_end) VALUES (2, 500, '2022-05-08', '2022-05-10');
 
