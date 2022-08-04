@@ -16,11 +16,17 @@ const CottageProfile = ({ cottage, scheduleReservation }) => {
   }, [])
 
   const onReservationButtonClick = () => {
+    // Pomjera datum za vremensku zonu da bi bila UTC kad se salju na back
+    const reservationStart = dateUtils.toUtcDate(checkInDate)
+    const reservationEnd = dateUtils.toUtcDate(checkOutDate)
+    const duration = dateUtils.daysBetween(reservationStart, reservationEnd)
+
     const reservation = {
-      // Pomjera datum za vremensku zonu da bi bila UTC kad se salju na back
-      reservationStart: dateUtils.toUtcDate(checkInDate),
-      reservationEnd: dateUtils.toUtcDate(checkOutDate),
       entityId: cottage.id,
+      reservationStart,
+      reservationEnd,
+      duration,
+      price: cottage.price * duration,
     }
     scheduleReservation(reservation)
   }

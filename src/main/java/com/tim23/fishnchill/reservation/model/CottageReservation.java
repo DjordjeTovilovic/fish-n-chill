@@ -24,5 +24,4 @@ public class CottageReservation extends Reservation {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Cottage cottage;
-
 }
