@@ -1,10 +1,11 @@
 package com.tim23.fishnchill.reservation.controller;
 
+import com.tim23.fishnchill.cottage.CottageDto;
 import com.tim23.fishnchill.reservation.dto.CottageReservationDto;
+import com.tim23.fishnchill.reservation.dto.DatePeriodDto;
 import com.tim23.fishnchill.reservation.dto.NewReservationDto;
 import com.tim23.fishnchill.reservation.service.CottageReservationService;
 import com.tim23.fishnchill.security.TokenUtils;
-import com.tim23.fishnchill.user.controller.UserController;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -49,5 +50,13 @@ public class CottageReservationController {
         newReservationDto.setClientId(id);
         return cottageReservationService.save(newReservationDto);
     }
+
+    @PostMapping("/cottages/period")
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    public List<CottageDto> findAllCottagesAvailableInPeriod(@RequestBody DatePeriodDto dateRangeDto) {
+        return cottageReservationService.findAllCottagesAvailableInPeriod(dateRangeDto);
+    }
+
 
 }

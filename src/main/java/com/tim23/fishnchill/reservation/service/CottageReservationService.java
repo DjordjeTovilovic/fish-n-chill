@@ -1,9 +1,13 @@
 package com.tim23.fishnchill.reservation.service;
 
+import com.tim23.fishnchill.cottage.CottageDto;
+import com.tim23.fishnchill.cottage.model.Cottage;
 import com.tim23.fishnchill.cottage.repository.CottageRepository;
 import com.tim23.fishnchill.general.exception.ResourceNotFoundException;
+import com.tim23.fishnchill.general.service.DateService;
 import com.tim23.fishnchill.reservation.dto.ClientCottageReservationDto;
 import com.tim23.fishnchill.reservation.dto.CottageReservationDto;
+import com.tim23.fishnchill.reservation.dto.DatePeriodDto;
 import com.tim23.fishnchill.reservation.dto.NewReservationDto;
 import com.tim23.fishnchill.reservation.model.CottageReservation;
 import com.tim23.fishnchill.reservation.repository.CottageReservationRepository;
@@ -14,6 +18,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -23,6 +28,7 @@ public class CottageReservationService {
     private ModelMapper modelMapper;
     private CottageRepository cottageRepository;
     private ClientRepository clientRepository;
+    private DateService dateService;
 
 
     public List<CottageReservationDto> findAll() {
@@ -55,5 +61,16 @@ public class CottageReservationService {
         cottageReservation.setCottage(cottageRepository.getById(newReservationDto.getEntityId()));
         cottageReservation.setClient(clientRepository.getById(newReservationDto.getClientId()));
         return modelMapper.map(cottageReservationRepository.save(cottageReservation), CottageReservationDto.class);
+    }
+
+    public List<CottageDto> findAllCottagesAvailableInPeriod(DatePeriodDto datePeriodDto) {
+        List<Cottage> cottages = cottageRepository.findAll();
+        // Filtrira tako da ostanu samo vikendice slobodne u tom periodu
+        List<Cottage> availableCottages = cottages.stream().filter(cottage ->
+                dateService.isCottageAvailableInPeriod(cottage, datePeriodDto.getStartDate(), datePeriodDto.getEndDate())
+        ).collect(Collectors.toList());
+
+        TypeToken<List<CottageDto>> typeToken = new TypeToken<>() {};
+        return modelMapper.map(availableCottages, typeToken.getType());
     }
 }
