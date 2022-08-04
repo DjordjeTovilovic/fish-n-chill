@@ -50,9 +50,10 @@ public class CottageReservationService {
         CottageReservation cottageReservation = new CottageReservation();
         cottageReservation.setDuration(newReservationDto.getDuration());
         cottageReservation.setPrice(newReservationDto.getPrice());
+        cottageReservation.setReservationStart(newReservationDto.getReservationStart());
+        cottageReservation.setReservationEnd(newReservationDto.getReservationEnd());
         cottageReservation.setCottage(cottageRepository.getById(newReservationDto.getEntityId()));
         cottageReservation.setClient(clientRepository.getById(newReservationDto.getClientId()));
-
         return modelMapper.map(cottageReservationRepository.save(cottageReservation), CottageReservationDto.class);
     }
 }

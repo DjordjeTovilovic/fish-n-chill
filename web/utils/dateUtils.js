@@ -1,4 +1,4 @@
-import { subMinutes } from 'date-fns'
+import { subMinutes, differenceInDays } from 'date-fns'
 
 // Mislim da treba pozivati samo kad se salje na back, ali nisam jos testirao
 export const toUtcDate = (date) => subMinutes(date, date.getTimezoneOffset())
@@ -10,6 +10,8 @@ export const entityFieldsToDate = (entity) => {
   return entity
 }
 
-const dateUtils = { toUtcDate, entityFieldsToDate }
+export const daysBetween = (startDate, endDate) => differenceInDays(endDate, startDate)
+
+const dateUtils = { toUtcDate, entityFieldsToDate, daysBetween }
 
 export default dateUtils
