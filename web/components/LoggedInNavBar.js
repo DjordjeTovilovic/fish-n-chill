@@ -56,7 +56,7 @@ const LoggedInNavBar = () => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ minWidth: 'fit-content' }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar />
@@ -78,33 +78,57 @@ const LoggedInNavBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {userRole === 'ROLE_COTTAGE_OWNER' ? (
-                <MenuItem>
+              {userRole === 'ROLE_COTTAGE_OWNER' && (
+                <MenuItem sx={{ justifyContent: 'center' }}>
                   <Button
                     key="cottages"
-                    style={{ maxWidth: '60px', maxHeight: '15', minWidth: '30px', minHeight: '15px' }}
+                    style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
                     sx={{ color: 'blue' }}
                     href={'/' + ''}
                   >
                     Cottages
                   </Button>
                 </MenuItem>
-              ) : null}
-              <MenuItem>
+              )}
+              {userRole === 'ROLE_CLIENT' && (
+                <MenuItem sx={{ justifyContent: 'center' }}>
+                  <Button
+                    key="cottages"
+                    style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
+                    sx={{ color: 'black' }}
+                    href={'/' + ''}
+                  >
+                    All active reservations
+                  </Button>
+                </MenuItem>
+              )}
+              {userRole === 'ROLE_CLIENT' && (
+                <MenuItem sx={{ justifyContent: 'center' }}>
+                  <Button
+                    key="cottages"
+                    style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
+                    sx={{ color: 'black' }}
+                    href={'/' + ''}
+                  >
+                    Reservation history
+                  </Button>
+                </MenuItem>
+              )}
+              <MenuItem sx={{ justifyContent: 'center' }}>
                 <Button
                   key="profile"
-                  style={{ maxWidth: '60px', maxHeight: '15', minWidth: '30px', minHeight: '15px' }}
+                  style={{ maxHeight: '15', minWidth: '100%', minHeight: '15px', }}
                   sx={{ color: 'blue' }}
                   href={'/' + 'users/profile'}
                 >
                   profile
                 </Button>
               </MenuItem>
-              <MenuItem>
+              <MenuItem sx={{ justifyContent: 'center' }}>
                 <Button
                   key="logout"
                   href="/"
-                  style={{ maxWidth: '60px', maxHeight: '15', minWidth: '30px', minHeight: '15px' }}
+                  style={{ maxHeight: '15', minWidth: '100%', minHeight: '15px' }}
                   sx={{ color: 'red' }}
                   onClick={handleLogout}
                 >
