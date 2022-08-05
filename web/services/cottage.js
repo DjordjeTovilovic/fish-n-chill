@@ -5,6 +5,11 @@ const scheduleReservation = async (reservation) => {
   await axios.post('http://localhost:8080/api/cottages/reservations', reservation)
 }
 
+const findByPeriod = async (datePeriod) => {
+  const res = await axios.post('http://localhost:8080/api/cottages/findByPeriod', datePeriod)
+  return res.data
+}
+
 const getAll = async () => {
   const res = await axios.get(baseUrl)
   return res.data
@@ -60,6 +65,7 @@ const cottageService = {
   update,
   remove,
   scheduleReservation,
+  findByPeriod
 }
 
 export default cottageService

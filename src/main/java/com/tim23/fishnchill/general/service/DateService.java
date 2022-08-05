@@ -39,6 +39,7 @@ public class DateService {
             return false;
         // Testing if date range is overlapping with any cottage reservation time
         return cottage.getCottageReservations().stream().noneMatch(reservation ->
+
                 doDatePeriodsOverlap(startTime, endTime, reservation.getReservationStart(),
                         reservation.getReservationEnd()));
     }

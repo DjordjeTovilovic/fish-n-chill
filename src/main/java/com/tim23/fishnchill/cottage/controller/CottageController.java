@@ -3,6 +3,8 @@ package com.tim23.fishnchill.cottage.controller;
 import com.tim23.fishnchill.cottage.CottageDto;
 import com.tim23.fishnchill.cottage.model.Cottage;
 import com.tim23.fishnchill.cottage.service.CottageService;
+import com.tim23.fishnchill.reservation.dto.DatePeriodDto;
+import com.tim23.fishnchill.reservation.service.CottageReservationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,6 +21,7 @@ import java.util.Map;
 public class CottageController {
 
     private CottageService cottageService;
+    private CottageReservationService cottageReservationService;
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
@@ -31,7 +34,8 @@ public class CottageController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public CottageDto findById(@PathVariable("id") Long id) {
-        return cottageService.findById(id);
+        CottageDto cottage = cottageService.findById(id);
+        return cottage;
     }
 
     @GetMapping(value = "/name/{name}")
@@ -68,5 +72,13 @@ public class CottageController {
         Map<String, String> result = new HashMap<>();
         result.put("result", "success");
         return ResponseEntity.accepted().body(result);
+    }
+
+    @PostMapping(value = "/findByPeriod")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<CottageDto> findByPeriod(@RequestBody DatePeriodDto datePeriod) throws Exception {
+        List<CottageDto> cottages = cottageReservationService.findAllCottagesAvailableInPeriod(datePeriod);
+        return cottages;
     }
 }

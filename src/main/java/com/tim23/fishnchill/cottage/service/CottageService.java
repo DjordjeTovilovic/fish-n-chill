@@ -4,11 +4,12 @@ import com.tim23.fishnchill.cottage.CottageDto;
 import com.tim23.fishnchill.cottage.model.Cottage;
 import com.tim23.fishnchill.cottage.repository.CottageRepository;
 import com.tim23.fishnchill.general.exception.ResourceNotFoundException;
+import com.tim23.fishnchill.reservation.model.CottageReservation;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
-
+import java.util.Set;
 import java.util.List;
 
 @AllArgsConstructor
@@ -30,11 +31,13 @@ public class CottageService {
         return modelMapper.map(cottageRepository.findAll(), typeToken.getType());
     }
 
+
     public CottageDto findById(Long id) {
         Cottage cottage = cottageRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cottage", id));
         return modelMapper.map(cottage, CottageDto.class);
     }
+
 
     public List<CottageDto> findByNameContaining(String name) {
         TypeToken<List<CottageDto>> typeToken = new TypeToken<>() {};
