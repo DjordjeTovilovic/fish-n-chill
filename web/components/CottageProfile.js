@@ -31,6 +31,7 @@ const CottageProfile = ({ cottage, scheduleReservation }) => {
     scheduleReservation(reservation)
   }
 
+  console.log(cottage)
   return (
     <>
       <Container component="main" maxWidth="lg">
@@ -115,56 +116,76 @@ const CottageProfile = ({ cottage, scheduleReservation }) => {
               {cottage.description}
             </Typography>
             {/*Ako je ulogovan user prikazati dugme za rezervisanje*/}
-            <DatePicker
-              label="Check-in"
-              value={checkInDate}
-              disablePast={true}
-              onChange={(newValue) => {
-                setCheckInDate(newValue)
-              }}
-              shouldDisableDate={(dateParam) => {
-                return checkOutDate === null
-                  ? dateParam < cottage.availabilityStart || dateParam > cottage.availabilityEnd
-                  : dateParam < cottage.availabilityStart ||
-                      dateParam > cottage.availabilityEnd ||
-                      dateParam > checkOutDate
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-            <DatePicker
-              label="Check-out"
-              value={checkOutDate}
-              disablePast={true}
-              onChange={(newValue) => {
-                setCheckOutDate(newValue)
-              }}
-              shouldDisableDate={(dateParam) => {
-                return checkInDate === null
-                  ? dateParam < cottage.availabilityStart || dateParam > cottage.availabilityEnd
-                  : dateParam < cottage.availabilityStart ||
-                      dateParam > cottage.availabilityEnd ||
-                      dateParam < checkInDate
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
+
             {loggedInUser ? (
-              <Button
-                onClick={onReservationButtonClick}
-                disabled={penalty >= 3}
-                size="large"
-                variant="contained"
-                sx={{ ml: 3, mb: 3 }}
-              >
-                Schedule Reservation
-              </Button>
+              <>
+                <DatePicker
+                  label="Check-in"
+                  value={checkInDate}
+                  disablePast={true}
+                  onChange={(newValue) => {
+                    setCheckInDate(newValue)
+                    setCheckOutDate(null)
+                  }}
+                  shouldDisableDate={(dateParam) => {
+                    return (dateParam < cottage.availabilityStart ||
+                      dateParam > cottage.availabilityEnd ||
+                      cottage.cottageReservations.some((reservation) =>
+                        dateParam >= new Date(reservation.reservationStart) &&
+                        dateParam <= new Date(reservation.reservationEnd))
+                    )
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+                <DatePicker
+                  label="Check-out"
+                  value={checkOutDate}
+                  disablePast={true}
+                  disabled={checkInDate === null}
+                  onChange={(newValue) => {
+                    setCheckOutDate(newValue)
+                  }}
+                  shouldDisableDate={(dateParam) => {
+                    return (dateParam < checkInDate ||
+                      cottage.cottageReservations.reverse().some((reservation) => {
+                        if (checkInDate < new Date(reservation.reservationStart))
+                          return dateParam >= new Date(reservation.reservationStart)
+                        else
+                          return dateParam > cottage.availabilityEnd
+                      }
+
+                      ))
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+                <Button
+                  onClick={onReservationButtonClick}
+                  disabled={penalty >= 3}
+                  size="large"
+                  variant="contained"
+                  sx={{ ml: 3, mb: 3 }}
+                >
+                  Schedule Reservation
+                </Button>
+                {
+                  penalty >= 3 && <p style={{
+                    color: "red",
+                    fontSize: "13px",
+                    marginLeft: "25px",
+                    marginTop: "5px"
+                  }}>You have 3 or more penalties and can't schedule reservations</p>
+                }
+              </>
+
             ) : (
-              // {penalty >= 3 && <p style={{
-              //   color: "red",
-              //   fontSize: "13px",
-              //   marginLeft: "25px",
-              //   marginTop: "5px"
-              // }}>You have 3 or more penalties and can't schedule reservations</p>}</>
-              <></>
+              <p style={{
+                color: "red",
+                fontSize: "18px",
+                marginLeft: "25px",
+                marginTop: "5px",
+                marginBottom: "0px"
+              }}>You have to be logged in to schedule a reservation!</p>
+
             )}
           </Paper>
         </Box>

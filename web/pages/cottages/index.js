@@ -72,12 +72,17 @@ const Cottages = () => {
     sortCottagesBy(e.target.value)
   }
 
-  const fetchData = async () => setCottages(await cottageService.getAll())
+  const fetchData = () => cottageService.getAll().then((gotCottages) => setCottages(gotCottages))
   const fetchByName = async (name) => setCottages(await cottageService.getByNameContaining(name))
   const fetchByAddress = async (address) => setCottages(await cottageService.getByAddressContaining(address))
   const fetchByDescription = async (description) =>
     setCottages(await cottageService.getByDescriptionContaining(description))
   const fetchByAnything = async (anything) => setCottages(await cottageService.getByAnything(anything))
+
+
+  const searchForDatePeriod = (datePeriod) => {
+    cottageService.findByPeriod(datePeriod).then((gotCottages => setCottages(gotCottages)))
+  }
 
   return (
     <>
@@ -86,6 +91,7 @@ const Cottages = () => {
         handleChange={(e) => handleChange(e)}
         handleSelect={(e) => handleSelect(e)}
         handleSort={(e) => handleSort(e)}
+        searchForDatePeriod={(datePeriod) => searchForDatePeriod(datePeriod)}
       />
     </>
   )

@@ -15,22 +15,73 @@ import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 import Rating from '@mui/material/Rating'
 import Divider from '@mui/material/Divider'
+import { DatePicker } from '@mui/x-date-pickers'
+import { useState } from 'react'
+import dateUtils from '../utils/dateUtils'
 
-const AllCottages = ({ cottages, handleChange, handleSelect, handleSort }) => {
+
+const AllCottages = ({ cottages, handleChange, handleSelect, handleSort, searchForDatePeriod }) => {
+
+  const [checkInDate, setCheckInDate] = useState(null)
+  const [checkOutDate, setCheckOutDate] = useState(null)
+
+  const searchPeriod = () => {
+    searchForDatePeriod({
+      startDate: dateUtils.toUtcDate(checkInDate),
+      endDate: dateUtils.toUtcDate(checkOutDate)
+    })
+  }
   return (
     <>
       <main>
-        <Box sx={{ backgroundColor: 'grey.300', width: '100%' }}>
+        <Box sx={{ display: "flex", pl: 5, backgroundColor: 'grey.300', width: '100%', height: "120px ", paddingTop: "15px", alignItems: "center" }}>
+          <div style={{ display: "flex", flexDirection: "column", maxWidth: "170px", maxHeight: "100px" }}>
+            <DatePicker
+              label="Check-in"
+              value={checkInDate}
+              disablePast={true}
+              onChange={(newValue) => {
+                setCheckInDate(newValue)
+              }}
+              shouldDisableDate={(dateParam) => {
+                return checkOutDate !== null && dateParam > checkOutDate
+              }}
+              renderInput={(params) => <TextField size="small" {...params} />}
+            />
+            <div style={{ height: "10px" }}></div>
+            <DatePicker
+              label="Check-out"
+              value={checkOutDate}
+              disablePast={true}
+              onChange={(newValue) => {
+                setCheckOutDate(newValue)
+              }}
+              shouldDisableDate={(dateParam) => {
+                return checkInDate !== null && dateParam < checkInDate
+              }}
+              renderInput={(params) => <TextField size="small" {...params} />}
+            />
+          </div>
+
+          <Button
+            variant="contained"
+            sx={{ ml: 3 }}
+            disabled={checkInDate === null || checkOutDate === null}
+            onClick={searchPeriod}>
+            Search
+          </Button>
+
           <TextField
             id="searchCottages"
-            sx={{ mt: 0.5, ml: 55, flex: 1, width: '25%' }}
-            variant="filled"
+            sx={{ ml: 3, mt: 0.5, flex: 1, width: '25%' }}
+            styles={{ height: "100px" }}
+            variant="outlined"
             size="small"
-            placeholder="Search cottages"
-            inputProps={{ 'aria-label': 'search google maps', style: { textAlign: 'center', fontSize: 22 } }}
+            label="Search cottages"
+            inputProps={{ 'aria-label': 'search google maps', style: { fontSize: 22 } }}
             onChange={(e) => handleChange(e.target)}
           />
-          <FormControl variant="filled" sx={{ mt: 0.5, ml: 0, flex: 1, width: '10%' }}>
+          <FormControl variant="outlined" sx={{ ml: 0, flex: 1, maxWidth: '10%' }}>
             <InputLabel>Search by</InputLabel>
             <Select
               defaultValue=""
@@ -48,7 +99,7 @@ const AllCottages = ({ cottages, handleChange, handleSelect, handleSort }) => {
               <MenuItem value={'anything'}>Anything</MenuItem>
             </Select>
           </FormControl>
-          <FormControl variant="filled" sx={{ mt: 0.5, ml: 0, flex: 1, width: '10%' }}>
+          <FormControl variant="outlined" sx={{ mr: 0, ml: 10, flex: 1, maxWidth: '10%' }}>
             <InputLabel>Sort by</InputLabel>
             <Select
               defaultValue=""
@@ -90,9 +141,7 @@ const AllCottages = ({ cottages, handleChange, handleSelect, handleSort }) => {
                       {cottage.address}
                     </Typography>
                     <Typography variant="subtitle2" component="div" align="center">
-                      {cottage.availabilityStart[2] ?? '#Not available#'}.{cottage.availabilityStart[1]}.
-                      {cottage.availabilityStart[0]} - {cottage.availabilityEnd[2] ?? '#Not available#'}.
-                      {cottage.availabilityEnd[1]}.{cottage.availabilityEnd[0]}
+                      {new Date(cottage.availabilityStart).toLocaleDateString('en-UK') ?? '#Not available#'}-{new Date(cottage.availabilityEnd).toLocaleDateString('en-UK') ?? '#Not available#'}
                     </Typography>
                     <Divider variant="middle" sx={{ mb: 0.5 }} />
 

@@ -1,6 +1,8 @@
 package com.tim23.fishnchill.cottage;
 
 import com.tim23.fishnchill.general.dto.ImageDto;
+import com.tim23.fishnchill.reservation.dto.CottageReservationDto;
+import com.tim23.fishnchill.reservation.model.CottageReservation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,4 +38,6 @@ public class CottageDto {
     private BigDecimal price;
 
     private Integer capacity;
+
+    private Set<CottageReservationDto> cottageReservations;
 }
