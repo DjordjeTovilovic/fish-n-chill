@@ -19,23 +19,31 @@ import { DatePicker } from '@mui/x-date-pickers'
 import { useState } from 'react'
 import dateUtils from '../utils/dateUtils'
 
-
 const AllCottages = ({ cottages, handleChange, handleSelect, handleSort, searchForDatePeriod }) => {
-
   const [checkInDate, setCheckInDate] = useState(null)
   const [checkOutDate, setCheckOutDate] = useState(null)
 
   const searchPeriod = () => {
     searchForDatePeriod({
       startDate: dateUtils.toUtcDate(checkInDate),
-      endDate: dateUtils.toUtcDate(checkOutDate)
+      endDate: dateUtils.toUtcDate(checkOutDate),
     })
   }
   return (
     <>
       <main>
-        <Box sx={{ display: "flex", pl: 5, backgroundColor: 'grey.300', width: '100%', height: "120px ", paddingTop: "15px", alignItems: "center" }}>
-          <div style={{ display: "flex", flexDirection: "column", maxWidth: "170px", maxHeight: "100px" }}>
+        <Box
+          sx={{
+            display: 'flex',
+            pl: 5,
+            backgroundColor: 'grey.300',
+            width: '100%',
+            height: '120px ',
+            paddingTop: '15px',
+            alignItems: 'center',
+          }}
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', maxWidth: '170px', maxHeight: '100px' }}>
             <DatePicker
               label="Check-in"
               value={checkInDate}
@@ -48,7 +56,7 @@ const AllCottages = ({ cottages, handleChange, handleSelect, handleSort, searchF
               }}
               renderInput={(params) => <TextField size="small" {...params} />}
             />
-            <div style={{ height: "10px" }}></div>
+            <div style={{ height: '10px' }}></div>
             <DatePicker
               label="Check-out"
               value={checkOutDate}
@@ -67,36 +75,34 @@ const AllCottages = ({ cottages, handleChange, handleSelect, handleSort, searchF
             variant="contained"
             sx={{ ml: 3 }}
             disabled={checkInDate === null || checkOutDate === null}
-            onClick={searchPeriod}>
+            onClick={searchPeriod}
+          >
             Search
           </Button>
 
           <TextField
             id="searchCottages"
             sx={{ ml: 3, mt: 0.5, flex: 1, width: '25%' }}
-            styles={{ height: "100px" }}
+            styles={{ height: '100px' }}
             variant="outlined"
             size="small"
             label="Search cottages"
             inputProps={{ 'aria-label': 'search google maps', style: { fontSize: 22 } }}
-            onChange={(e) => handleChange(e.target)}
+            onChange={(e) => handleChange(e)}
           />
           <FormControl variant="outlined" sx={{ ml: 0, flex: 1, maxWidth: '10%' }}>
             <InputLabel>Search by</InputLabel>
             <Select
-              defaultValue=""
+              defaultValue="address"
               size="large"
               labelId="searchFilter"
               id="searchFilter"
               label="Search by"
-              onChange={(e) => {
-                handleSelect(e)
-              }}
+              onChange={(e) => handleSelect(e)}
             >
+              <MenuItem value={'address'}>Address</MenuItem>
               <MenuItem value={'name'}>Name</MenuItem>
               <MenuItem value={'description'}>Description</MenuItem>
-              <MenuItem value={'address'}>Address</MenuItem>
-              <MenuItem value={'anything'}>Anything</MenuItem>
             </Select>
           </FormControl>
           <FormControl variant="outlined" sx={{ mr: 0, ml: 10, flex: 1, maxWidth: '10%' }}>
@@ -104,17 +110,17 @@ const AllCottages = ({ cottages, handleChange, handleSelect, handleSort, searchF
             <Select
               defaultValue=""
               size="large"
-              labelId="searchFilter"
-              id="searchFilter"
-              label="Search by"
+              labelId="sortFilter"
+              id="sortFilter"
+              label="Sort by"
               onChange={(e) => {
                 handleSort(e)
               }}
             >
+              <MenuItem value={'price'}>Price</MenuItem>
+              <MenuItem value={'rating'}>Rating</MenuItem>
               <MenuItem value={'name'}>Name</MenuItem>
               <MenuItem value={'address'}>Address</MenuItem>
-              <MenuItem value={'rating'}>Rating</MenuItem>
-              <MenuItem value={'nothing'}>Nothing</MenuItem>
             </Select>
           </FormControl>
           <Box sx={{ minWidth: 120 }}></Box>
@@ -141,7 +147,8 @@ const AllCottages = ({ cottages, handleChange, handleSelect, handleSort, searchF
                       {cottage.address}
                     </Typography>
                     <Typography variant="subtitle2" component="div" align="center">
-                      {new Date(cottage.availabilityStart).toLocaleDateString('en-UK') ?? '#Not available#'}-{new Date(cottage.availabilityEnd).toLocaleDateString('en-UK') ?? '#Not available#'}
+                      {new Date(cottage.availabilityStart).toLocaleDateString('en-UK') ?? '#Not available#'}-
+                      {new Date(cottage.availabilityEnd).toLocaleDateString('en-UK') ?? '#Not available#'}
                     </Typography>
                     <Divider variant="middle" sx={{ mb: 0.5 }} />
 
