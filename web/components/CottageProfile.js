@@ -128,11 +128,14 @@ const CottageProfile = ({ cottage, scheduleReservation }) => {
                     setCheckOutDate(null)
                   }}
                   shouldDisableDate={(dateParam) => {
-                    return (dateParam < cottage.availabilityStart ||
+                    return (
+                      dateParam < cottage.availabilityStart ||
                       dateParam > cottage.availabilityEnd ||
-                      cottage.cottageReservations.some((reservation) =>
-                        dateParam >= new Date(reservation.reservationStart) &&
-                        dateParam <= new Date(reservation.reservationEnd))
+                      cottage.cottageReservations.some(
+                        (reservation) =>
+                          dateParam >= new Date(reservation.reservationStart) &&
+                          dateParam <= new Date(reservation.reservationEnd)
+                      )
                     )
                   }}
                   renderInput={(params) => <TextField {...params} />}
@@ -146,15 +149,14 @@ const CottageProfile = ({ cottage, scheduleReservation }) => {
                     setCheckOutDate(newValue)
                   }}
                   shouldDisableDate={(dateParam) => {
-                    return (dateParam < checkInDate ||
+                    return (
+                      dateParam < checkInDate ||
                       cottage.cottageReservations.reverse().some((reservation) => {
                         if (checkInDate < new Date(reservation.reservationStart))
                           return dateParam >= new Date(reservation.reservationStart)
-                        else
-                          return dateParam > cottage.availabilityEnd
-                      }
-
-                      ))
+                        else return dateParam > cottage.availabilityEnd
+                      })
+                    )
                   }}
                   renderInput={(params) => <TextField {...params} />}
                 />
@@ -167,25 +169,31 @@ const CottageProfile = ({ cottage, scheduleReservation }) => {
                 >
                   Schedule Reservation
                 </Button>
-                {
-                  penalty >= 3 && <p style={{
-                    color: "red",
-                    fontSize: "13px",
-                    marginLeft: "25px",
-                    marginTop: "5px"
-                  }}>You have 3 or more penalties and can't schedule reservations</p>
-                }
+                {penalty >= 3 && (
+                  <p
+                    style={{
+                      color: 'red',
+                      fontSize: '13px',
+                      marginLeft: '25px',
+                      marginTop: '5px',
+                    }}
+                  >
+                    You have 3 or more penalties and can&apost schedule reservations
+                  </p>
+                )}
               </>
-
             ) : (
-              <p style={{
-                color: "red",
-                fontSize: "18px",
-                marginLeft: "25px",
-                marginTop: "5px",
-                marginBottom: "0px"
-              }}>You have to be logged in to schedule a reservation!</p>
-
+              <p
+                style={{
+                  color: 'red',
+                  fontSize: '18px',
+                  marginLeft: '25px',
+                  marginTop: '5px',
+                  marginBottom: '0px',
+                }}
+              >
+                You have to be logged in to schedule a reservation!
+              </p>
             )}
           </Paper>
         </Box>
