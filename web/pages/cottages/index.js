@@ -23,15 +23,15 @@ const Cottages = () => {
     cottageService.findByPeriod(datePeriod).then((gotCottages) => setCottages(gotCottages))
   }
 
-  const handleChange = (e) => {
+  const handleSearchFieldChange = (e) => {
     setFilter(e.target.value)
   }
 
-  const handleSelect = (e) => {
+  const handleSearchFilterChange = (e) => {
     setFilterProperty(e.target.value)
   }
 
-  const handleSort = (e) => {
+  const handleSortFilterChange = (e) => {
     switch (e.target.value) {
       case 'name': {
         // Kad stavljas stvari u useState treba napraviti novi objekat, a ne raditi sa starim
@@ -63,9 +63,9 @@ const Cottages = () => {
     <>
       <AllCottages
         cottages={cottagesToShow}
-        handleChange={(e) => handleChange(e)}
-        handleSelect={(e) => handleSelect(e)}
-        handleSort={(e) => handleSort(e)}
+        handleSearchFieldChange={(e) => handleSearchFieldChange(e)}
+        handleSearchFilterChange={(e) => handleSearchFilterChange(e)}
+        handleSortFilterChange={(e) => handleSortFilterChange(e)}
         searchForDatePeriod={(datePeriod) => searchForDatePeriod(datePeriod)}
       />
     </>
