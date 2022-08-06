@@ -20,6 +20,8 @@ public class NewReservationDto {
 
     private Integer duration;
 
+    private Integer numberOfGuests;
+
     private BigDecimal price;
 
     private Long clientId;
