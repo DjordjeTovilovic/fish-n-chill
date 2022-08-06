@@ -17,7 +17,6 @@ import Rating from '@mui/material/Rating'
 import Divider from '@mui/material/Divider'
 
 const AllAdventures = ({ adventures, handleChange, handleSelect, handleSort }) => {
-  console.log(adventures)
   return (
     <>
       <main>

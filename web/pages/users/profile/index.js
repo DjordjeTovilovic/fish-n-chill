@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import userService from '../../../services/user'
-import UserProfile from '../../../components/UserProfile'
+import UserProfile from '../../../components/profiles/UserProfile'
 
 const User = () => {
   const handleDelete = async () => {

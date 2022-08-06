@@ -2,7 +2,7 @@ import { Box, Divider, Typography, Container, Skeleton, Paper, Rating, Button, T
 import { DatePicker } from '@mui/x-date-pickers'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import dateUtils from '../utils/dateUtils'
+import dateUtils from '../../utils/dateUtils'
 
 const CottageProfile = ({ cottage, scheduleReservation }) => {
   const [loggedInUser, setLoggedInUser] = useState(null)
