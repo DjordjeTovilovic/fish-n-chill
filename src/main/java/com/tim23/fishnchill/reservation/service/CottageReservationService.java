@@ -5,6 +5,7 @@ import com.tim23.fishnchill.cottage.model.Cottage;
 import com.tim23.fishnchill.cottage.repository.CottageRepository;
 import com.tim23.fishnchill.general.exception.ResourceNotFoundException;
 import com.tim23.fishnchill.general.service.DateService;
+import com.tim23.fishnchill.general.service.MailService;
 import com.tim23.fishnchill.reservation.dto.ClientCottageReservationDto;
 import com.tim23.fishnchill.reservation.dto.CottageReservationDto;
 import com.tim23.fishnchill.reservation.dto.DatePeriodDto;
@@ -29,7 +30,7 @@ public class CottageReservationService {
     private CottageRepository cottageRepository;
     private ClientRepository clientRepository;
     private DateService dateService;
-
+    private MailService emailService;
 
     public List<CottageReservationDto> findAll() {
         TypeToken<List<CottageReservationDto>> typeToken = new TypeToken<>() {};
@@ -56,10 +57,16 @@ public class CottageReservationService {
         CottageReservation cottageReservation = new CottageReservation();
         cottageReservation.setDuration(newReservationDto.getDuration());
         cottageReservation.setPrice(newReservationDto.getPrice());
+        cottageReservation.setNumberOfGuests(newReservationDto.getNumberOfGuests());
         cottageReservation.setReservationStart(newReservationDto.getReservationStart());
         cottageReservation.setReservationEnd(newReservationDto.getReservationEnd());
         cottageReservation.setCottage(cottageRepository.getById(newReservationDto.getEntityId()));
         cottageReservation.setClient(clientRepository.getById(newReservationDto.getClientId()));
+        try {
+            emailService.sendCottageReservationEmail(cottageReservation.getClient(), cottageReservation);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return modelMapper.map(cottageReservationRepository.save(cottageReservation), CottageReservationDto.class);
     }
 

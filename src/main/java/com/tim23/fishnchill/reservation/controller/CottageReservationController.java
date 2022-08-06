@@ -1,6 +1,7 @@
 package com.tim23.fishnchill.reservation.controller;
 
 import com.tim23.fishnchill.cottage.CottageDto;
+import com.tim23.fishnchill.general.service.MailService;
 import com.tim23.fishnchill.reservation.dto.CottageReservationDto;
 import com.tim23.fishnchill.reservation.dto.DatePeriodDto;
 import com.tim23.fishnchill.reservation.dto.NewReservationDto;
@@ -9,6 +10,7 @@ import com.tim23.fishnchill.security.TokenUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +22,7 @@ import java.util.List;
 public class CottageReservationController {
     private TokenUtils tokenUtils;
     private CottageReservationService cottageReservationService;
+    private MailService emailService;
 
     @GetMapping("/cottages/reservations")
     @ResponseStatus(HttpStatus.OK)

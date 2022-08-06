@@ -31,4 +31,6 @@ public class Reservation {
     private BigDecimal price;
 
     private Float rating;
+
+    private Integer numberOfGuests;
 }

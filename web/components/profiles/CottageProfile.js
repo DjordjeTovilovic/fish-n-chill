@@ -2,18 +2,30 @@ import { Box, Divider, Typography, Container, Skeleton, Paper, Rating, Button, T
 import { DatePicker } from '@mui/x-date-pickers'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import dateUtils from '../utils/dateUtils'
+import dateUtils from '../../utils/dateUtils'
 
 const CottageProfile = ({ cottage, scheduleReservation }) => {
   const [loggedInUser, setLoggedInUser] = useState(null)
   const [checkInDate, setCheckInDate] = useState(null)
   const [checkOutDate, setCheckOutDate] = useState(null)
+  const [numberOfGuests, setNumberOfGuests] = useState(null)
   const [penalty, setPenalty] = useState(null)
 
   useEffect(() => {
     setLoggedInUser(JSON.parse(window.localStorage.getItem('loggedInUser')))
     setPenalty(JSON.parse(window.localStorage.getItem('penalty')))
   }, [])
+
+  const onChangeNumberOfGuests = (e) => {
+    if (e.target.value === null)
+      setNumberOfGuests(1)
+    else if (e.target.value > cottage.capacity)
+      setNumberOfGuests(cottage.capacity)
+    else if (e.target.value === '-' || e.target.value === 0)
+      setNumberOfGuests(null)
+    else
+      setNumberOfGuests(e.target.value)
+  }
 
   const onReservationButtonClick = () => {
     // Pomjera datum za vremensku zonu da bi bila UTC kad se salju na back
@@ -27,11 +39,11 @@ const CottageProfile = ({ cottage, scheduleReservation }) => {
       reservationEnd,
       duration,
       price: cottage.price * duration,
+      numberOfGuests: numberOfGuests
     }
     scheduleReservation(reservation)
   }
 
-  console.log(cottage)
   return (
     <>
       <Container component="main" maxWidth="lg">
@@ -159,6 +171,16 @@ const CottageProfile = ({ cottage, scheduleReservation }) => {
                     )
                   }}
                   renderInput={(params) => <TextField {...params} />}
+                />
+                <TextField type="number"
+                  style={{ marginLeft: "10px", width: "150px" }}
+                  inputProps={{
+                    inputMode: 'numeric', pattern: '[0-9]*',
+                    max: cottage.capacity, min: 1
+                  }}
+                  label="Guests"
+                  value={numberOfGuests}
+                  onChange={(e) => onChangeNumberOfGuests(e)}
                 />
                 <Button
                   onClick={onReservationButtonClick}

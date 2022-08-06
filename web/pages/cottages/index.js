@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import AllCottages from '../../components/AllCottages'
+import AllCottages from '../../components/lists/AllCottages'
 import cottageService from '../../services/cottage'
 
 const Cottages = () => {

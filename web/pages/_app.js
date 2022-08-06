@@ -5,9 +5,9 @@ import { CacheProvider } from '@emotion/react'
 import createEmotionCache from '../styles/createEmotionCache'
 import { useState, useEffect } from 'react'
 import AppBar from '@mui/material/AppBar'
-import LoggedOutNavBar from '../components/LoggedOutNavBar'
-import LoggedInNavBar from '../components/LoggedInNavBar'
-import Footer from '../components/Footer'
+import LoggedOutNavBar from '../components/shared/LoggedOutNavBar'
+import LoggedInNavBar from '../components/shared/LoggedInNavBar'
+import Footer from '../components/shared/Footer'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 
@@ -43,7 +43,7 @@ export default function MyApp(props) {
         <title>FishNChill</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      <body>
+      <div className="bodyDiv">
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
@@ -53,7 +53,7 @@ export default function MyApp(props) {
             <Footer></Footer>
           </LocalizationProvider>
         </ThemeProvider>
-      </body>
+      </div>
     </CacheProvider>
   )
 }

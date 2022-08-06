@@ -1,6 +1,6 @@
-import { Box, Divider, Typography, Container, Skeleton, Paper, Rating, Button, Item, Grid } from '@mui/material'
+import { Box, Button, Container, Divider, Paper, Rating, Skeleton, Typography } from '@mui/material'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const AdventureProfile = ({ adventure }) => {
   const [loggedInUser, setLoggedInUser] = useState([])
