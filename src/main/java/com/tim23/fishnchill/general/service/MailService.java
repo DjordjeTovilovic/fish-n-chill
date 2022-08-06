@@ -1,6 +1,9 @@
 package com.tim23.fishnchill.general.service;
 
 import com.tim23.fishnchill.general.model.VerificationToken;
+import com.tim23.fishnchill.reservation.model.CottageReservation;
+import com.tim23.fishnchill.reservation.model.Reservation;
+import com.tim23.fishnchill.user.model.Client;
 import com.tim23.fishnchill.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -40,5 +43,29 @@ public class MailService {
         javaMailSender.send(mail);
 
         System.out.println("Email sent!");
+    }
+
+    @Async
+    public void sendCottageReservationEmail(Client client, CottageReservation reservation) throws MailException, InterruptedException {
+        System.out.println("Sending reservation email...");
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(client.getEmail());
+        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setSubject("Cottage reservation information");
+        mail.setText("Hello " + client.getFirstName() + ",\n\n"
+                + "You scheduled a reservation for a cottage." + "\n\n"
+                + "This is the following information:" + "\n\n"
+                + "Client: " + client.getFirstName() + " " + client.getLastName() + "\n"
+                + "Email: " + client.getEmail() + "\n\n"
+                + "RESERVATION INFORMATION: \n"
+                + "Cottage: " + reservation.getCottage().getName() + "\n"
+                + "Address: " + reservation.getCottage().getAddress() + "\n"
+                + "Number of guests: " + reservation.getNumberOfGuests() + "\n"
+                + "Price: " + reservation.getPrice() + "€\n"
+                );
+        javaMailSender.send(mail);
+
+        System.out.println("Reservation Email sent!");
     }
 }

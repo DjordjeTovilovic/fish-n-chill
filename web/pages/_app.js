@@ -43,7 +43,7 @@ export default function MyApp(props) {
         <title>FishNChill</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      <body>
+      <div className="bodyDiv">
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
@@ -53,7 +53,7 @@ export default function MyApp(props) {
             <Footer></Footer>
           </LocalizationProvider>
         </ThemeProvider>
-      </body>
+      </div>
     </CacheProvider>
   )
 }

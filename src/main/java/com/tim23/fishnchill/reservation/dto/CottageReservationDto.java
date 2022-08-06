@@ -20,7 +20,7 @@ public class CottageReservationDto {
 
     private Integer duration;
 
-    private Integer maximalGuests;
+    private Integer numberOfGuests;
 
     private BigDecimal price;
 
