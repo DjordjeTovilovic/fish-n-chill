@@ -1,6 +1,17 @@
 import axios from 'axios'
 const baseUrl = process.env.NEXT_PUBLIC_API_URL + 'cottages/'
 
+const getAllForOwner = async () => {
+  const res = await axios.get(
+    baseUrl + 'ownedCottages',
+    {},
+    {
+      Authorization: `Bearer ${localStorage.getItem('loggedInUser')}`,
+    }
+  )
+  return res.data
+}
+
 const scheduleReservation = async (reservation) => {
   await axios.post(baseUrl + 'reservations/', reservation)
 }
@@ -46,12 +57,12 @@ const create = async (newObject) => {
 }
 
 const update = async (newObject) => {
-  const res = await axios.put(baseUrl + newObject.id, newObject)
+  const res = await axios.post(baseUrl + 'update', newObject)
   return res.data
 }
 
 const remove = async (id) => {
-  await axios.delete(baseUrl + id)
+  await axios.post(baseUrl + id)
 }
 
 const cottageService = {
@@ -66,6 +77,7 @@ const cottageService = {
   remove,
   scheduleReservation,
   findByPeriod,
+  getAllForOwner,
 }
 
 export default cottageService

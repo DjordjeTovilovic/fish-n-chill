@@ -84,7 +84,7 @@ const LoggedInNavBar = () => {
                     key="cottages"
                     style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
                     sx={{ color: 'blue' }}
-                    href={'/' + ''}
+                    href={'/' + 'cottages' + '/myCottages'}
                   >
                     Cottages
                   </Button>
@@ -117,7 +117,7 @@ const LoggedInNavBar = () => {
               <MenuItem sx={{ justifyContent: 'center' }}>
                 <Button
                   key="profile"
-                  style={{ maxHeight: '15', minWidth: '100%', minHeight: '15px', }}
+                  style={{ maxHeight: '15', minWidth: '100%', minHeight: '15px' }}
                   sx={{ color: 'blue' }}
                   href={'/' + 'users/profile'}
                 >

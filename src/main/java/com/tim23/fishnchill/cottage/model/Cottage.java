@@ -1,5 +1,6 @@
 package com.tim23.fishnchill.cottage.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tim23.fishnchill.general.model.BaseEntity;
 import com.tim23.fishnchill.reservation.model.CottageReservation;
 import com.tim23.fishnchill.user.model.CottageOwner;
@@ -16,6 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+
 public class Cottage extends BaseEntity {
 
     private String address;
@@ -29,7 +31,8 @@ public class Cottage extends BaseEntity {
     @OneToMany(mappedBy = "cottage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Room> rooms;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private CottageOwner owner;
 
 }
