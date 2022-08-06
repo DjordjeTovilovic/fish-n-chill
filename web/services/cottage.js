@@ -62,7 +62,7 @@ const update = async (newObject) => {
 }
 
 const remove = async (id) => {
-  await axios.post(baseUrl + id)
+  await axios.delete(baseUrl + id)
 }
 
 const cottageService = {

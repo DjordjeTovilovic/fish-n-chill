@@ -50,17 +50,10 @@ public class CottageController {
         return cottageService.findById(id);
     }
 
-    @PostMapping(value = "/{id}")
+    @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public ResponseEntity<?> remove(@PathVariable("id") Long id){
-
+    public void remove(@PathVariable("id") Long id) {
         cottageService.remove(id);
-
-        Map<String, String> result = new HashMap<>();
-        result.put("result", "success");
-
-        return ResponseEntity.accepted().body(result);
     }
 
     @GetMapping(value = "/name/{name}")
@@ -102,9 +95,8 @@ public class CottageController {
     @PostMapping(value = "/findByPeriod")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<CottageDto> findByPeriod(@RequestBody DatePeriodDto datePeriod) throws Exception {
-        List<CottageDto> cottages = cottageReservationService.findAllCottagesAvailableInPeriod(datePeriod);
-        return cottages;
+    public List<CottageDto> findByPeriod(@RequestBody DatePeriodDto datePeriod) {
+        return cottageReservationService.findAllCottagesAvailableInPeriod(datePeriod);
     }
 
     @PostMapping(value = "/addNewCottage")
@@ -121,12 +113,12 @@ public class CottageController {
     }
 
     @GetMapping(value = "ownedCottages")
-    public List<CottageDto> getAllCottagesForOwnerId(HttpServletRequest request){
+    public List<CottageDto> getAllCottagesForOwnerId(HttpServletRequest request) {
 
         Long ownerId = tokenUtils.getUserIdFromRequest(request);
         CottageOwner owner = cottageOwnerRepository.getById(ownerId);
-        List<CottageDto>cottageDtos = new ArrayList(owner.getEntities());
-        TypeToken<List<CottageDto>> typeToken = new TypeToken<>(){};
+        List<CottageDto> cottageDtos = new ArrayList(owner.getEntities());
+        TypeToken<List<CottageDto>> typeToken = new TypeToken<>() {};
 
         return modelMapper.map(cottageDtos, typeToken.getType());
 
