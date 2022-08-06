@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import AllAdventures from '../../components/AllAdventures'
+import AllAdventures from '../../components/lists/AllAdventures'
 import adventureService from '../../services/adventure'
 
 const Adventures = () => {

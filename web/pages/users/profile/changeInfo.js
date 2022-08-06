@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import userService from '../../../services/user'
-import ChangeUserInfoForm from '../../../components/ChangeUserInfoForm'
+import ChangeUserInfoForm from '../../../components/forms/ChangeUserInfoForm'
 
 const ChangeInfo = () => {
   const [user, setUser] = useState({})

@@ -1,4 +1,4 @@
-import LoginForm from '../components/LoginForm'
+import LoginForm from '../components/forms/LoginForm'
 import loginService from '../services/login'
 import userService from '../services/user'
 

@@ -17,7 +17,7 @@ import Rating from '@mui/material/Rating'
 import Divider from '@mui/material/Divider'
 import { DatePicker } from '@mui/x-date-pickers'
 import { useState } from 'react'
-import dateUtils from '../utils/dateUtils'
+import dateUtils from '../../utils/dateUtils'
 
 const AllCottages = ({ cottages, handleChange, handleSelect, handleSort, searchForDatePeriod }) => {
   const [checkInDate, setCheckInDate] = useState(null)

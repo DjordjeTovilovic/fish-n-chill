@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import CottageProfile from '../../components/CottageProfile'
+import CottageProfile from '../../components/profiles/CottageProfile'
 import cottageService from '../../services/cottage'
 import dateUtils from '../../utils/dateUtils'
 

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import adventureService from '../../services/adventure'
-import AdventureProfile from '../../components/AdventureProfile'
+import AdventureProfile from '../../components/profiles/AdventureProfile'
 
 const Adventure = () => {
   const router = useRouter()
