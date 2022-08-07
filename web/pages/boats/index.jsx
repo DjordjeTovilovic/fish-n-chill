@@ -15,49 +15,49 @@ const Boats = () => {
     if (e.value.length < 3) await fetchData()
     else
       switch (filter) {
-        case "name": {
+        case 'name': {
           await fetchByName(e.value)
-          break;
+          break
         }
-        case "description": {
+        case 'description': {
           await fetchByDescription(e.value)
-          break;
+          break
         }
-        case "address": {
+        case 'address': {
           await fetchByAddress(e.value)
-          break;
+          break
         }
-        case "anything": {
+        case 'anything': {
           await fetchByAnything(e.value)
-          break;
+          break
         }
         default: {
           await fetchData()
-          break;
+          break
         }
       }
-    if (sortFilter !== "nothing") {
+    if (sortFilter !== 'nothing') {
       sortBoatsBy(sortFilter)
     }
   }
 
   const sortBoatsBy = (sortFilter) => {
     switch (sortFilter) {
-      case "name": {
+      case 'name': {
         setBoats(boats.sort((a, b) => a.name.localeCompare(b.name)))
-        break;
+        break
       }
-      case "address": {
+      case 'address': {
         setBoats(boats.sort((a, b) => a.address.localeCompare(b.address)))
-        break;
+        break
       }
-      case "rating": {
+      case 'rating': {
         setBoats(boats.sort((a, b) => b.ratingAverage - a.ratingAverage))
-        break;
+        break
       }
       default: {
         fetchData()
-        break;
+        break
       }
     }
   }
@@ -66,8 +66,7 @@ const Boats = () => {
     setFilter(e.target.value)
   }
 
-  const handleSort = (e
-  ) => {
+  const handleSort = (e) => {
     setSortFilter(e.target.value)
     sortBoatsBy(e.target.value)
   }
@@ -80,7 +79,12 @@ const Boats = () => {
 
   return (
     <>
-      <AllBoats boats={boats} handleChange={(e) => handleChange(e)} handleSelect={(e) => handleSelect(e)} handleSort={(e) => handleSort(e)} />
+      <AllBoats
+        boats={boats}
+        handleChange={(e) => handleChange(e)}
+        handleSelect={(e) => handleSelect(e)}
+        handleSort={(e) => handleSort(e)}
+      />
     </>
   )
 }

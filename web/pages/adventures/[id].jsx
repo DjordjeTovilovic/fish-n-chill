@@ -13,7 +13,6 @@ const Adventure = () => {
     router.isReady ? fetchData() : console.log('router not ready')
   }, [router.isReady, id])
 
-
   if (Object.keys(adventure).length === 0) {
     return <div>Loading....</div>
   }
