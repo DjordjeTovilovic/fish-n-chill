@@ -2,11 +2,14 @@ package com.tim23.fishnchill.reservation.controller;
 
 import com.tim23.fishnchill.cottage.CottageDto;
 import com.tim23.fishnchill.general.service.MailService;
+import com.tim23.fishnchill.reservation.dto.ClientCottageReservationDto;
 import com.tim23.fishnchill.reservation.dto.CottageReservationDto;
 import com.tim23.fishnchill.reservation.dto.DatePeriodDto;
 import com.tim23.fishnchill.reservation.dto.NewReservationDto;
 import com.tim23.fishnchill.reservation.service.CottageReservationService;
 import com.tim23.fishnchill.security.TokenUtils;
+import com.tim23.fishnchill.user.dto.ClientDto;
+import com.tim23.fishnchill.user.dto.UserDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,7 +25,6 @@ import java.util.List;
 public class CottageReservationController {
     private TokenUtils tokenUtils;
     private CottageReservationService cottageReservationService;
-    private MailService emailService;
 
     @GetMapping("/cottages/reservations")
     @ResponseStatus(HttpStatus.OK)
@@ -61,5 +63,20 @@ public class CottageReservationController {
         return cottageReservationService.findAllCottagesAvailableInPeriod(dateRangeDto);
     }
 
-
+    @GetMapping("/cottages/whoami/reservations/past")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<ClientCottageReservationDto> pastReservations(HttpServletRequest request) {
+        String token = tokenUtils.getToken(request);
+        Long id = Long.parseLong(this.tokenUtils.getIdFromToken(token));
+        return cottageReservationService.findAllCottageReservationForClient(id, false);
+    }
+    @GetMapping("/cottages/whoami/reservations/active")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<ClientCottageReservationDto> activeReservations(HttpServletRequest request) {
+        String token = tokenUtils.getToken(request);
+        Long id = Long.parseLong(this.tokenUtils.getIdFromToken(token));
+        return cottageReservationService.findAllCottageReservationForClient(id, true);
+    }
 }

@@ -96,9 +96,9 @@ const LoggedInNavBar = () => {
                     key="cottages"
                     style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
                     sx={{ color: 'black' }}
-                    href={'/' + ''}
+                    href={'/reservations/active'}
                   >
-                    All active reservations
+                    Active reservations
                   </Button>
                 </MenuItem>
               )}
@@ -108,7 +108,7 @@ const LoggedInNavBar = () => {
                     key="cottages"
                     style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
                     sx={{ color: 'black' }}
-                    href={'/' + ''}
+                    href={'/reservations/past'}
                   >
                     Reservation history
                   </Button>
@@ -119,7 +119,7 @@ const LoggedInNavBar = () => {
                   key="profile"
                   style={{ maxHeight: '15', minWidth: '100%', minHeight: '15px' }}
                   sx={{ color: 'blue' }}
-                  href={'/' + 'users/profile'}
+                  href={'/users/profile'}
                 >
                   profile
                 </Button>

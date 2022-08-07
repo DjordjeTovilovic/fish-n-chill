@@ -13,7 +13,8 @@ const getAllForOwner = async () => {
 }
 
 const scheduleReservation = async (reservation) => {
-  await axios.post(baseUrl + 'reservations/', reservation)
+  const res = await axios.post(baseUrl + 'reservations/', reservation)
+  return res.data
 }
 
 const findByPeriod = async (datePeriod) => {

@@ -6,13 +6,17 @@ import com.tim23.fishnchill.reservation.model.Reservation;
 import com.tim23.fishnchill.user.model.Client;
 import com.tim23.fishnchill.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
+@Configuration
+@EnableAsync
 @Service
 public class MailService {
 
