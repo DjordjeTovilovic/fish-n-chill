@@ -1,11 +1,12 @@
-import ActiveReservations from '../../components/lists/ActiveReservations'
+import PastReservations from '../../components/lists/PastReservations'
 import { useState, useEffect } from 'react'
 import reservationService from '../../services/reservation'
-const CurrentReservations = () => {
+const ReservationHistory = () => {
   const [reservations, setReservations] = useState([])
 
   useEffect(() => {
-    reservationService.getAllActiveCottageReservationsForClient()
+    reservationService
+      .getAllPastCottageReservationsForClient()
       .then((gotReservations) => {
         setReservations(gotReservations)
         console.log(gotReservations)
@@ -13,7 +14,7 @@ const CurrentReservations = () => {
       .catch((err) => console.log(err))
   }, [])
 
-  return <ActiveReservations reservations={reservations} />
+  return <PastReservations reservations={reservations} />
 }
 
-export default CurrentReservations;
+export default ReservationHistory
