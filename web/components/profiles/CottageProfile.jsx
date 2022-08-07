@@ -52,9 +52,11 @@ const CottageProfile = ({ cottage, scheduleReservation, statusMessage }) => {
             mb: 8,
           }}
         >
-          <Paper sx={{
-            padding: 3
-          }}>
+          <Paper
+            sx={{
+              padding: 3,
+            }}
+          >
             <Typography variant="h3" mx="auto" align="center" gutterBottom component="div" sx={{ ml: 1, mr: 1 }}>
               {cottage.name}
             </Typography>
@@ -128,10 +130,10 @@ const CottageProfile = ({ cottage, scheduleReservation, statusMessage }) => {
             {/*Ako je ulogovan user prikazati dugme za rezervisanje*/}
 
             {loggedInUser ? (
-              <div style={{ display: "flex", flexDirection: "row" }}>
+              <div style={{ display: 'flex', flexDirection: 'row' }}>
                 <DatePicker
                   label="Check-in"
-                  style={{ marginLeft: "10px" }}
+                  style={{ marginLeft: '10px' }}
                   value={checkInDate}
                   disablePast={true}
                   onChange={(newValue) => {
@@ -184,18 +186,18 @@ const CottageProfile = ({ cottage, scheduleReservation, statusMessage }) => {
                   value={numberOfGuests}
                   onChange={(e) => onChangeNumberOfGuests(e)}
                 />
-                <div style={{ display: "flex", flexDirection: "column", width: "200px" }}>
+                <div style={{ display: 'flex', flexDirection: 'column', width: '200px' }}>
                   <Button
                     onClick={onReservationButtonClick}
                     disabled={penalty >= 3}
                     size="large"
                     variant="contained"
-                    sx={{ ml: 3, mb: 3, height: "50px" }}
+                    sx={{ ml: 3, mb: 3, height: '50px' }}
                   >
                     Schedule Reservation
                   </Button>
-                  {
-                    statusMessage && <p
+                  {statusMessage && (
+                    <p
                       style={{
                         color: statusMessage.color,
                         fontSize: '13px',
@@ -205,7 +207,7 @@ const CottageProfile = ({ cottage, scheduleReservation, statusMessage }) => {
                     >
                       {statusMessage.message}
                     </p>
-                  }
+                  )}
                   {penalty >= 3 && (
                     <p
                       style={{

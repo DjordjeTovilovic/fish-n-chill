@@ -15,4 +15,4 @@ const CurrentReservations = () => {
   return <ActiveReservations reservations={reservations} />
 }
 
-export default CurrentReservations;
+export default CurrentReservations
