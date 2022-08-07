@@ -1,4 +1,3 @@
-import * as React from 'react'
 import CottageList from '../shared/CottageList'
 import CottageSearch from '../shared/CottageSearch'
 

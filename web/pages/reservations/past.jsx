@@ -5,7 +5,8 @@ const ReservationHistory = () => {
   const [reservations, setReservations] = useState([])
 
   useEffect(() => {
-    reservationService.getAllPastCottageReservationsForClient()
+    reservationService
+      .getAllPastCottageReservationsForClient()
       .then((gotReservations) => {
         setReservations(gotReservations)
         console.log(gotReservations)
@@ -16,4 +17,4 @@ const ReservationHistory = () => {
   return <PastReservations reservations={reservations} />
 }
 
-export default ReservationHistory;
+export default ReservationHistory

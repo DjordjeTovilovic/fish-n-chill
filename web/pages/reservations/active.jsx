@@ -5,7 +5,8 @@ const CurrentReservations = () => {
   const [reservations, setReservations] = useState([])
 
   useEffect(() => {
-    reservationService.getAllActiveCottageReservationsForClient()
+    reservationService
+      .getAllActiveCottageReservationsForClient()
       .then((gotReservations) => {
         setReservations(gotReservations)
         console.log(gotReservations)
@@ -16,4 +17,4 @@ const CurrentReservations = () => {
   return <ActiveReservations reservations={reservations} />
 }
 
-export default CurrentReservations;
+export default CurrentReservations
