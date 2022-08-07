@@ -22,7 +22,6 @@ public class CottageReservation extends Reservation {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Client client;
 
-
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Cottage cottage;
 

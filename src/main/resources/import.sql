@@ -55,9 +55,17 @@ INSERT INTO COTTAGE (id, owner_id, capacity, address) VALUES (2, 2, 13, 'Svetoza
 INSERT INTO COTTAGE (id, owner_id, capacity, address) VALUES (3, 2, 15, 'Sremska Kamenica 26, Novi Sad');
 INSERT INTO COTTAGE (id, owner_id, capacity, address) VALUES (4, 2, 10 , 'Svetozara Miletica 32, Veternik(Novi Sad)');
 
-INSERT INTO RESERVATION (duration, price, number_of_guests, reservation_start, reservation_end) VALUES (2, 500, 5, '2022-08-08', '2022-08-10');
+INSERT INTO RESERVATION (duration, price, number_of_guests, reservation_start, reservation_end) VALUES (2, 500, 5, '2022-08-13', '2022-08-15');
+INSERT INTO RESERVATION (duration, price, number_of_guests, reservation_start, reservation_end) VALUES (4, 1200, 5, '2022-08-08', '2022-08-12');
+INSERT INTO RESERVATION (duration, price, number_of_guests, reservation_start, reservation_end) VALUES (4, 1000, 5, '2022-05-03', '2022-05-07');
+INSERT INTO RESERVATION (duration, price, number_of_guests, reservation_start, reservation_end) VALUES (7, 2100, 3, '2022-08-03', '2022-08-10');
+INSERT INTO RESERVATION (duration, price, number_of_guests, reservation_start, reservation_end) VALUES (2, 600, 5, '2022-06-13', '2022-06-15');
 
 INSERT INTO COTTAGE_RESERVATION (id, client_id, cottage_id) VALUES (1, 1, 1);
+INSERT INTO COTTAGE_RESERVATION (id, client_id, cottage_id) VALUES (2, 1, 2);
+INSERT INTO COTTAGE_RESERVATION (id, client_id, cottage_id) VALUES (3, 1, 1);
+INSERT INTO COTTAGE_RESERVATION (id, client_id, cottage_id) VALUES (4, 1, 2);
+INSERT INTO COTTAGE_RESERVATION (id, client_id, cottage_id) VALUES (5, 1, 2);
 
 INSERT INTO BOAT_SPECIFICATION (boat_type, length, engine_id, engine_power, max_speed) VALUES ('yacht', '15', '3A23FB', '400', '120');
 INSERT INTO BOAT_SPECIFICATION (boat_type, length, engine_id, engine_power, max_speed) VALUES ('smaller boat', '8', 'AA123', '220', '120');
@@ -68,3 +76,5 @@ INSERT INTO BOAT (id, owner_id, boat_specification_id, capacity, address) VALUES
 INSERT INTO BOAT (id, owner_id, boat_specification_id, capacity, address) VALUES (7, 3, 2, 10, 'Oficirac, Dunav');
 
 INSERT INTO ADVENTURE (id, owner_id, biography, capacity, address) VALUES (8, 4, 'Your guide and instructor biography!', 5, 'Mount OZREN');
+
+INSERT INTO RATING (client_id, entity_id, rating) VALUES (1,1,3.5);

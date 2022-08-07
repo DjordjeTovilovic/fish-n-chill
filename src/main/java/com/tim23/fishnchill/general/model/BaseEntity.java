@@ -31,7 +31,7 @@ public class BaseEntity {
 
     private String cancellationTerms;
 
-    private Double ratingAverage;
+    private Float ratingAverage;
 
     private Integer ratingCount;
 
@@ -46,4 +46,7 @@ public class BaseEntity {
 
     @OneToMany(mappedBy = "entity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Image> images;
+
+    @OneToMany(mappedBy = "entity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Rating> ratings;
 }

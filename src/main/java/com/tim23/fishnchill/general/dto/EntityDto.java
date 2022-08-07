@@ -1,6 +1,7 @@
 package com.tim23.fishnchill.general.dto;
 
 import com.tim23.fishnchill.general.model.Image;
+import com.tim23.fishnchill.general.model.Rating;
 import com.tim23.fishnchill.general.model.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,9 +25,11 @@ public class EntityDto {
 
     private String rules;
 
-    private String cancellationTerms;
+    private Float ratingAverage;
 
-    private Double rating;
+    private Integer ratingCount;
+
+    private String cancellationTerms;
 
     // Ovdje kontam da bi trebalo napraviti neki ownerDto umjesto id-a
     private String ownerId;
@@ -34,4 +37,6 @@ public class EntityDto {
     private Set<Tag> tags;
 
     private Set<Image> images;
+
+    //private Set<Rating> ratings;
 }

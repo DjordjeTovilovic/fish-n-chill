@@ -42,8 +42,8 @@ public class CottageReservationService {
     public List<ClientCottageReservationDto> findAllCottageReservationForClient(Long clientId, boolean isActive) {
         TypeToken<List<ClientCottageReservationDto>> typeToken = new TypeToken<>() {};
         if(isActive)
-            return modelMapper.map(cottageReservationRepository.findAllByClientIdAndReservationEndIsAfter(clientId, LocalDateTime.now()), typeToken.getType());
-        return modelMapper.map(cottageReservationRepository.findAllByClientIdAndReservationEndIsBefore(clientId, LocalDateTime.now()), typeToken.getType());
+            return modelMapper.map(cottageReservationRepository.findAllByClientIdAndReservationEndIsAfterOrderByReservationStartAsc(clientId, LocalDateTime.now()), typeToken.getType());
+        return modelMapper.map(cottageReservationRepository.findAllByClientIdAndReservationEndIsBeforeOrderByReservationStartDesc(clientId, LocalDateTime.now()), typeToken.getType());
     }
 
     public List<CottageReservationDto> findAllReservationsForCottage(Long cottageId) {
