@@ -1,6 +1,7 @@
 package com.tim23.fishnchill.reservation.controller;
 
 import com.tim23.fishnchill.reservation.dto.ClientCottageReservationDto;
+import com.tim23.fishnchill.reservation.dto.CottageReservationDto;
 import com.tim23.fishnchill.reservation.service.CottageReservationService;
 import com.tim23.fishnchill.reservation.service.ReservationService;
 import lombok.AllArgsConstructor;
@@ -26,11 +27,11 @@ public class ClientReservationController {
 //        return reservationService.findAllReservationForClient(clientId);
 //    }
 
-    @GetMapping(value = "/cottages")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public List<ClientCottageReservationDto> findAllCottageReservationForClient(@PathVariable("clientId") Long clientId) {
-        return cottageReservationService.findAllCottageReservationForClient(clientId);
-    }
+//    @GetMapping(value = "/cottages")
+//    @ResponseStatus(HttpStatus.OK)
+//    @ResponseBody
+//    public List<CottageReservationDto> findAllCottageReservationForClient(@PathVariable("clientId") Long clientId) {
+//        return cottageReservationService.findAllCottageReservationForClient(clientId);
+//    }
 
 }

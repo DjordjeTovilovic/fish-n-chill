@@ -1,12 +1,15 @@
 package com.tim23.fishnchill.reservation.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tim23.fishnchill.cottage.CottageDto;
+import com.tim23.fishnchill.user.dto.ClientDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -17,9 +20,13 @@ public class ClientCottageReservationDto {
 
     private Integer duration;
 
-    private Integer maximalGuests;
+    private Integer numberOfGuests;
 
     private BigDecimal price;
+
+    private LocalDateTime reservationStart;
+
+    private LocalDateTime reservationEnd;
 
     private CottageDto cottage;
 }

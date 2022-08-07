@@ -3,6 +3,7 @@ package com.tim23.fishnchill.reservation.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tim23.fishnchill.cottage.CottageDto;
 import com.tim23.fishnchill.user.dto.ClientDto;
+import com.tim23.fishnchill.user.model.Client;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,5 +33,6 @@ public class CottageReservationDto {
 
     @JsonIgnore
     private CottageDto cottage;
+
 }
 

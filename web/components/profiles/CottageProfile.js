@@ -191,7 +191,7 @@ const CottageProfile = ({ cottage, scheduleReservation, statusMessage }) => {
                     disabled={penalty >= 3}
                     size="large"
                     variant="contained"
-                    sx={{ ml: 3, mb: 3 }}
+                    sx={{ ml: 3, mb: 3, height: "50px" }}
                   >
                     Schedule Reservation
                   </Button>
