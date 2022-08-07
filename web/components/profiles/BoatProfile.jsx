@@ -62,26 +62,25 @@ const BoatProfile = ({ boat }) => {
               {boat.price}€
             </Typography>
             <div></div>
-            <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ ml: 3, mr: 3 }} display="inline">
+            <Typography variant="h5" fontWeight='fontWeightMedium' sx={{ ml: 3, mr: 3 }} display="inline">
               Available:
             </Typography>
             <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3 }} display="inline">
-              {boat.availabilityStart[2] ?? '#Not available#'}.{boat.availabilityStart[1]}.{boat.availabilityStart[0]}
+              {boat.availabilityStart[2] ?? "#Not available#"}.{boat.availabilityStart[1]}.{boat.availabilityStart[0]}
             </Typography>
-            <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ mr: 2 }} display="inline">
+            <Typography variant="h5" fontWeight='fontWeightMedium' sx={{ mr: 2 }} display="inline">
               -
             </Typography>
             <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3 }} display="inline">
-              {boat.availabilityEnd[2] ?? '#Not available#'}.{boat.availabilityEnd[1]}.{boat.availabilityEnd[0]}
+              {boat.availabilityEnd[2] ?? "#Not available#"}.{boat.availabilityEnd[1]}.{boat.availabilityEnd[0]}
             </Typography>
             <div></div>
-            <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ ml: 3, mr: 3 }} display="inline">
+            <Typography variant="h5" fontWeight='fontWeightMedium' sx={{ ml: 3, mr: 3 }} display="inline">
               Capacity:
             </Typography>
             <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3 }} display="inline">
               {boat.capacity} people
             </Typography>
-
             <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ ml: 3, mr: 3 }}>
               Description:
             </Typography>
@@ -89,32 +88,15 @@ const BoatProfile = ({ boat }) => {
               {boat.description}
             </Typography>
             {/*Ako je ulogovan user prikazati dugme za rezervisanje*/}
-            {loggedInUser ? (
-              <>
-                <Button
-                  /*onClick={scheduleReservation}*/ disabled={penalty >= 3}
-                  size="large"
-                  variant="contained"
-                  sx={{ ml: 3 }}
-                >
-                  Schedule Reservation
-                </Button>
-                {penalty >= 3 && (
-                  <p
-                    style={{
-                      color: 'red',
-                      fontSize: '13px',
-                      marginLeft: '25px',
-                      marginTop: '5px',
-                    }}
-                  >
-                    You have 3 or more penalties and can't schedule reservations
-                  </p>
-                )}
-              </>
-            ) : (
-              <></>
-            )}
+            {loggedInUser ? <><Button /*onClick={scheduleReservation}*/ disabled={penalty >= 3} size="large" variant="contained" sx={{ ml: 3 }}>
+              Schedule Reservation
+            </Button>
+              {penalty >= 3 && <p style={{
+                color: "red",
+                fontSize: "13px",
+                marginLeft: "25px",
+                marginTop: "5px"
+              }}>You have 3 or more penalties and can't schedule reservations</p>}</> : <></>}
           </Paper>
         </Box>
       </Container>

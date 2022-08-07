@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface CottageReservationRepository extends JpaRepository<CottageReservation, Long> {
-    List<CottageReservation> findAllByClientIdAndReservationEndIsBefore(Long id, LocalDateTime date);
-    List<CottageReservation> findAllByClientIdAndReservationEndIsAfter(Long id, LocalDateTime date);
+    List<CottageReservation> findAllByClientIdAndReservationEndIsBeforeOrderByReservationStartDesc(Long id, LocalDateTime date);
+    List<CottageReservation> findAllByClientIdAndReservationEndIsAfterOrderByReservationStartAsc(Long id, LocalDateTime date);
     List<CottageReservation> findAllByCottageId(Long id);
 }

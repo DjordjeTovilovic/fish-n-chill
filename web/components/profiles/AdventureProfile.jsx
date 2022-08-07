@@ -6,8 +6,6 @@ const AdventureProfile = ({ adventure }) => {
   const [loggedInUser, setLoggedInUser] = useState([])
   const [penalty, setPenalty] = useState([])
 
-  console.log(adventure)
-
   useEffect(() => {
     setLoggedInUser(JSON.parse(window.localStorage.getItem('loggedInUser')))
     setPenalty(JSON.parse(window.localStorage.getItem('penalty')))

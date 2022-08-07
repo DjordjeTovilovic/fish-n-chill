@@ -5,11 +5,9 @@ const CurrentReservations = () => {
   const [reservations, setReservations] = useState([])
 
   useEffect(() => {
-    reservationService
-      .getAllActiveCottageReservationsForClient()
+    reservationService.getAllActiveCottageReservationsForClient()
       .then((gotReservations) => {
         setReservations(gotReservations)
-        console.log(gotReservations)
       })
       .catch((err) => console.log(err))
   }, [])
