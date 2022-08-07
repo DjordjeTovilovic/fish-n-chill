@@ -17,14 +17,10 @@ const CottageProfile = ({ cottage, scheduleReservation, statusMessage }) => {
   }, [])
 
   const onChangeNumberOfGuests = (e) => {
-    if (e.target.value === null)
-      setNumberOfGuests(1)
-    else if (e.target.value > cottage.capacity)
-      setNumberOfGuests(cottage.capacity)
-    else if (e.target.value === '-' || e.target.value === 0)
-      setNumberOfGuests(null)
-    else
-      setNumberOfGuests(e.target.value)
+    if (e.target.value === null) setNumberOfGuests(1)
+    else if (e.target.value > cottage.capacity) setNumberOfGuests(cottage.capacity)
+    else if (e.target.value === '-' || e.target.value === 0) setNumberOfGuests(null)
+    else setNumberOfGuests(e.target.value)
   }
 
   const onReservationButtonClick = () => {
@@ -39,7 +35,7 @@ const CottageProfile = ({ cottage, scheduleReservation, statusMessage }) => {
       reservationEnd,
       duration,
       price: cottage.price * duration,
-      numberOfGuests: numberOfGuests
+      numberOfGuests: numberOfGuests,
     }
     scheduleReservation(reservation)
   }
@@ -175,11 +171,14 @@ const CottageProfile = ({ cottage, scheduleReservation, statusMessage }) => {
                   }}
                   renderInput={(params) => <TextField {...params} />}
                 />
-                <TextField type="number"
-                  style={{ marginLeft: "10px", width: "150px" }}
+                <TextField
+                  type="number"
+                  style={{ marginLeft: '10px', width: '150px' }}
                   inputProps={{
-                    inputMode: 'numeric', pattern: '[0-9]*',
-                    max: cottage.capacity, min: 1
+                    inputMode: 'numeric',
+                    pattern: '[0-9]*',
+                    max: cottage.capacity,
+                    min: 1,
                   }}
                   label="Guests"
                   value={numberOfGuests}
