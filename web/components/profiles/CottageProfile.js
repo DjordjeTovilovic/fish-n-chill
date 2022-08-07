@@ -4,11 +4,11 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import dateUtils from '../../utils/dateUtils'
 
-const CottageProfile = ({ cottage, scheduleReservation }) => {
+const CottageProfile = ({ cottage, scheduleReservation, statusMessage }) => {
   const [loggedInUser, setLoggedInUser] = useState(null)
   const [checkInDate, setCheckInDate] = useState(null)
   const [checkOutDate, setCheckOutDate] = useState(null)
-  const [numberOfGuests, setNumberOfGuests] = useState(null)
+  const [numberOfGuests, setNumberOfGuests] = useState(1)
   const [penalty, setPenalty] = useState(null)
 
   useEffect(() => {
@@ -56,7 +56,9 @@ const CottageProfile = ({ cottage, scheduleReservation }) => {
             mb: 8,
           }}
         >
-          <Paper>
+          <Paper sx={{
+            padding: 3
+          }}>
             <Typography variant="h3" mx="auto" align="center" gutterBottom component="div" sx={{ ml: 1, mr: 1 }}>
               {cottage.name}
             </Typography>
@@ -88,21 +90,21 @@ const CottageProfile = ({ cottage, scheduleReservation }) => {
             </div>
 
             <Divider variant="middle" sx={{ mt: 1 }} />
-            <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ ml: 3, mr: 3 }} display="inline">
+            <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ mr: 3 }} display="inline">
               Address:
             </Typography>
             <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3 }} display="inline">
               {cottage.address}
             </Typography>
             <div></div>
-            <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ ml: 3, mr: 3 }} display="inline">
+            <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ mr: 3 }} display="inline">
               Price:
             </Typography>
             <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3 }} display="inline">
               {cottage.price}€/day
             </Typography>
             <div></div>
-            <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ ml: 3, mr: 3 }} display="inline">
+            <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ mr: 3 }} display="inline">
               Available:
             </Typography>
             <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3 }} display="inline">
@@ -115,24 +117,25 @@ const CottageProfile = ({ cottage, scheduleReservation }) => {
               {cottage.availabilityEnd.toLocaleDateString('en-UK')}
             </Typography>
             <div></div>
-            <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ ml: 3, mr: 3 }} display="inline">
+            <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ mr: 3 }} display="inline">
               Capacity:
             </Typography>
             <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3 }} display="inline">
               {cottage.capacity} people
             </Typography>
-            <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ ml: 3, mr: 3 }}>
+            <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ mr: 3 }}>
               Description:
             </Typography>
-            <Typography variant="h5" gutterBottom component="div" sx={{ ml: 3, mr: 3 }}>
+            <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3, mb: 3 }}>
               {cottage.description}
             </Typography>
             {/*Ako je ulogovan user prikazati dugme za rezervisanje*/}
 
             {loggedInUser ? (
-              <>
+              <div style={{ display: "flex", flexDirection: "row" }}>
                 <DatePicker
                   label="Check-in"
+                  style={{ marginLeft: "10px" }}
                   value={checkInDate}
                   disablePast={true}
                   onChange={(newValue) => {
@@ -182,28 +185,42 @@ const CottageProfile = ({ cottage, scheduleReservation }) => {
                   value={numberOfGuests}
                   onChange={(e) => onChangeNumberOfGuests(e)}
                 />
-                <Button
-                  onClick={onReservationButtonClick}
-                  disabled={penalty >= 3}
-                  size="large"
-                  variant="contained"
-                  sx={{ ml: 3, mb: 3 }}
-                >
-                  Schedule Reservation
-                </Button>
-                {penalty >= 3 && (
-                  <p
-                    style={{
-                      color: 'red',
-                      fontSize: '13px',
-                      marginLeft: '25px',
-                      marginTop: '5px',
-                    }}
+                <div style={{ display: "flex", flexDirection: "column", width: "200px" }}>
+                  <Button
+                    onClick={onReservationButtonClick}
+                    disabled={penalty >= 3}
+                    size="large"
+                    variant="contained"
+                    sx={{ ml: 3, mb: 3 }}
                   >
-                    You have 3 or more penalties and can&apost schedule reservations
-                  </p>
-                )}
-              </>
+                    Schedule Reservation
+                  </Button>
+                  {
+                    statusMessage && <p
+                      style={{
+                        color: statusMessage.color,
+                        fontSize: '13px',
+                        marginLeft: '25px',
+                        marginTop: '5px',
+                      }}
+                    >
+                      {statusMessage.message}
+                    </p>
+                  }
+                  {penalty >= 3 && (
+                    <p
+                      style={{
+                        color: 'red',
+                        fontSize: '13px',
+                        marginLeft: '25px',
+                        marginTop: '5px',
+                      }}
+                    >
+                      You have 3 or more penalties and can't schedule reservations
+                    </p>
+                  )}
+                </div>
+              </div>
             ) : (
               <p
                 style={{

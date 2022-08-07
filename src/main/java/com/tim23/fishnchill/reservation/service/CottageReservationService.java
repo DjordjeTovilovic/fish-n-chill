@@ -62,6 +62,7 @@ public class CottageReservationService {
         cottageReservation.setReservationEnd(newReservationDto.getReservationEnd());
         cottageReservation.setCottage(cottageRepository.getById(newReservationDto.getEntityId()));
         cottageReservation.setClient(clientRepository.getById(newReservationDto.getClientId()));
+
         try {
             emailService.sendCottageReservationEmail(cottageReservation.getClient(), cottageReservation);
         } catch (InterruptedException e) {
