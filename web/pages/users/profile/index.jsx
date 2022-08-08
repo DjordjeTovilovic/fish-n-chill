@@ -1,26 +1,33 @@
+// @ts-nocheck
 import { useState, useEffect } from 'react'
 import userService from '../../../services/user'
 import UserProfile from '../../../components/profiles/UserProfile'
+import clientService from 'services/client'
 
 const User = () => {
-  const handleDelete = async () => {
-    try {
-      await userService.deleteMe()
-      alert('Account successfully deleted')
-      window.localStorage.clear()
-      window.location.href = 'http://localhost:3000'
-    } catch (exception) {
-      console.log(exception)
-    }
-  }
-
   const [user, setUser] = useState({})
 
+  const handleDelete = async () => {
+    const deleteRequest = {
+      clientId: user.id,
+      ownerId: null,
+      entityId: null,
+      explanation: 'reason',
+    }
+    clientService
+      .deleteAccountRequest(deleteRequest)
+      .then((delReq) => alert('Account deletion request issued. You will be informed when it gets deleted!'))
+      .catch((err) => console.log(err))
+  }
   useEffect(() => {
-    fetchData()
+    userService
+      .getMe()
+      .then((gotUser) => {
+        console.log(gotUser)
+        setUser(gotUser)
+      })
+      .catch((err) => console.log(err))
   }, [])
-
-  const fetchData = async () => setUser(await userService.getMe())
 
   if (Object.keys(user).length === 0) {
     return <div>Loading....</div>

@@ -43,7 +43,7 @@ public class ClientDto {
 
     private List<Authority> authorities;
 
-    //private List<RatingDto> ratings;
+    private Boolean deleteRequest;
 
     public ClientDto(UserDto userDto, Integer penaltyCount){
         this.id = userDto.getId();

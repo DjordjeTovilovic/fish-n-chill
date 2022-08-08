@@ -5,6 +5,7 @@ import com.tim23.fishnchill.user.dto.*;
 import com.tim23.fishnchill.user.model.Authority;
 import com.tim23.fishnchill.user.model.Client;
 import com.tim23.fishnchill.user.repository.ClientRepository;
+import com.tim23.fishnchill.user.repository.ClientResponseRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -23,7 +24,7 @@ public class ClientService {
     private ClientRepository clientRepository;
     private PasswordEncoder passwordEncoder;
     private AuthorityService authService;
-
+    private ClientResponseRepository clientResponseRepository;
 
     public List<ClientDto> findAll() {
         TypeToken<List<ClientDto>> typeToken = new TypeToken<>() {};
@@ -33,12 +34,15 @@ public class ClientService {
     public ClientDto findById(Long id) {
         Client client = clientRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Client", id));
-        return modelMapper.map(client, ClientDto.class);
+        ClientDto cLientDto =  modelMapper.map(client, ClientDto.class);
+        cLientDto.setDeleteRequest(clientResponseRepository.existsByClientId(cLientDto.getId()));
+        return cLientDto;
     }
 
     public Client findByIdPure(Long id) {
         Client client = clientRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Client", id));
+
         return client;
     }
 
