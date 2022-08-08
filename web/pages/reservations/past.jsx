@@ -42,7 +42,7 @@ const ReservationHistory = () => {
 
   const rateEntity = (entityId, ratingValue) => {
     const ratingInfo = {
-      client_id: ratings[0].client.id,
+      client_id: reservations[0].clientId,
       entity_id: entityId,
       rating: ratingValue,
     }

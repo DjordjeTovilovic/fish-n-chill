@@ -27,16 +27,16 @@ INSERT INTO BOAT_OWNER (id) VALUES (3);
 INSERT INTO ADVENTURE_OWNER (id) VALUES (4);
 INSERT INTO CLIENT (id, penalty_count) VALUES (6, 1);
 --inserting for cottages
-INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Cottage 1', 1.5, 1, 250, '2022-07-06', '2022-08-28', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos, cupiditate! Odio, aliquam soluta vel, eum illum corrupti incidunt nobis porro mollitia itaque reiciendis. Aut, minus dolore! Delectus pariatur praesentium dolorem? In at, quibusdam vero eligendi provident veritatis ipsam suscipit nisi similique nulla est magni harum. Cumque maiores eos alias, aperiam ea deleniti voluptatem culpa a perferendis accusantium, necessitatibus velit laborum');
-INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Cottage 2', 4.5, 1, 300, '2022-08-06', '2022-08-25', 'Najbolji gas od vikendice ikada KEKEKEKEKE');
-INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Cottage 3', 3, 1, 150, '2022-08-13', '2022-08-15', 'Dobra cijena, dobar provod!!!');
-INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Cottage 4', 3.5, 1, 220, '2022-08-06', '2022-08-18', 'Dobra vikendica i nista vise!');
+INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Cottage 1', 3.5, 1, 250, '2022-07-06', '2022-08-28', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos, cupiditate! Odio, aliquam soluta vel, eum illum corrupti incidunt nobis porro mollitia itaque reiciendis. Aut, minus dolore! Delectus pariatur praesentium dolorem? In at, quibusdam vero eligendi provident veritatis ipsam suscipit nisi similique nulla est magni harum. Cumque maiores eos alias, aperiam ea deleniti voluptatem culpa a perferendis accusantium, necessitatibus velit laborum');
+INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Cottage 2', 0, 0, 300, '2022-08-06', '2022-08-25', 'Najbolji gas od vikendice ikada KEKEKEKEKE');
+INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Cottage 3', 0, 0, 150, '2022-08-13', '2022-08-15', 'Dobra cijena, dobar provod!!!');
+INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Cottage 4', 0, 0, 220, '2022-08-06', '2022-08-18', 'Dobra vikendica i nista vise!');
 --inserting for boats
-INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Boat 1', 5, 1, 225, '2022-05-23', '2022-08-25', 'Dobra cijena, dobar provod(JAHTA)!!!');
-INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Boat 2', 1, 3, 225, '2022-05-23', '2022-08-15', 'Manji brod valjda');
-INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Boat 3', 3.5, 4, 225, '2022-05-23', '2022-09-15', 'Veliki brod');
+INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Boat 1', 0, 0, 225, '2022-05-23', '2022-08-25', 'Dobra cijena, dobar provod(JAHTA)!!!');
+INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Boat 2', 0, 0, 225, '2022-05-23', '2022-08-15', 'Manji brod valjda');
+INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Boat 3', 0, 0, 225, '2022-05-23', '2022-09-15', 'Veliki brod');
 --inserting for adventures
-INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Adventure 1', 3.5, 1, 170, '2022-05-23', '2022-09-22', 'All you need in one adventure!!!');
+INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, description) VALUES ('Adventure 1', 0, 0, 170, '2022-05-23', '2022-09-22', 'All you need in one adventure!!!');
 
 
 INSERT INTO IMAGE (entity_id, url) VALUES (1, 'https://i.ibb.co/gRhpQYk/cottage1.jpg');
@@ -60,12 +60,15 @@ INSERT INTO RESERVATION (duration, price, number_of_guests, reservation_start, r
 INSERT INTO RESERVATION (duration, price, number_of_guests, reservation_start, reservation_end) VALUES (4, 1000, 5, '2022-05-03', '2022-05-07');
 INSERT INTO RESERVATION (duration, price, number_of_guests, reservation_start, reservation_end) VALUES (7, 2100, 3, '2022-08-03', '2022-08-10');
 INSERT INTO RESERVATION (duration, price, number_of_guests, reservation_start, reservation_end) VALUES (2, 600, 5, '2022-06-13', '2022-06-15');
+INSERT INTO RESERVATION (duration, price, number_of_guests, reservation_start, reservation_end) VALUES (4, 1000, 5, '2022-05-03', '2022-05-07');
+
 
 INSERT INTO COTTAGE_RESERVATION (id, client_id, cottage_id) VALUES (1, 1, 1);
 INSERT INTO COTTAGE_RESERVATION (id, client_id, cottage_id) VALUES (2, 1, 2);
 INSERT INTO COTTAGE_RESERVATION (id, client_id, cottage_id) VALUES (3, 1, 1);
 INSERT INTO COTTAGE_RESERVATION (id, client_id, cottage_id) VALUES (4, 1, 2);
 INSERT INTO COTTAGE_RESERVATION (id, client_id, cottage_id) VALUES (5, 1, 2);
+INSERT INTO COTTAGE_RESERVATION (id, client_id, cottage_id) VALUES (6, 6, 1);
 
 INSERT INTO BOAT_SPECIFICATION (boat_type, length, engine_id, engine_power, max_speed) VALUES ('yacht', '15', '3A23FB', '400', '120');
 INSERT INTO BOAT_SPECIFICATION (boat_type, length, engine_id, engine_power, max_speed) VALUES ('smaller boat', '8', 'AA123', '220', '120');
