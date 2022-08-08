@@ -14,7 +14,6 @@ import com.tim23.fishnchill.reservation.model.CottageReservation;
 import com.tim23.fishnchill.reservation.repository.CottageReservationRepository;
 import com.tim23.fishnchill.user.repository.ClientRepository;
 import lombok.AllArgsConstructor;
-import org.hibernate.type.LocalDateTimeType;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
@@ -84,5 +83,9 @@ public class CottageReservationService {
 
         TypeToken<List<CottageDto>> typeToken = new TypeToken<>() {};
         return modelMapper.map(availableCottages, typeToken.getType());
+    }
+
+    public void cancelReservation(Long reservationId){
+        cottageReservationRepository.deleteById(reservationId);
     }
 }

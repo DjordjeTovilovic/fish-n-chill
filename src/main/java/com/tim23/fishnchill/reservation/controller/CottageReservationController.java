@@ -1,19 +1,15 @@
 package com.tim23.fishnchill.reservation.controller;
 
 import com.tim23.fishnchill.cottage.CottageDto;
-import com.tim23.fishnchill.general.service.MailService;
 import com.tim23.fishnchill.reservation.dto.ClientCottageReservationDto;
 import com.tim23.fishnchill.reservation.dto.CottageReservationDto;
 import com.tim23.fishnchill.reservation.dto.DatePeriodDto;
 import com.tim23.fishnchill.reservation.dto.NewReservationDto;
 import com.tim23.fishnchill.reservation.service.CottageReservationService;
 import com.tim23.fishnchill.security.TokenUtils;
-import com.tim23.fishnchill.user.dto.ClientDto;
-import com.tim23.fishnchill.user.dto.UserDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -81,5 +77,11 @@ public class CottageReservationController {
         String token = tokenUtils.getToken(request);
         Long id = Long.parseLong(this.tokenUtils.getIdFromToken(token));
         return cottageReservationService.findAllCottageReservationForClient(id, true);
+    }
+
+    @DeleteMapping("/cottages/reservations/cancel/{reservationId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void cancelReservation(@PathVariable("reservationId") Long reservationId) {
+        cottageReservationService.cancelReservation(reservationId);
     }
 }
