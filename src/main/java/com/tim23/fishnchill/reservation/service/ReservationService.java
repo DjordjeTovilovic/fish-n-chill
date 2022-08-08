@@ -14,10 +14,9 @@ import java.util.List;
 @AllArgsConstructor
 @Service
 public class ReservationService {
-
+    
     private ModelMapper modelMapper;
     private ReservationRepository reservationRepository;
-    private CottageReservationService cottageReservationService;
 
 
     public List<NewReservationDto> findAll() {

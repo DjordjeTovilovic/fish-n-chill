@@ -66,10 +66,11 @@ public class CottageReservationController {
         String token = tokenUtils.getToken(request);
         Long id = Long.parseLong(this.tokenUtils.getIdFromToken(token));
         List<ClientCottageReservationDto> reservations = cottageReservationService.findAllCottageReservationForClient(id, false);
-        for(ClientCottageReservationDto reservation : reservations)
+        for (ClientCottageReservationDto reservation : reservations)
             reservation.setClientId(id);
         return reservations;
     }
+
     @GetMapping("/cottages/whoami/reservations/active")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

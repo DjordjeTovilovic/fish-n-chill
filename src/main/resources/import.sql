@@ -70,6 +70,8 @@ INSERT INTO COTTAGE_RESERVATION (id, client_id, cottage_id) VALUES (4, 1, 2);
 INSERT INTO COTTAGE_RESERVATION (id, client_id, cottage_id) VALUES (5, 1, 2);
 INSERT INTO COTTAGE_RESERVATION (id, client_id, cottage_id) VALUES (6, 6, 1);
 
+INSERT INTO COTTAGE_ACTION (cottage_id, duration, price, number_of_guests, reservation_start, reservation_end, action_end) VALUES (1, 3, 500, 5, '2022-08-16', '2022-08-19', '2022-08-15');
+
 INSERT INTO BOAT_SPECIFICATION (boat_type, length, engine_id, engine_power, max_speed) VALUES ('yacht', '15', '3A23FB', '400', '120');
 INSERT INTO BOAT_SPECIFICATION (boat_type, length, engine_id, engine_power, max_speed) VALUES ('smaller boat', '8', 'AA123', '220', '120');
 INSERT INTO BOAT_SPECIFICATION (boat_type, length, engine_id, engine_power, max_speed) VALUES ('bigger boat', '11', 'AA123', '220', '120');
