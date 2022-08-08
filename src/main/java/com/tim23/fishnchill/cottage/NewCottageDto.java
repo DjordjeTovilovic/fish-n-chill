@@ -1,5 +1,6 @@
 package com.tim23.fishnchill.cottage;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tim23.fishnchill.cottage.model.Cottage;
 import com.tim23.fishnchill.general.dto.ImageDto;
 import com.tim23.fishnchill.user.model.CottageOwner;
@@ -20,7 +21,7 @@ public class NewCottageDto {
 
     private String description;
 
-    private Set<ImageDto> images;
+    private String image;
 
     private LocalDateTime availabilityStart;
 
@@ -29,6 +30,6 @@ public class NewCottageDto {
         private BigDecimal price;
 
     private Integer capacity;
-
+    @JsonIgnore
     private CottageOwner owner;
 }

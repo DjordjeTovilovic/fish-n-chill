@@ -21,9 +21,8 @@ public class CottageService {
     private CottageRepository cottageRepository;
     private ModelMapper modelMapper;
 
-    public Cottage save(NewCottageDto newCottageDto){
-        Cottage cottage = new Cottage();
-        modelMapper.map(newCottageDto, cottage);
+    public Cottage save(Cottage cottage){
+
         return cottageRepository.save(cottage);
     }
 

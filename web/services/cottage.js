@@ -53,7 +53,7 @@ const getById = async (id) => {
 }
 
 const create = async (newObject) => {
-  const res = await axios.post(baseUrl, newObject)
+  const res = await axios.post(baseUrl + 'addNewCottage', newObject)
   return res.data
 }
 
