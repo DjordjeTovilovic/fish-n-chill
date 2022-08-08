@@ -29,5 +29,7 @@ public class ClientCottageReservationDto {
     private LocalDateTime reservationEnd;
 
     private CottageDto cottage;
+
+    private Long clientId;
 }
 

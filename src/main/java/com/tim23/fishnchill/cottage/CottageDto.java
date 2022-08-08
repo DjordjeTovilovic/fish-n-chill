@@ -1,6 +1,8 @@
 package com.tim23.fishnchill.cottage;
 
 import com.tim23.fishnchill.general.dto.ImageDto;
+import com.tim23.fishnchill.general.dto.RatingDto;
+import com.tim23.fishnchill.general.model.Rating;
 import com.tim23.fishnchill.reservation.dto.CottageReservationDto;
 import com.tim23.fishnchill.reservation.model.CottageReservation;
 import lombok.AllArgsConstructor;
@@ -27,7 +29,7 @@ public class CottageDto {
 
     private Set<ImageDto> images;
 
-    private Double ratingAverage;
+    private Float ratingAverage;
 
     private Integer ratingCount;
 
@@ -42,4 +44,6 @@ public class CottageDto {
     private String image;
 
     private Set<CottageReservationDto> cottageReservations;
+
+    //private Set<RatingDto> ratings;
 }

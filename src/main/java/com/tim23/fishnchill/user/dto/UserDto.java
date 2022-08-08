@@ -1,5 +1,7 @@
 package com.tim23.fishnchill.user.dto;
 
+import com.tim23.fishnchill.general.dto.RatingDto;
+import com.tim23.fishnchill.general.model.Rating;
 import com.tim23.fishnchill.user.model.Authority;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,4 +38,5 @@ public class UserDto {
     private Boolean enabled;
 
     private List<Authority> authorities;
+
 }

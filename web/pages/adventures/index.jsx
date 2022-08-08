@@ -15,49 +15,49 @@ const Adventures = () => {
     if (e.value.length < 3) await fetchData()
     else
       switch (filter) {
-        case "name": {
+        case 'name': {
           await fetchByName(e.value)
-          break;
+          break
         }
-        case "description": {
+        case 'description': {
           await fetchByDescription(e.value)
-          break;
+          break
         }
-        case "address": {
+        case 'address': {
           await fetchByAddress(e.value)
-          break;
+          break
         }
-        case "anything": {
+        case 'anything': {
           await fetchByAnything(e.value)
-          break;
+          break
         }
         default: {
           await fetchData()
-          break;
+          break
         }
       }
-    if (sortFilter !== "nothing") {
+    if (sortFilter !== 'nothing') {
       sortAdventuresBy(sortFilter)
     }
   }
 
   const sortAdventuresBy = (sortFilter) => {
     switch (sortFilter) {
-      case "name": {
+      case 'name': {
         setAdventures(adventures.sort((a, b) => a.name.localeCompare(b.name)))
-        break;
+        break
       }
-      case "address": {
+      case 'address': {
         setAdventures(adventures.sort((a, b) => a.address.localeCompare(b.address)))
-        break;
+        break
       }
-      case "rating": {
+      case 'rating': {
         setAdventures(adventures.sort((a, b) => b.ratingAverage - a.ratingAverage))
-        break;
+        break
       }
       default: {
         fetchData()
-        break;
+        break
       }
     }
   }
@@ -66,8 +66,7 @@ const Adventures = () => {
     setFilter(e.target.value)
   }
 
-  const handleSort = (e
-  ) => {
+  const handleSort = (e) => {
     setSortFilter(e.target.value)
     sortAdventuresBy(e.target.value)
   }

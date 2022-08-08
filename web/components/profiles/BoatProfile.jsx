@@ -2,7 +2,6 @@ import { Box, Divider, Typography, Container, Skeleton, Paper, Rating, Button } 
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 
-
 const BoatProfile = ({ boat }) => {
   const [loggedInUser, setLoggedInUser] = useState([])
   const [penalty, setPenalty] = useState([])
@@ -20,7 +19,7 @@ const BoatProfile = ({ boat }) => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            mb: 8
+            mb: 8,
           }}
         >
           <Paper>
@@ -29,15 +28,22 @@ const BoatProfile = ({ boat }) => {
             </Typography>
             <Box textAlign="center">
               <Rating size="large" name="read-only" value={boat.ratingAverage ?? 0} precision={0.5} readOnly />
-              <Typography variant="subtitle1" mx="auto" align="center" gutterBottom component="div" sx={{ ml: 1, mr: 1 }}>
+              <Typography
+                variant="subtitle1"
+                mx="auto"
+                align="center"
+                gutterBottom
+                component="div"
+                sx={{ ml: 1, mr: 1 }}
+              >
                 ({boat.ratingCount} ratings)
               </Typography>
             </Box>
             <div
               style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "20px"
+                display: 'flex',
+                justifyContent: 'center',
+                marginTop: '20px',
               }}
             >
               {boat.images ? (
@@ -49,7 +55,7 @@ const BoatProfile = ({ boat }) => {
 
             <Divider variant="middle" sx={{ mt: 1 }} />
             <div></div>
-            <Typography variant="h5" fontWeight='fontWeightMedium' sx={{ ml: 3, mr: 3 }} display="inline">
+            <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ ml: 3, mr: 3 }} display="inline">
               Price:
             </Typography>
             <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3 }} display="inline">
@@ -75,9 +81,7 @@ const BoatProfile = ({ boat }) => {
             <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3 }} display="inline">
               {boat.capacity} people
             </Typography>
-
-
-            <Typography variant="h5" fontWeight='fontWeightMedium' sx={{ ml: 3, mr: 3 }}>
+            <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ ml: 3, mr: 3 }}>
               Description:
             </Typography>
             <Typography variant="h5" gutterBottom component="div" sx={{ ml: 3, mr: 3 }}>
