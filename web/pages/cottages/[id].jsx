@@ -8,7 +8,6 @@ const Cottage = () => {
   const router = useRouter()
   const { id } = router.query
   const [cottage, setCottage] = useState({})
-  const [statusMessage, setStatusMessage] = useState({})
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,16 +23,9 @@ const Cottage = () => {
     return <div>Loading....</div>
   }
 
-  const scheduleReservation = (reservation) => {
-    cottageService
-      .scheduleReservation(reservation)
-      .then(() => setStatusMessage({ color: 'green', message: 'Reservation scheduled!' }))
-      .catch((err) => setStatusMessage({ color: 'red', message: 'Somthing went wrong!' }))
-  }
-
   return (
     <>
-      <CottageProfile cottage={cottage} scheduleReservation={scheduleReservation} statusMessage={statusMessage} />
+      <CottageProfile cottage={cottage} entityService={cottageService} />
     </>
   )
 }
