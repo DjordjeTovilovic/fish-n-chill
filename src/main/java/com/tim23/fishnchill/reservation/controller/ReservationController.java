@@ -31,4 +31,9 @@ public class ReservationController {
         return reservationService.findById(id);
     }
 
+    @DeleteMapping("/cancel/{reservationId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void cancelReservation(@PathVariable("reservationId") Long reservationId) {
+        reservationService.cancelReservation(reservationId);
+    }
 }

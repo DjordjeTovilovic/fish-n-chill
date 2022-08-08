@@ -31,4 +31,7 @@ public class ReservationService {
         return modelMapper.map(reservation, NewReservationDto.class);
     }
 
+    public void cancelReservation(Long reservationId) {
+        reservationRepository.deleteById(reservationId);
+    }
 }
