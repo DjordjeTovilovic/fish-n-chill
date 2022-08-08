@@ -1,5 +1,6 @@
 package com.tim23.fishnchill.cottage.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tim23.fishnchill.general.model.BaseEntity;
 import com.tim23.fishnchill.reservation.model.CottageReservation;
@@ -30,9 +31,9 @@ public class Cottage extends BaseEntity {
 
     @OneToMany(mappedBy = "cottage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Room> rooms;
-
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JsonIgnore
+    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private CottageOwner owner;
 
 }

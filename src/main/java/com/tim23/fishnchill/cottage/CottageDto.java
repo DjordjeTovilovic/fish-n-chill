@@ -39,5 +39,7 @@ public class CottageDto {
 
     private Integer capacity;
 
+    private String image;
+
     private Set<CottageReservationDto> cottageReservations;
 }

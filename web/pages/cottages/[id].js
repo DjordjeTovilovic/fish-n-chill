@@ -25,9 +25,10 @@ const Cottage = () => {
   }
 
   const scheduleReservation = (reservation) => {
-    cottageService.scheduleReservation(reservation)
-      .then(() => setStatusMessage({ color: "green", message: "Reservation scheduled!" }))
-      .catch((err) => setStatusMessage({ color: "red", message: "Somthing went wrong!" }))
+    cottageService
+      .scheduleReservation(reservation)
+      .then(() => setStatusMessage({ color: 'green', message: 'Reservation scheduled!' }))
+      .catch((err) => setStatusMessage({ color: 'red', message: 'Somthing went wrong!' }))
   }
 
   return (
