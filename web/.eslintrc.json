@@ -27,7 +27,8 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "semi": "off",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "react/no-unescaped-entities": "off"
   },
   "parserOptions": {
     "ecmaVersion": 6,

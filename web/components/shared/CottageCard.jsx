@@ -55,7 +55,7 @@ const CottageCard = ({ cottage }) => {
           </Typography>
         </Box>
         <CardActions>
-          <Button size="small" href={'cottages/' + cottage.id} variant="contained">
+          <Button size="small" href={'/cottages/' + cottage.id} variant="contained">
             View
           </Button>
           <Rating name="read-only" value={cottage.ratingAverage ?? 0} precision={0.5} readOnly sx={{ ml: 7 }} />

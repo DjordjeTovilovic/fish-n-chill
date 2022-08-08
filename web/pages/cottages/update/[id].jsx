@@ -21,7 +21,7 @@ const ChangeCottageInfo = () => {
     const obj = JSON.parse(values)
     obj.id = cottage.id
     cottageService.update(obj)
-    window.location.href = 'http://localhost:3000/cottages/myCottages'
+    router.push('/cottages/owned')
   }
 
   return (
