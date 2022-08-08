@@ -13,9 +13,9 @@ const rateEntity = async (ratingInfo) => {
 
 }
 
-const clientService = {
+const ratingService = {
   getRatings,
   rateEntity
 }
 
-export default clientService
+export default ratingService

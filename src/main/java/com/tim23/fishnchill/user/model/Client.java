@@ -27,6 +27,7 @@ public class Client extends User {
     @OneToMany(mappedBy = "entity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Rating> ratings;
 
+
     public Client(User u){
         super(u);
         this.penaltyCount=0;

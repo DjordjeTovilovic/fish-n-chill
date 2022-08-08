@@ -1,6 +1,21 @@
+// @ts-nocheck
 import { Box, Divider, Typography, Container, Paper, Button } from '@mui/material'
+import Modal from 'components/modal/Modal'
+import { useState } from 'react'
 
 const UserProfile = ({ user, handleDelete }) => {
+  const [isOpenModal, setIsOpenModal] = useState(false)
+
+  const changeModalState = () => setIsOpenModal(!isOpenModal)
+
+  const deleteModalContent = (
+    <>
+      <h3>Are you sure you want to delete your account?</h3>
+      <Button onClick={handleDelete} variant="contained" color="error">
+        Request account deletion
+      </Button>
+    </>
+  )
   return (
     <>
       <Container component="main" maxWidth="md">
@@ -98,15 +113,30 @@ const UserProfile = ({ user, handleDelete }) => {
               variant="contained"
               sx={{ ml: 35, mb: 2, mt: 2 }}
               color="error"
-              onClick={async () => {
-                handleDelete()
+              disabled={user.deleteRequest}
+              onClick={() => {
+                changeModalState()
               }}
             >
               Delete account
             </Button>
+            {user.deleteRequest && (
+              <p
+                style={{
+                  color: 'red',
+                  fontSize: '10px',
+                  marginTop: '0px',
+                  marginLeft: '7%',
+                  maxWidth: '200px',
+                }}
+              >
+                You already requested your account deletion. You need to wait for approval!
+              </p>
+            )}
           </Paper>
         </Box>
       </Container>
+      <Modal content={deleteModalContent} isOpenModal={isOpenModal} changeModalState={changeModalState} />
     </>
   )
 }
