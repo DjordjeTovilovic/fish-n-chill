@@ -13,6 +13,12 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
     List<Rating> findByClientId (Long clientId);
     boolean existsByClientIdAndEntityId (Long clientId, Long entityId);
 
+    @Query("select avg(r.rating) from Rating r where r.entity.id= :entityId")
+    Float getRatingAverageForEntity(@Param("entityId") Long entityId);
+
+    @Query("select count(r.rating) from Rating r where r.entity.id= :entityId")
+    Integer getRatingCountForEntity(@Param("entityId") Long entityId);
+
     @Transactional
     @Modifying
     @Query("update Rating r set r.rating = :rating where r.client.id = :clientId and r.entity.id= :entityId")
