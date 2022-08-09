@@ -6,14 +6,9 @@ const getRatings = async () => {
   return res.data
 }
 
-const deleteAccountRequest = async (deleteRequest) => {
-  const res = await axios.post(baseUrl + 'deleteAccountRequest', deleteRequest)
-  return res.data
-}
 
 const clientService = {
   getRatings,
-  deleteAccountRequest
 }
 
 export default clientService

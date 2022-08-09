@@ -20,11 +20,18 @@ const deleteMe = async () => {
   await axios.post(baseUrl + 'deleteAccount/')
 }
 
+
+const deleteAccountRequest = async (deleteRequest) => {
+  const res = await axios.post(baseUrl + 'deleteAccountRequest', deleteRequest)
+  return res.data
+}
+
 const userService = {
   getMe,
   updateUser,
   updatePassword,
   deleteMe,
+  deleteAccountRequest
 }
 
 export default userService

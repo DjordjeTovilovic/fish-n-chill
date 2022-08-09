@@ -2,18 +2,14 @@ package com.tim23.fishnchill.user.controller;
 
 import com.tim23.fishnchill.general.exception.ResourceConflictException;
 import com.tim23.fishnchill.security.TokenUtils;
-import com.tim23.fishnchill.user.dto.ClientDto;
-import com.tim23.fishnchill.user.dto.PasswordChangeDto;
-import com.tim23.fishnchill.user.dto.UpdateDto;
-import com.tim23.fishnchill.user.dto.UserDto;
+import com.tim23.fishnchill.user.dto.*;
 import com.tim23.fishnchill.user.model.Authority;
-import com.tim23.fishnchill.user.model.Client;
 import com.tim23.fishnchill.user.model.User;
 import com.tim23.fishnchill.user.service.AuthorityService;
 import com.tim23.fishnchill.user.service.ClientService;
+import com.tim23.fishnchill.user.service.UserResponseService;
 import com.tim23.fishnchill.user.service.UserService;
 import lombok.AllArgsConstructor;
-import org.hibernate.type.LocalDateTimeType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.*;
 
 // Primer kontrolera cijim metodama mogu pristupiti samo autorizovani korisnici
@@ -37,6 +31,7 @@ public class UserController {
     private AuthorityService authorityService;
     private PasswordEncoder passwordEncoder;
     private ClientService clientService;
+    private UserResponseService userResponseService;
 
     @GetMapping("/")
 //    @PreAuthorize("hasRole('ADMIN')")
@@ -117,6 +112,12 @@ public class UserController {
         } else {
             this.userService.deleteUserById(id);
         }
+    }
+
+    @PostMapping(value = "/deleteAccountRequest")
+    @ResponseBody
+    public UserResponseDto deleteAccountRequest(@RequestBody UserResponseDtoInfo userResponseDtoInfo) throws Exception {
+        return userResponseService.deleteAccountRequest(userResponseDtoInfo);
     }
 
 }

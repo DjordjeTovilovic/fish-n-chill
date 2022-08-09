@@ -1,16 +1,11 @@
 package com.tim23.fishnchill.user.controller;
 
-import com.tim23.fishnchill.cottage.CottageDto;
 import com.tim23.fishnchill.general.dto.RatingDto;
 import com.tim23.fishnchill.general.dto.RatingInfoDto;
 import com.tim23.fishnchill.general.service.RatingService;
-import com.tim23.fishnchill.reservation.dto.ClientCottageReservationDto;
 import com.tim23.fishnchill.security.TokenUtils;
 import com.tim23.fishnchill.user.dto.ClientDto;
-import com.tim23.fishnchill.user.dto.ClientResponseDto;
-import com.tim23.fishnchill.user.dto.ClientResponseDtoInfo;
-import com.tim23.fishnchill.user.model.ClientResponse;
-import com.tim23.fishnchill.user.service.ClientResponseService;
+import com.tim23.fishnchill.user.service.UserResponseService;
 import com.tim23.fishnchill.user.service.ClientService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +29,7 @@ public class ClientController {
     @Autowired
     private RatingService ratingService;
 
-    private ClientResponseService clientResponseService;
+    private UserResponseService clientResponseService;
 
     @GetMapping()
     public List<ClientDto> findAll() {
@@ -63,11 +58,5 @@ public class ClientController {
         Map<String, String> result = new HashMap<>();
         result.put("result", "success");
         return ResponseEntity.accepted().body(result);
-    }
-
-    @PostMapping(value = "/deleteAccountRequest")
-    @ResponseBody
-    public ClientResponseDto deleteAccountRequest(@RequestBody ClientResponseDtoInfo clientResponseDtoInfo) throws Exception {
-        return clientResponseService.deleteAccountRequest(clientResponseDtoInfo);
     }
 }

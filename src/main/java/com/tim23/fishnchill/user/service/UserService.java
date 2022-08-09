@@ -1,13 +1,16 @@
 package com.tim23.fishnchill.user.service;
 
 import com.tim23.fishnchill.general.exception.ResourceNotFoundException;
+import com.tim23.fishnchill.general.model.enums.UserResponseType;
 import com.tim23.fishnchill.user.dto.RegistrationDto;
 import com.tim23.fishnchill.user.dto.UpdateDto;
 import com.tim23.fishnchill.user.dto.UserDto;
 import com.tim23.fishnchill.user.model.Authority;
 import com.tim23.fishnchill.user.model.Client;
 import com.tim23.fishnchill.user.model.User;
+import com.tim23.fishnchill.user.model.UserResponse;
 import com.tim23.fishnchill.user.repository.UserRepository;
+import com.tim23.fishnchill.user.repository.UserResponseRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -27,6 +30,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
     private AuthorityService authService;
     private ModelMapper modelMapper;
+    private UserResponseRepository userResponseRepository;
 
 
     public List<UserDto> findAll() throws AccessDeniedException {
@@ -37,7 +41,9 @@ public class UserService {
     public UserDto findById(Long id) throws AccessDeniedException {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", id));
-        return modelMapper.map(user, UserDto.class);
+        UserDto userDto = modelMapper.map(user, UserDto.class);
+        userDto.setDeleteRequest(userResponseRepository.existsByUserIdAndResponseType(userDto.getId(), UserResponseType.ACCOUNTDELETIONREQUEST));
+        return userDto;
     }
 
     public UserDto findByUsername(String username) throws UsernameNotFoundException {

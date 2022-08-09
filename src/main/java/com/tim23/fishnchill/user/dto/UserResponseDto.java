@@ -1,10 +1,7 @@
 package com.tim23.fishnchill.user.dto;
 
 import com.tim23.fishnchill.general.dto.EntityDto;
-import com.tim23.fishnchill.general.model.BaseEntity;
-import com.tim23.fishnchill.general.model.enums.ClientResponseType;
-import com.tim23.fishnchill.user.model.Client;
-import com.tim23.fishnchill.user.model.User;
+import com.tim23.fishnchill.general.model.enums.UserResponseType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,16 +11,16 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClientResponseDto {
+public class UserResponseDto {
     private Long id;
 
     private String explanation;
 
     private boolean isApproved;
 
-    private ClientResponseType responseType;
+    private UserResponseType responseType;
 
-    private ClientDto client;
+    private UserDto user;
 
     private EntityDto entity;
 

@@ -126,7 +126,7 @@ const UserProfile = ({ user, handleDelete }) => {
                   color: 'red',
                   fontSize: '10px',
                   marginTop: '0px',
-                  marginLeft: '7%',
+                  marginLeft: '78%',
                   maxWidth: '200px',
                 }}
               >
