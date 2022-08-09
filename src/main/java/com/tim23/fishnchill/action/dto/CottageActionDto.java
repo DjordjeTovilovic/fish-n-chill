@@ -1,5 +1,6 @@
 package com.tim23.fishnchill.action.dto;
 
+import com.tim23.fishnchill.cottage.CottageDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,4 +29,6 @@ public class CottageActionDto {
     private BigDecimal price;
 
     private LocalDateTime actionEnd;
+
+    private CottageDto cottage;
 }
