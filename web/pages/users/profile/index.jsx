@@ -1,29 +1,25 @@
 // @ts-nocheck
 import { useState, useEffect } from 'react'
-import userService from '../../../services/user'
 import UserProfile from '../../../components/profiles/UserProfile'
-import clientService from 'services/client'
+import userService from 'services/user'
 
 const User = () => {
   const [user, setUser] = useState({})
 
   const handleDelete = async () => {
     const deleteRequest = {
-      clientId: user.id,
-      ownerId: null,
-      entityId: null,
+      userId: user.id,
       explanation: 'reason',
     }
-    clientService
+    userService
       .deleteAccountRequest(deleteRequest)
-      .then((delReq) => alert('Account deletion request issued. You will be informed when it gets deleted!'))
+      .then(() => alert('Account deletion request issued. You will be informed when it gets deleted!'))
       .catch((err) => console.log(err))
   }
   useEffect(() => {
     userService
       .getMe()
       .then((gotUser) => {
-        console.log(gotUser)
         setUser(gotUser)
       })
       .catch((err) => console.log(err))

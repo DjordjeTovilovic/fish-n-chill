@@ -39,4 +39,7 @@ public class UserDto {
 
     private List<Authority> authorities;
 
+    private Boolean deleteRequest;
+
+    private Integer penaltyCount;
 }

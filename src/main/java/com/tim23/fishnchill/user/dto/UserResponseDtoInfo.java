@@ -1,6 +1,5 @@
 package com.tim23.fishnchill.user.dto;
 
-import com.tim23.fishnchill.general.model.enums.ClientResponseType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,10 +10,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClientResponseDtoInfo {
+public class UserResponseDtoInfo {
     private String explanation;
 
-    private Long clientId;
+    private Long userId;
 
     private Long entityId;
 

@@ -1,7 +1,5 @@
 import { Button } from '@mui/material'
 import ReactModal from 'react-modal'
-import CloseIcon from '../../assets/svg/close.svg'
-import styles from './Modal.module.css'
 
 const Modal = ({ content, isOpenModal, changeModalState }) => {
   return (

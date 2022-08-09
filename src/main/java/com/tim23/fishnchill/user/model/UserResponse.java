@@ -1,12 +1,11 @@
 package com.tim23.fishnchill.user.model;
 
 import com.tim23.fishnchill.general.model.BaseEntity;
-import com.tim23.fishnchill.general.model.enums.ClientResponseType;
+import com.tim23.fishnchill.general.model.enums.UserResponseType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
@@ -15,7 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class ClientResponse {
+public class UserResponse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,10 +24,10 @@ public class ClientResponse {
     private boolean isApproved;
 
     @Enumerated(EnumType.STRING)
-    private ClientResponseType responseType;
+    private UserResponseType responseType;
 
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
-    private Client client;
+    private User user;
 
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private BaseEntity entity;
