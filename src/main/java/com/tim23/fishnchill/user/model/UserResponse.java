@@ -25,8 +25,6 @@ public class UserResponse {
 
     private String explanation;
 
-    private boolean isApproved;
-
     @Enumerated(EnumType.STRING)
     private UserResponseType responseType;
 

@@ -17,8 +17,6 @@ public class UserResponseDto {
 
     private String explanation;
 
-    private boolean isApproved;
-
     private UserResponseType responseType;
 
     private UserDto user;
