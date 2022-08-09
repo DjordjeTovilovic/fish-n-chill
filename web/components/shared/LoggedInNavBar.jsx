@@ -78,28 +78,16 @@ const LoggedInNavBar = () => {
               onClose={handleCloseUserMenu}
             >
               {userRole === 'ROLE_COTTAGE_OWNER' && (
-                <div>
-                  <MenuItem sx={{ justifyContent: 'center' }}>
-                    <Button
-                      key="cottages"
-                      style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
-                      sx={{ color: 'blue' }}
-                      href={'/' + 'cottages' + '/myCottages'}
-                    >
-                      Cottages
-                    </Button>
-                  </MenuItem>
-                  <MenuItem sx={{ justifyContent: 'center' }}>
-                    <Button
-                      key="ownerCottages"
-                      style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
-                      sx={{ color: 'blue' }}
-                      href={'/' + 'cottages' + '/owned'}
-                    >
-                      Owner Cottages
-                    </Button>
-                  </MenuItem>
-                </div>
+                <MenuItem sx={{ justifyContent: 'center' }}>
+                  <Button
+                    key="ownerCottages"
+                    style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
+                    sx={{ color: 'blue' }}
+                    href={'/' + 'cottages' + '/owned'}
+                  >
+                    Your Cottages
+                  </Button>
+                </MenuItem>
               )}
               {userRole === 'ROLE_CLIENT' && (
                 <MenuItem sx={{ justifyContent: 'center' }}>

@@ -1,7 +1,10 @@
 import { Button } from '@mui/material'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import cottageService from '../../services/cottage'
 
 const CottageUpdate = ({ cottage }) => {
+  const router = useRouter()
   const [userRole, setUserRole] = useState(null)
 
   useEffect(() => {
@@ -9,7 +12,14 @@ const CottageUpdate = ({ cottage }) => {
   }, [])
 
   const setAvailability = () => {}
-  const setFastReservation = () => {}
+  const handleNewAction = () => {}
+
+  const handleDelete = async (id) => {
+    await cottageService.remove(id)
+    router.push('/cottages/owned')
+    // window.location.reload()
+  }
+
   return (
     <>
       {userRole === 'ROLE_COTTAGE_OWNER' && (
@@ -20,13 +30,22 @@ const CottageUpdate = ({ cottage }) => {
             variant="contained"
             sx={{ ml: 3, mb: 3, height: '50px' }}
           >
-            Update
+            Update Cottage
           </Button>
           <Button onClick={setAvailability} size="large" variant="contained" sx={{ ml: 3, mb: 3, height: '50px' }}>
             Set availability
           </Button>
-          <Button onClick={setFastReservation} size="large" variant="contained" sx={{ ml: 3, mb: 3, height: '50px' }}>
-            Set Fast Reservation
+          <Button onClick={handleNewAction} size="large" variant="contained" sx={{ ml: 3, mb: 3, height: '50px' }}>
+            Make New Action
+          </Button>
+          <Button
+            onClick={() => handleDelete(cottage.id)}
+            size="large"
+            variant="contained"
+            color="error"
+            sx={{ ml: 3, mb: 3, height: '50px' }}
+          >
+            Delete
           </Button>
         </div>
       )}
