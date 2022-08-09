@@ -55,12 +55,12 @@ INSERT INTO COTTAGE (id, owner_id, capacity, address) VALUES (2, 2, 13, 'Svetoza
 INSERT INTO COTTAGE (id, owner_id, capacity, address) VALUES (3, 2, 15, 'Sremska Kamenica 26, Novi Sad');
 INSERT INTO COTTAGE (id, owner_id, capacity, address) VALUES (4, 2, 10 , 'Svetozara Miletica 32, Veternik(Novi Sad)');
 
-INSERT INTO RESERVATION (duration, price, number_of_guests, reservation_start, reservation_end) VALUES (2, 500, 5, '2022-08-13', '2022-08-15');
-INSERT INTO RESERVATION (duration, price, number_of_guests, reservation_start, reservation_end) VALUES (4, 1200, 5, '2022-08-08', '2022-08-12');
-INSERT INTO RESERVATION (duration, price, number_of_guests, reservation_start, reservation_end) VALUES (4, 1000, 5, '2022-05-03', '2022-05-07');
-INSERT INTO RESERVATION (duration, price, number_of_guests, reservation_start, reservation_end) VALUES (7, 2100, 3, '2022-08-03', '2022-08-10');
-INSERT INTO RESERVATION (duration, price, number_of_guests, reservation_start, reservation_end) VALUES (2, 600, 5, '2022-06-13', '2022-06-15');
-INSERT INTO RESERVATION (duration, price, number_of_guests, reservation_start, reservation_end) VALUES (4, 1000, 5, '2022-05-03', '2022-05-07');
+INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (500, 5, '2022-08-13', '2022-08-15');
+INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (1200, 5, '2022-08-08', '2022-08-12');
+INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (1000, 5, '2022-05-03', '2022-05-07');
+INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (2100, 3, '2022-08-03', '2022-08-10');
+INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (600, 5, '2022-06-13', '2022-06-15');
+INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (1000, 5, '2022-05-03', '2022-05-07');
 
 
 INSERT INTO COTTAGE_RESERVATION (id, client_id, cottage_id) VALUES (1, 1, 1);

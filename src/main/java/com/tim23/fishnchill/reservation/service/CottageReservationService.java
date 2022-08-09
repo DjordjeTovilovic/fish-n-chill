@@ -45,11 +45,11 @@ public class CottageReservationService {
     public List<ClientCottageReservationDto> findAllCottageReservationForClient(Long clientId, boolean isActive) {
         TypeToken<List<ClientCottageReservationDto>> typeToken = new TypeToken<>() {};
         List<ClientCottageReservationDto> reservations;
-        if(isActive)
+        if (isActive)
             reservations = modelMapper.map(cottageReservationRepository.findAllByClientIdAndReservationEndIsAfterOrderByReservationStartAsc(clientId, LocalDateTime.now()), typeToken.getType());
         else {
-            reservations =  modelMapper.map(cottageReservationRepository.findAllByClientIdAndReservationEndIsBeforeOrderByReservationStartDesc(clientId, LocalDateTime.now()), typeToken.getType());
-            for(ClientCottageReservationDto reservation : reservations){
+            reservations = modelMapper.map(cottageReservationRepository.findAllByClientIdAndReservationEndIsBeforeOrderByReservationStartDesc(clientId, LocalDateTime.now()), typeToken.getType());
+            for (ClientCottageReservationDto reservation : reservations) {
                 reservation.setRevisionWritten(userResponseRepository.existsByReservationIdAndResponseType(reservation.getId(), UserResponseType.REVISION));
                 reservation.setComplaintWritten(userResponseRepository.existsByReservationIdAndResponseType(reservation.getId(), UserResponseType.COMPLAINT));
             }
@@ -70,7 +70,6 @@ public class CottageReservationService {
 
     public CottageReservationDto save(NewReservationDto newReservationDto) {
         CottageReservation cottageReservation = new CottageReservation();
-        cottageReservation.setDuration(newReservationDto.getDuration());
         cottageReservation.setPrice(newReservationDto.getPrice());
         cottageReservation.setNumberOfGuests(newReservationDto.getNumberOfGuests());
         cottageReservation.setReservationStart(newReservationDto.getReservationStart());
@@ -97,7 +96,7 @@ public class CottageReservationService {
         return modelMapper.map(availableCottages, typeToken.getType());
     }
 
-    public void cancelReservation(Long reservationId){
+    public void cancelReservation(Long reservationId) {
         cottageReservationRepository.deleteById(reservationId);
     }
 }

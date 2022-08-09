@@ -22,10 +22,6 @@ public class CottageActionDto {
 
     private LocalDateTime reservationEnd;
 
-    private Integer duration;
-
-    private Integer numberOfGuests;
-
     private BigDecimal price;
 
     private LocalDateTime actionEnd;
