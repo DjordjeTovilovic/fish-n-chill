@@ -38,9 +38,7 @@ public class CottageActionService {
 
     public CottageActionDto save(NewActionDto newNewActionDto) {
         CottageAction cottageAction = new CottageAction();
-        cottageAction.setDuration(newNewActionDto.getDuration());
         cottageAction.setPrice(newNewActionDto.getPrice());
-        cottageAction.setNumberOfGuests(newNewActionDto.getNumberOfGuests());
         cottageAction.setReservationStart(newNewActionDto.getReservationStart());
         cottageAction.setReservationEnd(newNewActionDto.getReservationEnd());
         cottageAction.setActionEnd(newNewActionDto.getActionEnd());
