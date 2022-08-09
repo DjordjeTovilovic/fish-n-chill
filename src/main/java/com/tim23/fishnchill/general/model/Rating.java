@@ -1,5 +1,6 @@
 package com.tim23.fishnchill.general.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tim23.fishnchill.user.model.Client;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,9 +24,11 @@ public class Rating {
 
     private Float rating;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private BaseEntity entity;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private Client client;
 }

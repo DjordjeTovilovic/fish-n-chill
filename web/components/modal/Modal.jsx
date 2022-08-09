@@ -40,7 +40,7 @@ const Modal = ({ content, isOpenModal, changeModalState }) => {
         >
           close
         </Button>
-        {content}
+        <div style={{ display: 'flex', flexDirection: 'column' }}>{content}</div>
       </ReactModal>
     </>
   )
