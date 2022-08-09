@@ -6,7 +6,7 @@ const OwnerCottages = () => {
   const [cottages, setCottages] = useState([])
 
   useEffect(() => {
-    cottageService.getAll().then((gotCottages) => setCottages(gotCottages))
+    cottageService.getAllForOwner().then((gotCottages) => setCottages(gotCottages))
   }, [])
 
   return <CottageList cottages={cottages} />

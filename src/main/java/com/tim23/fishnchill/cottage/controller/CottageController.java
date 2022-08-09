@@ -87,12 +87,11 @@ public class CottageController {
         return cottageService.findByAnything(anything, anything, anything);
     }
 
-    @PostMapping(value = "/update")
-    public ResponseEntity<?> update(@RequestBody CottageDto newCottageDto) throws Exception {
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@RequestBody CottageDto newCottageDto, @PathVariable("id") Long id) throws Exception {
+        newCottageDto.setId(id);
         cottageService.update(newCottageDto);
-        Map<String, String> result = new HashMap<>();
-        result.put("result", "success");
-        return ResponseEntity.accepted().body(result);
     }
 
     @PostMapping(value = "/findByPeriod")
@@ -102,12 +101,12 @@ public class CottageController {
         return cottageReservationService.findAllCottagesAvailableInPeriod(datePeriod);
     }
 
-    @PostMapping(value = "/addNewCottage")
+    @PostMapping()
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Cottage addNewCottage(@RequestBody NewCottageDto newCottageDto, HttpServletRequest request) throws Exception {
-
+    public Cottage addNewCottage(@RequestBody NewCottageDto newCottageDto, HttpServletRequest request) {
         Long ownerId = tokenUtils.getUserIdFromRequest(request);
+        //TODO pomjeri ovaj kod u servis
         CottageOwner cottageOwner = cottageOwnerRepository.getById(ownerId);
         //newCottageDto.setOwner(cottageOwner);
 
@@ -123,16 +122,13 @@ public class CottageController {
         return cottage;
     }
 
-    @GetMapping(value = "ownedCottages")
-    public List<CottageDto> getAllCottagesForOwnerId(HttpServletRequest request) {
-
+    @GetMapping(value = "owned")
+    public List<CottageDto> getAllCottagesForOwner(HttpServletRequest request) {
         Long ownerId = tokenUtils.getUserIdFromRequest(request);
         CottageOwner owner = cottageOwnerRepository.getById(ownerId);
-        List<CottageDto> cottageDtos = new ArrayList(owner.getEntities());
+
         TypeToken<List<CottageDto>> typeToken = new TypeToken<>() {};
-
-        return modelMapper.map(cottageDtos, typeToken.getType());
-
+        return modelMapper.map(owner.getEntities(), typeToken.getType());
     }
 
 }

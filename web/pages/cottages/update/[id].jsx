@@ -19,9 +19,8 @@ const ChangeCottageInfo = () => {
   const handleChange = (values) => {
     values = JSON.stringify(values)
     const obj = JSON.parse(values)
-    obj.id = cottage.id
-    cottageService.update(obj)
-    router.push('/cottages/owned')
+    cottageService.update(cottage.id, obj)
+    router.push(`/cottages/${cottage.id}`)
   }
 
   return (
