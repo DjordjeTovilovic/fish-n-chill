@@ -2,13 +2,7 @@ import axios from 'axios'
 const baseUrl = process.env.NEXT_PUBLIC_API_URL + 'cottages/'
 
 const getAllForOwner = async () => {
-  const res = await axios.get(
-    baseUrl + 'ownedCottages',
-    {},
-    {
-      Authorization: `Bearer ${localStorage.getItem('loggedInUser')}`,
-    }
-  )
+  const res = await axios.get(baseUrl + 'owned')
   return res.data
 }
 
@@ -53,12 +47,12 @@ const getById = async (id) => {
 }
 
 const create = async (newObject) => {
-  const res = await axios.post(baseUrl + 'addNewCottage', newObject)
+  const res = await axios.post(baseUrl, newObject)
   return res.data
 }
 
-const update = async (newObject) => {
-  const res = await axios.post(baseUrl + 'update', newObject)
+const update = async (id, newObject) => {
+  const res = await axios.put(baseUrl + id, newObject)
   return res.data
 }
 
