@@ -31,8 +31,6 @@ public class Reservation {
 
     private LocalDateTime reservationEnd;
 
-    private Integer duration;
-
     private BigDecimal price;
 
     private Integer numberOfGuests;

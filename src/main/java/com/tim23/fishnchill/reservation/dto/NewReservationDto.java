@@ -18,8 +18,6 @@ public class NewReservationDto {
 
     private LocalDateTime reservationEnd;
 
-    private Integer duration;
-
     private Integer numberOfGuests;
 
     private BigDecimal price;

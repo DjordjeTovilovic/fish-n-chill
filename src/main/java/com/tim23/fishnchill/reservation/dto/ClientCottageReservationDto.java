@@ -16,8 +16,6 @@ import java.time.LocalDateTime;
 public class ClientCottageReservationDto {
     private Long id;
 
-    private Integer duration;
-
     private Integer numberOfGuests;
 
     private BigDecimal price;
@@ -34,4 +32,3 @@ public class ClientCottageReservationDto {
 
     private boolean complaintWritten;
 }
-

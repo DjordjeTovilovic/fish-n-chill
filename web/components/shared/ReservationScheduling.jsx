@@ -40,7 +40,6 @@ const ReservationScheduling = ({ cottage, entityService }) => {
       entityId: cottage.id,
       reservationStart,
       reservationEnd,
-      duration,
       price: cottage.price * duration,
       numberOfGuests: numberOfGuests,
     }
