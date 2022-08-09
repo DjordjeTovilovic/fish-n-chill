@@ -5,6 +5,7 @@ import com.tim23.fishnchill.general.dto.RatingDto;
 import com.tim23.fishnchill.general.model.Rating;
 import com.tim23.fishnchill.reservation.dto.CottageReservationDto;
 import com.tim23.fishnchill.reservation.model.CottageReservation;
+import com.tim23.fishnchill.user.model.CottageOwner;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,6 +45,8 @@ public class CottageDto {
     private String image;
 
     private Set<CottageReservationDto> cottageReservations;
+
+    private CottageOwner owner;
 
     //private Set<RatingDto> ratings;
 }

@@ -6,16 +6,15 @@ import ratingService from '../../services/rating'
 
 const ReservationHistory = () => {
   const [reservations, setReservations] = useState([])
-  const [ratings, setRatings] = useState([])
   const [ratingsProp, setRatingsProp] = useState([])
   const [beginingRatings, setBeginingRatings] = useState([])
   const [statusMessage, setStatusMessage] = useState('')
+  const [submitStatusMessage, setSubmitStatusMessage] = useState('')
 
   useEffect(() => {
     clientService
       .getRatings()
       .then((gotRatings) => {
-        setRatings(gotRatings)
         reservationService
           .getAllPastCottageReservationsForClient()
           .then((gotReservations) => {
@@ -52,6 +51,19 @@ const ReservationHistory = () => {
       .catch((err) => console.log(err))
   }
 
+  const submitResponse = (clientResponse) => {
+    if (clientResponse.isRevision)
+      clientService
+        .writeRevision(clientResponse)
+        .then(() => setSubmitStatusMessage('Revision submited!'))
+        .catch((err) => console.log(err))
+    else
+      clientService
+        .writeComplaint(clientResponse)
+        .then(() => setSubmitStatusMessage('Complaint submited!'))
+        .catch((err) => console.log(err))
+  }
+
   if (ratingsProp.length !== 0)
     return (
       <PastReservations
@@ -61,6 +73,8 @@ const ReservationHistory = () => {
         rateEntity={rateEntity}
         beginingRatings={beginingRatings}
         statusMessage={statusMessage}
+        submitResponse={submitResponse}
+        submitStatusMessage={submitStatusMessage}
       />
     )
   else return <></>

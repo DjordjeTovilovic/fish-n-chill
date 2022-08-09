@@ -114,9 +114,7 @@ const UserProfile = ({ user, handleDelete }) => {
               sx={{ ml: 35, mb: 2, mt: 2 }}
               color="error"
               disabled={user.deleteRequest}
-              onClick={() => {
-                changeModalState()
-              }}
+              onClick={() => changeModalState()}
             >
               Delete account
             </Button>

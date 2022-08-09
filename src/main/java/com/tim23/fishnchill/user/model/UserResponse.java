@@ -1,13 +1,17 @@
 package com.tim23.fishnchill.user.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tim23.fishnchill.general.model.BaseEntity;
 import com.tim23.fishnchill.general.model.enums.UserResponseType;
+import com.tim23.fishnchill.reservation.model.Reservation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 
 @Getter
 @Setter
@@ -34,4 +38,8 @@ public class UserResponse {
 
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private User owner;
+
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    private Reservation reservation;
 }

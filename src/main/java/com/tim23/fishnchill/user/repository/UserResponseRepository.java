@@ -5,5 +5,6 @@ import com.tim23.fishnchill.user.model.UserResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserResponseRepository extends JpaRepository<UserResponse,Long> {
-    Boolean existsByUserIdAndResponseType(Long clientId, UserResponseType userResponseType);
+    boolean existsByUserIdAndResponseType(Long clientId, UserResponseType userResponseType);
+    boolean existsByReservationIdAndResponseType(Long reservationId, UserResponseType userResponseType);
 }

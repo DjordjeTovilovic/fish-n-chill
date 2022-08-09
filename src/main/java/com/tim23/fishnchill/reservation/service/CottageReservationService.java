@@ -4,6 +4,7 @@ import com.tim23.fishnchill.cottage.CottageDto;
 import com.tim23.fishnchill.cottage.model.Cottage;
 import com.tim23.fishnchill.cottage.repository.CottageRepository;
 import com.tim23.fishnchill.general.exception.ResourceNotFoundException;
+import com.tim23.fishnchill.general.model.enums.UserResponseType;
 import com.tim23.fishnchill.general.service.DateService;
 import com.tim23.fishnchill.general.service.MailService;
 import com.tim23.fishnchill.reservation.dto.ClientCottageReservationDto;
@@ -13,6 +14,7 @@ import com.tim23.fishnchill.reservation.dto.NewReservationDto;
 import com.tim23.fishnchill.reservation.model.CottageReservation;
 import com.tim23.fishnchill.reservation.repository.CottageReservationRepository;
 import com.tim23.fishnchill.user.repository.ClientRepository;
+import com.tim23.fishnchill.user.repository.UserResponseRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -32,6 +34,8 @@ public class CottageReservationService {
     private ClientRepository clientRepository;
     private DateService dateService;
     private MailService emailService;
+    private UserResponseRepository userResponseRepository;
+
 
     public List<CottageReservationDto> findAll() {
         TypeToken<List<CottageReservationDto>> typeToken = new TypeToken<>() {};
@@ -40,9 +44,17 @@ public class CottageReservationService {
 
     public List<ClientCottageReservationDto> findAllCottageReservationForClient(Long clientId, boolean isActive) {
         TypeToken<List<ClientCottageReservationDto>> typeToken = new TypeToken<>() {};
+        List<ClientCottageReservationDto> reservations;
         if(isActive)
-            return modelMapper.map(cottageReservationRepository.findAllByClientIdAndReservationEndIsAfterOrderByReservationStartAsc(clientId, LocalDateTime.now()), typeToken.getType());
-        return modelMapper.map(cottageReservationRepository.findAllByClientIdAndReservationEndIsBeforeOrderByReservationStartDesc(clientId, LocalDateTime.now()), typeToken.getType());
+            reservations = modelMapper.map(cottageReservationRepository.findAllByClientIdAndReservationEndIsAfterOrderByReservationStartAsc(clientId, LocalDateTime.now()), typeToken.getType());
+        else {
+            reservations =  modelMapper.map(cottageReservationRepository.findAllByClientIdAndReservationEndIsBeforeOrderByReservationStartDesc(clientId, LocalDateTime.now()), typeToken.getType());
+            for(ClientCottageReservationDto reservation : reservations){
+                reservation.setRevisionWritten(userResponseRepository.existsByReservationIdAndResponseType(reservation.getId(), UserResponseType.REVISION));
+                reservation.setComplaintWritten(userResponseRepository.existsByReservationIdAndResponseType(reservation.getId(), UserResponseType.COMPLAINT));
+            }
+        }
+        return reservations;
     }
 
     public List<CottageReservationDto> findAllReservationsForCottage(Long cottageId) {

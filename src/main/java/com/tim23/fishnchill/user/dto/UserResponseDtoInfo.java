@@ -18,4 +18,6 @@ public class UserResponseDtoInfo {
     private Long entityId;
 
     private Long ownerId;
+
+    private Long reservationId;
 }
