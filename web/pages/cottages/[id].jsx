@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import CottageProfile from '../../components/profiles/CottageProfile'
 import cottageService from '../../services/cottage'
+import reservationService from '../../services/reservation'
 import dateUtils from '../../utils/dateUtils'
 
 const Cottage = () => {
@@ -25,7 +26,7 @@ const Cottage = () => {
 
   return (
     <>
-      <CottageProfile cottage={cottage} entityService={cottageService} />
+      <CottageProfile cottage={cottage} entityService={reservationService} />
     </>
   )
 }

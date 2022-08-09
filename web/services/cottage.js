@@ -6,11 +6,6 @@ const getAllForOwner = async () => {
   return res.data
 }
 
-const scheduleReservation = async (reservation) => {
-  const res = await axios.post(baseUrl + 'reservations/', reservation)
-  return res.data
-}
-
 const findByPeriod = async (datePeriod) => {
   const res = await axios.post(baseUrl + 'findByPeriod/', datePeriod)
   return res.data
@@ -70,7 +65,6 @@ const cottageService = {
   create,
   update,
   remove,
-  scheduleReservation,
   findByPeriod,
   getAllForOwner,
 }

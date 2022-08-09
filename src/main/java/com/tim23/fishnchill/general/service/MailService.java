@@ -1,5 +1,6 @@
 package com.tim23.fishnchill.general.service;
 
+import com.tim23.fishnchill.general.model.BaseEntity;
 import com.tim23.fishnchill.general.model.VerificationToken;
 import com.tim23.fishnchill.reservation.model.CottageReservation;
 import com.tim23.fishnchill.reservation.model.Reservation;
@@ -71,5 +72,98 @@ public class MailService {
         javaMailSender.send(mail);
 
         System.out.println("Reservation Email sent!");
+    }
+
+    public void sendAccountDeletionEmail(User user) throws MailException, InterruptedException {
+        System.out.println("Sending acc deletion email...");
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(user.getEmail());
+        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setSubject("Account deletion approved");
+        mail.setText("Hello " + user.getFirstName() + user.getLastName() + ",\n\n"
+                + "Your account deletion request is approved." + "\n\n"
+                + "The account with the following information is deleted:" + "\n\n"
+                + "Username: " + user.getUsername() + "\n"
+                + "Email: " + user.getEmail() + "\n\n"
+                + "If you ever want to use our services, just sign up again on our signup page: \n"
+                + "http://localhost:3000/signup" + "\n\n"
+                + "Best regards," + "\n"
+                + "FishNChill" + "\n"
+        );
+        javaMailSender.send(mail);
+
+        System.out.println("Acc deletion Email sent!");
+    }
+
+    public void sendClientRevisionEmail(User owner, User client, String revision, BaseEntity entity, Reservation reservation) throws MailException, InterruptedException {
+        System.out.println("Sending client revision email...");
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(owner.getEmail());
+        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setSubject("Client revision");
+        mail.setText("Hello " + owner.getFirstName() + " " + owner.getLastName() + ",\n\n"
+                + "A client has written a revision for one of your entities you own" + "\n\n"
+                + "REVISION:" + "\n"
+                + revision + "\n\n"
+                + "ENTITY:" + "\n"
+                + "Name: " + entity.getName() + "\n"
+                + "Price per day: " + entity.getPrice() + "€\n"
+                + "Rating: " + entity.getRatingAverage() + "\n\n"
+                + "RESERVATION:" + "\n"
+                + "Reservation start: " + reservation.getReservationStart() + "\n"
+                + "Reservation end: " + reservation.getReservationEnd() + "\n"
+                + "Number of guests: " + reservation.getNumberOfGuests() + "\n\n"
+                + "CLIENT: " + "\n"
+                + "Username: " + client.getUsername() + "\n"
+                + "Email: " + client.getEmail() + "\n\n"
+                + "We hope this revision has some meaning to you! \n\n"
+                + "Best regards," + "\n"
+                + "FishNChill" + "\n"
+        );
+        javaMailSender.send(mail);
+
+        System.out.println("Client revision Email sent!");
+    }
+
+    public void sendAnswerToClientComplaintEmail(User owner, User client,String answer, String complaint, BaseEntity entity, Reservation reservation) throws MailException, InterruptedException {
+        System.out.println("Sending client complaint answer email...");
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(client.getEmail());
+        mail.setCc(owner.getEmail());
+        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setSubject("Client revision");
+        mail.setText("Hello client " + client.getFirstName() + " " + client.getLastName() + ",\n"
+                + "And hello owner "+ owner.getFirstName() + " " + owner.getLastName() + ",\n\n"
+                + "(This email is sent to both sides, the client and the owner)" + "\n"
+                + "A client has written a complaint for one of the owners entities or services." + "\n\n"
+                + "COMPLAINT:" + "\n"
+                + complaint + "\n\n"
+                + "OWNER: " + "\n"
+                + "Username: " + owner.getUsername() + "\n"
+                + "Email: " + owner.getEmail() + "\n\n"
+                + "ENTITY:" + "\n"
+                + "Name: " + entity.getName() + "\n"
+                + "Price per day: " + entity.getPrice() + "€\n"
+                + "Rating: " + entity.getRatingAverage() + "\n\n"
+                + "RESERVATION:" + "\n"
+                + "Reservation start: " + reservation.getReservationStart() + "\n"
+                + "Reservation end: " + reservation.getReservationEnd() + "\n"
+                + "Number of guests: " + reservation.getNumberOfGuests() + "\n\n"
+                + "CLIENT: " + "\n"
+                + "Username: " + client.getUsername() + "\n"
+                + "Email: " + client.getEmail() + "\n\n"
+                + "One of our administrators has answered the complaint:" + "\n"
+                + "ANSWER: " + "\n"
+                + answer + "\n\n"
+                + "We hope this answer clarifies everything for both sides! \n\n"
+                + "Best regards," + "\n"
+                + "FishNChill" + "\n"
+        );
+        javaMailSender.send(mail);
+
+        System.out.println("Client complaint answer Email sent!");
     }
 }
