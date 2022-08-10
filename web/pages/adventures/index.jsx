@@ -1,90 +1,67 @@
 import { useState, useEffect } from 'react'
-import AllAdventures from '../../components/lists/AllAdventures'
+import AllEntities from '../../components/lists/AllEntities'
 import adventureService from '../../services/adventure'
 
 const Adventures = () => {
   const [adventures, setAdventures] = useState([])
   const [filter, setFilter] = useState('')
-  const [sortFilter, setSortFilter] = useState('nothing')
+  const [filterProperty, setFilterProperty] = useState('address')
+  const [actionsExist, setActionsExist] = useState(false)
 
   useEffect(() => {
-    fetchData()
+    adventureService.getAll().then((gotAdventures) => setAdventures(gotAdventures))
+    // adventureService.checkIfAnyExist().then((exists) => setActionsExist(exists))
   }, [])
 
-  const handleChange = async (e) => {
-    if (e.value.length < 3) await fetchData()
-    else
-      switch (filter) {
-        case 'name': {
-          await fetchByName(e.value)
-          break
-        }
-        case 'description': {
-          await fetchByDescription(e.value)
-          break
-        }
-        case 'address': {
-          await fetchByAddress(e.value)
-          break
-        }
-        case 'anything': {
-          await fetchByAnything(e.value)
-          break
-        }
-        default: {
-          await fetchData()
-          break
-        }
-      }
-    if (sortFilter !== 'nothing') {
-      sortAdventuresBy(sortFilter)
-    }
+  const adventuresToShow = filter
+    ? adventures.filter((adventure) => adventure[filterProperty].toLowerCase().includes(filter.toLowerCase()))
+    : adventures
+
+  const searchForDatePeriod = (datePeriod) => {
+    adventureService.findByPeriod(datePeriod).then((gotAdventures) => setAdventures(gotAdventures))
   }
 
-  const sortAdventuresBy = (sortFilter) => {
-    switch (sortFilter) {
-      case 'name': {
-        setAdventures(adventures.sort((a, b) => a.name.localeCompare(b.name)))
-        break
-      }
-      case 'address': {
-        setAdventures(adventures.sort((a, b) => a.address.localeCompare(b.address)))
-        break
-      }
-      case 'rating': {
-        setAdventures(adventures.sort((a, b) => b.ratingAverage - a.ratingAverage))
-        break
-      }
-      default: {
-        fetchData()
-        break
-      }
-    }
-  }
-
-  const handleSelect = (e) => {
+  const handleSearchFieldChange = (e) => {
     setFilter(e.target.value)
   }
 
-  const handleSort = (e) => {
-    setSortFilter(e.target.value)
-    sortAdventuresBy(e.target.value)
+  const handleSearchFilterChange = (e) => {
+    setFilterProperty(e.target.value)
   }
 
-  const fetchData = async () => setAdventures(await adventureService.getAll())
-  const fetchByName = async (name) => setAdventures(await adventureService.getByNameContaining(name))
-  const fetchByDescription = async (description) =>
-    setAdventures(await adventureService.getByDescriptionContaining(description))
-  const fetchByAddress = async (address) => setAdventures(await adventureService.getByAddressContaining(address))
-  const fetchByAnything = async (anything) => setAdventures(await adventureService.getByAnything(anything))
+  const handleSortFilterChange = (e) => {
+    switch (e.target.value) {
+      case 'name': {
+        setAdventures([...adventures.sort((a, b) => a.name.localeCompare(b.name))])
+        break
+      }
+      case 'address': {
+        setAdventures([...adventures.sort((a, b) => a.address.localeCompare(b.address))])
+        break
+      }
+      case 'rating': {
+        setAdventures([...adventures.sort((a, b) => b.ratingAverage - a.ratingAverage)])
+        break
+      }
+      case 'price': {
+        setAdventures([...adventures.sort((a, b) => a.price - b.price)])
+        break
+      }
+      default: {
+        break
+      }
+    }
+  }
 
   return (
     <>
-      <AllAdventures
-        adventures={adventures}
-        handleChange={(e) => handleChange(e)}
-        handleSelect={(e) => handleSelect(e)}
-        handleSort={(e) => handleSort(e)}
+      <AllEntities
+        entities={adventuresToShow}
+        handleSearchFieldChange={(e) => handleSearchFieldChange(e)}
+        handleSearchFilterChange={(e) => handleSearchFilterChange(e)}
+        handleSortFilterChange={(e) => handleSortFilterChange(e)}
+        searchForDatePeriod={(datePeriod) => searchForDatePeriod(datePeriod)}
+        actionsExist={actionsExist}
       />
     </>
   )

@@ -21,6 +21,11 @@ const scheduleBoatReservation = async (reservation) => {
   return res.data
 }
 
+const scheduleAdventureReservation = async (reservation) => {
+  const res = await axios.post(baseUrl + 'adventures/reservations/', reservation)
+  return res.data
+}
+
 const cancelReservation = async (id) => {
   const res = await axios.delete(baseUrl + 'reservations/cancel/' + id)
   return res.data
@@ -31,6 +36,7 @@ const reservationService = {
   getAllActiveCottageReservationsForClient,
   scheduleCottageReservation,
   scheduleBoatReservation,
+  scheduleAdventureReservation,
   cancelReservation,
 }
 
