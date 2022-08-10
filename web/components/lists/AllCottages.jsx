@@ -1,3 +1,4 @@
+import ActionsBar from 'components/shared/ActionsBar'
 import CottageList from '../shared/CottageList'
 import CottageSearch from '../shared/CottageSearch'
 
@@ -7,6 +8,7 @@ const AllCottages = ({
   handleSearchFilterChange,
   handleSortFilterChange,
   searchForDatePeriod,
+  actionsExist,
 }) => {
   return (
     <>
@@ -16,6 +18,7 @@ const AllCottages = ({
         handleSortFilterChange={handleSortFilterChange}
         searchForDatePeriod={searchForDatePeriod}
       />
+      {actionsExist && <ActionsBar entityType={'cottage'}></ActionsBar>}
       <CottageList cottages={cottages} />
     </>
   )

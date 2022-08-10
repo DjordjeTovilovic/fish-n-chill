@@ -6,7 +6,12 @@ import com.tim23.fishnchill.reservation.model.CottageReservation;
 import com.tim23.fishnchill.reservation.model.Reservation;
 import com.tim23.fishnchill.user.model.Client;
 import com.tim23.fishnchill.user.model.User;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.MailException;
@@ -16,7 +21,13 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Configuration
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @EnableAsync
 @Service
 public class MailService {
@@ -27,20 +38,20 @@ public class MailService {
     /*
      * Koriscenje klase za ocitavanje vrednosti iz application.properties fajla
      */
-    @Autowired
-    private Environment env;
+    @Value("${spring.mail.username}")
+    private String email;
 
     /*
      * Anotacija za oznacavanje asinhronog zadatka
      * Vise informacija na: https://docs.spring.io/spring/docs/current/spring-framework-reference/integration.html#scheduling
      */
     @Async
-    public void sendVerificationEmail(VerificationToken verificationToken) throws MailException, InterruptedException {
+    public void sendVerificationEmail(VerificationToken verificationToken) throws MailException {
         System.out.println("Sending email...");
 
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(verificationToken.getClient().getEmail());
-        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setFrom(email);
         mail.setSubject("Account verification");
         mail.setText("Hello " + verificationToken.getClient().getFirstName()
                 + ",\n\nPlease click the following link to verify your account: \n"
@@ -56,7 +67,7 @@ public class MailService {
 
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(client.getEmail());
-        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setFrom(email);
         mail.setSubject("Cottage reservation information");
         mail.setText("Hello " + client.getFirstName() + ",\n\n"
                 + "You scheduled a reservation for a cottage." + "\n\n"
@@ -74,12 +85,12 @@ public class MailService {
         System.out.println("Reservation Email sent!");
     }
 
-    public void sendAccountDeletionEmail(User user) throws MailException, InterruptedException {
+    public void sendAccountDeletionEmail(User user) throws MailException {
         System.out.println("Sending acc deletion email...");
 
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(user.getEmail());
-        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setFrom(email);
         mail.setSubject("Account deletion approved");
         mail.setText("Hello " + user.getFirstName() + user.getLastName() + ",\n\n"
                 + "Your account deletion request is approved." + "\n\n"
@@ -96,12 +107,12 @@ public class MailService {
         System.out.println("Acc deletion Email sent!");
     }
 
-    public void sendClientRevisionEmail(User owner, User client, String revision, BaseEntity entity, Reservation reservation) throws MailException, InterruptedException {
+    public void sendClientRevisionEmail(User owner, User client, String revision, BaseEntity entity, Reservation reservation) throws MailException {
         System.out.println("Sending client revision email...");
 
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(owner.getEmail());
-        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setFrom(email);
         mail.setSubject("Client revision");
         mail.setText("Hello " + owner.getFirstName() + " " + owner.getLastName() + ",\n\n"
                 + "A client has written a revision for one of your entities you own" + "\n\n"
@@ -127,13 +138,13 @@ public class MailService {
         System.out.println("Client revision Email sent!");
     }
 
-    public void sendAnswerToClientComplaintEmail(User owner, User client,String answer, String complaint, BaseEntity entity, Reservation reservation) throws MailException, InterruptedException {
+    public void sendAnswerToClientComplaintEmail(User owner, User client,String answer, String complaint, BaseEntity entity, Reservation reservation) throws MailException {
         System.out.println("Sending client complaint answer email...");
 
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(client.getEmail());
         mail.setCc(owner.getEmail());
-        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setFrom(email);
         mail.setSubject("Client revision");
         mail.setText("Hello client " + client.getFirstName() + " " + client.getLastName() + ",\n"
                 + "And hello owner "+ owner.getFirstName() + " " + owner.getLastName() + ",\n\n"

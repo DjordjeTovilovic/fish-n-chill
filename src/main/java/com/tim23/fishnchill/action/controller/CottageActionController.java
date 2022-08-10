@@ -30,6 +30,13 @@ public class CottageActionController {
         return cottageActionService.findAllActiveActions();
     }
 
+    @GetMapping("/exist")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public boolean checkIfExist() {
+        return cottageActionService.checkIfExist();
+    }
+
     @GetMapping("/{actionId}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

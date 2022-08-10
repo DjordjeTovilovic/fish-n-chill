@@ -38,11 +38,13 @@ public class CottageActionService {
 
     public CottageActionDto save(NewActionDto newNewActionDto) {
         CottageAction cottageAction = new CottageAction();
-        cottageAction.setPrice(newNewActionDto.getPrice());
+        cottageAction.setActionPrice(newNewActionDto.getActionPrice());
+        cottageAction.setActualPrice(newNewActionDto.getActualPrice());
+        cottageAction.setNumberOfGuests(newNewActionDto.getNumberOfGuests());
         cottageAction.setReservationStart(newNewActionDto.getReservationStart());
         cottageAction.setReservationEnd(newNewActionDto.getReservationEnd());
         cottageAction.setActionEnd(newNewActionDto.getActionEnd());
-        cottageAction.setCottage(cottageRepository.getById(newNewActionDto.getEntityId()));
+        cottageAction.setEntity(cottageRepository.getById(newNewActionDto.getEntityId()));
 //        try {
 //            emailService.sendCottageReservationEmail(cottageReservation.getClient(), cottageReservation);
 //        } catch (InterruptedException e) {
@@ -53,5 +55,9 @@ public class CottageActionService {
 
     public void remove(Long id) {
         cottageRepository.deleteById(id);
+    }
+
+    public boolean checkIfExist() {
+        return cottageActionRepository.existsBy();
     }
 }

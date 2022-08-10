@@ -1,10 +1,21 @@
 import axios from 'axios'
 const baseUrl = process.env.NEXT_PUBLIC_API_URL + 'cottages/actions'
 
+const checkIfAnyExist = async () => {
+  const res = await axios.get(baseUrl + '/exist')
+  return res.data
+}
+
 const getAll = async () => {
   const res = await axios.get(baseUrl)
   return res.data
 }
+
+const getAllActiveActions = async () => {
+  const res = await axios.get(baseUrl + "/active")
+  return res.data
+}
+
 
 const getById = async (id) => {
   const res = await axios.get(baseUrl + id)
@@ -25,12 +36,14 @@ const remove = async (id) => {
   await axios.delete(baseUrl + id)
 }
 
-const cottageAction = {
+const cottageActionService = {
+  checkIfAnyExist,
   getAll,
+  getAllActiveActions,
   getById,
   create,
   update,
   remove,
 }
 
-export default cottageAction
+export default cottageActionService

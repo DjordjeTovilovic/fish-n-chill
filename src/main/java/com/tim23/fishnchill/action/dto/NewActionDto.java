@@ -19,7 +19,11 @@ public class NewActionDto {
 
     private LocalDateTime reservationEnd;
 
-    private BigDecimal price;
+    private BigDecimal actionPrice;
+
+    private BigDecimal actualPrice;
+
+    private Integer numberOfGuests;
 
     private LocalDateTime actionEnd;
 }

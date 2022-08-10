@@ -37,7 +37,7 @@ public class Cottage extends BaseEntity {
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private CottageOwner owner;
 
-    @OneToMany(mappedBy = "cottage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<CottageAction> cottageActions;
+    @OneToMany(mappedBy = "entity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<CottageAction> entityActions;
     
 }

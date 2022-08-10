@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react'
 import AllCottages from '../../components/lists/AllCottages'
 import cottageService from '../../services/cottage'
+import cottageActionService from 'services/cottagesAction'
 
 const Cottages = () => {
   const [cottages, setCottages] = useState([])
   const [filter, setFilter] = useState('')
   const [filterProperty, setFilterProperty] = useState('address')
+  const [actionsExist, setActionsExist] = useState(false)
 
   useEffect(() => {
     cottageService.getAll().then((gotCottages) => setCottages(gotCottages))
+    cottageActionService.checkIfAnyExist().then((exists) => setActionsExist(exists))
   }, [])
 
   // Ova sintaksa cottage[nesto] samo pristupa elementu nesto od objekta cottage
@@ -67,6 +70,7 @@ const Cottages = () => {
         handleSearchFilterChange={(e) => handleSearchFilterChange(e)}
         handleSortFilterChange={(e) => handleSortFilterChange(e)}
         searchForDatePeriod={(datePeriod) => searchForDatePeriod(datePeriod)}
+        actionsExist={actionsExist}
       />
     </>
   )

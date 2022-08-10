@@ -25,4 +25,6 @@ public class NewReservationDto {
     private Long clientId;
 
     private Long entityId;
+
+    private Long actionId;
 }
