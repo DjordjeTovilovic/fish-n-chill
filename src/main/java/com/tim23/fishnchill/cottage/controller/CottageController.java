@@ -106,20 +106,8 @@ public class CottageController {
     @ResponseBody
     public Cottage addNewCottage(@RequestBody NewCottageDto newCottageDto, HttpServletRequest request) {
         Long ownerId = tokenUtils.getUserIdFromRequest(request);
-        //TODO pomjeri ovaj kod u servis
-        CottageOwner cottageOwner = cottageOwnerRepository.getById(ownerId);
-        //newCottageDto.setOwner(cottageOwner);
 
-        Cottage cottage = new Cottage();
-        modelMapper.map(newCottageDto, cottage);
-        cottage.setOwner(cottageOwner);
-        cottageService.save(cottage);
-        Image image = new Image();
-        image.setUrl(newCottageDto.getImage());
-        image.setEntity(cottage);
-        imageRepository.save(image);
-
-        return cottage;
+        return cottageService.addNewCottageForOwner(ownerId, newCottageDto);
     }
 
     @GetMapping(value = "owned")
