@@ -8,10 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 
 @Getter
 @Setter

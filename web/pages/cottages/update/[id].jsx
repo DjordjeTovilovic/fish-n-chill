@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import ChangeCottageInfoForm from '../../../components/ChangeCottageInfoForm'
+import ChangeCottageInfoForm from '../../../components/forms/ChangeCottageInfoForm'
 import cottageService from '../../../services/cottage'
 
 const ChangeCottageInfo = () => {

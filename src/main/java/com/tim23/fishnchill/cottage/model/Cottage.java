@@ -1,7 +1,6 @@
 package com.tim23.fishnchill.cottage.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tim23.fishnchill.action.model.CottageAction;
 import com.tim23.fishnchill.general.model.BaseEntity;
 import com.tim23.fishnchill.reservation.model.CottageReservation;
@@ -26,9 +25,8 @@ public class Cottage extends BaseEntity {
 
     private Integer capacity;
 
-
     @OneToMany(mappedBy = "cottage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<CottageReservation> cottageReservations;
+    private Set<CottageReservation> reservations;
 
     @OneToMany(mappedBy = "cottage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Room> rooms;
@@ -38,6 +36,6 @@ public class Cottage extends BaseEntity {
     private CottageOwner owner;
 
     @OneToMany(mappedBy = "entity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<CottageAction> entityActions;
-    
+    private Set<CottageAction> actions;
+
 }

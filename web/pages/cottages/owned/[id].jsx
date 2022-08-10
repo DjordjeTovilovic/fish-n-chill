@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import CottageProfile from '../../components/profiles/CottageProfile'
-import cottageService from '../../services/cottage'
-import reservationService from '../../services/reservation'
-import dateUtils from '../../utils/dateUtils'
+import OwnedCottageProfile from '../../../components/profiles/OwnedCottageProfile'
+import cottageService from '../../../services/cottage'
+import reservationService from '../../../services/reservation'
+import dateUtils from '../../../utils/dateUtils'
 
-const Cottage = () => {
+const OwnedCottage = () => {
   const router = useRouter()
   const { id } = router.query
   const [cottage, setCottage] = useState({})
@@ -26,9 +26,9 @@ const Cottage = () => {
 
   return (
     <>
-      <CottageProfile cottage={cottage} scheduleReservation={reservationService.scheduleCottageReservation} />
+      <OwnedCottageProfile cottage={cottage} scheduleReservation={reservationService.scheduleCottageReservation} />
     </>
   )
 }
 
-export default Cottage
+export default OwnedCottage

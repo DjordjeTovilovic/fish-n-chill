@@ -6,9 +6,7 @@ import com.tim23.fishnchill.user.dto.RegistrationDto;
 import com.tim23.fishnchill.user.dto.UpdateDto;
 import com.tim23.fishnchill.user.dto.UserDto;
 import com.tim23.fishnchill.user.model.Authority;
-import com.tim23.fishnchill.user.model.Client;
 import com.tim23.fishnchill.user.model.User;
-import com.tim23.fishnchill.user.model.UserResponse;
 import com.tim23.fishnchill.user.repository.UserRepository;
 import com.tim23.fishnchill.user.repository.UserResponseRepository;
 import lombok.AllArgsConstructor;
@@ -20,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -67,15 +64,15 @@ public class UserService {
         // TODO-treba napraviti dio za request ownera koji se salje adminu
         u.setEnabled(true);
         List<Authority> auth;
-        if(registrationDTO.getRole().equalsIgnoreCase("cottage_owner")){
+        if (registrationDTO.getRole().equalsIgnoreCase("cottage_owner")) {
             auth = authService.findByName("ROLE_COTTAGE_OWNER");
             u.setAuthorities(auth);
         }
-        if(registrationDTO.getRole().equalsIgnoreCase("boat_owner")){
+        if (registrationDTO.getRole().equalsIgnoreCase("boat_owner")) {
             auth = authService.findByName("ROLE_BOAT_OWNER");
             u.setAuthorities(auth);
         }
-        if(registrationDTO.getRole().equalsIgnoreCase("adventure_owner")){
+        if (registrationDTO.getRole().equalsIgnoreCase("adventure_owner")) {
             auth = authService.findByName("ROLE_ADVENTURE_OWNER");
             u.setAuthorities(auth);
         }

@@ -1,17 +1,17 @@
 import Grid from '@mui/material/Grid'
 import Container from '@mui/material/Container'
-import CottageCard from '../shared/CottageCard'
+import EntityCard from '../entity/EntityCard'
 
-const CottageList = ({ cottages }) => {
+const EntityList = ({ entities }) => {
   return (
     <Container sx={{ py: 8 }} maxWidth="md">
       <Grid container spacing={4}>
-        {cottages.map((cottage) => (
-          <CottageCard key={cottage.id} cottage={cottage} />
+        {entities.map((entity) => (
+          <EntityCard key={entity.id} entity={entity} />
         ))}
       </Grid>
     </Container>
   )
 }
 
-export default CottageList
+export default EntityList

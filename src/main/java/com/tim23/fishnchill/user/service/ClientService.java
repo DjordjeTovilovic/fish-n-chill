@@ -2,7 +2,9 @@ package com.tim23.fishnchill.user.service;
 
 import com.tim23.fishnchill.general.exception.ResourceNotFoundException;
 import com.tim23.fishnchill.general.model.enums.UserResponseType;
-import com.tim23.fishnchill.user.dto.*;
+import com.tim23.fishnchill.user.dto.ClientDto;
+import com.tim23.fishnchill.user.dto.RegistrationDto;
+import com.tim23.fishnchill.user.dto.UpdateDto;
 import com.tim23.fishnchill.user.model.Authority;
 import com.tim23.fishnchill.user.model.Client;
 import com.tim23.fishnchill.user.repository.ClientRepository;
@@ -46,7 +48,7 @@ public class ClientService {
     }
 
     public Client saveClient(Client c) {
-       return this.clientRepository.save(c);
+        return this.clientRepository.save(c);
     }
 
     public Client save(RegistrationDto registrationDTO) {

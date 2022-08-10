@@ -7,7 +7,6 @@ import com.tim23.fishnchill.cottage.repository.CottageRepository;
 import com.tim23.fishnchill.general.exception.ResourceNotFoundException;
 import com.tim23.fishnchill.general.model.Image;
 import com.tim23.fishnchill.general.repository.ImageRepository;
-import com.tim23.fishnchill.reservation.model.CottageReservation;
 import com.tim23.fishnchill.user.model.CottageOwner;
 import com.tim23.fishnchill.user.repository.CottageOwnerRepository;
 import lombok.AllArgsConstructor;
@@ -16,8 +15,6 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
-import javax.imageio.ImageReader;
-import java.util.Set;
 import java.util.List;
 
 @AllArgsConstructor
@@ -29,7 +26,7 @@ public class CottageService {
     private ImageRepository imageRepository;
     private CottageOwnerRepository cottageOwnerRepository;
 
-    public Cottage addNewCottageForOwner(Long ownerId, NewCottageDto newCottageDto){
+    public Cottage addNewCottageForOwner(Long ownerId, NewCottageDto newCottageDto) {
 
         CottageOwner cottageOwner = cottageOwnerRepository.getById(ownerId);
 
@@ -46,12 +43,12 @@ public class CottageService {
         return cottage;
     }
 
-    public Cottage save(Cottage cottage){
+    public Cottage save(Cottage cottage) {
 
         return cottageRepository.save(cottage);
     }
 
-    public void remove(Long id){;
+    public void remove(Long id) {
         cottageRepository.deleteById(id);
     }
 

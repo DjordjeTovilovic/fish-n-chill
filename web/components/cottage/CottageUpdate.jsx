@@ -105,7 +105,7 @@ const CottageUpdate = ({ cottage }) => {
             return (
               dateParam < cottage.availabilityStart ||
               dateParam > cottage.availabilityEnd ||
-              cottage.cottageReservations.some(
+              cottage.reservations.some(
                 (reservation) =>
                   dateParam >= new Date(reservation.reservationStart) &&
                   dateParam <= new Date(reservation.reservationEnd)
@@ -125,7 +125,7 @@ const CottageUpdate = ({ cottage }) => {
           shouldDisableDate={(dateParam) => {
             return (
               dateParam < checkInDate ||
-              cottage.cottageReservations.reverse().some((reservation) => {
+              cottage.reservations.reverse().some((reservation) => {
                 if (checkInDate < new Date(reservation.reservationStart))
                   return dateParam >= new Date(reservation.reservationStart)
                 else return dateParam > cottage.availabilityEnd

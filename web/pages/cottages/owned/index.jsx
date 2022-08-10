@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import CottageList from '../../components/shared/CottageList'
-import cottageService from '../../services/cottage'
+import EntityList from '../../../components/shared/EntityList'
+import cottageService from '../../../services/cottage'
 import { Button } from '@mui/material'
+
 const OwnerCottages = () => {
   const [cottages, setCottages] = useState([])
 
@@ -16,7 +17,7 @@ const OwnerCottages = () => {
           Add new cottage
         </Button>
       </div>
-      <CottageList cottages={cottages} />
+      <EntityList entities={cottages} />
     </>
   )
 }

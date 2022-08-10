@@ -1,8 +1,6 @@
 package com.tim23.fishnchill.boat;
 
 import com.tim23.fishnchill.boat.model.Boat;
-import com.tim23.fishnchill.cottage.CottageDto;
-import com.tim23.fishnchill.cottage.model.Cottage;
 import com.tim23.fishnchill.general.exception.ResourceNotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -18,7 +16,7 @@ public class BoatService {
     private BoatRepository boatRepository;
     private ModelMapper modelMapper;
 
-    public Boat update(BoatDto newBoat){
+    public Boat update(BoatDto newBoat) {
         Boat boat = boatRepository.getById(newBoat.getId());
         modelMapper.map(newBoat, boat);
         return boatRepository.save(boat);

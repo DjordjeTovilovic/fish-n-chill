@@ -8,12 +8,12 @@ const SearchField = ({ handleSearchFieldChange, handleSearchFilterChange }) => {
   return (
     <>
       <TextField
-        id="searchCottages"
+        id="searchEntities"
         sx={{ ml: 3, mt: 0.5, flex: 1, width: '25%' }}
         styles={{ height: '100px' }}
         variant="outlined"
         size="small"
-        label="Search cottages"
+        label="Search"
         inputProps={{ 'aria-label': 'search google maps', style: { fontSize: 22 } }}
         onChange={(e) => handleSearchFieldChange(e)}
       />

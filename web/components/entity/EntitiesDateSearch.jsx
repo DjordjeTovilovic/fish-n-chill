@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField'
 import { DatePicker } from '@mui/x-date-pickers'
 import dateUtils from '../../utils/dateUtils'
 
-const CottageDateSearch = ({ searchForDatePeriod }) => {
+const EntitiesDateSearch = ({ searchForDatePeriod }) => {
   const [checkInDate, setCheckInDate] = useState(null)
   const [checkOutDate, setCheckOutDate] = useState(null)
 
@@ -57,4 +57,4 @@ const CottageDateSearch = ({ searchForDatePeriod }) => {
   )
 }
 
-export default CottageDateSearch
+export default EntitiesDateSearch

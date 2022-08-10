@@ -1,7 +1,6 @@
 package com.tim23.fishnchill.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tim23.fishnchill.cottage.model.Cottage;
 import lombok.Getter;
 import lombok.Setter;

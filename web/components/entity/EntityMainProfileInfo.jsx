@@ -1,7 +1,7 @@
 import { Box, Divider, Typography, Skeleton, Paper, Rating } from '@mui/material'
 import Image from 'next/image'
 
-const CottageProfileCard = ({ cottage }) => {
+const EntityMainProfileInfo = ({ entity }) => {
   return (
     <Box
       sx={{
@@ -18,12 +18,12 @@ const CottageProfileCard = ({ cottage }) => {
         }}
       >
         <Typography variant="h3" mx="auto" align="center" gutterBottom component="div" sx={{ ml: 1, mr: 1 }}>
-          {cottage.name}
+          {entity.name}
         </Typography>
         <Box textAlign="center">
-          <Rating size="large" name="read-only" value={cottage.ratingAverage ?? 0} precision={0.5} readOnly />
+          <Rating size="large" name="read-only" value={entity.ratingAverage ?? 0} precision={0.5} readOnly />
           <Typography variant="subtitle1" mx="auto" align="center" gutterBottom component="div" sx={{ ml: 1, mr: 1 }}>
-            ({cottage.ratingCount} ratings)
+            ({entity.ratingCount} ratings)
           </Typography>
         </Box>
         <div
@@ -33,8 +33,8 @@ const CottageProfileCard = ({ cottage }) => {
             marginTop: '20px',
           }}
         >
-          {cottage.images ? (
-            <Image width={600} height={400} src={cottage.images[0].url} alt="cottage" />
+          {entity.images ? (
+            <Image width={600} height={400} src={entity.images[0].url} alt="entity" />
           ) : (
             <Skeleton variant="rectangular" width={600} height={400} />
           )}
@@ -45,44 +45,44 @@ const CottageProfileCard = ({ cottage }) => {
           Address:
         </Typography>
         <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3 }} display="inline">
-          {cottage.address}
+          {entity.address}
         </Typography>
         <div></div>
         <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ mr: 3 }} display="inline">
           Price:
         </Typography>
         <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3 }} display="inline">
-          {cottage.price}€/day
+          {entity.price}€/day
         </Typography>
         <div></div>
         <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ mr: 3 }} display="inline">
           Available:
         </Typography>
         <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3 }} display="inline">
-          {cottage.availabilityStart.toLocaleDateString('en-UK')}
+          {entity.availabilityStart.toLocaleDateString('en-UK')}
         </Typography>
         <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ mr: 2 }} display="inline">
           -
         </Typography>
         <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3 }} display="inline">
-          {cottage.availabilityEnd.toLocaleDateString('en-UK')}
+          {entity.availabilityEnd.toLocaleDateString('en-UK')}
         </Typography>
         <div></div>
         <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ mr: 3 }} display="inline">
           Capacity:
         </Typography>
         <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3 }} display="inline">
-          {cottage.capacity} people
+          {entity.capacity} people
         </Typography>
         <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ mr: 3 }}>
           Description:
         </Typography>
         <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3, mb: 3 }}>
-          {cottage.description}
+          {entity.description}
         </Typography>
       </Paper>
     </Box>
   )
 }
 
-export default CottageProfileCard
+export default EntityMainProfileInfo

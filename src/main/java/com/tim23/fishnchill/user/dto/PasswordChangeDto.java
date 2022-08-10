@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.NotNull;
 
@@ -20,9 +19,9 @@ public class PasswordChangeDto {
 
     private String role;
 
-    public void printInfo(){
+    public void printInfo() {
         System.out.println(
-                        "opw: " + this.oldPassword +
+                "opw: " + this.oldPassword +
                         "\nnpw: " + this.newPassword +
                         "\nrole: " + this.role);
     }

@@ -2,6 +2,8 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import boatService from '../../services/boat'
 import BoatProfile from '../../components/profiles/BoatProfile'
+import reservationService from '../../services/reservation'
+import dateUtils from '../../utils/dateUtils'
 
 const Boat = () => {
   const router = useRouter()
@@ -9,7 +11,12 @@ const Boat = () => {
   const [boat, setBoat] = useState({})
 
   useEffect(() => {
-    const fetchData = async () => setBoat(await boatService.getById(id))
+    const fetchData = async () => {
+      let fetchedBoats = await boatService.getById(id)
+      // Prebacuje polja u datume jer nisu datumi kad dodju na front
+      fetchedBoats = dateUtils.entityFieldsToDate(fetchedBoats)
+      setBoat(fetchedBoats)
+    }
     router.isReady ? fetchData() : console.log('router not ready')
   }, [router.isReady, id])
 
@@ -19,7 +26,7 @@ const Boat = () => {
 
   return (
     <>
-      <BoatProfile boat={boat} />
+      <BoatProfile boat={boat} scheduleReservation={reservationService.scheduleBoatReservation} />
     </>
   )
 }

@@ -1,7 +1,5 @@
 package com.tim23.fishnchill.user.dto;
 
-import com.tim23.fishnchill.general.dto.RatingDto;
-import com.tim23.fishnchill.general.model.Rating;
 import com.tim23.fishnchill.user.model.Authority;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,7 +43,7 @@ public class ClientDto {
 
     private Boolean deleteRequest;
 
-    public ClientDto(UserDto userDto, Integer penaltyCount){
+    public ClientDto(UserDto userDto, Integer penaltyCount) {
         this.id = userDto.getId();
         this.password = userDto.getPassword();
         this.username = userDto.getUsername();
@@ -61,4 +59,3 @@ public class ClientDto {
         this.authorities = userDto.getAuthorities();
     }
 }
-

@@ -78,7 +78,7 @@ public class CottageReservationService {
         cottageReservation.setReservationEnd(newReservationDto.getReservationEnd());
         cottageReservation.setCottage(cottageRepository.getById(newReservationDto.getEntityId()));
         cottageReservation.setClient(clientRepository.getById(newReservationDto.getClientId()));
-        if(newReservationDto.getActionId()!=null)
+        if (newReservationDto.getActionId() != null)
             cottageActionRepository.deleteById(newReservationDto.getActionId());
         try {
             emailService.sendCottageReservationEmail(cottageReservation.getClient(), cottageReservation);

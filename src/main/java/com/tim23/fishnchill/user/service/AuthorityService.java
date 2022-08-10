@@ -29,14 +29,14 @@ public class AuthorityService {
         return auths;
     }
 
-    public List<Authority> findAllContainingRequest(){
+    public List<Authority> findAllContainingRequest() {
         List<Authority> allAuths = this.authorityRepository.findByNameContaining("REQUEST");
         return allAuths;
     }
 
     public void confirmRequest(Long id) {
-         Authority auth = this.authorityRepository.getById(id);
-         auth.setName(auth.getName().replace("REQUEST","ROLE"));
-         authorityRepository.save(auth);
+        Authority auth = this.authorityRepository.getById(id);
+        auth.setName(auth.getName().replace("REQUEST", "ROLE"));
+        authorityRepository.save(auth);
     }
 }

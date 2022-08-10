@@ -22,13 +22,13 @@ public class DateService {
                                             LocalDateTime startDate, LocalDateTime endDate) {
         return isDateWithinPeriod(testStartDate, startDate, endDate) && isDateWithinPeriod(testEndDate, startDate, endDate);
     }
-    
+
     public boolean isCottageAvailableInPeriod(Cottage cottage, LocalDateTime startTime, LocalDateTime endTime) {
         // Testing if date range is within cottage available time
         if (!isDatePeriodWithinPeriod(startTime, endTime, cottage.getAvailabilityStart(), cottage.getAvailabilityEnd()))
             return false;
         // Testing if date range is overlapping with any cottage reservation time
-        return cottage.getCottageReservations().stream().noneMatch(reservation ->
+        return cottage.getReservations().stream().noneMatch(reservation ->
                 doDatePeriodsOverlap(startTime, endTime, reservation.getReservationStart(),
                         reservation.getReservationEnd()));
     }

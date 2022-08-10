@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 // Primer kontrolera cijim metodama mogu pristupiti samo autorizovani korisnici
 @AllArgsConstructor
