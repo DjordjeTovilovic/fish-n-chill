@@ -44,7 +44,7 @@ public class CottageDto {
 
     private String image;
 
-    private Set<CottageReservationDto> cottageReservations;
+    private Set<CottageReservationDto> reservations;
 
     private CottageOwner owner;
 

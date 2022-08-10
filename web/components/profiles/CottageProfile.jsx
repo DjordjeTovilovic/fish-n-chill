@@ -1,14 +1,14 @@
 import { Container } from '@mui/material'
-import CottageProfileCard from '../shared/CottageProfileCard'
+import EntityMainProfileInfo from '../shared/EntityMainProfileInfo'
 import CottageUpdate from '../shared/CottageUpdate'
 import ReservationScheduling from '../shared/ReservationScheduling'
 
-const CottageProfile = ({ cottage, entityService }) => {
+const CottageProfile = ({ cottage, scheduleReservation }) => {
   return (
     <>
       <Container component="main" maxWidth="lg">
-        <CottageProfileCard cottage={cottage} />
-        <ReservationScheduling cottage={cottage} entityService={entityService} />
+        <EntityMainProfileInfo entity={cottage} />
+        <ReservationScheduling entity={cottage} scheduleReservation={scheduleReservation} />
         <CottageUpdate cottage={cottage} />
       </Container>
     </>

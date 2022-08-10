@@ -14,10 +14,6 @@ const Cottages = () => {
     cottageActionService.checkIfAnyExist().then((exists) => setActionsExist(exists))
   }, [])
 
-  // Ova sintaksa cottage[nesto] samo pristupa elementu nesto od objekta cottage
-  // kao sto bi to uradio sa cottage.nesto, samo sto ovako mozes to dinamicno raditi
-  // tj ne moras znati polje unaprijed prije pristupanja
-  // Da ovo uradim negdje u firmi kontam dobio bi otkaz odma hahahahha
   const cottagesToShow = filter
     ? cottages.filter((cottage) => cottage[filterProperty].toLowerCase().includes(filter.toLowerCase()))
     : cottages
@@ -37,10 +33,6 @@ const Cottages = () => {
   const handleSortFilterChange = (e) => {
     switch (e.target.value) {
       case 'name': {
-        // Kad stavljas stvari u useState treba napraviti novi objekat, a ne raditi sa starim
-        // inace dolazi do problema, kao sto ovdje nije htjeo rerenderovati
-        // zato sam napravio novu listu od tih elemenata
-        // ta [...staraLista] sintaksa pravi novu listu od elemenata stare liste
         setCottages([...cottages.sort((a, b) => a.name.localeCompare(b.name))])
         break
       }

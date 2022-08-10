@@ -3,7 +3,7 @@ import { Button, TextField } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers'
 import dateUtils from '../../utils/dateUtils'
 
-const ReservationScheduling = ({ cottage, entityService }) => {
+const ReservationScheduling = ({ entity, scheduleReservation }) => {
   const [userRole, setUserRole] = useState(null)
   const [checkInDate, setCheckInDate] = useState(null)
   const [checkOutDate, setCheckOutDate] = useState(null)
@@ -16,16 +16,9 @@ const ReservationScheduling = ({ cottage, entityService }) => {
     setPenalty(JSON.parse(window.localStorage.getItem('penalty')))
   }, [])
 
-  const scheduleReservation = (reservation) => {
-    entityService
-      .scheduleReservation(reservation)
-      .then(() => setStatusMessage({ color: 'green', message: 'Reservation scheduled!' }))
-      .catch((err) => setStatusMessage({ color: 'red', message: 'Somthing went wrong!' }))
-  }
-
   const onChangeNumberOfGuests = (e) => {
     if (e.target.value === null) setNumberOfGuests(1)
-    else if (e.target.value > cottage.capacity) setNumberOfGuests(cottage.capacity)
+    else if (e.target.value > entity.capacity) setNumberOfGuests(entity.capacity)
     else if (e.target.value === '-' || e.target.value === 0) setNumberOfGuests(null)
     else setNumberOfGuests(e.target.value)
   }
@@ -37,13 +30,15 @@ const ReservationScheduling = ({ cottage, entityService }) => {
     const duration = dateUtils.daysBetween(reservationStart, reservationEnd)
 
     const reservation = {
-      entityId: cottage.id,
+      entityId: entity.id,
       reservationStart,
       reservationEnd,
-      price: cottage.price * duration,
+      price: entity.price * duration,
       numberOfGuests: numberOfGuests,
     }
     scheduleReservation(reservation)
+      .then(() => setStatusMessage({ color: 'green', message: 'Reservation scheduled!' }))
+      .catch((err) => setStatusMessage({ color: 'red', message: 'Somthing went wrong!' }))
   }
 
   return (
@@ -61,9 +56,9 @@ const ReservationScheduling = ({ cottage, entityService }) => {
             }}
             shouldDisableDate={(dateParam) => {
               return (
-                dateParam < cottage.availabilityStart ||
-                dateParam > cottage.availabilityEnd ||
-                cottage.cottageReservations.some(
+                dateParam < entity.availabilityStart ||
+                dateParam > entity.availabilityEnd ||
+                entity.reservations.some(
                   (reservation) =>
                     dateParam >= new Date(reservation.reservationStart) &&
                     dateParam <= new Date(reservation.reservationEnd)
@@ -83,10 +78,10 @@ const ReservationScheduling = ({ cottage, entityService }) => {
             shouldDisableDate={(dateParam) => {
               return (
                 dateParam < checkInDate ||
-                cottage.cottageReservations.reverse().some((reservation) => {
+                entity.reservations.reverse().some((reservation) => {
                   if (checkInDate < new Date(reservation.reservationStart))
                     return dateParam >= new Date(reservation.reservationStart)
-                  else return dateParam > cottage.availabilityEnd
+                  else return dateParam > entity.availabilityEnd
                 })
               )
             }}
@@ -98,7 +93,7 @@ const ReservationScheduling = ({ cottage, entityService }) => {
             inputProps={{
               inputMode: 'numeric',
               pattern: '[0-9]*',
-              max: cottage.capacity,
+              max: entity.capacity,
               min: 1,
             }}
             label="Guests"

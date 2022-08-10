@@ -28,7 +28,7 @@ public class Cottage extends BaseEntity {
 
 
     @OneToMany(mappedBy = "cottage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<CottageReservation> cottageReservations;
+    private Set<CottageReservation> reservations;
 
     @OneToMany(mappedBy = "cottage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Room> rooms;
@@ -39,5 +39,5 @@ public class Cottage extends BaseEntity {
 
     @OneToMany(mappedBy = "entity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<CottageAction> entityActions;
-    
+
 }

@@ -26,7 +26,7 @@ const Cottage = () => {
 
   return (
     <>
-      <CottageProfile cottage={cottage} entityService={reservationService} />
+      <CottageProfile cottage={cottage} scheduleReservation={reservationService.scheduleCottageReservation} />
     </>
   )
 }

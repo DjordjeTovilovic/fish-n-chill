@@ -11,9 +11,13 @@ const getAllActiveCottageReservationsForClient = async () => {
   return res.data
 }
 
-
-const scheduleReservation = async (reservation) => {
+const scheduleCottageReservation = async (reservation) => {
   const res = await axios.post(baseUrl + 'cottages/reservations/', reservation)
+  return res.data
+}
+
+const scheduleBoatReservation = async (reservation) => {
+  const res = await axios.post(baseUrl + 'boats/reservations/', reservation)
   return res.data
 }
 
@@ -25,8 +29,9 @@ const cancelReservation = async (id) => {
 const reservationService = {
   getAllPastCottageReservationsForClient,
   getAllActiveCottageReservationsForClient,
-  scheduleReservation,
-  cancelReservation
+  scheduleCottageReservation,
+  scheduleBoatReservation,
+  cancelReservation,
 }
 
 export default reservationService
