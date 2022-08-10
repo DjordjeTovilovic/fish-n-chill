@@ -19,8 +19,8 @@ const AddNewCottageForm = ({ handleChange, setFieldValue, imagePreview }) => (
         initialValues={{
           name: '',
           description: '',
-          price: '',
-          capacity: '',
+          price: 0,
+          capacity: 0,
         }}
         onSubmit={async (values) => {
           handleChange(values)
