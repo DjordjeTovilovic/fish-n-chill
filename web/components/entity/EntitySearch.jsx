@@ -1,9 +1,9 @@
 import Box from '@mui/material/Box'
-import CottageDateSearch from './CottageDateSearch'
-import SearchField from './SearchField'
-import SortFilter from './SortFilter'
+import EntitiesDateSearch from './EntitiesDateSearch'
+import SearchField from '../shared/SearchField'
+import SortFilter from '../shared/SortFilter'
 
-const CottageSearch = ({
+const EntitySearch = ({
   handleSearchFieldChange,
   handleSearchFilterChange,
   handleSortFilterChange,
@@ -21,7 +21,7 @@ const CottageSearch = ({
         alignItems: 'center',
       }}
     >
-      <CottageDateSearch searchForDatePeriod={searchForDatePeriod} />
+      <EntitiesDateSearch searchForDatePeriod={searchForDatePeriod} />
       <SearchField
         handleSearchFieldChange={handleSearchFieldChange}
         handleSearchFilterChange={handleSearchFilterChange}
@@ -31,4 +31,4 @@ const CottageSearch = ({
   )
 }
 
-export default CottageSearch
+export default EntitySearch

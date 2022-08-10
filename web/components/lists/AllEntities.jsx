@@ -1,6 +1,6 @@
 import ActionsBar from 'components/shared/ActionsBar'
-import EntityList from '../shared/EntityList'
-import CottageSearch from '../shared/CottageSearch'
+import EntityList from '../entity/EntityList'
+import EntitySearch from '../entity/EntitySearch'
 
 const AllEntities = ({
   entities,
@@ -12,7 +12,7 @@ const AllEntities = ({
 }) => {
   return (
     <>
-      <CottageSearch
+      <EntitySearch
         handleSearchFieldChange={handleSearchFieldChange}
         handleSearchFilterChange={handleSearchFilterChange}
         handleSortFilterChange={handleSortFilterChange}

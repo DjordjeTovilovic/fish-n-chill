@@ -1,6 +1,6 @@
 import Grid from '@mui/material/Grid'
 import Container from '@mui/material/Container'
-import EntityCard from './EntityCard'
+import EntityCard from '../entity/EntityCard'
 
 const EntityList = ({ entities }) => {
   return (

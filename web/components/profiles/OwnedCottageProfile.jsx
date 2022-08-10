@@ -1,6 +1,6 @@
 import { Container } from '@mui/material'
-import EntityMainProfileInfo from '../shared/EntityMainProfileInfo'
-import CottageUpdate from '../shared/CottageUpdate'
+import EntityMainProfileInfo from '../entity/EntityMainProfileInfo'
+import CottageUpdate from '../cottage/CottageUpdate'
 import ReservationScheduling from '../shared/ReservationScheduling'
 
 const OwnedCottageProfile = ({ cottage, scheduleReservation }) => {

@@ -14,7 +14,7 @@ const Boats = () => {
   }, [])
 
   const boatsToShow = filter
-    ? boats.filter((cottage) => cottage[filterProperty].toLowerCase().includes(filter.toLowerCase()))
+    ? boats.filter((boat) => boat[filterProperty].toLowerCase().includes(filter.toLowerCase()))
     : boats
 
   const searchForDatePeriod = (datePeriod) => {

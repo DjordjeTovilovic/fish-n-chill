@@ -1,5 +1,5 @@
 import { Container } from '@mui/material'
-import EntityMainProfileInfo from '../shared/EntityMainProfileInfo'
+import EntityMainProfileInfo from '../entity/EntityMainProfileInfo'
 import ReservationScheduling from '../shared/ReservationScheduling'
 
 const CottageProfile = ({ cottage, scheduleReservation }) => {
