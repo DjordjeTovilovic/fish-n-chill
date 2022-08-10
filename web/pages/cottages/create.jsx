@@ -29,7 +29,7 @@ const AddNewCottage = () => {
 
   return (
     <>
-      <AddNewCottageForm handleChange={handleChange} setFieldValue={(e) => setFieldValue(e)} />
+      <AddNewCottageForm handleChange={handleChange} setFieldValue={(e) => setFieldValue(e)} imagePreview={base64} />
     </>
   )
 }

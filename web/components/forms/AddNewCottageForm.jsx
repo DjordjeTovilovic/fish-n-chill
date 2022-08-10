@@ -1,8 +1,8 @@
 import { Formik, Field, Form } from 'formik'
 import { Box, Typography, Button, Container } from '@mui/material'
 import { TextField } from 'formik-mui'
-
-const AddNewCottageForm = ({ handleChange, setFieldValue }) => (
+import Image from 'next/image'
+const AddNewCottageForm = ({ handleChange, setFieldValue, imagePreview }) => (
   <Container component="main" maxWidth="xs">
     <Box
       sx={{
@@ -64,8 +64,9 @@ const AddNewCottageForm = ({ handleChange, setFieldValue }) => (
               setFieldValue(e)
             }}
           />
+          {imagePreview ? <Image width={300} height={200} alt="image preview" src={imagePreview}></Image> : <></>}
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-            Change
+            Create
           </Button>
         </Form>
       </Formik>
