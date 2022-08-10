@@ -1,7 +1,7 @@
 package com.tim23.fishnchill.cottage.service;
 
-import com.tim23.fishnchill.cottage.CottageDto;
-import com.tim23.fishnchill.cottage.NewCottageDto;
+import com.tim23.fishnchill.cottage.dto.CottageDto;
+import com.tim23.fishnchill.cottage.dto.NewCottageDto;
 import com.tim23.fishnchill.cottage.model.Cottage;
 import com.tim23.fishnchill.cottage.repository.CottageRepository;
 import com.tim23.fishnchill.general.exception.ResourceNotFoundException;

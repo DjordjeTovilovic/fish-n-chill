@@ -1,17 +1,14 @@
 package com.tim23.fishnchill.reservation.service;
 
 import com.tim23.fishnchill.action.repository.CottageActionRepository;
-import com.tim23.fishnchill.cottage.CottageDto;
+import com.tim23.fishnchill.cottage.dto.CottageDto;
 import com.tim23.fishnchill.cottage.model.Cottage;
 import com.tim23.fishnchill.cottage.repository.CottageRepository;
 import com.tim23.fishnchill.general.exception.ResourceNotFoundException;
 import com.tim23.fishnchill.general.model.enums.UserResponseType;
 import com.tim23.fishnchill.general.service.DateService;
 import com.tim23.fishnchill.general.service.MailService;
-import com.tim23.fishnchill.reservation.dto.ClientCottageReservationDto;
-import com.tim23.fishnchill.reservation.dto.CottageReservationDto;
-import com.tim23.fishnchill.reservation.dto.DatePeriodDto;
-import com.tim23.fishnchill.reservation.dto.NewReservationDto;
+import com.tim23.fishnchill.reservation.dto.*;
 import com.tim23.fishnchill.reservation.model.CottageReservation;
 import com.tim23.fishnchill.reservation.repository.CottageReservationRepository;
 import com.tim23.fishnchill.user.repository.ClientRepository;
@@ -56,6 +53,18 @@ public class CottageReservationService {
                 reservation.setComplaintWritten(userResponseRepository.existsByReservationIdAndResponseType(reservation.getId(), UserResponseType.COMPLAINT));
             }
         }
+        return reservations;
+    }
+
+    public List<CottageOwnerCottageReservationDto> findAllPastCottageReservationForCottage(Long clientId) {
+        TypeToken<List<CottageOwnerCottageReservationDto>> typeToken = new TypeToken<>() {};
+        List<CottageOwnerCottageReservationDto> reservations;
+        reservations = modelMapper.map(cottageReservationRepository.
+                findAllByCottageIdAndReservationEndIsBeforeOrderByReservationStartDesc(clientId, LocalDateTime.now()), typeToken.getType());
+//        for (CottageOwnerCottageReservationDto reservation : reservations) {
+//            reservation.setRevisionWritten(userResponseRepository.existsByReservationIdAndResponseType(reservation.getId(), UserResponseType.REVISION));
+//            reservation.setComplaintWritten(userResponseRepository.existsByReservationIdAndResponseType(reservation.getId(), UserResponseType.COMPLAINT));
+//            }
         return reservations;
     }
 

@@ -1,6 +1,6 @@
 package com.tim23.fishnchill.reservation.dto;
 
-import com.tim23.fishnchill.cottage.CottageDto;
+import com.tim23.fishnchill.cottage.dto.CottageDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

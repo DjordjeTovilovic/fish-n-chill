@@ -19,8 +19,6 @@ public class ClientDto {
 
     private String username;
 
-    private String password;
-
     private String firstName;
 
     private String lastName;
@@ -45,7 +43,6 @@ public class ClientDto {
 
     public ClientDto(UserDto userDto, Integer penaltyCount) {
         this.id = userDto.getId();
-        this.password = userDto.getPassword();
         this.username = userDto.getUsername();
         this.firstName = userDto.getFirstName();
         this.lastName = userDto.getLastName();

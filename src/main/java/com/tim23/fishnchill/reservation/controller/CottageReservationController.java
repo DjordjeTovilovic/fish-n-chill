@@ -1,10 +1,7 @@
 package com.tim23.fishnchill.reservation.controller;
 
-import com.tim23.fishnchill.cottage.CottageDto;
-import com.tim23.fishnchill.reservation.dto.ClientCottageReservationDto;
-import com.tim23.fishnchill.reservation.dto.CottageReservationDto;
-import com.tim23.fishnchill.reservation.dto.DatePeriodDto;
-import com.tim23.fishnchill.reservation.dto.NewReservationDto;
+import com.tim23.fishnchill.cottage.dto.CottageDto;
+import com.tim23.fishnchill.reservation.dto.*;
 import com.tim23.fishnchill.reservation.service.CottageReservationService;
 import com.tim23.fishnchill.security.TokenUtils;
 import lombok.AllArgsConstructor;
@@ -41,6 +38,13 @@ public class CottageReservationController {
     @ResponseBody
     public List<CottageReservationDto> findAllCottageReservation(@PathVariable("cottageId") Long cottageId) {
         return cottageReservationService.findAllReservationsForCottage(cottageId);
+    }
+
+    @GetMapping("/cottages/{cottageId}/reservations/past")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<CottageOwnerCottageReservationDto> findAllPastCottageReservation(@PathVariable("cottageId") Long cottageId) {
+        return cottageReservationService.findAllPastCottageReservationForCottage(cottageId);
     }
 
     @PostMapping("/cottages/reservations")

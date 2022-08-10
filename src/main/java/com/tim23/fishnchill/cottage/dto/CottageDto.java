@@ -1,4 +1,4 @@
-package com.tim23.fishnchill.cottage;
+package com.tim23.fishnchill.cottage.dto;
 
 import com.tim23.fishnchill.general.dto.ImageDto;
 import com.tim23.fishnchill.reservation.dto.CottageReservationDto;

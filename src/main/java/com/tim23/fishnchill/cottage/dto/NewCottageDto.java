@@ -1,4 +1,4 @@
-package com.tim23.fishnchill.cottage;
+package com.tim23.fishnchill.cottage.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tim23.fishnchill.user.model.CottageOwner;

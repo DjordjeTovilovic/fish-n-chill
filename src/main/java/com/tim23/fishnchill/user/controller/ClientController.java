@@ -25,12 +25,9 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/api/clients", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ClientController {
-    @Autowired
     private ClientService clientService;
     private TokenUtils tokenUtils;
-    @Autowired
     private RatingService ratingService;
-
     private UserResponseService userResponseService;
 
     @GetMapping()
@@ -55,7 +52,7 @@ public class ClientController {
     }
 
     @PostMapping(value = "/rate")
-    public ResponseEntity<?> rate(@RequestBody RatingInfoDto ratingInfo) throws Exception {
+    public ResponseEntity<?> rate(@RequestBody RatingInfoDto ratingInfo) {
         ratingService.rate(ratingInfo);
         Map<String, String> result = new HashMap<>();
         result.put("result", "success");
@@ -64,13 +61,13 @@ public class ClientController {
 
     @PostMapping(value = "/writeComplaint")
     @ResponseBody
-    public UserResponseDto writeComplaint(@RequestBody UserResponseDtoInfo userResponseDtoInfo) throws Exception {
+    public UserResponseDto writeComplaint(@RequestBody UserResponseDtoInfo userResponseDtoInfo) {
         return userResponseService.writeComplaint(userResponseDtoInfo);
     }
 
     @PostMapping(value = "/writeRevision")
     @ResponseBody
-    public UserResponseDto writeRevision(@RequestBody UserResponseDtoInfo userResponseDtoInfo) throws Exception {
+    public UserResponseDto writeRevision(@RequestBody UserResponseDtoInfo userResponseDtoInfo) {
         return userResponseService.writeRevision(userResponseDtoInfo);
     }
 }

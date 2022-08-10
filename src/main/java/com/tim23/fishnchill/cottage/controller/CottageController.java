@@ -1,8 +1,8 @@
 package com.tim23.fishnchill.cottage.controller;
 
 
-import com.tim23.fishnchill.cottage.CottageDto;
-import com.tim23.fishnchill.cottage.NewCottageDto;
+import com.tim23.fishnchill.cottage.dto.CottageDto;
+import com.tim23.fishnchill.cottage.dto.NewCottageDto;
 import com.tim23.fishnchill.cottage.model.Cottage;
 import com.tim23.fishnchill.cottage.service.CottageService;
 import com.tim23.fishnchill.general.repository.ImageRepository;
