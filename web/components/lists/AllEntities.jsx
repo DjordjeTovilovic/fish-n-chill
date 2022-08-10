@@ -1,9 +1,9 @@
 import ActionsBar from 'components/shared/ActionsBar'
-import CottageList from '../shared/CottageList'
+import EntityList from '../shared/EntityList'
 import CottageSearch from '../shared/CottageSearch'
 
-const AllCottages = ({
-  cottages,
+const AllEntities = ({
+  entities,
   handleSearchFieldChange,
   handleSearchFilterChange,
   handleSortFilterChange,
@@ -19,9 +19,9 @@ const AllCottages = ({
         searchForDatePeriod={searchForDatePeriod}
       />
       {actionsExist && <ActionsBar entityType={'cottage'}></ActionsBar>}
-      <CottageList cottages={cottages} />
+      <EntityList entities={entities} />
     </>
   )
 }
 
-export default AllCottages
+export default AllEntities

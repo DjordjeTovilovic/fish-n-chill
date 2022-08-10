@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import AllCottages from '../../components/lists/AllCottages'
+import AllEntities from '../../components/lists/AllEntities'
 import cottageService from '../../services/cottage'
 import cottageActionService from 'services/cottagesAction'
 
@@ -64,8 +64,8 @@ const Cottages = () => {
 
   return (
     <>
-      <AllCottages
-        cottages={cottagesToShow}
+      <AllEntities
+        entities={cottagesToShow}
         handleSearchFieldChange={(e) => handleSearchFieldChange(e)}
         handleSearchFilterChange={(e) => handleSearchFilterChange(e)}
         handleSortFilterChange={(e) => handleSortFilterChange(e)}
