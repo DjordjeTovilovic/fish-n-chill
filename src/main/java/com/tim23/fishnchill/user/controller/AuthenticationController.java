@@ -43,11 +43,7 @@ public class AuthenticationController {
     private final CustomUserDetailsService userDetailsService;
     private final UserService userService;
     private final ClientService clientService;
-
-    @Autowired
     private MailService emailService;
-
-    @Autowired
     private VerificationTokenService verificationTokenService;
 
     // Prvi endpoint koji pogadja korisnik kada se loguje.

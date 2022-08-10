@@ -1,6 +1,7 @@
-package com.tim23.fishnchill.action.dto;
+package com.tim23.fishnchill.reservation.dto;
 
 import com.tim23.fishnchill.cottage.dto.CottageDto;
+import com.tim23.fishnchill.user.dto.ClientDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,20 +14,22 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CottageActionDto {
+public class CottageOwnerCottageReservationDto {
     private Long id;
+
+    private Integer numberOfGuests;
+
+    private BigDecimal price;
 
     private LocalDateTime reservationStart;
 
     private LocalDateTime reservationEnd;
 
-    private BigDecimal actionPrice;
+    private CottageDto cottage;
 
-    private BigDecimal actualPrice;
+    private ClientDto client;
 
-    private LocalDateTime actionEnd;
+    private boolean revisionWritten;
 
-    private Integer numberOfGuests;
-
-    private CottageDto entity;
+    private boolean complaintWritten;
 }

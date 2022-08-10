@@ -1,5 +1,6 @@
 package com.tim23.fishnchill.cottage;
 
+import com.tim23.fishnchill.cottage.dto.CottageDto;
 import com.tim23.fishnchill.cottage.model.Cottage;
 import com.tim23.fishnchill.cottage.repository.CottageRepository;
 import com.tim23.fishnchill.cottage.service.CottageService;

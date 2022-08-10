@@ -57,13 +57,13 @@ public class UserResponseService {
         return modelMapper.map(userResponseRepository.save(userResponse), UserResponseDto.class);
     }
 
-    public void approveAccountDeletionRequest(Long accDelReqId) throws InterruptedException {
+    public void approveAccountDeletionRequest(Long accDelReqId) {
         User user = userResponseRepository.getById(accDelReqId).getUser();
         mailService.sendAccountDeletionEmail(user);
         userResponseRepository.deleteById(accDelReqId);
     }
 
-    public void approveClientRevision(Long accDelReqId) throws InterruptedException {
+    public void approveClientRevision(Long accDelReqId) {
         User owner = userResponseRepository.getById(accDelReqId).getOwner();
         User client = userResponseRepository.getById(accDelReqId).getUser();
         String revision = userResponseRepository.getById(accDelReqId).getExplanation();
@@ -73,7 +73,7 @@ public class UserResponseService {
         userResponseRepository.deleteById(accDelReqId);
     }
 
-    public void answerClientComplaint(Long accDelReqId, String answer) throws InterruptedException {
+    public void answerClientComplaint(Long accDelReqId, String answer) {
         User owner = userResponseRepository.getById(accDelReqId).getOwner();
         User client = userResponseRepository.getById(accDelReqId).getUser();
         String complaint = userResponseRepository.getById(accDelReqId).getExplanation();
