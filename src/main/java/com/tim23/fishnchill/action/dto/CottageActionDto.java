@@ -16,15 +16,17 @@ import java.time.LocalDateTime;
 public class CottageActionDto {
     private Long id;
 
-    private Long cottageId;
-
     private LocalDateTime reservationStart;
 
     private LocalDateTime reservationEnd;
 
-    private BigDecimal price;
+    private BigDecimal actionPrice;
+
+    private BigDecimal actualPrice;
 
     private LocalDateTime actionEnd;
 
-    private CottageDto cottage;
+    private Integer numberOfGuests;
+
+    private CottageDto entity;
 }

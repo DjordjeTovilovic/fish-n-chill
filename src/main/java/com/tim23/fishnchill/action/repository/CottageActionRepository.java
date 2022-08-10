@@ -7,7 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface CottageActionRepository extends JpaRepository<CottageAction, Long> {
-    @Query("Select a from CottageAction a where a.actionEnd >= CURRENT_DATE")
+    @Query("Select a from CottageAction a where a.actionEnd >= CURRENT_DATE order by a.actionEnd asc")
     List<CottageAction> findAllActiveActions();
 
+    boolean existsBy();
 }

@@ -24,10 +24,14 @@ public class CottageAction {
 
     private LocalDateTime reservationEnd;
 
-    private BigDecimal price;
+    private BigDecimal actionPrice;
+
+    private BigDecimal actualPrice;
+
+    private Integer numberOfGuests;
 
     private LocalDateTime actionEnd;
 
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
-    private Cottage cottage;
+    private Cottage entity;
 }

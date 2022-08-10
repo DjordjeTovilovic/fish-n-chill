@@ -62,7 +62,7 @@ const ActiveReservations = ({ reservations, cancelReservation }) => {
             </Button>
             {dateUtils.daysBetween(new Date(), new Date(reservation.reservationStart)) < 3 && (
               <p style={{ color: 'red', width: '200px', fontSize: '10px', textAlign: 'center' }}>
-                You can't cancel the reservation less than 3 days before start or while it's active!
+                You can't cancel the reservation 3 or less days before start or while it's active!
                 {`(Today: ${new Date().toLocaleDateString('en-UK')})`}
               </p>
             )}

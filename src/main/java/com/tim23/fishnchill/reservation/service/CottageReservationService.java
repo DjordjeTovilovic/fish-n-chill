@@ -1,5 +1,6 @@
 package com.tim23.fishnchill.reservation.service;
 
+import com.tim23.fishnchill.action.repository.CottageActionRepository;
 import com.tim23.fishnchill.cottage.CottageDto;
 import com.tim23.fishnchill.cottage.model.Cottage;
 import com.tim23.fishnchill.cottage.repository.CottageRepository;
@@ -35,6 +36,7 @@ public class CottageReservationService {
     private DateService dateService;
     private MailService emailService;
     private UserResponseRepository userResponseRepository;
+    private CottageActionRepository cottageActionRepository;
 
 
     public List<CottageReservationDto> findAll() {
@@ -76,7 +78,8 @@ public class CottageReservationService {
         cottageReservation.setReservationEnd(newReservationDto.getReservationEnd());
         cottageReservation.setCottage(cottageRepository.getById(newReservationDto.getEntityId()));
         cottageReservation.setClient(clientRepository.getById(newReservationDto.getClientId()));
-
+        if(newReservationDto.getActionId()!=null)
+            cottageActionRepository.deleteById(newReservationDto.getActionId());
         try {
             emailService.sendCottageReservationEmail(cottageReservation.getClient(), cottageReservation);
         } catch (InterruptedException e) {
