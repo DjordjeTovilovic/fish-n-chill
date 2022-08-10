@@ -12,11 +12,11 @@ public class VerificationTokenService {
     @Autowired
     private VerificationTokenRepository verificationTokenRepository;
 
-    public void DeleteTokenByUser(Client client){
+    public void DeleteTokenByUser(Client client) {
         verificationTokenRepository.delete(verificationTokenRepository.findByClient(client));
     }
 
-    public VerificationToken findByToken(String name){
+    public VerificationToken findByToken(String name) {
         return verificationTokenRepository.findByToken(name);
     }
 

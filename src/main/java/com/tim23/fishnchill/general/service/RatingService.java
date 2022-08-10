@@ -22,14 +22,14 @@ public class RatingService {
     private ModelMapper modelMapper;
     private BaseEntityRepository baseEntityRepository;
 
-    public List<RatingDto> getAllRatingsByClientId (Long clientId){
+    public List<RatingDto> getAllRatingsByClientId(Long clientId) {
         TypeToken<List<RatingDto>> typeToken = new TypeToken<>() {};
         return modelMapper.map(ratingRepository.findByClientId(clientId), typeToken.getType());
     }
 
 
     public void rate(RatingInfoDto ratingInfo) {
-        if(ratingRepository.existsByClientIdAndEntityId(ratingInfo.getClient_id(), ratingInfo.getEntity_id()))
+        if (ratingRepository.existsByClientIdAndEntityId(ratingInfo.getClient_id(), ratingInfo.getEntity_id()))
             ratingRepository.updateRateEntity(ratingInfo.getRating(), ratingInfo.getClient_id(), ratingInfo.getEntity_id());
         else
             ratingRepository.rateEntity(ratingInfo.getRating(), ratingInfo.getClient_id(), ratingInfo.getEntity_id());

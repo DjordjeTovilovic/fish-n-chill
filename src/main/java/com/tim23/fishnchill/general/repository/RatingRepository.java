@@ -10,8 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface RatingRepository extends JpaRepository<Rating, Long> {
-    List<Rating> findByClientId (Long clientId);
-    boolean existsByClientIdAndEntityId (Long clientId, Long entityId);
+    List<Rating> findByClientId(Long clientId);
+
+    boolean existsByClientIdAndEntityId(Long clientId, Long entityId);
 
     @Query("select avg(r.rating) from Rating r where r.entity.id= :entityId")
     Float getRatingAverageForEntity(@Param("entityId") Long entityId);

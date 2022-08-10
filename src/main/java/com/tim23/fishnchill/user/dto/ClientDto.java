@@ -43,7 +43,7 @@ public class ClientDto {
 
     private Boolean deleteRequest;
 
-    public ClientDto(UserDto userDto, Integer penaltyCount){
+    public ClientDto(UserDto userDto, Integer penaltyCount) {
         this.id = userDto.getId();
         this.password = userDto.getPassword();
         this.username = userDto.getUsername();

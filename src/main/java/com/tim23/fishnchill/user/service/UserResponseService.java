@@ -27,7 +27,7 @@ public class UserResponseService {
     private BaseEntityRepository baseEntityRepository;
     private MailService mailService;
 
-    public UserResponseDto deleteAccountRequest (UserResponseDtoInfo userResponseDtoInfo){
+    public UserResponseDto deleteAccountRequest(UserResponseDtoInfo userResponseDtoInfo) {
         UserResponse userResponse = new UserResponse();
         userResponse.setExplanation(userResponseDtoInfo.getExplanation());
         userResponse.setUser(userRepository.getById(userResponseDtoInfo.getUserId()));
@@ -62,7 +62,8 @@ public class UserResponseService {
         mailService.sendAccountDeletionEmail(user);
         userResponseRepository.deleteById(accDelReqId);
     }
-    public void approveClientRevision(Long accDelReqId) throws InterruptedException{
+
+    public void approveClientRevision(Long accDelReqId) throws InterruptedException {
         User owner = userResponseRepository.getById(accDelReqId).getOwner();
         User client = userResponseRepository.getById(accDelReqId).getUser();
         String revision = userResponseRepository.getById(accDelReqId).getExplanation();
@@ -71,7 +72,8 @@ public class UserResponseService {
         mailService.sendClientRevisionEmail(owner, client, revision, entity, reservation);
         userResponseRepository.deleteById(accDelReqId);
     }
-    public void answerClientComplaint(Long accDelReqId, String answer) throws InterruptedException{
+
+    public void answerClientComplaint(Long accDelReqId, String answer) throws InterruptedException {
         User owner = userResponseRepository.getById(accDelReqId).getOwner();
         User client = userResponseRepository.getById(accDelReqId).getUser();
         String complaint = userResponseRepository.getById(accDelReqId).getExplanation();

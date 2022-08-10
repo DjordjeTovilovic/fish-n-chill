@@ -81,25 +81,24 @@ public class AuthenticationController {
         if (existUser != null) {
             throw new ResourceConflictException("User already registered on this username!");
         }
-        if(registrationDTO.getRole().equalsIgnoreCase("client")){
+        if (registrationDTO.getRole().equalsIgnoreCase("client")) {
             Client client = this.clientService.save(registrationDTO);
             VerificationToken verificationToken = new VerificationToken(String.valueOf(UUID.randomUUID()), client);
             this.verificationTokenService.save(verificationToken);
             try {
                 emailService.sendVerificationEmail(verificationToken);
-            }catch( Exception e ){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return new ResponseEntity<>(client, HttpStatus.CREATED);
-        }
-        else{
+        } else {
             User user = this.userService.save(registrationDTO);
             return new ResponseEntity<>(null, HttpStatus.CREATED);
         }
     }
 
-    @RequestMapping(value="/verify-account", method= {RequestMethod.GET, RequestMethod.POST})
-    public ResponseEntity<User> confirmUserAccount(@RequestParam("token")String verificationToken) throws Exception {
+    @RequestMapping(value = "/verify-account", method = {RequestMethod.GET, RequestMethod.POST})
+    public ResponseEntity<User> confirmUserAccount(@RequestParam("token") String verificationToken) throws Exception {
         VerificationToken token = verificationTokenService.findByToken(verificationToken);
         if (token == null) {
             URI frontend = new URI("http://localhost:3000/signup/invalid/");

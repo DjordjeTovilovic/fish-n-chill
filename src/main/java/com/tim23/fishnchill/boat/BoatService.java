@@ -16,7 +16,7 @@ public class BoatService {
     private BoatRepository boatRepository;
     private ModelMapper modelMapper;
 
-    public Boat update(BoatDto newBoat){
+    public Boat update(BoatDto newBoat) {
         Boat boat = boatRepository.getById(newBoat.getId());
         modelMapper.map(newBoat, boat);
         return boatRepository.save(boat);

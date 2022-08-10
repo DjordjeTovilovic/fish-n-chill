@@ -48,7 +48,7 @@ public class ClientService {
     }
 
     public Client saveClient(Client c) {
-       return this.clientRepository.save(c);
+        return this.clientRepository.save(c);
     }
 
     public Client save(RegistrationDto registrationDTO) {

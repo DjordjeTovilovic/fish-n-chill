@@ -26,7 +26,7 @@ public class CottageService {
     private ImageRepository imageRepository;
     private CottageOwnerRepository cottageOwnerRepository;
 
-    public Cottage addNewCottageForOwner(Long ownerId, NewCottageDto newCottageDto){
+    public Cottage addNewCottageForOwner(Long ownerId, NewCottageDto newCottageDto) {
 
         CottageOwner cottageOwner = cottageOwnerRepository.getById(ownerId);
 
@@ -43,12 +43,12 @@ public class CottageService {
         return cottage;
     }
 
-    public Cottage save(Cottage cottage){
+    public Cottage save(Cottage cottage) {
 
         return cottageRepository.save(cottage);
     }
 
-    public void remove(Long id){;
+    public void remove(Long id) {
         cottageRepository.deleteById(id);
     }
 

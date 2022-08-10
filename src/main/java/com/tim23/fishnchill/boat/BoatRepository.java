@@ -7,8 +7,11 @@ import java.util.List;
 
 public interface BoatRepository extends JpaRepository<Boat, Long> {
     List<Boat> findByNameContainingIgnoreCase(String name);
+
     List<Boat> findByDescriptionContainingIgnoreCase(String description);
+
     List<Boat> findByAddressContainingIgnoreCase(String Address);
+
     List<Boat> findByNameContainingIgnoreCaseOrAddressContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String name, String address, String description);
 
 }

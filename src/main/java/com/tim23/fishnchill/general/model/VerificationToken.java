@@ -13,7 +13,7 @@ public class VerificationToken {
     private static final int EXPIRATION = 60 * 24;
 
     @Id
-    @Column(name="client_id")
+    @Column(name = "client_id")
     private Long id;
 
     private String token;
@@ -26,9 +26,9 @@ public class VerificationToken {
     private Date expiryDate;
 
     public VerificationToken(String token, Client client) {
-        this.token=token;
-        this.client=client;
-        this.expiryDate=calculateExpiryDate(180);
+        this.token = token;
+        this.client = client;
+        this.expiryDate = calculateExpiryDate(180);
     }
 
     public VerificationToken() {

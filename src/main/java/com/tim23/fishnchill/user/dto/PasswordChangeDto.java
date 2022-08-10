@@ -19,9 +19,9 @@ public class PasswordChangeDto {
 
     private String role;
 
-    public void printInfo(){
+    public void printInfo() {
         System.out.println(
-                        "opw: " + this.oldPassword +
+                "opw: " + this.oldPassword +
                         "\nnpw: " + this.newPassword +
                         "\nrole: " + this.role);
     }

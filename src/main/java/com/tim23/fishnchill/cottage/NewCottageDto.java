@@ -24,7 +24,7 @@ public class NewCottageDto {
 
     private LocalDateTime availabilityEnd;
 
-        private BigDecimal price;
+    private BigDecimal price;
 
     private Integer capacity;
     @JsonIgnore

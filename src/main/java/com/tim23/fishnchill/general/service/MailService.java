@@ -76,7 +76,7 @@ public class MailService {
                 + "Address: " + reservation.getCottage().getAddress() + "\n"
                 + "Number of guests: " + reservation.getNumberOfGuests() + "\n"
                 + "Price: " + reservation.getPrice() + "€\n"
-                );
+        );
         javaMailSender.send(mail);
 
         System.out.println("Reservation Email sent!");
@@ -135,7 +135,7 @@ public class MailService {
         System.out.println("Client revision Email sent!");
     }
 
-    public void sendAnswerToClientComplaintEmail(User owner, User client,String answer, String complaint, BaseEntity entity, Reservation reservation) throws MailException {
+    public void sendAnswerToClientComplaintEmail(User owner, User client, String answer, String complaint, BaseEntity entity, Reservation reservation) throws MailException {
         System.out.println("Sending client complaint answer email...");
 
         SimpleMailMessage mail = new SimpleMailMessage();
@@ -144,7 +144,7 @@ public class MailService {
         mail.setFrom(email);
         mail.setSubject("Client revision");
         mail.setText("Hello client " + client.getFirstName() + " " + client.getLastName() + ",\n"
-                + "And hello owner "+ owner.getFirstName() + " " + owner.getLastName() + ",\n\n"
+                + "And hello owner " + owner.getFirstName() + " " + owner.getLastName() + ",\n\n"
                 + "(This email is sent to both sides, the client and the owner)" + "\n"
                 + "A client has written a complaint for one of the owners entities or services." + "\n\n"
                 + "COMPLAINT:" + "\n"

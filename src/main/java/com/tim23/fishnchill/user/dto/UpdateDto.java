@@ -31,7 +31,7 @@ public class UpdateDto {
 
     private String role;
 
-    public void printInfo(){
+    public void printInfo() {
         System.out.println(
                 "username: " + this.username +
                         "\nfn: " + this.firstName +

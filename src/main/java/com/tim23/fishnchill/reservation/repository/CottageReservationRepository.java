@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface CottageReservationRepository extends JpaRepository<CottageReservation, Long> {
     List<CottageReservation> findAllByClientIdAndReservationEndIsBeforeOrderByReservationStartDesc(Long id, LocalDateTime date);
+
     List<CottageReservation> findAllByClientIdAndReservationEndIsAfterOrderByReservationStartAsc(Long id, LocalDateTime date);
+
     List<CottageReservation> findAllByCottageId(Long id);
 }

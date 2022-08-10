@@ -28,12 +28,12 @@ public class Client extends User {
     private Set<Rating> ratings;
 
 
-    public Client(User u){
+    public Client(User u) {
         super(u);
-        this.penaltyCount=0;
+        this.penaltyCount = 0;
     }
 
-    public void printInfo(){
+    public void printInfo() {
         System.out.println(
                 "username: " + this.getUsername() +
                         "\nfn: " + this.getFirstName() +
@@ -45,13 +45,16 @@ public class Client extends User {
                         "\nphone: " + this.getPhoneNumber() +
                         "\npenalty: " + this.getPenaltyCount());
     }
+
     public Integer getPenaltyCount() {
         return this.penaltyCount;
     }
 
     public void setPenaltyCount(int i) {
-        this.penaltyCount=i;
+        this.penaltyCount = i;
     }
 
-    public Set<Rating> getRatings() {return this.ratings;}
+    public Set<Rating> getRatings() {
+        return this.ratings;
+    }
 }

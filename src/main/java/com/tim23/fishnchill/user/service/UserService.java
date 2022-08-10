@@ -64,15 +64,15 @@ public class UserService {
         // TODO-treba napraviti dio za request ownera koji se salje adminu
         u.setEnabled(true);
         List<Authority> auth;
-        if(registrationDTO.getRole().equalsIgnoreCase("cottage_owner")){
+        if (registrationDTO.getRole().equalsIgnoreCase("cottage_owner")) {
             auth = authService.findByName("ROLE_COTTAGE_OWNER");
             u.setAuthorities(auth);
         }
-        if(registrationDTO.getRole().equalsIgnoreCase("boat_owner")){
+        if (registrationDTO.getRole().equalsIgnoreCase("boat_owner")) {
             auth = authService.findByName("ROLE_BOAT_OWNER");
             u.setAuthorities(auth);
         }
-        if(registrationDTO.getRole().equalsIgnoreCase("adventure_owner")){
+        if (registrationDTO.getRole().equalsIgnoreCase("adventure_owner")) {
             auth = authService.findByName("ROLE_ADVENTURE_OWNER");
             u.setAuthorities(auth);
         }
