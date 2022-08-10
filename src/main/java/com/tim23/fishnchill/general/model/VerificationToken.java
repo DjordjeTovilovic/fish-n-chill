@@ -1,13 +1,11 @@
 package com.tim23.fishnchill.general.model;
 
 import com.tim23.fishnchill.user.model.Client;
-import com.tim23.fishnchill.user.model.User;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
-
-import javax.persistence.*;
 
 @Entity
 public class VerificationToken {

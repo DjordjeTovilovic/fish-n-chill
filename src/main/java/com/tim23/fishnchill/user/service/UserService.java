@@ -6,9 +6,7 @@ import com.tim23.fishnchill.user.dto.RegistrationDto;
 import com.tim23.fishnchill.user.dto.UpdateDto;
 import com.tim23.fishnchill.user.dto.UserDto;
 import com.tim23.fishnchill.user.model.Authority;
-import com.tim23.fishnchill.user.model.Client;
 import com.tim23.fishnchill.user.model.User;
-import com.tim23.fishnchill.user.model.UserResponse;
 import com.tim23.fishnchill.user.repository.UserRepository;
 import com.tim23.fishnchill.user.repository.UserResponseRepository;
 import lombok.AllArgsConstructor;
@@ -20,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Service

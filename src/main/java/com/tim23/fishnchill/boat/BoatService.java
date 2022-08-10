@@ -1,8 +1,6 @@
 package com.tim23.fishnchill.boat;
 
 import com.tim23.fishnchill.boat.model.Boat;
-import com.tim23.fishnchill.cottage.CottageDto;
-import com.tim23.fishnchill.cottage.model.Cottage;
 import com.tim23.fishnchill.general.exception.ResourceNotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;

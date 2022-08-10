@@ -1,7 +1,6 @@
 package com.tim23.fishnchill.cottage.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tim23.fishnchill.action.model.CottageAction;
 import com.tim23.fishnchill.general.model.BaseEntity;
 import com.tim23.fishnchill.reservation.model.CottageReservation;

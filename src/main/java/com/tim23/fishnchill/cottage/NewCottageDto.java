@@ -1,15 +1,12 @@
 package com.tim23.fishnchill.cottage;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tim23.fishnchill.cottage.model.Cottage;
-import com.tim23.fishnchill.general.dto.ImageDto;
 import com.tim23.fishnchill.user.model.CottageOwner;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Getter
 @Setter

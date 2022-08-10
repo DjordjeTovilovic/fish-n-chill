@@ -1,10 +1,8 @@
 package com.tim23.fishnchill.general.service;
 
-import com.tim23.fishnchill.cottage.CottageDto;
 import com.tim23.fishnchill.general.dto.RatingDto;
 import com.tim23.fishnchill.general.dto.RatingInfoDto;
 import com.tim23.fishnchill.general.model.BaseEntity;
-import com.tim23.fishnchill.general.model.Rating;
 import com.tim23.fishnchill.general.repository.BaseEntityRepository;
 import com.tim23.fishnchill.general.repository.RatingRepository;
 import com.tim23.fishnchill.user.repository.ClientRepository;

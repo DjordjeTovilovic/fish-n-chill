@@ -1,10 +1,7 @@
 package com.tim23.fishnchill.cottage;
 
 import com.tim23.fishnchill.general.dto.ImageDto;
-import com.tim23.fishnchill.general.dto.RatingDto;
-import com.tim23.fishnchill.general.model.Rating;
 import com.tim23.fishnchill.reservation.dto.CottageReservationDto;
-import com.tim23.fishnchill.reservation.model.CottageReservation;
 import com.tim23.fishnchill.user.model.CottageOwner;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

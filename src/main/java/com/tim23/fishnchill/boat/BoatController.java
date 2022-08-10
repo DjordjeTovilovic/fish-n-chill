@@ -1,6 +1,5 @@
 package com.tim23.fishnchill.boat;
 
-import com.tim23.fishnchill.cottage.CottageDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

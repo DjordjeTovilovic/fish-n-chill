@@ -5,7 +5,6 @@ import com.tim23.fishnchill.cottage.CottageDto;
 import com.tim23.fishnchill.cottage.NewCottageDto;
 import com.tim23.fishnchill.cottage.model.Cottage;
 import com.tim23.fishnchill.cottage.service.CottageService;
-import com.tim23.fishnchill.general.model.Image;
 import com.tim23.fishnchill.general.repository.ImageRepository;
 import com.tim23.fishnchill.reservation.dto.DatePeriodDto;
 import com.tim23.fishnchill.reservation.service.CottageReservationService;
@@ -17,14 +16,10 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @AllArgsConstructor
 @RestController

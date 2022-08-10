@@ -5,7 +5,10 @@ import com.tim23.fishnchill.general.model.VerificationToken;
 import com.tim23.fishnchill.general.service.MailService;
 import com.tim23.fishnchill.general.service.VerificationTokenService;
 import com.tim23.fishnchill.security.TokenUtils;
-import com.tim23.fishnchill.user.dto.*;
+import com.tim23.fishnchill.user.dto.LoginDto;
+import com.tim23.fishnchill.user.dto.RegistrationDto;
+import com.tim23.fishnchill.user.dto.UserDto;
+import com.tim23.fishnchill.user.dto.UserTokenStateDto;
 import com.tim23.fishnchill.user.model.Client;
 import com.tim23.fishnchill.user.model.User;
 import com.tim23.fishnchill.user.service.ClientService;
@@ -17,7 +20,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,8 +30,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 //Kontroler zaduzen za autentifikaciju korisnika
