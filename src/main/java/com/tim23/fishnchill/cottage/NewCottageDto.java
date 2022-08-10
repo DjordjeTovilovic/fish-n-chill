@@ -21,7 +21,7 @@ public class NewCottageDto {
 
     private String description;
 
-    private String image;
+    private String image = "";
 
     private LocalDateTime availabilityStart;
 

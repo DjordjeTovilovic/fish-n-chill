@@ -3,6 +3,8 @@ package com.tim23.fishnchill.cottage;
 import com.tim23.fishnchill.cottage.model.Cottage;
 import com.tim23.fishnchill.cottage.repository.CottageRepository;
 import com.tim23.fishnchill.cottage.service.CottageService;
+import com.tim23.fishnchill.general.repository.ImageRepository;
+import com.tim23.fishnchill.user.repository.CottageOwnerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,10 +25,12 @@ class CottageServiceUnitTest {
     @Mock
     private ModelMapper modelMapper;
     private CottageService cottageService;
+    private ImageRepository imageRepository;
+    private CottageOwnerRepository cottageOwnerRepository;
 
     @BeforeEach
     void setUp() {
-        cottageService = new CottageService(cottageRepository, modelMapper);
+        cottageService = new CottageService(cottageRepository, modelMapper, imageRepository, cottageOwnerRepository);
     }
 
     @Test
