@@ -58,13 +58,20 @@ const AddNewCottageForm = ({ handleChange, setFieldValue, imagePreview, handleCh
           />
           <input value="TV" name="TV" type="checkbox" onChange={handleCheckBox} />
           TV
-          <input value="AC" name="AirCondition" type="checkbox" onChange={handleCheckBox} />
+          <input style={{ marginLeft: 15 }} value="AC" name="AirCondition" type="checkbox" onChange={handleCheckBox} />
           Air Condition
-          <input value="petFriendly" name="petFriendly" type="checkbox" onChange={handleCheckBox} />
+          <input
+            style={{ marginLeft: 15 }}
+            value="petFriendly"
+            name="petFriendly"
+            type="checkbox"
+            onChange={handleCheckBox}
+          />
           Pet Friendly
-          <input value="wifi" name="wifi" type="checkbox" onChange={handleCheckBox} />
+          <input style={{ marginLeft: 15 }} value="wifi" name="wifi" type="checkbox" onChange={handleCheckBox} />
           WiFi
           <input
+            style={{ marginTop: 15 }}
             id="file"
             name="file"
             type="file"
