@@ -11,13 +11,8 @@ const getAllActiveCottageReservationsForClient = async () => {
   return res.data
 }
 
-const getAllPastCottageReservationsForCottage = async (id) => {
+const getAllPastReservationsForCottage = async (id) => {
   const res = await axios.get(baseUrl + `cottages/${id}/reservations/past`)
-  return res.data
-}
-
-const getAllActiveCottageReservationsForCottage = async (id) => {
-  const res = await axios.get(baseUrl + `cottages/${id}/reservations/active`)
   return res.data
 }
 
@@ -44,8 +39,7 @@ const cancelReservation = async (id) => {
 const reservationService = {
   getAllPastCottageReservationsForClient,
   getAllActiveCottageReservationsForClient,
-  getAllPastCottageReservationsForCottage,
-  getAllActiveCottageReservationsForCottage,
+  getAllPastReservationsForCottage,
   scheduleCottageReservation,
   scheduleBoatReservation,
   scheduleAdventureReservation,

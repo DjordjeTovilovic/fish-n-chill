@@ -108,19 +108,19 @@ const CottagePastReservations = ({
       {reservations.map((reservation) => (
         <>
           <Card sx={{ my: 3, display: 'flex', width: '95%', height: '170px' }} key={reservation.id}>
-            <CardMedia component="img" sx={{ width: 170, height: '100%' }} image={reservation.cottage.images[0].url} />
+            <CardMedia component="img" sx={{ width: 170, height: '100%' }} image={reservation.entity.images[0].url} />
             <CardContent sx={{ display: 'flex', flexDirection: 'column', ml: 3, maxWidth: '30%' }}>
               <Typography borderBottom={1} gutterBottom variant="h5" align="left">
                 COTTAGE
               </Typography>
               <Typography gutterBottom align="left">
-                Name: {reservation.cottage.name}
+                Name: {reservation.entity.name}
               </Typography>
               <Typography gutterBottom align="left">
-                Address: {reservation.cottage.address}
+                Address: {reservation.entity.address}
               </Typography>
               <Typography gutterBottom align="left">
-                Price: {reservation.cottage.price}€/day
+                Price: {reservation.entity.price}€/day
               </Typography>
             </CardContent>
             <CardContent sx={{ display: 'flex', flexDirection: 'column', maxWidth: '30%' }}>
@@ -150,9 +150,9 @@ const CottagePastReservations = ({
                 onClick={() =>
                   changeRevisionModalState(
                     reservation.clientId,
-                    reservation.cottage.id,
+                    reservation.entity.id,
                     reservation.id,
-                    reservation.cottage.owner.id
+                    reservation.entity.owner.id
                   )
                 }
               >
