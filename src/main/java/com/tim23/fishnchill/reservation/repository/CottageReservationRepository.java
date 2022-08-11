@@ -11,8 +11,8 @@ public interface CottageReservationRepository extends JpaRepository<CottageReser
 
     List<CottageReservation> findAllByClientIdAndReservationEndIsAfterOrderByReservationStartAsc(Long id, LocalDateTime date);
 
-    List<CottageReservation> findAllByCottageId(Long id);
+    List<CottageReservation> findAllByEntityId(Long id);
 
-    List<CottageReservation> findAllByCottageIdAndReservationEndIsBeforeOrderByReservationStartDesc(Long id, LocalDateTime date);
+    List<CottageReservation> findAllByEntityIdAndReservationEndIsBeforeOrderByReservationStartDesc(Long id, LocalDateTime date);
 
 }

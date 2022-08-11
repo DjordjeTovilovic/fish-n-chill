@@ -8,6 +8,7 @@ const EntitySearch = ({
   handleSearchFilterChange,
   handleSortFilterChange,
   searchForDatePeriod,
+  sortFilterItems,
 }) => {
   return (
     <Box
@@ -26,7 +27,7 @@ const EntitySearch = ({
         handleSearchFieldChange={handleSearchFieldChange}
         handleSearchFilterChange={handleSearchFilterChange}
       />
-      <SortFilter handleSortFilterChange={handleSortFilterChange} />
+      <SortFilter handleSortFilterChange={handleSortFilterChange} sortFilterItems={sortFilterItems} />
     </Box>
   )
 }

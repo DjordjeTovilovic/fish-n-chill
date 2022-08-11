@@ -4,7 +4,7 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 
-const SortFilter = ({ handleSortFilterChange, sortFilterItems }) => {
+const ReservationsSortFilter = ({ handleSortFilterChange }) => {
   return (
     <>
       <FormControl variant="outlined" sx={{ mr: 0, ml: 10, flex: 1, maxWidth: '10%' }}>
@@ -17,16 +17,14 @@ const SortFilter = ({ handleSortFilterChange, sortFilterItems }) => {
           label="Sort by"
           onChange={(e) => handleSortFilterChange(e)}
         >
-          {sortFilterItems.map((filter) => (
-            <MenuItem value={filter.toLowerCase()} key={filter}>
-              {filter}
-            </MenuItem>
-          ))}
+          <MenuItem value={'price'}>Price</MenuItem>
+          <MenuItem value={'duration'}>Rating</MenuItem>
+          <MenuItem value={'name'}>Name</MenuItem>
+          <MenuItem value={'address'}>Address</MenuItem>
         </Select>
       </FormControl>
       <Box sx={{ minWidth: 120 }}></Box>
     </>
   )
 }
-
-export default SortFilter
+export default ReservationsSortFilter

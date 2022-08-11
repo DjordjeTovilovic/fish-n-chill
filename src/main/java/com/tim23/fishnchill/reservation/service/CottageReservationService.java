@@ -60,7 +60,7 @@ public class CottageReservationService {
         TypeToken<List<CottageOwnerCottageReservationDto>> typeToken = new TypeToken<>() {};
         List<CottageOwnerCottageReservationDto> reservations;
         reservations = modelMapper.map(cottageReservationRepository.
-                findAllByCottageIdAndReservationEndIsBeforeOrderByReservationStartDesc(clientId, LocalDateTime.now()), typeToken.getType());
+                findAllByEntityIdAndReservationEndIsBeforeOrderByReservationStartDesc(clientId, LocalDateTime.now()), typeToken.getType());
 //        for (CottageOwnerCottageReservationDto reservation : reservations) {
 //            reservation.setRevisionWritten(userResponseRepository.existsByReservationIdAndResponseType(reservation.getId(), UserResponseType.REVISION));
 //            reservation.setComplaintWritten(userResponseRepository.existsByReservationIdAndResponseType(reservation.getId(), UserResponseType.COMPLAINT));
@@ -70,7 +70,7 @@ public class CottageReservationService {
 
     public List<CottageReservationDto> findAllReservationsForCottage(Long cottageId) {
         TypeToken<List<CottageReservationDto>> typeToken = new TypeToken<>() {};
-        return modelMapper.map(cottageReservationRepository.findAllByCottageId(cottageId), typeToken.getType());
+        return modelMapper.map(cottageReservationRepository.findAllByEntityId(cottageId), typeToken.getType());
     }
 
     public CottageReservationDto findById(Long id) {
@@ -85,7 +85,7 @@ public class CottageReservationService {
         cottageReservation.setNumberOfGuests(newReservationDto.getNumberOfGuests());
         cottageReservation.setReservationStart(newReservationDto.getReservationStart());
         cottageReservation.setReservationEnd(newReservationDto.getReservationEnd());
-        cottageReservation.setCottage(cottageRepository.getById(newReservationDto.getEntityId()));
+        cottageReservation.setEntity(cottageRepository.getById(newReservationDto.getEntityId()));
         cottageReservation.setClient(clientRepository.getById(newReservationDto.getClientId()));
         if (newReservationDto.getActionId() != null)
             cottageActionRepository.deleteById(newReservationDto.getActionId());

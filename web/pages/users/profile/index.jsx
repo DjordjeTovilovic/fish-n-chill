@@ -5,14 +5,13 @@ import userService from 'services/user'
 
 const User = () => {
   const [user, setUser] = useState({})
-
+  const [clientResponse, setClientResponse] = useState({
+    userId: null,
+    explanation: '',
+  })
   const handleDelete = async () => {
-    const deleteRequest = {
-      userId: user.id,
-      explanation: 'reason',
-    }
     userService
-      .deleteAccountRequest(deleteRequest)
+      .deleteAccountRequest(clientResponse)
       .then(() => alert('Account deletion request issued. You will be informed when it gets deleted!'))
       .catch((err) => console.log(err))
   }
@@ -30,7 +29,7 @@ const User = () => {
   }
   return (
     <>
-      <UserProfile user={user} handleDelete={handleDelete}></UserProfile>
+      <UserProfile user={user} handleDelete={handleDelete} setClientResponse={setClientResponse}></UserProfile>
     </>
   )
 }

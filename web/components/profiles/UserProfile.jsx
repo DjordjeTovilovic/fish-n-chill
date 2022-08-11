@@ -1,9 +1,9 @@
 // @ts-nocheck
-import { Box, Divider, Typography, Container, Paper, Button } from '@mui/material'
+import { Box, Divider, Typography, Container, Paper, Button, TextField } from '@mui/material'
 import Modal from 'components/modal/Modal'
 import { useState } from 'react'
 
-const UserProfile = ({ user, handleDelete }) => {
+const UserProfile = ({ user, handleDelete, setClientResponse }) => {
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   const changeModalState = () => setIsOpenModal(!isOpenModal)
@@ -11,6 +11,14 @@ const UserProfile = ({ user, handleDelete }) => {
   const deleteModalContent = (
     <>
       <h3>Are you sure you want to delete your account?</h3>
+      <TextField
+        id="outlined-multiline-static"
+        label="Account deletion explanation"
+        multiline
+        rows={10}
+        sx={{ minWidth: '500px', mb: 3 }}
+        onChange={(e) => setClientResponse((prevState) => ({ userId: user.id, explanation: e.target.value }))}
+      />
       <Button onClick={handleDelete} variant="contained" color="error">
         Request account deletion
       </Button>
