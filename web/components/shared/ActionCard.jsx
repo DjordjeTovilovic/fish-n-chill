@@ -113,16 +113,18 @@ const ActionCard = ({ action, scheduleAction }) => {
             <Button size="small" href={'/cottages/' + action.entity.id} variant="contained">
               View
             </Button>
-            <Button
-              size="small"
-              color="warning"
-              disabled={!(penalty < 3 && window.localStorage.getItem('role') === 'ROLE_CLIENT')}
-              onClick={() => scheduleAction(action)}
-              variant="contained"
-              style={{ marginLeft: 40 }}
-            >
-              Schedule action
-            </Button>
+            {window.localStorage.getItem('role') === 'ROLE_CLIENT' && (
+              <Button
+                size="small"
+                color="warning"
+                disabled={penalty >= 3}
+                onClick={() => scheduleAction(action)}
+                variant="contained"
+                style={{ marginLeft: 40 }}
+              >
+                Schedule action
+              </Button>
+            )}
           </CardActions>
         </Box>
       </Card>

@@ -6,7 +6,7 @@ INSERT INTO USERS (username, password, first_name, last_name, email, enabled, la
 INSERT INTO USERS (username, password, first_name, last_name, email, enabled, last_password_reset_date) VALUES ('boatUser', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Boto', 'Botic', 'boatUser@example.com', true, '2017-10-01 21:58:58.508-07');
 INSERT INTO USERS (username, password, first_name, last_name, email, enabled, last_password_reset_date) VALUES ('adventureUser', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Advo', 'Advic', 'adventureUser@example.com', true, '2017-10-01 21:58:58.508-07');
 INSERT INTO USERS (username, password, first_name, last_name, email, enabled, last_password_reset_date) VALUES ('admin', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Nikola', 'Nikolic', 'admin@example.com', true, '2017-10-01 18:57:58.508-07');
-INSERT INTO USERS (username, password, first_name, last_name, email, address, city, country, phone_number, enabled, last_password_reset_date) VALUES ('user2', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'keko', 'kekic', 'user@example.com', 'Bul. Despota Stefana 7', 'Novi Sad', 'Serbia', '+381665059512', true, '2017-10-01 21:58:58.508-07');
+INSERT INTO USERS (username, password, first_name, last_name, email, address, city, country, phone_number, enabled, last_password_reset_date) VALUES ('user2', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'keko', 'kekic', 'topicsrdjan99@gmail.com', 'Bul. Despota Stefana 7', 'Novi Sad', 'Serbia', '+381665059512', true, '2017-10-01 21:58:58.508-07');
 
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_CLIENT');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_COTTAGE_OWNER');

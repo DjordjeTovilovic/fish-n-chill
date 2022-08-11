@@ -6,6 +6,9 @@ import com.tim23.fishnchill.action.model.CottageAction;
 import com.tim23.fishnchill.action.repository.CottageActionRepository;
 import com.tim23.fishnchill.cottage.repository.CottageRepository;
 import com.tim23.fishnchill.general.exception.ResourceNotFoundException;
+import com.tim23.fishnchill.general.model.ClientSubscription;
+import com.tim23.fishnchill.general.repository.ClientSubscriptionRepository;
+import com.tim23.fishnchill.general.service.MailService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -19,6 +22,8 @@ public class CottageActionService {
     private CottageRepository cottageRepository;
     private CottageActionRepository cottageActionRepository;
     private ModelMapper modelMapper;
+    private MailService mailService;
+    private ClientSubscriptionRepository clientSubscriptionRepository;
 
     public List<CottageActionDto> findAll() {
         TypeToken<List<CottageActionDto>> typeToken = new TypeToken<>() {};
@@ -45,12 +50,16 @@ public class CottageActionService {
         cottageAction.setReservationEnd(newNewActionDto.getReservationEnd());
         cottageAction.setActionEnd(newNewActionDto.getActionEnd());
         cottageAction.setEntity(cottageRepository.getById(newNewActionDto.getEntityId()));
-//        try {
-//            emailService.sendCottageReservationEmail(cottageReservation.getClient(), cottageReservation);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-        return modelMapper.map(cottageActionRepository.save(cottageAction), CottageActionDto.class);
+        clientSubscriptionRepository.findAllByEntityId(newNewActionDto.getEntityId());
+        CottageActionDto cottageActionDto = modelMapper.map(cottageActionRepository.save(cottageAction), CottageActionDto.class);
+
+        List<ClientSubscription> allSubs = clientSubscriptionRepository.findAllByEntityId(newNewActionDto.getEntityId());
+
+        for(ClientSubscription sub : allSubs)
+        {
+            mailService.sendNewCottageActionEmail(sub.getClient(), cottageAction);
+        }
+         return cottageActionDto;
     }
 
     public void remove(Long id) {

@@ -1,5 +1,6 @@
 package com.tim23.fishnchill.general.service;
 
+import com.tim23.fishnchill.action.model.CottageAction;
 import com.tim23.fishnchill.general.model.BaseEntity;
 import com.tim23.fishnchill.general.model.VerificationToken;
 import com.tim23.fishnchill.reservation.model.CottageReservation;
@@ -82,6 +83,34 @@ public class MailService {
         System.out.println("Reservation Email sent!");
     }
 
+    @Async
+    public void sendNewCottageActionEmail(Client client, CottageAction cottageAction) throws MailException {
+        Integer discount = Math.round(((cottageAction.getActualPrice()-cottageAction.getActionPrice())/cottageAction.getActualPrice())*100);
+
+        System.out.println("New cottage action email...");
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(client.getEmail());
+        mail.setFrom(email);
+        mail.setSubject("Subscribed entity action!");
+        mail.setText("Hello " + client.getFirstName() + ",\n\n"
+                + "There is a new action for a entity that you are subscribed to." + "\n\n"
+                + "ENTITY:" + "\n\n"
+                + "Name: " + cottageAction.getEntity().getName() + "\n"
+                + "Address: " + cottageAction.getEntity().getAddress() + "\n\n"
+                + "ACTION: \n"
+                + "Actual price: " + cottageAction.getActualPrice() + "€\n"
+                + "Action price: " + cottageAction.getActionPrice() + "€\n"
+                + "Discount: " + discount + "%\n"
+                + "Reservation start: " + cottageAction.getReservationStart() + "\n"
+                + "Reservation end: " + cottageAction.getReservationEnd() + "\n"
+        );
+        javaMailSender.send(mail);
+
+        System.out.println("New cottage action Email sent!");
+    }
+
+    @Async
     public void sendAccountDeletionEmail(User user) throws MailException {
         System.out.println("Sending acc deletion email...");
 
@@ -104,6 +133,7 @@ public class MailService {
         System.out.println("Acc deletion Email sent!");
     }
 
+    @Async
     public void sendClientRevisionEmail(User owner, User client, String revision, BaseEntity entity, Reservation reservation) throws MailException {
         System.out.println("Sending client revision email...");
 
@@ -134,7 +164,7 @@ public class MailService {
 
         System.out.println("Client revision Email sent!");
     }
-
+    @Async
     public void sendAnswerToClientComplaintEmail(User owner, User client, String answer, String complaint, BaseEntity entity, Reservation reservation) throws MailException {
         System.out.println("Sending client complaint answer email...");
 

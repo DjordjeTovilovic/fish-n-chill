@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Button, TextField } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers'
 import dateUtils from '../../utils/dateUtils'
+import subscriptionService from 'services/subscription'
 
 const ReservationScheduling = ({ entity, scheduleReservation }) => {
   const [userRole, setUserRole] = useState(null)
@@ -10,10 +11,18 @@ const ReservationScheduling = ({ entity, scheduleReservation }) => {
   const [numberOfGuests, setNumberOfGuests] = useState(1)
   const [penalty, setPenalty] = useState(null)
   const [statusMessage, setStatusMessage] = useState({})
+  const [subscribed, setSubscribed] = useState(false)
 
   useEffect(() => {
     setUserRole(window.localStorage.getItem('role'))
     setPenalty(JSON.parse(window.localStorage.getItem('penalty')))
+    subscriptionService
+      .exists({
+        clientId: JSON.parse(window.localStorage.getItem('id')),
+        entityId: entity.id,
+      })
+      .then((res) => setSubscribed(res))
+      .catch((err) => console.log(err))
   }, [])
 
   const onChangeNumberOfGuests = (e) => {
@@ -39,6 +48,24 @@ const ReservationScheduling = ({ entity, scheduleReservation }) => {
     scheduleReservation(reservation)
       .then(() => setStatusMessage({ color: 'green', message: 'Reservation scheduled!' }))
       .catch((err) => setStatusMessage({ color: 'red', message: 'Somthing went wrong!' }))
+  }
+
+  const alterSubscription = () => {
+    subscribed
+      ? subscriptionService
+          .unsubscribe({
+            clientId: JSON.parse(window.localStorage.getItem('id')),
+            entityId: entity.id,
+          })
+          .then(() => setSubscribed(!subscribed))
+          .catch((err) => console.log(err))
+      : subscriptionService
+          .subscribe({
+            clientId: JSON.parse(window.localStorage.getItem('id')),
+            entityId: entity.id,
+          })
+          .then(() => setSubscribed(!subscribed))
+          .catch((err) => console.log(err))
   }
 
   return (
@@ -135,6 +162,15 @@ const ReservationScheduling = ({ entity, scheduleReservation }) => {
               </p>
             )}
           </div>
+          <Button
+            onClick={() => alterSubscription()}
+            color={subscribed ? 'warning' : 'secondary'}
+            size="large"
+            variant="contained"
+            sx={{ minWidth: '150px', ml: 18, mb: 3, height: '50px' }}
+          >
+            {subscribed ? 'UNSubscribe' : 'Subscribe'}
+          </Button>
         </div>
       )}
     </>
