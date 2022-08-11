@@ -14,10 +14,17 @@ import javax.persistence.*;
 @Entity
 public class Tag {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String tag;
+    private Boolean airCondition;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Boolean television;
+
+    private Boolean wifi;
+
+    private Boolean petFriendly;
+    
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY    )
     private BaseEntity entity;
 }

@@ -116,7 +116,7 @@ const ActionCard = ({ action, scheduleAction }) => {
             <Button
               size="small"
               color="warning"
-              disabled={penalty >= 3}
+              disabled={!(penalty < 3 && window.localStorage.getItem('role') === 'ROLE_CLIENT')}
               onClick={() => scheduleAction(action)}
               variant="contained"
               style={{ marginLeft: 40 }}

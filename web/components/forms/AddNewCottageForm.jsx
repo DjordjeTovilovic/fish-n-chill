@@ -2,7 +2,7 @@ import { Formik, Field, Form } from 'formik'
 import { Box, Typography, Button, Container } from '@mui/material'
 import { TextField } from 'formik-mui'
 import Image from 'next/image'
-const AddNewCottageForm = ({ handleChange, setFieldValue, imagePreview }) => (
+const AddNewCottageForm = ({ handleChange, setFieldValue, imagePreview, handleCheckBox }) => (
   <Container component="main" maxWidth="xs">
     <Box
       sx={{
@@ -56,6 +56,14 @@ const AddNewCottageForm = ({ handleChange, setFieldValue, imagePreview }) => (
             name="capacity"
             type="number"
           />
+          <input value="TV" name="TV" type="checkbox" onChange={handleCheckBox} />
+          TV
+          <input value="AC" name="AirCondition" type="checkbox" onChange={handleCheckBox} />
+          Air Condition
+          <input value="petFriendly" name="petFriendly" type="checkbox" onChange={handleCheckBox} />
+          Pet Friendly
+          <input value="wifi" name="wifi" type="checkbox" onChange={handleCheckBox} />
+          WiFi
           <input
             id="file"
             name="file"

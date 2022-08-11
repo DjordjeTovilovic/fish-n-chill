@@ -6,7 +6,9 @@ import com.tim23.fishnchill.cottage.model.Cottage;
 import com.tim23.fishnchill.cottage.repository.CottageRepository;
 import com.tim23.fishnchill.general.exception.ResourceNotFoundException;
 import com.tim23.fishnchill.general.model.Image;
+import com.tim23.fishnchill.general.model.Tag;
 import com.tim23.fishnchill.general.repository.ImageRepository;
+import com.tim23.fishnchill.general.repository.TagRepository;
 import com.tim23.fishnchill.user.model.CottageOwner;
 import com.tim23.fishnchill.user.repository.CottageOwnerRepository;
 import lombok.AllArgsConstructor;
@@ -25,6 +27,7 @@ public class CottageService {
     private ModelMapper modelMapper;
     private ImageRepository imageRepository;
     private CottageOwnerRepository cottageOwnerRepository;
+    private TagRepository tagRepository;
 
     public Cottage addNewCottageForOwner(Long ownerId, NewCottageDto newCottageDto) {
 
@@ -39,6 +42,14 @@ public class CottageService {
         image.setUrl(newCottageDto.getImage());
         image.setEntity(cottage);
         imageRepository.save(image);
+        System.out.println(newCottageDto.getTags().getAirCondition());
+        System.out.println(newCottageDto.getTags().getTelevision());
+
+
+        Tag tag = new Tag();
+        tag = newCottageDto.getTags();
+        tag.setEntity(cottage);
+        tagRepository.save(tag);
 
         return cottage;
     }
