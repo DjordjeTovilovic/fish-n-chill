@@ -42,8 +42,6 @@ public class CottageService {
         image.setUrl(newCottageDto.getImage());
         image.setEntity(cottage);
         imageRepository.save(image);
-        System.out.println(newCottageDto.getTags().getAirCondition());
-        System.out.println(newCottageDto.getTags().getTelevision());
 
 
         Tag tag = new Tag();
