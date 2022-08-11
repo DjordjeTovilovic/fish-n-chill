@@ -1,7 +1,10 @@
 package com.tim23.fishnchill.user.controller;
 
+import com.tim23.fishnchill.general.dto.ClientSubscriptionDto;
+import com.tim23.fishnchill.general.dto.NewClientSubscriptionDto;
 import com.tim23.fishnchill.general.dto.RatingDto;
 import com.tim23.fishnchill.general.dto.RatingInfoDto;
+import com.tim23.fishnchill.general.service.ClientSubscriptionService;
 import com.tim23.fishnchill.general.service.RatingService;
 import com.tim23.fishnchill.security.TokenUtils;
 import com.tim23.fishnchill.user.dto.ClientDto;
@@ -29,6 +32,7 @@ public class ClientController {
     private TokenUtils tokenUtils;
     private RatingService ratingService;
     private UserResponseService userResponseService;
+    private ClientSubscriptionService clientSubscriptionService;
 
     @GetMapping()
     public List<ClientDto> findAll() {

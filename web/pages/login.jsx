@@ -8,6 +8,7 @@ const Login = () => {
       const loggedInUser = await loginService.login(credentials)
       window.localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser))
       const user = await userService.getMe()
+      window.localStorage.setItem('id', user.id)
       window.localStorage.setItem('role', user.authorities[0].authority)
       window.localStorage.setItem('penalty', user.penaltyCount)
       // TODO Ne koristiti ovako url

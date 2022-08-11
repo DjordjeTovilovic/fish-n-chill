@@ -20,9 +20,9 @@ public class CottageActionDto {
 
     private LocalDateTime reservationEnd;
 
-    private BigDecimal actionPrice;
+    private Float actionPrice;
 
-    private BigDecimal actualPrice;
+    private Float actualPrice;
 
     private LocalDateTime actionEnd;
 
