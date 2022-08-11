@@ -18,6 +18,8 @@ public class EntityDto {
 
     private String name;
 
+    private String address;
+
     private String description;
 
     private Integer capacity;

@@ -42,7 +42,11 @@ public class BaseEntity {
 
     private LocalDateTime availabilityEnd;
 
-    private BigDecimal price;
+    private Float price;
+
+    private String address;
+
+    private Integer capacity;
     @JsonIgnore
     @OneToOne(mappedBy = "entity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Tag tags;

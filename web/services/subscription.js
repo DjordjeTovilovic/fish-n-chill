@@ -17,10 +17,16 @@ const unsubscribe = async (subscriptionsInfo) => {
   return res.data
 }
 
+const getAllForClient = async (clientId) => {
+  const res = await axios.get(baseUrl + clientId)
+  return res.data
+}
+
 const subscriptionService = {
   exists,
   subscribe,
-  unsubscribe
+  unsubscribe,
+  getAllForClient
 }
 
 export default subscriptionService

@@ -21,10 +21,6 @@ import java.util.Set;
 
 public class Cottage extends BaseEntity {
 
-    private String address;
-
-    private Integer capacity;
-
     @OneToMany(mappedBy = "entity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<CottageReservation> reservations;
 

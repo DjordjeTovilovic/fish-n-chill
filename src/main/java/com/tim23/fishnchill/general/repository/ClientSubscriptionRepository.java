@@ -20,4 +20,5 @@ public interface ClientSubscriptionRepository extends JpaRepository<ClientSubscr
     void deleteByClientIdAndEntityId(Long clientId, Long entityId);
 
     List<ClientSubscription> findAllByEntityId(Long entityId);
+    List<ClientSubscription> findAllByClientId(Long clientId);
 }
