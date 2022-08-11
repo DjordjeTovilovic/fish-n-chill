@@ -51,8 +51,10 @@ public class CottageReservationController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public CottageReservationDto save(HttpServletRequest request, @RequestBody NewReservationDto newReservationDto) {
-        Long id = tokenUtils.getUserIdFromRequest(request);
-        newReservationDto.setClientId(id);
+        if (newReservationDto.getClientId() == null) {
+            Long id = tokenUtils.getUserIdFromRequest(request);
+            newReservationDto.setClientId(id);
+        }
         return cottageReservationService.save(newReservationDto);
     }
 

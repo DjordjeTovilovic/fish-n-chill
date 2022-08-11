@@ -10,7 +10,7 @@ const CottageReservationHistory = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const fetchedReservations = await reservationService.getAllPastCottageReservationsForCottage(id)
+      const fetchedReservations = await reservationService.getAllPastReservationsForCottage(id)
       setReservations(fetchedReservations)
       console.log(fetchedReservations)
     }

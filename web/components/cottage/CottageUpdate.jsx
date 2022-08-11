@@ -207,6 +207,22 @@ const CottageUpdate = ({ cottage }) => {
             Make New Action
           </Button>
           <Button
+            href={'/cottages/' + cottage.id + '/past'}
+            size="large"
+            variant="contained"
+            sx={{ ml: 3, mb: 3, height: '50px' }}
+          >
+            See Past Reservations
+          </Button>
+          <Button
+            href={'/cottages/owned/active'}
+            size="large"
+            variant="contained"
+            sx={{ ml: 3, mb: 3, height: '50px' }}
+          >
+            See Active Reservations
+          </Button>
+          <Button
             onClick={changeDeleteModalState}
             size="large"
             variant="contained"
