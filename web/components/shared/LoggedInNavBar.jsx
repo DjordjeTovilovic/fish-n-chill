@@ -113,6 +113,18 @@ const LoggedInNavBar = () => {
                   </Button>
                 </MenuItem>
               )}
+              {userRole === 'ROLE_CLIENT' && (
+                <MenuItem sx={{ justifyContent: 'center', borderBottom: '1px solid black' }}>
+                  <Button
+                    key="cottages"
+                    style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
+                    sx={{ color: 'black' }}
+                    href={'/subscriptions'}
+                  >
+                    Subscriptions
+                  </Button>
+                </MenuItem>
+              )}
               <MenuItem sx={{ justifyContent: 'center' }}>
                 <Button
                   key="profile"

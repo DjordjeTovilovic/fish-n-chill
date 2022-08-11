@@ -6,7 +6,10 @@ import com.tim23.fishnchill.general.model.ClientSubscription;
 import com.tim23.fishnchill.general.repository.ClientSubscriptionRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @AllArgsConstructor
 @Service
@@ -26,5 +29,10 @@ public class ClientSubscriptionService {
 
     public void unsubscribe(Long clientId, Long entityId) {
         clientSubscriptionRepository.deleteByClientIdAndEntityId(clientId, entityId);
+    }
+
+    public List<ClientSubscriptionDto> findAllByClientId(Long clientId) {
+        TypeToken<List<ClientSubscriptionDto>> typeToken = new TypeToken<>(){};
+        return modelMapper.map(clientSubscriptionRepository.findAllByClientId(clientId), typeToken.getType());
     }
 }

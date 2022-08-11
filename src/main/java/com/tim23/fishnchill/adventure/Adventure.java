@@ -21,10 +21,6 @@ public class Adventure extends BaseEntity {
 
     private String biography;
 
-    private String address;
-
-    private Integer capacity;
-
     //TODO Pecaroska oprema
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
