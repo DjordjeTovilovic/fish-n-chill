@@ -25,7 +25,7 @@ public class CottageOwnerCottageReservationDto {
 
     private LocalDateTime reservationEnd;
 
-    private CottageDto cottage;
+    private CottageDto entity;
 
     private ClientDto client;
 

@@ -29,6 +29,6 @@ public class CottageReservationDto {
     private LocalDateTime reservationEnd;
 
     @JsonIgnore
-    private CottageDto cottage;
+    private CottageDto entity;
 
 }

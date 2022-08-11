@@ -8,6 +8,7 @@ const Cottages = () => {
   const [filter, setFilter] = useState('')
   const [filterProperty, setFilterProperty] = useState('address')
   const [actionsExist, setActionsExist] = useState(false)
+  const [sortFilterItems, setSortFilterItems] = useState(['Name', 'Address', 'Rating', 'Price'])
 
   useEffect(() => {
     cottageService.getAll().then((gotCottages) => setCottages(gotCottages))
@@ -63,6 +64,7 @@ const Cottages = () => {
         handleSortFilterChange={(e) => handleSortFilterChange(e)}
         searchForDatePeriod={(datePeriod) => searchForDatePeriod(datePeriod)}
         actionsExist={actionsExist}
+        sortFilterItems={sortFilterItems}
       />
     </>
   )

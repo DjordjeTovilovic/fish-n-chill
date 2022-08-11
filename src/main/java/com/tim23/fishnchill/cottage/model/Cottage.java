@@ -25,7 +25,7 @@ public class Cottage extends BaseEntity {
 
     private Integer capacity;
 
-    @OneToMany(mappedBy = "cottage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "entity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<CottageReservation> reservations;
 
     @OneToMany(mappedBy = "cottage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

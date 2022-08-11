@@ -72,8 +72,8 @@ public class MailService {
                 + "Client: " + client.getFirstName() + " " + client.getLastName() + "\n"
                 + "Email: " + client.getEmail() + "\n\n"
                 + "RESERVATION INFORMATION: \n"
-                + "Cottage: " + reservation.getCottage().getName() + "\n"
-                + "Address: " + reservation.getCottage().getAddress() + "\n"
+                + "Cottage: " + reservation.getEntity().getName() + "\n"
+                + "Address: " + reservation.getEntity().getAddress() + "\n"
                 + "Number of guests: " + reservation.getNumberOfGuests() + "\n"
                 + "Price: " + reservation.getPrice() + "€\n"
         );

@@ -9,6 +9,7 @@ const AllEntities = ({
   handleSortFilterChange,
   searchForDatePeriod,
   actionsExist,
+  sortFilterItems,
 }) => {
   return (
     <>
@@ -17,6 +18,7 @@ const AllEntities = ({
         handleSearchFilterChange={handleSearchFilterChange}
         handleSortFilterChange={handleSortFilterChange}
         searchForDatePeriod={searchForDatePeriod}
+        sortFilterItems={sortFilterItems}
       />
       {actionsExist && <ActionsBar entityType={'cottage'}></ActionsBar>}
       <EntityList entities={entities} />
