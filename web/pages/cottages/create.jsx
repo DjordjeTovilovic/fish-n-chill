@@ -4,16 +4,23 @@ import AddNewCottageForm from '../../components/forms/AddNewCottageForm'
 import cottageService from '../../services/cottage'
 
 const AddNewCottage = () => {
-const router = useRouter()
+  const router = useRouter()
 
   const [base64, setBase64] = useState()
+
+  const [tvTag, setTvTag] = useState(false)
+  const [acTag, setAcTag] = useState(false)
+  const [petFriendlyTag, setPetFriendlyTag] = useState(false)
+  const [wifiTag, setWifiTag] = useState(false)
+
   const handleChange = (values) => {
     values = JSON.stringify(values)
     const obj = JSON.parse(values)
     obj.image = base64
+    obj.tags = checkboxToObject()
     cottageService.create(obj)
-
-    router.push('/cottages/owned')
+    console.log(obj)
+    //router.push('/cottages/owned')
   }
 
   const setFieldValue = async (e) => {
@@ -29,10 +36,25 @@ const router = useRouter()
     }
     reader.readAsDataURL(file)
   }
+  const handleCheckBox = (event) => {
+    if (event.target.value === 'wifi') setWifiTag(!wifiTag)
+    if (event.target.value === 'AC') setAcTag(!acTag)
+    if (event.target.value === 'petFriendly') setPetFriendlyTag(!petFriendlyTag)
+    if (event.target.value === 'TV') setTvTag(!tvTag)
+  }
+
+  const checkboxToObject = () => {
+    return { wifi: wifiTag, airCondition: acTag, petFriendly: petFriendlyTag, television: tvTag }
+  }
 
   return (
     <>
-      <AddNewCottageForm handleChange={handleChange} setFieldValue={(e) => setFieldValue(e)} imagePreview={base64} />
+      <AddNewCottageForm
+        handleCheckBox={handleCheckBox}
+        handleChange={handleChange}
+        setFieldValue={(e) => setFieldValue(e)}
+        imagePreview={base64}
+      />
     </>
   )
 }
