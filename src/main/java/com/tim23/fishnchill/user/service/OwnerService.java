@@ -1,7 +1,10 @@
 package com.tim23.fishnchill.user.service;
 
+import com.tim23.fishnchill.general.model.enums.OwnerReportType;
 import com.tim23.fishnchill.reservation.dto.ClientCottageReservationDto;
 import com.tim23.fishnchill.reservation.dto.CottageOwnerCottageReservationDto;
+import com.tim23.fishnchill.reservation.dto.NewReportDto;
+import com.tim23.fishnchill.reservation.model.CottageReservation;
 import com.tim23.fishnchill.reservation.model.Reservation;
 import com.tim23.fishnchill.reservation.repository.CottageReservationRepository;
 import com.tim23.fishnchill.user.model.CottageOwner;
@@ -31,5 +34,17 @@ public class OwnerService {
 
         TypeToken<List<CottageOwnerCottageReservationDto>> typeToken = new TypeToken<>() {};
         return modelMapper.map(reservations, typeToken.getType());
+    }
+
+    public void makeReport(NewReportDto newReportDto) {
+        CottageReservation reservation = cottageReservationRepository.getById(newReportDto.getReservationId());
+        reservation.setOwnerReport(newReportDto.getOwnerReport());
+        cottageReservationRepository.save(reservation);
+
+        if (newReportDto.getOwnerReportType() == OwnerReportType.DIDNOTCOME) {
+            // TODO penalize client
+        } else if (newReportDto.getOwnerReportType() == OwnerReportType.COMPLAINT) {
+            // TODO sent to admin for review
+        }
     }
 }

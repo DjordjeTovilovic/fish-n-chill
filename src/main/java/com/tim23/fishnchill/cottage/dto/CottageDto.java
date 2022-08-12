@@ -45,5 +45,7 @@ public class CottageDto {
 
     private CottageOwner owner;
 
+    private String ownerReport;
+
     //private Set<RatingDto> ratings;
 }
