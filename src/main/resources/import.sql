@@ -87,3 +87,8 @@ INSERT INTO BOAT (id, owner_id, boat_specification_id) VALUES (7, 3, 2);
 INSERT INTO ADVENTURE (id, owner_id, biography) VALUES (8, 4, 'Your guide and instructor biography!');
 
 INSERT INTO RATING (client_id, entity_id, rating) VALUES (1,1,3.5);
+
+INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (false,true,true,false,1)
+INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,true,true,true,2)
+INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,false,true,false,3)
+INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,false,false,false,4)

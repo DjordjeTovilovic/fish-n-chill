@@ -63,6 +63,7 @@ const ReservationScheduling = ({ entity, scheduleReservation }) => {
           .subscribe({
             clientId: JSON.parse(window.localStorage.getItem('id')),
             entityId: entity.id,
+            type: 'COTTAGE',
           })
           .then(() => setSubscribed(!subscribed))
           .catch((err) => console.log(err))
