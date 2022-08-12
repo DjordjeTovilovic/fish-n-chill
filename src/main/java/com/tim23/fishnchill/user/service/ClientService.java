@@ -12,12 +12,18 @@ import com.tim23.fishnchill.user.repository.UserResponseRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @AllArgsConstructor
+@Configuration
+@EnableAsync
 @Service
 public class ClientService {
 
@@ -103,5 +109,12 @@ public class ClientService {
 
     public void deleteClientById(Long id) {
         this.clientRepository.deleteById(id);
+    }
+
+    @Async
+    @Scheduled(cron="0 0 0 1 1/1 *")
+    public void resetPenalties() {
+        System.out.println("Reseting penalties every 1st in month!");
+        clientRepository.resetPenalties();
     }
 }

@@ -28,6 +28,8 @@ public class EntityDto {
 
     private Float ratingAverage;
 
+    private Float price;
+
     private Integer ratingCount;
 
     private String cancellationTerms;

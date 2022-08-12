@@ -34,4 +34,6 @@ public class Cottage extends BaseEntity {
     @OneToMany(mappedBy = "entity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<CottageAction> actions;
 
+
+
 }

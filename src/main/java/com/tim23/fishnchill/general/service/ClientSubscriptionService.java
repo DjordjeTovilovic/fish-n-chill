@@ -3,6 +3,7 @@ package com.tim23.fishnchill.general.service;
 import com.tim23.fishnchill.general.dto.ClientSubscriptionDto;
 import com.tim23.fishnchill.general.dto.NewClientSubscriptionDto;
 import com.tim23.fishnchill.general.model.ClientSubscription;
+import com.tim23.fishnchill.general.model.enums.EntityType;
 import com.tim23.fishnchill.general.repository.ClientSubscriptionRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -18,7 +19,18 @@ public class ClientSubscriptionService {
     private ModelMapper modelMapper;
 
     public ClientSubscriptionDto subscribe(NewClientSubscriptionDto newSubInfo) {
-        clientSubscriptionRepository.subscribe(newSubInfo.getClientId(), newSubInfo.getEntityId());
+        String type;
+        switch (newSubInfo.getType()) {
+            case COTTAGE : type="COTTAGE";
+                break;
+            case BOAT: type="BOAT";
+                break;
+            case ADVENTURE: type="ADVENTURE";
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + newSubInfo.getType());
+        }
+        clientSubscriptionRepository.subscribe(newSubInfo.getClientId(), newSubInfo.getEntityId(), type);
         ClientSubscription newSub = clientSubscriptionRepository.findClientSubscriptionByClientIdAndEntityId(newSubInfo.getClientId(), newSubInfo.getEntityId());
         return modelMapper.map(newSub, ClientSubscriptionDto.class);
     }

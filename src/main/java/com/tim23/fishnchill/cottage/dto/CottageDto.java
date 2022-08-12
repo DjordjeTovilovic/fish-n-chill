@@ -1,6 +1,8 @@
 package com.tim23.fishnchill.cottage.dto;
 
 import com.tim23.fishnchill.general.dto.ImageDto;
+import com.tim23.fishnchill.general.dto.TagDto;
+import com.tim23.fishnchill.general.model.Tag;
 import com.tim23.fishnchill.reservation.dto.CottageReservationDto;
 import com.tim23.fishnchill.user.model.CottageOwner;
 import lombok.AllArgsConstructor;
@@ -45,5 +47,5 @@ public class CottageDto {
 
     private CottageOwner owner;
 
-    //private Set<RatingDto> ratings;
+    private Tag tags;
 }

@@ -1,0 +1,29 @@
+.wrapper {
+  display: flex;
+}
+.tagUnselected {
+  padding: 5px 5px 5px 5px;
+  margin: 5px 10px 5px 10px;
+  background-color: cadetblue;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.tagUnselected:hover {
+  background-color: darkcyan;
+}
+.tagSelected {
+  padding: 5px 5px 5px 5px;
+  margin: 5px 10px 5px 10px;
+  background-color: rgb(82, 128, 167);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.tagSelected:hover {
+  background-color: rgb(68, 105, 136);
+}
