@@ -55,6 +55,9 @@ INSERT INTO COTTAGE (id, owner_id) VALUES (2, 2);
 INSERT INTO COTTAGE (id, owner_id) VALUES (3, 2);
 INSERT INTO COTTAGE (id, owner_id) VALUES (4, 2);
 
+INSERT INTO ROOM (number_of_beds, cottage_id) VALUES (2, 1);
+INSERT INTO ROOM (number_of_beds, cottage_id) VALUES (3, 1);
+
 INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (500, 5, '2022-08-12', '2022-08-17');
 INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (1200, 5, '2022-08-08', '2022-08-12');
 INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (1000, 5, '2022-05-03', '2022-05-07');
