@@ -7,16 +7,17 @@ import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import { useState } from 'react'
 import Modal from 'components/modal/Modal'
-import { Alert, Divider, Snackbar, Tab, Tabs } from '@mui/material'
+import { Divider, Tab, Tabs } from '@mui/material'
 import { Box } from '@mui/system'
 import ownerService from '../../services/owner'
+import { useSnackbar } from 'notistack'
 
 const CottagePastReservations = ({ reservations }) => {
   const [isOpenReportModal, setIsOpenReportModal] = useState(false)
-  const [isSnackbarOpen, setIsSnackBarOpen] = useState(false)
   const [tabValue, setTabValue] = useState(0)
   const [reservationId, setReservationId] = useState(0)
   const [ownerReport, setOwnerReport] = useState('')
+  const { enqueueSnackbar } = useSnackbar()
 
   const reportTypeEnum = {
     0: 'REVIEW',
@@ -33,11 +34,11 @@ const CottagePastReservations = ({ reservations }) => {
   const submitReport = () => {
     const report = { reservationId, ownerReport, ownerReportType: reportTypeEnum[tabValue] }
     ownerService.makeReport(report)
+    reservations.forEach((reservation) => {
+      if (reservation.id === reservationId) reservation.ownerReport = ownerReport
+    })
     changeReportModalState()
-    reservations.map((reservation) =>
-      reservation.id === reservationId ? (reservation.ownerReport = ownerReport) : console.log('wwt')
-    )
-    setIsSnackBarOpen(true)
+    enqueueSnackbar('Report successfully made', { variant: 'success' })
   }
 
   const handleReportButton = (reservationId) => {
@@ -133,7 +134,6 @@ const CottagePastReservations = ({ reservations }) => {
                 Price: {reservation.price}€
               </Typography>
             </CardContent>
-            <CardActions sx={{ display: 'flex', flexDirection: 'column', mt: 5 }}></CardActions>
             <CardActions sx={{ display: 'flex', flexDirection: 'column', mt: 5, alignItems: 'center' }}>
               <Button
                 variant="contained"
@@ -151,11 +151,6 @@ const CottagePastReservations = ({ reservations }) => {
             isOpenModal={isOpenReportModal}
             changeModalState={changeReportModalState}
           />
-          <Snackbar open={isSnackbarOpen} autoHideDuration={4000} onClose={() => setIsSnackBarOpen(false)}>
-            <Alert onClose={() => setIsSnackBarOpen(false)} severity="success" sx={{ width: '100%' }}>
-              Report successfully made
-            </Alert>
-          </Snackbar>
         </div>
       ))}
     </div>

@@ -14,6 +14,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import '/styles/globals.css'
 import theme from '../styles/theme'
 import axios from 'axios'
+import { SnackbarProvider } from 'notistack'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -48,9 +49,11 @@ export default function MyApp(props) {
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <AppBar position="relative">{loggedInUser ? <LoggedInNavBar /> : <LoggedOutNavBar />}</AppBar>
-            <Component {...pageProps} />
-            <Footer></Footer>
+            <SnackbarProvider maxSnack={3}>
+              <AppBar position="relative">{loggedInUser ? <LoggedInNavBar /> : <LoggedOutNavBar />}</AppBar>
+              <Component {...pageProps} />
+              <Footer />
+            </SnackbarProvider>
           </LocalizationProvider>
         </ThemeProvider>
       </div>
