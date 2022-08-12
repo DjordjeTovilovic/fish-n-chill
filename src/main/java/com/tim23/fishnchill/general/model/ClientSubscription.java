@@ -1,6 +1,7 @@
 package com.tim23.fishnchill.general.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tim23.fishnchill.general.model.enums.EntityType;
 import com.tim23.fishnchill.user.model.Client;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,9 @@ public class ClientSubscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Enumerated(EnumType.STRING)
+    private EntityType type;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
