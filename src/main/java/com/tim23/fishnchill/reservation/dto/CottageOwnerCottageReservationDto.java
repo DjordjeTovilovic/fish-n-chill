@@ -29,6 +29,8 @@ public class CottageOwnerCottageReservationDto {
 
     private ClientDto client;
 
+    private String ownerReport;
+
     private boolean revisionWritten;
 
     private boolean complaintWritten;

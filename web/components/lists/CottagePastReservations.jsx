@@ -7,45 +7,51 @@ import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import { useState } from 'react'
 import Modal from 'components/modal/Modal'
-import { Tab, Tabs } from '@mui/material'
+import { Alert, Divider, Snackbar, Tab, Tabs } from '@mui/material'
 import { Box } from '@mui/system'
+import ownerService from '../../services/owner'
 
-const CottagePastReservations = ({
-  reservations,
-  // ratingsProp,
-  // changeRating,
-  // rateEntity,
-  // beginingRatings,
-  // statusMessage,
-  submitResponse,
-  // submitStatusMessage,
-}) => {
-  const [isOpenRevisionModal, setIsOpenRevisionModal] = useState(false)
+const CottagePastReservations = ({ reservations }) => {
+  const [isOpenReportModal, setIsOpenReportModal] = useState(false)
+  const [isSnackbarOpen, setIsSnackBarOpen] = useState(false)
   const [tabValue, setTabValue] = useState(0)
-  const [clientResponse, setClientResponse] = useState({
-    userId: null,
-    entityId: null,
-    ownerId: null,
-    reservationId: null,
-    explanation: null,
-    isRevision: null,
-  })
+  const [reservationId, setReservationId] = useState(0)
+  const [ownerReport, setOwnerReport] = useState('')
 
-  const changeRevisionModalState = (clientId, entityId, reservationId, ownerId) => {
-    setClientResponse({
-      userId: clientId,
-      entityId: entityId,
-      ownerId: ownerId,
-      reservationId: reservationId,
-      explanation: '',
-      isRevision: true,
-    })
-    setIsOpenRevisionModal(!isOpenRevisionModal)
+  const reportTypeEnum = {
+    0: 'REVIEW',
+    1: 'DIDNOTCOME',
+    2: 'COMPLAINT',
   }
 
-  const revisionModalContent = (
+  const reportMessage = {
+    0: '',
+    1: 'The client will be penalized',
+    2: 'Admin will review this report and the client might be penalized',
+  }
+
+  const submitReport = () => {
+    const report = { reservationId, ownerReport, ownerReportType: reportTypeEnum[tabValue] }
+    ownerService.makeReport(report)
+    changeReportModalState()
+    reservations.map((reservation) =>
+      reservation.id === reservationId ? (reservation.ownerReport = ownerReport) : console.log('wwt')
+    )
+    setIsSnackBarOpen(true)
+  }
+
+  const handleReportButton = (reservationId) => {
+    setReservationId(reservationId)
+    changeReportModalState()
+  }
+
+  const changeReportModalState = () => {
+    setIsOpenReportModal(!isOpenReportModal)
+  }
+
+  const reportModalContent = (
     <>
-      <h3>Write your revision</h3>
+      <h3>Write your report</h3>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs
           value={tabValue}
@@ -54,41 +60,28 @@ const CottagePastReservations = ({
           }}
           aria-label="basic tabs"
         >
-          <Tab label="Client Review" />
+          <Tab label="Standard Review" />
           <Tab label="Client didn't show up" />
-          <Tab label="Client broke rules" />
+          <Tab label="Client misbehaved" />
         </Tabs>
       </Box>
-      {tabValue === 1 ? (
-        <div>
-          <br />
-          <Typography color="red" gutterBottom="true" variant="subtitle2" align="right">
-            The user will be penalized
-          </Typography>
-        </div>
-      ) : (
-        <> </>
-      )}
-      {tabValue === 2 ? (
-        <div>
-          <br />
-          <Typography color="red" gutterBottom="true" variant="subtitle2" align="right">
-            Admin will review this revision and the user might be penalized
-          </Typography>
-        </div>
-      ) : (
-        <> </>
-      )}
+      <div>
+        <br />
+        <Typography color="red" gutterBottom variant="subtitle2" align="right">
+          {reportMessage[tabValue]}
+        </Typography>
+      </div>
+      <Divider />
       <TextField
         id="outlined-multiline-static"
-        label="Revision"
+        label="Report"
         multiline
         rows={10}
         sx={{ minWidth: '500px', mb: 3 }}
-        onChange={(e) => setClientResponse((prevState) => ({ ...prevState, explanation: e.target.value }))}
+        onChange={(e) => setOwnerReport(e.target.value)}
       />
       <div style={{ display: 'flex' }}>
-        <Button sx={{ width: '30%' }} onClick={() => submitResponse(clientResponse)} variant="contained" color="info">
+        <Button sx={{ width: '30%' }} onClick={submitReport} variant="contained" color="info">
           Submit
         </Button>
       </div>
@@ -106,7 +99,7 @@ const CottagePastReservations = ({
     >
       <h1>Reservation history</h1>
       {reservations.map((reservation) => (
-        <>
+        <div key={reservation.id}>
           <Card sx={{ my: 3, display: 'flex', width: '95%', height: '170px' }} key={reservation.id}>
             <CardMedia component="img" sx={{ width: 170, height: '100%' }} image={reservation.entity.images[0].url} />
             <CardContent sx={{ display: 'flex', flexDirection: 'column', ml: 3, maxWidth: '30%' }}>
@@ -145,27 +138,25 @@ const CottagePastReservations = ({
               <Button
                 variant="contained"
                 color="info"
-                disabled={reservation.revisionWritten}
+                disabled={reservation.ownerReport !== null}
                 style={{ fontSize: '12px', minWidth: '170px' }}
-                onClick={() =>
-                  changeRevisionModalState(
-                    reservation.clientId,
-                    reservation.entity.id,
-                    reservation.id,
-                    reservation.entity.owner.id
-                  )
-                }
+                onClick={() => handleReportButton(reservation.id)}
               >
-                {reservation.revisionWritten ? 'Revision written' : 'Write revision'}
+                {reservation.ownerReport ? 'Report written' : 'Write report'}
               </Button>
             </CardActions>
           </Card>
           <Modal
-            content={revisionModalContent}
-            isOpenModal={isOpenRevisionModal}
-            changeModalState={changeRevisionModalState}
+            content={reportModalContent}
+            isOpenModal={isOpenReportModal}
+            changeModalState={changeReportModalState}
           />
-        </>
+          <Snackbar open={isSnackbarOpen} autoHideDuration={4000} onClose={() => setIsSnackBarOpen(false)}>
+            <Alert onClose={() => setIsSnackBarOpen(false)} severity="success" sx={{ width: '100%' }}>
+              Report successfully made
+            </Alert>
+          </Snackbar>
+        </div>
       ))}
     </div>
   )

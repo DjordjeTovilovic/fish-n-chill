@@ -55,7 +55,7 @@ INSERT INTO COTTAGE (id, owner_id) VALUES (2, 2);
 INSERT INTO COTTAGE (id, owner_id) VALUES (3, 2);
 INSERT INTO COTTAGE (id, owner_id) VALUES (4, 2);
 
-INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (500, 5, '2022-08-13', '2022-08-15');
+INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (500, 5, '2022-08-12', '2022-08-17');
 INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (1200, 5, '2022-08-08', '2022-08-12');
 INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (1000, 5, '2022-05-03', '2022-05-07');
 INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (2100, 3, '2022-08-03', '2022-08-10');
@@ -65,7 +65,7 @@ INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation
 
 INSERT INTO COTTAGE_RESERVATION (id, client_id, entity_id) VALUES (1, 1, 1);
 INSERT INTO COTTAGE_RESERVATION (id, client_id, entity_id) VALUES (2, 1, 2);
-INSERT INTO COTTAGE_RESERVATION (id, client_id, entity_id) VALUES (3, 1, 1);
+INSERT INTO COTTAGE_RESERVATION (id, client_id, entity_id, owner_report) VALUES (3, 1, 1, 'The client was very friendly');
 INSERT INTO COTTAGE_RESERVATION (id, client_id, entity_id) VALUES (4, 1, 2);
 INSERT INTO COTTAGE_RESERVATION (id, client_id, entity_id) VALUES (5, 1, 2);
 INSERT INTO COTTAGE_RESERVATION (id, client_id, entity_id) VALUES (6, 6, 1);

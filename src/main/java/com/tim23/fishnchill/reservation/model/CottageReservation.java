@@ -25,4 +25,6 @@ public class CottageReservation extends Reservation {
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private Cottage entity;
 
+    private String ownerReport;
+
 }

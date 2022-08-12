@@ -6,8 +6,14 @@ const getAllActiveCottageReservationsForOwner = async () => {
   return res.data
 }
 
+const makeReport = async (newObject) => {
+  const res = await axios.post(baseUrl + `cottages/reservations/reports`, newObject)
+  return res.data
+}
+
 const ownerService = {
   getAllActiveCottageReservationsForOwner,
+  makeReport,
 }
 
 export default ownerService

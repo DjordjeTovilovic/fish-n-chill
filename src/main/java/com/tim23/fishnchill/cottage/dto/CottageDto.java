@@ -47,5 +47,8 @@ public class CottageDto {
 
     private CottageOwner owner;
 
+    private String ownerReport;
+
     private Tag tags;
+
 }
