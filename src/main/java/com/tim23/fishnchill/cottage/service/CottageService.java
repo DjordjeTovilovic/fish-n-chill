@@ -3,7 +3,9 @@ package com.tim23.fishnchill.cottage.service;
 import com.tim23.fishnchill.cottage.dto.CottageDto;
 import com.tim23.fishnchill.cottage.dto.NewCottageDto;
 import com.tim23.fishnchill.cottage.model.Cottage;
+import com.tim23.fishnchill.cottage.model.Room;
 import com.tim23.fishnchill.cottage.repository.CottageRepository;
+import com.tim23.fishnchill.cottage.repository.RoomRepository;
 import com.tim23.fishnchill.general.exception.ResourceNotFoundException;
 import com.tim23.fishnchill.general.model.Image;
 import com.tim23.fishnchill.general.model.Tag;
@@ -28,6 +30,7 @@ public class CottageService {
     private ImageRepository imageRepository;
     private CottageOwnerRepository cottageOwnerRepository;
     private TagRepository tagRepository;
+    private RoomRepository roomRepository;
 
     public Cottage addNewCottageForOwner(Long ownerId, NewCottageDto newCottageDto) {
 
@@ -44,10 +47,16 @@ public class CottageService {
         imageRepository.save(image);
 
 
-        Tag tag = new Tag();
-        tag = newCottageDto.getTags();
+        Tag tag = newCottageDto.getTags();
         tag.setEntity(cottage);
         tagRepository.save(tag);
+
+        newCottageDto.getRooms().forEach(room -> {
+            Room newRoom = new Room();
+            newRoom.setCottage(cottage);
+            newRoom.setNumberOfBeds(room);
+            roomRepository.save(newRoom);
+        });
 
         return cottage;
     }

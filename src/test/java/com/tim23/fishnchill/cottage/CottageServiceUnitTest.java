@@ -3,6 +3,7 @@ package com.tim23.fishnchill.cottage;
 import com.tim23.fishnchill.cottage.dto.CottageDto;
 import com.tim23.fishnchill.cottage.model.Cottage;
 import com.tim23.fishnchill.cottage.repository.CottageRepository;
+import com.tim23.fishnchill.cottage.repository.RoomRepository;
 import com.tim23.fishnchill.cottage.service.CottageService;
 import com.tim23.fishnchill.general.repository.ImageRepository;
 import com.tim23.fishnchill.general.repository.TagRepository;
@@ -30,9 +31,12 @@ class CottageServiceUnitTest {
     private ImageRepository imageRepository;
     private CottageOwnerRepository cottageOwnerRepository;
     private TagRepository tagRepository;
+    private RoomRepository roomRepository;
+
     @BeforeEach
     void setUp() {
-        cottageService = new CottageService(cottageRepository, modelMapper, imageRepository, cottageOwnerRepository, tagRepository);
+        cottageService = new CottageService(cottageRepository, modelMapper,
+                imageRepository, cottageOwnerRepository, tagRepository, roomRepository);
     }
 
     @Test

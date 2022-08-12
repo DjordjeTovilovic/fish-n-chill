@@ -1,26 +1,28 @@
 import { useRouter } from 'next/router'
+import { useSnackbar } from 'notistack'
 import { useState } from 'react'
 import AddNewCottageForm from '../../components/forms/AddNewCottageForm'
 import cottageService from '../../services/cottage'
 
 const AddNewCottage = () => {
   const router = useRouter()
-
   const [base64, setBase64] = useState()
-
   const [tvTag, setTvTag] = useState(false)
   const [acTag, setAcTag] = useState(false)
   const [petFriendlyTag, setPetFriendlyTag] = useState(false)
   const [wifiTag, setWifiTag] = useState(false)
+  const { enqueueSnackbar } = useSnackbar()
 
   const handleChange = (values) => {
+    // TODO jel postoji razlog za prebacivanje u json i odma vracanje
     values = JSON.stringify(values)
     const obj = JSON.parse(values)
     obj.image = base64
     obj.tags = checkboxToObject()
     cottageService.create(obj)
     console.log(obj)
-    //router.push('/cottages/owned')
+    enqueueSnackbar('Cottage created', { variant: 'success' })
+    router.push('/cottages/owned')
   }
 
   const setFieldValue = async (e) => {

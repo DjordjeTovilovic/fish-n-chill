@@ -1,5 +1,6 @@
 package com.tim23.fishnchill.cottage.dto;
 
+import com.tim23.fishnchill.cottage.model.Room;
 import com.tim23.fishnchill.general.dto.ImageDto;
 import com.tim23.fishnchill.general.model.Tag;
 import com.tim23.fishnchill.reservation.dto.CottageReservationDto;
@@ -49,5 +50,7 @@ public class CottageDto {
     private String ownerReport;
 
     private Tag tags;
+
+    private Set<Room> rooms;
 
 }
