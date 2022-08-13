@@ -1,5 +1,6 @@
 package com.tim23.fishnchill.cottage.dto;
 
+import com.tim23.fishnchill.action.dto.ActionDto;
 import com.tim23.fishnchill.cottage.model.Room;
 import com.tim23.fishnchill.general.dto.ImageDto;
 import com.tim23.fishnchill.general.model.Tag;
@@ -52,5 +53,7 @@ public class CottageDto {
     private Tag tags;
 
     private Set<Room> rooms;
+
+    private Set<ActionDto> actions;
 
 }
