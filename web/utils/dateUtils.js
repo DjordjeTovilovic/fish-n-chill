@@ -1,4 +1,4 @@
-import { subMinutes, differenceInDays, isWithinInterval, subDays, addDays } from 'date-fns'
+import { subMinutes, differenceInDays, isWithinInterval, subDays, addDays, format, isEqual } from 'date-fns'
 
 // Mislim da treba pozivati samo kad se salje na back, ali nisam jos testirao
 export const toUtcDate = (date) => subMinutes(date, date.getTimezoneOffset())
@@ -55,18 +55,35 @@ export const shouldDisableEndDate = (dateParam, checkInDate, entity) => {
 
 export const getAvailablePeriods = (entity) => {
   const availablePeriods = [{ start: entity.availabilityStart, end: entity.availabilityEnd }]
+
   entity.unavailablePeriods.forEach((unavailablePeriod) => {
-    availablePeriods.map((availablePeriod) => {
+    availablePeriods.forEach((availablePeriod, index) => {
       if (
         isWithinInterval(unavailablePeriod.startDate, availablePeriod) &&
         isWithinInterval(unavailablePeriod.endDate, availablePeriod)
       ) {
-        // pocetak desnog djela splita dostupnog perioda je dan poslje kraja nedostupnog perioda
-        const start = addDays(unavailablePeriod.endDate, 1)
-        const afterUnavailablePeriod = { start, end: availablePeriod.end }
-        // kraj ljevog djela splita dostupnog perioda je dan prije pocetka nedostupnog perioda
-        availablePeriod.end = subDays(unavailablePeriod.startDate, 1)
-        availablePeriods.push(afterUnavailablePeriod)
+        // Ako nedostupan period pokriva cijeli dostupan period: obrisati taj dostupan period
+        if (
+          isEqual(unavailablePeriod.startDate, availablePeriod.start) &&
+          isEqual(unavailablePeriod.endDate, availablePeriod.end)
+        ) {
+          availablePeriods.splice(index, 1)
+        } else if (isEqual(unavailablePeriod.startDate, availablePeriod.start)) {
+          // Ako je pocetak dostupnog i nedostupnog perioda isti ne treba praviti ljevi split
+          // Samo staviti pocetak dostupnog perioda dan poslje kraja nedostupnog
+          availablePeriods[index].start = addDays(unavailablePeriod.endDate, 1)
+        } else {
+          // Ako je kraj nedostupnog perioa jednak kraju dostupnog ne treba praviti desni split
+          // Inace dostupni period djelimo na dva perioda
+          if (!isEqual(unavailablePeriod.endDate, availablePeriod.end)) {
+            // Pocetak desnog djela splita dostupnog perioda je dan poslje kraja nedostupnog perioda
+            const start = addDays(unavailablePeriod.endDate, 1)
+            const afterUnavailablePeriod = { start: start, end: availablePeriod.end }
+            availablePeriods.push(afterUnavailablePeriod)
+          }
+          // kraj ljevog djela splita dostupnog perioda je dan prije pocetka nedostupnog perioda
+          availablePeriods[index].end = subDays(unavailablePeriod.startDate, 1)
+        }
       }
     })
   })
@@ -105,6 +122,15 @@ export const fcIsRangeBetweenDateRange = (startTestDate, endTestDate, startDate,
   )
 }
 
+export const fcToEndDate = (date) => {
+  const time = format(date, 'HH:mm')
+  // Treba povecati end date za jedan dan samo ako je vrjeme datuma 00:00
+  if (time === '00:00') {
+    date = addDays(date, 1)
+  }
+  return date
+}
+
 const dateUtils = {
   toUtcDate,
   entityFieldsToDate,
@@ -114,6 +140,7 @@ const dateUtils = {
   fcIsRangeBetweenDateRange,
   shouldDisableStartDate,
   shouldDisableEndDate,
+  fcToEndDate,
 }
 
 export default dateUtils
