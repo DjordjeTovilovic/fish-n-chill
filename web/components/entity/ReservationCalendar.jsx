@@ -8,8 +8,10 @@ import Modal from '../modal/Modal'
 import { Button } from '@mui/material'
 import reservationService from '../../services/reservation'
 import { subDays } from 'date-fns'
+import { useSnackbar } from 'notistack'
 
 const ReservationCalendar = ({ entity }) => {
+  const { enqueueSnackbar } = useSnackbar()
   const [isMakeUnavailableModalOpen, setIsMakeUnavailableModalOpen] = useState(false)
   const [start, setStart] = useState('')
   const [end, setEnd] = useState('')
@@ -74,6 +76,7 @@ const ReservationCalendar = ({ entity }) => {
     reservationService.setUnavailablePeriod(unavailablePeriod)
     // entity.unavailablePeriods.push(unavailablePeriod)
     setIsMakeUnavailableModalOpen(!isMakeUnavailableModalOpen)
+    enqueueSnackbar('Unavailable period set', { variant: 'success' })
   }
 
   const makeUnavailableModalContent = (
@@ -87,12 +90,11 @@ const ReservationCalendar = ({ entity }) => {
 
   const handleEventClick = (e) => {
     console.log(e)
-    console.log(dateUtils.getAvailablePeriods(entity))
+    // if (e.event.title === 'Available') console.log('klewwk')
   }
 
   const handleSelectedDates = (e) => {
-    // if (e.event.title === 'Available') console.log('klewwk')
-    if (dateUtils.fcIsRangeBetweenDateRange(e.start, e.end, entity.availabilityStart, entity.availabilityEnd)) {
+    if (dateUtils.fcIsSelectedInAvailableDates(e.start, e.end, entity)) {
       handleCalendarSelect(e.start, e.end)
     }
   }

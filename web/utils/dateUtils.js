@@ -88,18 +88,28 @@ export const getAvailablePeriods = (entity) => {
     })
   })
 
+  // Isto kao i gore samo za rezervacije
   entity.reservations.forEach((reservation) => {
-    availablePeriods.map((availablePeriod) => {
+    availablePeriods.forEach((availablePeriod, index) => {
       if (
         isWithinInterval(reservation.reservationStart, availablePeriod) &&
         isWithinInterval(reservation.reservationEnd, availablePeriod)
       ) {
-        // pocetak desnog djela splita dostupnog perioda je dan poslje kraja rezervisanog perioda
-        const start = addDays(reservation.reservationEnd, 1)
-        const afterUnavailablePeriod = { start, end: availablePeriod.end }
-        // kraj ljevog djela splita dostupnog perioda je dan prije pocetka rezervisanog perioda
-        availablePeriod.end = subDays(reservation.reservationStart, 1)
-        availablePeriods.push(afterUnavailablePeriod)
+        if (
+          isEqual(reservation.reservationStart, availablePeriod.start) &&
+          isEqual(reservation.reservationEnd, availablePeriod.end)
+        ) {
+          availablePeriods.splice(index, 1)
+        } else if (isEqual(reservation.reservationStart, availablePeriod.start)) {
+          availablePeriods[index].start = addDays(reservation.reservationEnd, 1)
+        } else {
+          if (!isEqual(reservation.reservationEnd, availablePeriod.end)) {
+            const start = addDays(reservation.reservationEnd, 1)
+            const afterUnavailablePeriod = { start: start, end: availablePeriod.end }
+            availablePeriods.push(afterUnavailablePeriod)
+          }
+          availablePeriods[index].end = subDays(reservation.reservationStart, 1)
+        }
       }
     })
   })
@@ -122,9 +132,18 @@ export const fcIsRangeBetweenDateRange = (startTestDate, endTestDate, startDate,
   )
 }
 
+export const fcIsSelectedInAvailableDates = (startTestDate, endTestDate, entity) => {
+  endTestDate = subDays(endTestDate, 1)
+  const availablePeriods = getAvailablePeriods(entity)
+  return availablePeriods.some((availablePeriod) => {
+    return isWithinInterval(startTestDate, availablePeriod) && isWithinInterval(endTestDate, availablePeriod)
+  })
+}
+
 export const fcToEndDate = (date) => {
   const time = format(date, 'HH:mm')
   // Treba povecati end date za jedan dan samo ako je vrjeme datuma 00:00
+  // Obratiti paznju na ovo ako budemo radili sa vremenima
   if (time === '00:00') {
     date = addDays(date, 1)
   }
@@ -140,6 +159,7 @@ const dateUtils = {
   fcIsRangeBetweenDateRange,
   shouldDisableStartDate,
   shouldDisableEndDate,
+  fcIsSelectedInAvailableDates,
   fcToEndDate,
 }
 
