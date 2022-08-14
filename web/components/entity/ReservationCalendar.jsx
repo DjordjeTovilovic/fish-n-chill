@@ -10,7 +10,7 @@ import reservationService from '../../services/reservation'
 import { subDays } from 'date-fns'
 import { useSnackbar } from 'notistack'
 
-const ReservationCalendar = ({ entity }) => {
+const ReservationCalendar = ({ entity, updateEntity }) => {
   const { enqueueSnackbar } = useSnackbar()
   const [isMakeUnavailableModalOpen, setIsMakeUnavailableModalOpen] = useState(false)
   const [start, setStart] = useState('')
@@ -18,42 +18,42 @@ const ReservationCalendar = ({ entity }) => {
   const [events, setEvents] = useState([])
 
   useEffect(() => {
+    const initCalendar = () => {
+      const eventInit = entity.reservations.map((reservation) => ({
+        id: 'r' + reservation.id,
+        title: 'Reservation',
+        start: reservation.reservationStart,
+        end: dateUtils.fcToEndDate(reservation.reservationEnd),
+        overlap: false,
+      }))
+
+      entity.actions.map((action) => {
+        eventInit.push({
+          id: 'a' + action.id,
+          title: 'Action',
+          start: action.reservationStart,
+          end: dateUtils.fcToEndDate(action.reservationEnd),
+          color: 'red',
+          extendedProps: action,
+          editable: true,
+        })
+      })
+
+      const availablePeriods = dateUtils.getAvailablePeriods(entity)
+      availablePeriods.forEach((availablePeriod) => {
+        eventInit.push({
+          id: entity.id,
+          title: 'Available',
+          start: availablePeriod.start,
+          end: dateUtils.fcToEndDate(availablePeriod.end),
+          color: 'green',
+        })
+      })
+      setEvents(eventInit)
+    }
     initCalendar()
   }, [entity])
 
-  const initCalendar = () => {
-    const eventInit = entity.reservations.map((reservation) => ({
-      id: 'r' + reservation.id,
-      title: 'Reservation',
-      start: reservation.reservationStart,
-      end: dateUtils.fcToEndDate(reservation.reservationEnd),
-      overlap: false,
-    }))
-
-    entity.actions.map((action) => {
-      eventInit.push({
-        id: 'a' + action.id,
-        title: 'Action',
-        start: action.reservationStart,
-        end: dateUtils.fcToEndDate(action.reservationEnd),
-        color: 'red',
-        extendedProps: action,
-        editable: true,
-      })
-    })
-
-    const availablePeriods = dateUtils.getAvailablePeriods(entity)
-    availablePeriods.forEach((availablePeriod) => {
-      eventInit.push({
-        id: entity.id,
-        title: 'Available',
-        start: availablePeriod.start,
-        end: dateUtils.fcToEndDate(availablePeriod.end),
-        color: 'green',
-      })
-    })
-    setEvents(eventInit)
-  }
   const handleCalendarSelect = (selectedStart, selectedEnd) => {
     setStart(selectedStart)
     setEnd(subDays(selectedEnd, 1))
@@ -73,8 +73,15 @@ const ReservationCalendar = ({ entity }) => {
       endDate,
       entityId: entity.id,
     }
+
+    // Trebalo bi awaitovati i vidjeti da li je prosao zahtjev uspjesno, ali me mrzi
     reservationService.setUnavailablePeriod(unavailablePeriod)
-    // entity.unavailablePeriods.push(unavailablePeriod)
+    // Ako datumi ostaju na frontu ne treba prebacivati u utc jer zapravo ne mjenjamo vrmenesku
+    // zonu nego samo oduzimamo razliku izmedju vremenskih zona
+    const entityFieldsToUpdate = {
+      unavailablePeriods: [...entity.unavailablePeriods, { startDate: start, endDate: end }],
+    }
+    updateEntity(entityFieldsToUpdate)
     setIsMakeUnavailableModalOpen(!isMakeUnavailableModalOpen)
     enqueueSnackbar('Unavailable period set', { variant: 'success' })
   }
