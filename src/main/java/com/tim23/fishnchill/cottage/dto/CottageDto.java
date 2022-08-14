@@ -3,6 +3,7 @@ package com.tim23.fishnchill.cottage.dto;
 import com.tim23.fishnchill.action.dto.ActionDto;
 import com.tim23.fishnchill.cottage.model.Room;
 import com.tim23.fishnchill.general.dto.ImageDto;
+import com.tim23.fishnchill.general.dto.UnavailablePeriodDto;
 import com.tim23.fishnchill.general.model.Tag;
 import com.tim23.fishnchill.reservation.dto.CottageReservationDto;
 import com.tim23.fishnchill.user.model.CottageOwner;
@@ -56,4 +57,5 @@ public class CottageDto {
 
     private Set<ActionDto> actions;
 
+    private Set<UnavailablePeriodDto> unavailablePeriods;
 }

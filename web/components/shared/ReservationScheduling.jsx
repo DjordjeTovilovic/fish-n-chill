@@ -82,17 +82,7 @@ const ReservationScheduling = ({ entity, scheduleReservation }) => {
               setCheckInDate(newValue)
               setCheckOutDate(null)
             }}
-            shouldDisableDate={(dateParam) => {
-              return (
-                dateParam < entity.availabilityStart ||
-                dateParam > entity.availabilityEnd ||
-                entity.reservations.some(
-                  (reservation) =>
-                    dateParam >= new Date(reservation.reservationStart) &&
-                    dateParam <= new Date(reservation.reservationEnd)
-                )
-              )
-            }}
+            shouldDisableDate={(dateParam) => dateUtils.shouldDisableStartDate(dateParam, entity)}
             renderInput={(params) => <TextField {...params} />}
           />
           <DatePicker
@@ -103,16 +93,7 @@ const ReservationScheduling = ({ entity, scheduleReservation }) => {
             onChange={(newValue) => {
               setCheckOutDate(newValue)
             }}
-            shouldDisableDate={(dateParam) => {
-              return (
-                dateParam < checkInDate ||
-                entity.reservations.reverse().some((reservation) => {
-                  if (checkInDate < new Date(reservation.reservationStart))
-                    return dateParam >= new Date(reservation.reservationStart)
-                  else return dateParam > entity.availabilityEnd
-                })
-              )
-            }}
+            shouldDisableDate={(dateParam) => dateUtils.shouldDisableEndDate(dateParam, checkInDate, entity)}
             renderInput={(params) => <TextField {...params} />}
           />
           <TextField

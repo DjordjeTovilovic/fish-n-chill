@@ -36,6 +36,11 @@ const cancelReservation = async (id) => {
   return res.data
 }
 
+const setUnavailablePeriod = async (newObject) => {
+  const res = await axios.post(baseUrl + 'unavailable', newObject)
+  return res.data
+}
+
 const reservationService = {
   getAllPastCottageReservationsForClient,
   getAllActiveCottageReservationsForClient,
@@ -44,6 +49,7 @@ const reservationService = {
   scheduleBoatReservation,
   scheduleAdventureReservation,
   cancelReservation,
+  setUnavailablePeriod,
 }
 
 export default reservationService
