@@ -20,13 +20,24 @@ const OwnedCottage = () => {
     router.isReady ? fetchData() : console.log('router not ready')
   }, [router.isReady, id])
 
+  const updateEntity = (updatedEntity) => {
+    // ...cottage stavi sva polja cottage-a, a poslje toga ...updateEntity stavi svoja polja
+    // koja su istog naziva i overriduje polja koja posjeduje i od svega toga pravi novi objekat
+    // Ne bi trebalo slati sva polja, vec samo izmjenjena
+    setCottage({ ...cottage, ...updatedEntity })
+  }
+
   if (Object.keys(cottage).length === 0) {
     return <div>Loading....</div>
   }
 
   return (
     <>
-      <OwnedCottageProfile cottage={cottage} scheduleReservation={reservationService.scheduleCottageReservation} />
+      <OwnedCottageProfile
+        cottage={cottage}
+        updateEntity={updateEntity}
+        scheduleReservation={reservationService.scheduleCottageReservation}
+      />
     </>
   )
 }

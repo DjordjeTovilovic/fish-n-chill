@@ -3,17 +3,56 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import dateUtils from '../../utils/dateUtils'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Modal from '../modal/Modal'
 import { Button } from '@mui/material'
 import reservationService from '../../services/reservation'
 import { subDays } from 'date-fns'
-import addDays from 'date-fns/addDays'
+import { useSnackbar } from 'notistack'
 
-const ReservationCalendar = ({ entity }) => {
+const ReservationCalendar = ({ entity, updateEntity }) => {
+  const { enqueueSnackbar } = useSnackbar()
   const [isMakeUnavailableModalOpen, setIsMakeUnavailableModalOpen] = useState(false)
   const [start, setStart] = useState('')
   const [end, setEnd] = useState('')
+  const [events, setEvents] = useState([])
+
+  useEffect(() => {
+    const initCalendar = () => {
+      const eventInit = entity.reservations.map((reservation) => ({
+        id: 'r' + reservation.id,
+        title: 'Reservation',
+        start: reservation.reservationStart,
+        end: dateUtils.fcToEndDate(reservation.reservationEnd),
+        overlap: false,
+      }))
+
+      entity.actions.map((action) => {
+        eventInit.push({
+          id: 'a' + action.id,
+          title: 'Action',
+          start: action.reservationStart,
+          end: dateUtils.fcToEndDate(action.reservationEnd),
+          color: 'red',
+          extendedProps: action,
+          editable: true,
+        })
+      })
+
+      const availablePeriods = dateUtils.getAvailablePeriods(entity)
+      availablePeriods.forEach((availablePeriod) => {
+        eventInit.push({
+          id: entity.id,
+          title: 'Available',
+          start: availablePeriod.start,
+          end: dateUtils.fcToEndDate(availablePeriod.end),
+          color: 'green',
+        })
+      })
+      setEvents(eventInit)
+    }
+    initCalendar()
+  }, [entity])
 
   const handleCalendarSelect = (selectedStart, selectedEnd) => {
     setStart(selectedStart)
@@ -34,8 +73,17 @@ const ReservationCalendar = ({ entity }) => {
       endDate,
       entityId: entity.id,
     }
+
+    // Trebalo bi awaitovati i vidjeti da li je prosao zahtjev uspjesno, ali me mrzi
     reservationService.setUnavailablePeriod(unavailablePeriod)
+    // Ako datumi ostaju na frontu ne treba prebacivati u utc jer zapravo ne mjenjamo vrmenesku
+    // zonu nego samo oduzimamo razliku izmedju vremenskih zona
+    const entityFieldsToUpdate = {
+      unavailablePeriods: [...entity.unavailablePeriods, { startDate: start, endDate: end }],
+    }
+    updateEntity(entityFieldsToUpdate)
     setIsMakeUnavailableModalOpen(!isMakeUnavailableModalOpen)
+    enqueueSnackbar('Unavailable period set', { variant: 'success' })
   }
 
   const makeUnavailableModalContent = (
@@ -47,50 +95,13 @@ const ReservationCalendar = ({ entity }) => {
     </div>
   )
 
-  const events = entity.reservations.map((reservation) => ({
-    id: 'r' + reservation.id,
-    title: 'Reservation',
-    start: reservation.reservationStart,
-    end: addDays(reservation.reservationEnd, 1),
-    overlap: false,
-    // allDay: false,
-  }))
-
-  entity.actions.map((action) => {
-    events.push({
-      id: 'a' + action.id,
-      title: 'Action',
-      start: action.reservationStart,
-      end: addDays(action.reservationEnd, 1),
-      color: 'red',
-      extendedProps: action,
-      editable: true,
-      // allDay: false,
-    })
-  })
-
-  const availablePeriods = dateUtils.getAvailablePeriods(entity)
-  availablePeriods.forEach((availablePeriod) => {
-    events.push({
-      id: entity.id,
-      title: 'Available',
-      start: availablePeriod.start,
-      end: addDays(availablePeriod.end, 1),
-      color: 'green',
-      // selectable: true,
-      // allDay: false,
-    })
-  })
-
   const handleEventClick = (e) => {
     console.log(e)
-    console.log(dateUtils.getAvailablePeriods(entity))
+    // if (e.event.title === 'Available') console.log('klewwk')
   }
 
   const handleSelectedDates = (e) => {
-    // if (e.event.title === 'Available') console.log('klewwk')
-    if (dateUtils.fcIsRangeBetweenDateRange(e.start, e.end, entity.availabilityStart, entity.availabilityEnd)) {
-      console.log('keke')
+    if (dateUtils.fcIsSelectedInAvailableDates(e.start, e.end, entity)) {
       handleCalendarSelect(e.start, e.end)
     }
   }
@@ -105,6 +116,7 @@ const ReservationCalendar = ({ entity }) => {
         }}
         initialView="dayGridMonth"
         events={events}
+        eventDisplay="block"
         displayEventTime={false}
         eventClick={(e) => handleEventClick(e)}
         selectable={true}
