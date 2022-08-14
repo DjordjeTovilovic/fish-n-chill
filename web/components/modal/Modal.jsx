@@ -1,4 +1,5 @@
-import { Button } from '@mui/material'
+import { Close } from '@mui/icons-material'
+import { IconButton } from '@mui/material'
 import ReactModal from 'react-modal'
 
 const Modal = ({ content, isOpenModal, changeModalState }) => {
@@ -18,6 +19,7 @@ const Modal = ({ content, isOpenModal, changeModalState }) => {
             right: 0,
             bottom: 0,
             backgroundColor: 'rgba(255, 255, 255, 0.75)',
+            zIndex: 9999,
           },
           content: {
             alignContent: 'center',
@@ -31,16 +33,15 @@ const Modal = ({ content, isOpenModal, changeModalState }) => {
           },
         }}
       >
-        <Button
+        <IconButton
+          margin="normal"
           onClick={changeModalState}
-          variant="contained"
-          color="primary"
-          size="small"
           sx={{ position: 'fixed', top: '10px', right: '10px' }}
+          aria-label="add"
         >
-          close
-        </Button>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>{content}</div>
+          <Close />
+        </IconButton>
+        <div style={{ display: 'flex', flexDirection: 'column', margin: 20 }}>{content}</div>
       </ReactModal>
     </>
   )

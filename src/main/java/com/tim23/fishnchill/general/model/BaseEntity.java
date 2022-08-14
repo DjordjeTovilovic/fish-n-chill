@@ -57,4 +57,7 @@ public class BaseEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "entity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Rating> ratings;
+
+    @OneToMany(mappedBy = "entity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<UnavailablePeriod> unavailablePeriods;
 }
