@@ -8,6 +8,12 @@ export const entityFieldsToDate = (entity) => {
   entity.availabilityStart = new Date(entity.availabilityStart)
   entity.availabilityEnd = new Date(entity.availabilityEnd)
 
+  if (entity.availabilityStart < new Date()) {
+    const today = new Date()
+    const todayDateStart = new Date(format(today, `yyyy-MM-dd'T'00:00:00`))
+    entity.availabilityStart = todayDateStart
+  }
+
   entity.reservations.map((reservation) => {
     reservation.reservationStart = new Date(reservation.reservationStart)
     reservation.reservationEnd = new Date(reservation.reservationEnd)
