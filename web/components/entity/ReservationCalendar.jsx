@@ -27,7 +27,7 @@ const ReservationCalendar = ({ entity, updateEntity }) => {
         overlap: false,
       }))
 
-      entity.actions.map((action) => {
+      entity.actions.forEach((action) => {
         eventInit.push({
           id: 'a' + action.id,
           title: 'Action',
@@ -35,7 +35,7 @@ const ReservationCalendar = ({ entity, updateEntity }) => {
           end: dateUtils.fcToEndDate(action.reservationEnd),
           color: 'red',
           extendedProps: action,
-          editable: true,
+          // editable: true,
         })
       })
 
