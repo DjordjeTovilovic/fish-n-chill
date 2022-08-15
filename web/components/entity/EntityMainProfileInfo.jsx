@@ -1,7 +1,17 @@
 import { Box, Divider, Typography, Skeleton, Paper, Rating } from '@mui/material'
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
+import { useMemo } from 'react'
 
 const EntityMainProfileInfo = ({ entity }) => {
+  const Map = useMemo(
+    () =>
+      dynamic(() => import('../shared/Map'), {
+        loading: () => <p>A map is loading</p>,
+        ssr: false,
+      }),
+    []
+  )
   return (
     <Box
       sx={{
@@ -40,21 +50,13 @@ const EntityMainProfileInfo = ({ entity }) => {
           )}
         </div>
 
-        <Divider variant="middle" sx={{ mt: 1 }} />
-        <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ mr: 3 }} display="inline">
-          Address:
-        </Typography>
-        <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3 }} display="inline">
-          {entity.address}
-        </Typography>
-        <div></div>
+        <Divider sx={{ marginY: 6 }} />
         <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ mr: 3 }} display="inline">
           Price:
         </Typography>
         <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3 }} display="inline">
           {entity.price}€/day
         </Typography>
-        <div></div>
         <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ mr: 3 }} display="inline">
           Available:
         </Typography>
@@ -67,7 +69,6 @@ const EntityMainProfileInfo = ({ entity }) => {
         <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3 }} display="inline">
           {entity.availabilityEnd.toLocaleDateString('en-UK')}
         </Typography>
-        <div></div>
         <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ mr: 3 }} display="inline">
           Capacity:
         </Typography>
@@ -80,6 +81,14 @@ const EntityMainProfileInfo = ({ entity }) => {
         <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3, mb: 3 }}>
           {entity.description}
         </Typography>
+        <Divider sx={{ marginY: 6 }} />
+        <Typography variant="h4" fontWeight="fontWeightMedium" component="div" sx={{ mr: 3, mb: 3 }}>
+          Where you’ll be
+        </Typography>
+        <Typography variant="h5" gutterBottom component="div" sx={{ mr: 3 }} display="inline">
+          {entity.address}
+        </Typography>
+        <Map address={entity.address} />
       </Paper>
     </Box>
   )
