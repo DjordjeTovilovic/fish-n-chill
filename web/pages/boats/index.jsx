@@ -7,14 +7,12 @@ const Boats = () => {
   const [boats, setBoats] = useState([])
   const [filter, setFilter] = useState('')
   const [filterProperty, setFilterProperty] = useState('address')
-  const [actionsExist, setActionsExist] = useState(false)
   const [selectedTags, setSelectedTags] = useState([])
   const [sortBy, setSortBy] = useState('')
   const sortFilterItems = ['Name', 'Address', 'Rating', 'Price']
 
   useEffect(() => {
     boatService.getAll().then((gotBoats) => setBoats(gotBoats))
-    // boatService.checkIfAnyExist().then((exists) => setActionsExist(exists))
   }, [])
 
   const filteredAndSortedEntities = useMemo(
@@ -53,7 +51,6 @@ const Boats = () => {
         handleSortFilterChange={(e) => handleSortFilterChange(e)}
         searchForDatePeriod={(datePeriod) => searchForDatePeriod(datePeriod)}
         sortFilterItems={sortFilterItems}
-        actionsExist={actionsExist}
         updateTagFilters={updateTagFilters}
       />
     </>

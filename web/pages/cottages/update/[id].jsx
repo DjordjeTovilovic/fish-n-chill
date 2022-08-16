@@ -13,7 +13,7 @@ const ChangeCottageInfo = () => {
       let fetchedCottage = await cottageService.getById(id)
       setCottage(fetchedCottage)
     }
-    router.isReady ? fetchData() : console.log('router not ready')
+    if (router.isReady) fetchData()
   }, [router.isReady, id])
 
   const handleChange = (values) => {

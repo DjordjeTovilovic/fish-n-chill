@@ -14,7 +14,7 @@ const CottageReservationHistory = () => {
       setReservations(fetchedReservations)
     }
 
-    router.isReady ? fetchData() : console.log('router not ready')
+    if (router.isReady) fetchData()
   }, [router.isReady, id])
 
   return <CottagePastReservations reservations={reservations} />

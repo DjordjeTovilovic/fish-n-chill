@@ -8,7 +8,6 @@ const AllEntities = ({
   handleSearchFilterChange,
   handleSortFilterChange,
   searchForDatePeriod,
-  actionsExist,
   sortFilterItems,
   updateTagFilters,
 }) => {
@@ -22,7 +21,7 @@ const AllEntities = ({
         sortFilterItems={sortFilterItems}
         updateTagFilters={updateTagFilters}
       />
-      {actionsExist && <ActionsBar entityType={'cottage'}></ActionsBar>}
+      <ActionsBar />
       <EntityList entities={entities} />
     </>
   )

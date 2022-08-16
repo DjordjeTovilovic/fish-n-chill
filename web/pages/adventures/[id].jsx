@@ -17,7 +17,7 @@ const Adventure = () => {
       fetchedAdventures = dateUtils.entityFieldsToDate(fetchedAdventures)
       setAdventure(fetchedAdventures)
     }
-    router.isReady ? fetchData() : console.log('router not ready')
+    if (router.isReady) fetchData()
   }, [router.isReady, id])
 
   if (Object.keys(adventure).length === 0) {

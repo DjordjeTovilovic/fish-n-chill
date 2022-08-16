@@ -17,7 +17,7 @@ const Boat = () => {
       fetchedBoats = dateUtils.entityFieldsToDate(fetchedBoats)
       setBoat(fetchedBoats)
     }
-    router.isReady ? fetchData() : console.log('router not ready')
+    if (router.isReady) fetchData()
   }, [router.isReady, id])
 
   if (Object.keys(boat).length === 0) {
