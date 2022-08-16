@@ -47,7 +47,7 @@ public class BoatDto {
 
     private Set<Image> images;
 
-    private Set<Tag> tags;
+    private Tag tags;
 
     private String boatType;
 

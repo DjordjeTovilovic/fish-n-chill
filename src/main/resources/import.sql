@@ -32,9 +32,9 @@ INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability
 INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Cottage 3', 0, 0, 150, '2022-08-13', '2022-08-15', 15, 'Sremska Kamenica 26, Novi Sad', 'Dobra cijena, dobar provod!!!');
 INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Cottage 4', 0, 0, 220, '2022-08-06', '2022-08-25', 10 , 'Svetozara Miletica 32, Veternik(Novi Sad)', 'Dobra vikendica i nista vise!');
 --inserting for boats
-INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Boat 1', 0, 0, 225, '2022-05-23', '2022-08-25', 20, 'Ribarac, Dunav', 'Dobra cijena, dobar provod(JAHTA)!!!');
-INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Boat 2', 0, 0, 225, '2022-05-23', '2022-08-15', 7, 'Oficirac, Dunav', 'Manji brod valjda');
-INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Boat 3', 0, 0, 225, '2022-05-23', '2022-09-15', 10, 'Oficirac, Dunav', 'Veliki brod');
+INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Boat 1', 0, 0, 225, '2022-05-23', '2022-08-25', 20, 'Ribarac, Novi Sad', 'Dobra cijena, dobar provod(JAHTA)!!!');
+INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Boat 2', 0, 0, 225, '2022-05-23', '2022-08-15', 7, 'Oficirac, Novi Sad', 'Manji brod valjda');
+INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Boat 3', 0, 0, 225, '2022-05-23', '2022-09-15', 10, 'Oficirac, Novi Sad', 'Veliki brod');
 --inserting for adventures
 INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Adventure 1', 0, 0, 170, '2022-05-23', '2022-09-22', 5, 'Mount OZREN', 'All you need in one adventure!!!');
 
@@ -97,3 +97,6 @@ INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUE
 INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,true,true,true,2)
 INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,false,true,false,3)
 INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,false,false,false,4)
+INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,false,true,false,5)
+INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,false,true,true,6)
+INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,false,false,false,7)
