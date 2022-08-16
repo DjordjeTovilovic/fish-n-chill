@@ -1,24 +1,35 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import AllEntities from '../../components/lists/AllEntities'
 import boatService from '../../services/boat'
+import { filterAndSortEntities } from '../../utils/listUtils'
 
 const Boats = () => {
   const [boats, setBoats] = useState([])
   const [filter, setFilter] = useState('')
   const [filterProperty, setFilterProperty] = useState('address')
   const [actionsExist, setActionsExist] = useState(false)
+  const [selectedTags, setSelectedTags] = useState([])
+  const [sortBy, setSortBy] = useState('')
+  const sortFilterItems = ['Name', 'Address', 'Rating', 'Price']
 
   useEffect(() => {
     boatService.getAll().then((gotBoats) => setBoats(gotBoats))
     // boatService.checkIfAnyExist().then((exists) => setActionsExist(exists))
   }, [])
 
-  const boatsToShow = filter
-    ? boats.filter((boat) => boat[filterProperty].toLowerCase().includes(filter.toLowerCase()))
-    : boats
+  const filteredAndSortedEntities = useMemo(
+    () => filterAndSortEntities(boats, filter, filterProperty, selectedTags, sortBy),
+    [boats, filter, filterProperty, selectedTags, sortBy]
+  )
 
   const searchForDatePeriod = (datePeriod) => {
     boatService.findByPeriod(datePeriod).then((gotBoats) => setBoats(gotBoats))
+  }
+
+  const updateTagFilters = (tag) => {
+    selectedTags.includes(tag)
+      ? setSelectedTags(selectedTags.filter((t) => t !== tag))
+      : setSelectedTags([...selectedTags, tag])
   }
 
   const handleSearchFieldChange = (e) => {
@@ -30,38 +41,20 @@ const Boats = () => {
   }
 
   const handleSortFilterChange = (e) => {
-    switch (e.target.value) {
-      case 'name': {
-        setBoats([...boats.sort((a, b) => a.name.localeCompare(b.name))])
-        break
-      }
-      case 'address': {
-        setBoats([...boats.sort((a, b) => a.address.localeCompare(b.address))])
-        break
-      }
-      case 'rating': {
-        setBoats([...boats.sort((a, b) => b.ratingAverage - a.ratingAverage)])
-        break
-      }
-      case 'price': {
-        setBoats([...boats.sort((a, b) => a.price - b.price)])
-        break
-      }
-      default: {
-        break
-      }
-    }
+    setSortBy(e.target.value)
   }
 
   return (
     <>
       <AllEntities
-        entities={boatsToShow}
+        entities={filteredAndSortedEntities}
         handleSearchFieldChange={(e) => handleSearchFieldChange(e)}
         handleSearchFilterChange={(e) => handleSearchFilterChange(e)}
         handleSortFilterChange={(e) => handleSortFilterChange(e)}
         searchForDatePeriod={(datePeriod) => searchForDatePeriod(datePeriod)}
+        sortFilterItems={sortFilterItems}
         actionsExist={actionsExist}
+        updateTagFilters={updateTagFilters}
       />
     </>
   )

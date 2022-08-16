@@ -14,18 +14,18 @@ export const entityFieldsToDate = (entity) => {
     entity.availabilityStart = todayDateStart
   }
 
-  entity.reservations.map((reservation) => {
+  entity.reservations?.map((reservation) => {
     reservation.reservationStart = new Date(reservation.reservationStart)
     reservation.reservationEnd = new Date(reservation.reservationEnd)
   })
 
-  entity.actions.map((action) => {
+  entity.actions?.map((action) => {
     action.actionEnd = new Date(action.actionEnd)
     action.reservationStart = new Date(action.reservationStart)
     action.reservationEnd = new Date(action.reservationEnd)
   })
 
-  entity.unavailablePeriods.map((unavailablePeriod) => {
+  entity.unavailablePeriods?.map((unavailablePeriod) => {
     unavailablePeriod.startDate = new Date(unavailablePeriod.startDate)
     unavailablePeriod.endDate = new Date(unavailablePeriod.endDate)
   })

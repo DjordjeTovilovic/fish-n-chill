@@ -16,7 +16,7 @@ const Map = ({ address }) => {
     getLatLong()
   }, [address])
 
-  if (coordinates && coordinates.length) {
+  if (coordinates?.length) {
     return (
       <MapContainer center={coordinates} zoom={15} scrollWheelZoom={false} style={{ height: 400, width: '100%' }}>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
