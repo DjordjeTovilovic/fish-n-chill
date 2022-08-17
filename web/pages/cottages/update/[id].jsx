@@ -20,7 +20,7 @@ const ChangeCottageInfo = () => {
     values = JSON.stringify(values)
     const obj = JSON.parse(values)
     cottageService.update(cottage.id, obj)
-    router.push(`/cottages/${cottage.id}`)
+    router.push(`/cottages/owned/${cottage.id}`)
   }
 
   return (

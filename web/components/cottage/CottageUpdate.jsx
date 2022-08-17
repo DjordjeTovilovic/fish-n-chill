@@ -7,7 +7,7 @@ import cottageAction from '../../services/cottagesAction'
 import dateUtils from '../../utils/dateUtils'
 import Modal from '../modal/Modal'
 
-const CottageUpdate = ({ cottage }) => {
+const CottageUpdate = ({ cottage, updateEntity }) => {
   const router = useRouter()
   const [userRole, setUserRole] = useState(null)
   const [isAvailabilityModalOpen, setIsAvailabilityModalOpen] = useState(false)
@@ -30,8 +30,16 @@ const CottageUpdate = ({ cottage }) => {
     const availabilityStart = dateUtils.toUtcDate(newAvailabilityStart)
     const availabilityEnd = dateUtils.toUtcDate(newAvailabilityEnd)
     await cottageService.update(cottage.id, { availabilityStart, availabilityEnd })
-    router.reload()
+
+    const entityFieldsToUpdate = {
+      availabilityStart: newAvailabilityStart,
+      availabilityEnd: newAvailabilityEnd,
+      unavailablePeriods: [],
+    }
+    updateEntity(entityFieldsToUpdate)
+    changeAvailabilityModalState()
   }
+
   const handleNewAction = async () => {
     const reservationStart = dateUtils.toUtcDate(checkInDate)
     const reservationEnd = dateUtils.toUtcDate(checkOutDate)
@@ -45,6 +53,12 @@ const CottageUpdate = ({ cottage }) => {
       actionEnd,
     }
     await cottageAction.create(action)
+
+    const entityFieldsToUpdate = {
+      // actions: [...entity.actions, { startDate: start, endDate: end }],
+    }
+    updateEntity(entityFieldsToUpdate)
+    changeAvailabilityModalState()
   }
 
   const handleDelete = async () => {
@@ -102,14 +116,8 @@ const CottageUpdate = ({ cottage }) => {
             setCheckOutDate(null)
           }}
           shouldDisableDate={(dateParam) => {
-            return (
-              dateParam < cottage.availabilityStart ||
-              dateParam > cottage.availabilityEnd ||
-              cottage.reservations.some(
-                (reservation) =>
-                  dateParam >= new Date(reservation.reservationStart) &&
-                  dateParam <= new Date(reservation.reservationEnd)
-              )
+            return cottage.reservations.some(
+              (reservation) => dateParam >= reservation.reservationStart && dateParam <= reservation.reservationEnd
             )
           }}
           renderInput={(params) => <TextField {...params} />}
@@ -126,9 +134,7 @@ const CottageUpdate = ({ cottage }) => {
             return (
               dateParam < checkInDate ||
               cottage.reservations.reverse().some((reservation) => {
-                if (checkInDate < new Date(reservation.reservationStart))
-                  return dateParam >= new Date(reservation.reservationStart)
-                else return dateParam > cottage.availabilityEnd
+                if (checkInDate < reservation.reservationStart) return dateParam >= reservation.reservationStart
               })
             )
           }}

@@ -11,6 +11,7 @@ import com.tim23.fishnchill.general.model.Image;
 import com.tim23.fishnchill.general.model.Tag;
 import com.tim23.fishnchill.general.repository.ImageRepository;
 import com.tim23.fishnchill.general.repository.TagRepository;
+import com.tim23.fishnchill.general.repository.UnavailablePeriodRepository;
 import com.tim23.fishnchill.user.model.CottageOwner;
 import com.tim23.fishnchill.user.repository.CottageOwnerRepository;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class CottageService {
     private CottageOwnerRepository cottageOwnerRepository;
     private TagRepository tagRepository;
     private RoomRepository roomRepository;
+    private UnavailablePeriodRepository unavailablePeriodRepository;
 
     public Cottage addNewCottageForOwner(Long ownerId, NewCottageDto newCottageDto) {
 
@@ -70,10 +73,16 @@ public class CottageService {
         cottageRepository.deleteById(id);
     }
 
+    @Transactional
     public Cottage update(CottageDto newCottage) {
         modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
         Cottage cottage = cottageRepository.getById(newCottage.getId());
         modelMapper.map(newCottage, cottage);
+
+        if (newCottage.getAvailabilityStart() != null || newCottage.getAvailabilityEnd() != null) {
+            unavailablePeriodRepository.deleteAllByEntityId(newCottage.getId());
+        }
+
         return cottageRepository.save(cottage);
     }
 

@@ -21,7 +21,7 @@ const AddNewCottage = () => {
     obj.tags = checkboxToObject()
     cottageService.create(obj)
     console.log(obj)
-    enqueueSnackbar('Cottage created', { variant: 'success' })
+    enqueueSnackbar('Cottage successfully created', { variant: 'success' })
     router.push('/cottages/owned')
   }
 

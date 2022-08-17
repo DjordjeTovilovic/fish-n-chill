@@ -1,11 +1,13 @@
 import { Button, TextField } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers'
+import { useSnackbar } from 'notistack'
 import { useEffect, useState } from 'react'
 import reservationService from '../../services/reservation'
 import dateUtils from '../../utils/dateUtils'
 import Modal from '../modal/Modal'
 
 const OwnerNewReservationModal = ({ cottage, client, isReservationModalOpen, changeReservationModalState }) => {
+  const { enqueueSnackbar } = useSnackbar()
   const [checkInDate, setCheckInDate] = useState(null)
   const [checkOutDate, setCheckOutDate] = useState(null)
   const [price, setPrice] = useState(0)
@@ -29,6 +31,7 @@ const OwnerNewReservationModal = ({ cottage, client, isReservationModalOpen, cha
     }
     reservationService.scheduleCottageReservation(reservation)
     changeReservationModalState()
+    enqueueSnackbar('Reservation successfully made', { variant: 'success' })
   }
 
   const reservationModalContent = (
@@ -44,14 +47,8 @@ const OwnerNewReservationModal = ({ cottage, client, isReservationModalOpen, cha
             setCheckOutDate(null)
           }}
           shouldDisableDate={(dateParam) => {
-            return (
-              dateParam < cottage.availabilityStart ||
-              dateParam > cottage.availabilityEnd ||
-              cottage.reservations.some(
-                (reservation) =>
-                  dateParam >= new Date(reservation.reservationStart) &&
-                  dateParam <= new Date(reservation.reservationEnd)
-              )
+            return cottage.reservations.some(
+              (reservation) => dateParam >= reservation.reservationStart && dateParam <= reservation.reservationEnd
             )
           }}
           renderInput={(params) => <TextField {...params} />}
@@ -68,9 +65,7 @@ const OwnerNewReservationModal = ({ cottage, client, isReservationModalOpen, cha
             return (
               dateParam < checkInDate ||
               cottage.reservations.reverse().some((reservation) => {
-                if (checkInDate < new Date(reservation.reservationStart))
-                  return dateParam >= new Date(reservation.reservationStart)
-                else return dateParam > cottage.availabilityEnd
+                if (checkInDate < reservation.reservationStart) return dateParam >= reservation.reservationStart
               })
             )
           }}
@@ -83,14 +78,11 @@ const OwnerNewReservationModal = ({ cottage, client, isReservationModalOpen, cha
         inputProps={{
           inputMode: 'numeric',
           pattern: '[0-9]*',
-          min: 1,
-          max: cottage.price,
+          min: 0,
         }}
         label="Price"
         value={price}
-        onChange={(e) => {
-          e.target.value > cottage.price ? setPrice(cottage.price) : setPrice(e.target.value)
-        }}
+        onChange={(e) => setPrice(e.target.value)}
       />
       <Button onClick={onReservationButtonClick} variant="contained" color="primary">
         Make new reservation

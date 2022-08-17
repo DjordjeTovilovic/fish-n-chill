@@ -28,7 +28,7 @@ const EntityMainProfileInfo = ({ entity }) => {
             }}
           >
             {entity.images ? (
-              <Image width={600} height={400} src={entity.images[0].url} alt="entity" />
+              <Image width={600} height={400} layout="fixed" src={entity.images[0].url} alt="entity" />
             ) : (
               <Skeleton variant="rectangular" width={600} height={400} />
             )}
@@ -70,8 +70,10 @@ const EntityMainProfileInfo = ({ entity }) => {
             fontWeight="fontWeightLight"
             display="inline"
           >
-            {`${entity.availabilityStart.toLocaleDateString('en-UK')} - 
-                ${entity.availabilityEnd.toLocaleDateString('en-UK')}`}
+            {entity.availabilityStart !== null && entity.availabilityEnd !== null
+              ? `${entity.availabilityStart.toLocaleDateString('en-UK')} - 
+                ${entity.availabilityEnd.toLocaleDateString('en-UK')}`
+              : 'Curently unavailable'}
           </Typography>
           <br />
 

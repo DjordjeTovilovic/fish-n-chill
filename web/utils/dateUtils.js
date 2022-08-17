@@ -5,13 +5,15 @@ export const toUtcDate = (date) => subMinutes(date, date.getTimezoneOffset())
 
 // Ovo je da bi prebacili ta polja u datume jer nisu datumi kad dodju na front
 export const entityFieldsToDate = (entity) => {
-  entity.availabilityStart = new Date(entity.availabilityStart)
-  entity.availabilityEnd = new Date(entity.availabilityEnd)
+  if (entity.availabilityStart !== null && entity.availabilityEnd !== null) {
+    entity.availabilityStart = new Date(entity.availabilityStart)
+    entity.availabilityEnd = new Date(entity.availabilityEnd)
 
-  if (entity.availabilityStart < new Date()) {
-    const today = new Date()
-    const todayDateStart = new Date(format(today, `yyyy-MM-dd'T'00:00:00`))
-    entity.availabilityStart = todayDateStart
+    if (entity.availabilityStart < new Date()) {
+      const today = new Date()
+      const todayDateStart = new Date(format(today, `yyyy-MM-dd'T'00:00:00`))
+      entity.availabilityStart = todayDateStart
+    }
   }
 
   entity.reservations?.map((reservation) => {
@@ -30,6 +32,24 @@ export const entityFieldsToDate = (entity) => {
     unavailablePeriod.endDate = new Date(unavailablePeriod.endDate)
   })
   return entity
+}
+
+export const reservationFieldsToDate = (reservation) => {
+  reservation.reservationStart = new Date(reservation.reservationStart)
+  reservation.reservationEnd = new Date(reservation.reservationEnd)
+  reservation.entity = entityFieldsToDate(reservation.entity)
+  return reservation
+}
+
+export const reservationListFieldsToDate = (reservations) => {
+  reservations.map((reservation) => {
+    reservation.reservationStart = new Date(reservation.reservationStart)
+    reservation.reservationEnd = new Date(reservation.reservationEnd)
+    reservation.entity = entityFieldsToDate(reservation.entity)
+    return reservation
+  })
+
+  return reservations
 }
 
 export const shouldDisableStartDate = (dateParam, entity) => {
@@ -159,6 +179,8 @@ export const fcToEndDate = (date) => {
 const dateUtils = {
   toUtcDate,
   entityFieldsToDate,
+  reservationFieldsToDate,
+  reservationListFieldsToDate,
   daysBetween,
   getAvailablePeriods,
   isBetweenDateRange,
