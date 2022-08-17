@@ -6,11 +6,9 @@ const Adventures = () => {
   const [adventures, setAdventures] = useState([])
   const [filter, setFilter] = useState('')
   const [filterProperty, setFilterProperty] = useState('address')
-  const [actionsExist, setActionsExist] = useState(false)
 
   useEffect(() => {
     adventureService.getAll().then((gotAdventures) => setAdventures(gotAdventures))
-    // adventureService.checkIfAnyExist().then((exists) => setActionsExist(exists))
   }, [])
 
   const adventuresToShow = filter
@@ -61,7 +59,6 @@ const Adventures = () => {
         handleSearchFilterChange={(e) => handleSearchFilterChange(e)}
         handleSortFilterChange={(e) => handleSortFilterChange(e)}
         searchForDatePeriod={(datePeriod) => searchForDatePeriod(datePeriod)}
-        actionsExist={actionsExist}
       />
     </>
   )

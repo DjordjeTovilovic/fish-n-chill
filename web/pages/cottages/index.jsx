@@ -1,13 +1,11 @@
 import { useState, useEffect, useMemo } from 'react'
 import AllEntities from '../../components/lists/AllEntities'
 import cottageService from '../../services/cottage'
-import cottageActionService from 'services/cottagesAction'
 import { filterAndSortEntities } from '../../utils/listUtils'
 
 const Cottages = () => {
   const [filter, setFilter] = useState('')
   const [filterProperty, setFilterProperty] = useState('address')
-  const [actionsExist, setActionsExist] = useState(false)
   const [cottages, setCottages] = useState([])
   const [selectedTags, setSelectedTags] = useState([])
   const [sortBy, setSortBy] = useState('')
@@ -15,7 +13,6 @@ const Cottages = () => {
 
   useEffect(() => {
     cottageService.getAll().then((gotCottages) => setCottages(gotCottages))
-    cottageActionService.checkIfAnyExist().then((exists) => setActionsExist(exists))
   }, [])
 
   const filteredAndSortedEntities = useMemo(
@@ -53,7 +50,6 @@ const Cottages = () => {
         handleSearchFilterChange={(e) => handleSearchFilterChange(e)}
         handleSortFilterChange={(e) => handleSortFilterChange(e)}
         searchForDatePeriod={(datePeriod) => searchForDatePeriod(datePeriod)}
-        actionsExist={actionsExist}
         sortFilterItems={sortFilterItems}
         updateTagFilters={updateTagFilters}
       />

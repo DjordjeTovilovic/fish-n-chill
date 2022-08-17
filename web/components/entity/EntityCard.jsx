@@ -8,8 +8,11 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Rating from '@mui/material/Rating'
 import Divider from '@mui/material/Divider'
+import { useRouter } from 'next/router'
 
 const EntityCard = ({ entity }) => {
+  const { asPath } = useRouter()
+
   return (
     <Grid item xs={12} sm={6} md={4}>
       <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -55,7 +58,7 @@ const EntityCard = ({ entity }) => {
           </Typography>
         </Box>
         <CardActions>
-          <Button size="small" href={window.location.href + '/' + entity.id} variant="contained">
+          <Button size="small" href={asPath + '/' + entity.id} variant="contained">
             View
           </Button>
           <Rating name="read-only" value={entity.ratingAverage ?? 0} precision={0.5} readOnly sx={{ ml: 7 }} />

@@ -19,7 +19,7 @@ const Modal = ({ content, isOpenModal, changeModalState }) => {
             right: 0,
             bottom: 0,
             backgroundColor: 'rgba(255, 255, 255, 0.75)',
-            zIndex: 9999,
+            zIndex: 999,
           },
           content: {
             alignContent: 'center',

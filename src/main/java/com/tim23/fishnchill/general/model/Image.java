@@ -18,8 +18,7 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
-    @Size(max = 200000)
+    @Column(columnDefinition = "TEXT")
     private String url;
 
     @JsonIgnore

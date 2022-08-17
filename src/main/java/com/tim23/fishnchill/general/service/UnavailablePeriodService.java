@@ -26,6 +26,10 @@ public class UnavailablePeriodService {
         return modelMapper.map(unavailablePeriodRepository.findAllByEntityId(entityId), typeToken.getType());
     }
 
+    public void deleteAllForEntity(Long entityId) {
+        unavailablePeriodRepository.deleteAllByEntityId(entityId);
+    }
+
     public UnavailablePeriodDto save(NewUnavailablePeriodDto newUnavailablePeriodDto) {
         UnavailablePeriod unavailablePeriod = new UnavailablePeriod();
         unavailablePeriod.setStartDate(newUnavailablePeriodDto.getStartDate());

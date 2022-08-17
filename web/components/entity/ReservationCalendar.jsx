@@ -19,6 +19,7 @@ const ReservationCalendar = ({ entity, updateEntity }) => {
 
   useEffect(() => {
     const initCalendar = () => {
+      if (entity.availabilityStart === null || entity.availabilityEnd === null) return null
       const eventInit = entity.reservations.map((reservation) => ({
         id: 'r' + reservation.id,
         title: 'Reservation',
@@ -35,7 +36,6 @@ const ReservationCalendar = ({ entity, updateEntity }) => {
           end: dateUtils.fcToEndDate(action.reservationEnd),
           color: 'red',
           extendedProps: action,
-          // editable: true,
         })
       })
 
@@ -83,7 +83,7 @@ const ReservationCalendar = ({ entity, updateEntity }) => {
     }
     updateEntity(entityFieldsToUpdate)
     setIsMakeUnavailableModalOpen(!isMakeUnavailableModalOpen)
-    enqueueSnackbar('Unavailable period set', { variant: 'success' })
+    enqueueSnackbar('Unavailable period successfully set', { variant: 'success' })
   }
 
   const makeUnavailableModalContent = (
