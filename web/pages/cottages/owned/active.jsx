@@ -8,7 +8,7 @@ const ActiveOwnerCottageReservations = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      let fetchedReservations = await ownerService.getAllActiveCottageReservationsForOwner()
+      let fetchedReservations = await ownerService.getAllActiveCottageOwnerReservations()
       fetchedReservations = dateUtils.reservationListFieldsToDate(fetchedReservations)
       setReservations(fetchedReservations)
     }

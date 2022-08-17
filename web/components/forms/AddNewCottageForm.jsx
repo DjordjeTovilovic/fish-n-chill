@@ -25,14 +25,15 @@ const AddNewCottageForm = ({ handleChange, setFieldValue, imagePreview, handleCh
         }}
       >
         <Typography component="h1" variant="h5">
-          Change user information
+          Enter cottage information
         </Typography>
         <Formik
           initialValues={{
             name: '',
             description: '',
-            price: 0,
-            capacity: 0,
+            address: '',
+            price: '',
+            capacity: '',
             rooms: '',
           }}
           onSubmit={async (values) => {
@@ -65,7 +66,7 @@ const AddNewCottageForm = ({ handleChange, setFieldValue, imagePreview, handleCh
               margin="normal"
               fullWidth
               component={TextField}
-              label="price"
+              label="price per day"
               name="price"
               type="number"
             />

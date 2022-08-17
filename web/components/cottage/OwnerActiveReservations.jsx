@@ -54,19 +54,17 @@ const OwnerActiveReservations = ({ reservations }) => {
               RESERVATION
             </Typography>
             <Typography gutterBottom align="left">
+              Client:
+              <Link href="#">{reservation.client.username}</Link>
+            </Typography>
+            <Typography gutterBottom align="left">
               Schedule:{' '}
               {`${new Date(reservation.reservationStart).toLocaleDateString('en-UK')}
        - ${new Date(reservation.reservationEnd).toLocaleDateString('en-UK')}`}
             </Typography>
-            <Typography gutterBottom align="left">
-              Number of guests: {reservation.numberOfGuests}
-            </Typography>
+
             <Typography gutterBottom align="left">
               Price: {reservation.price}€
-            </Typography>
-            <Typography gutterBottom align="left">
-              Client:
-              <Link href="#">{reservation.client.username}</Link>
             </Typography>
           </CardContent>
           <CardActions sx={{ display: 'flex', flexDirection: 'column', mt: 5 }}>
