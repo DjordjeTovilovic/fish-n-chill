@@ -1,5 +1,6 @@
-package com.tim23.fishnchill.adventure;
+package com.tim23.fishnchill.adventure.repository;
 
+import com.tim23.fishnchill.adventure.model.Adventure;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

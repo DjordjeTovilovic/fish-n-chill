@@ -1,6 +1,5 @@
 package com.tim23.fishnchill.general.controller;
 
-import com.tim23.fishnchill.cottage.dto.CottageDto;
 import com.tim23.fishnchill.general.dto.ClientSubscriptionDto;
 import com.tim23.fishnchill.general.dto.NewClientSubscriptionDto;
 import com.tim23.fishnchill.general.service.ClientSubscriptionService;

@@ -1,7 +1,6 @@
 package com.tim23.fishnchill.user.service;
 
 import com.tim23.fishnchill.general.model.enums.OwnerReportType;
-import com.tim23.fishnchill.reservation.dto.ClientCottageReservationDto;
 import com.tim23.fishnchill.reservation.dto.CottageOwnerCottageReservationDto;
 import com.tim23.fishnchill.reservation.dto.NewReportDto;
 import com.tim23.fishnchill.reservation.model.CottageReservation;

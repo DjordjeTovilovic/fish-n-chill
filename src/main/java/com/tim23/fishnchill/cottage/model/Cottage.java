@@ -26,8 +26,8 @@ public class Cottage extends BaseEntity {
 
     @OneToMany(mappedBy = "cottage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Room> rooms;
+
     @JsonIgnore
-    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private CottageOwner owner;
 

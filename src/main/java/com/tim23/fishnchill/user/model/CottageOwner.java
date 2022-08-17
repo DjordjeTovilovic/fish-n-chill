@@ -16,7 +16,6 @@ import java.util.Set;
 @Setter
 public class CottageOwner extends User {
     @JsonIgnore
-    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Cottage> entities;
 }

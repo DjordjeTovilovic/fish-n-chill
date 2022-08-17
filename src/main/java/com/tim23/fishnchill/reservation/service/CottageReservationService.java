@@ -61,10 +61,6 @@ public class CottageReservationService {
         List<CottageOwnerCottageReservationDto> reservations;
         reservations = modelMapper.map(cottageReservationRepository.
                 findAllByEntityIdAndReservationEndIsBeforeOrderByReservationStartDesc(clientId, LocalDateTime.now()), typeToken.getType());
-//        for (CottageOwnerCottageReservationDto reservation : reservations) {
-//            reservation.setRevisionWritten(userResponseRepository.existsByReservationIdAndResponseType(reservation.getId(), UserResponseType.REVISION));
-//            reservation.setComplaintWritten(userResponseRepository.existsByReservationIdAndResponseType(reservation.getId(), UserResponseType.COMPLAINT));
-//            }
         return reservations;
     }
 
