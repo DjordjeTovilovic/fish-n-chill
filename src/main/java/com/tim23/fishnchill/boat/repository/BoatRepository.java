@@ -1,4 +1,4 @@
-package com.tim23.fishnchill.boat;
+package com.tim23.fishnchill.boat.repository;
 
 import com.tim23.fishnchill.boat.model.Boat;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,9 +1,7 @@
 package com.tim23.fishnchill.user.controller;
 
 import com.tim23.fishnchill.reservation.dto.CottageOwnerCottageReservationDto;
-import com.tim23.fishnchill.reservation.dto.CottageReservationDto;
 import com.tim23.fishnchill.reservation.dto.NewReportDto;
-import com.tim23.fishnchill.reservation.dto.NewReservationDto;
 import com.tim23.fishnchill.reservation.service.CottageReservationService;
 import com.tim23.fishnchill.security.TokenUtils;
 import com.tim23.fishnchill.user.service.OwnerService;

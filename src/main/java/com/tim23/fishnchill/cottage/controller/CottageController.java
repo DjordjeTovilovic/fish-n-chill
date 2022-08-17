@@ -5,7 +5,6 @@ import com.tim23.fishnchill.cottage.dto.CottageDto;
 import com.tim23.fishnchill.cottage.dto.NewCottageDto;
 import com.tim23.fishnchill.cottage.model.Cottage;
 import com.tim23.fishnchill.cottage.service.CottageService;
-import com.tim23.fishnchill.general.repository.ImageRepository;
 import com.tim23.fishnchill.reservation.dto.DatePeriodDto;
 import com.tim23.fishnchill.reservation.service.CottageReservationService;
 import com.tim23.fishnchill.security.TokenUtils;
@@ -31,7 +30,6 @@ public class CottageController {
     private TokenUtils tokenUtils;
     private CottageOwnerRepository cottageOwnerRepository;
     private ModelMapper modelMapper;
-    private ImageRepository imageRepository;
 
 
     @GetMapping()
@@ -113,5 +111,4 @@ public class CottageController {
         TypeToken<List<CottageDto>> typeToken = new TypeToken<>() {};
         return modelMapper.map(owner.getEntities(), typeToken.getType());
     }
-
 }

@@ -1,7 +1,5 @@
 package com.tim23.fishnchill.reservation.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tim23.fishnchill.cottage.dto.CottageDto;
 import com.tim23.fishnchill.user.dto.ClientDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,8 +25,4 @@ public class CottageReservationDto {
     private LocalDateTime reservationStart;
 
     private LocalDateTime reservationEnd;
-
-    @JsonIgnore
-    private CottageDto entity;
-
 }

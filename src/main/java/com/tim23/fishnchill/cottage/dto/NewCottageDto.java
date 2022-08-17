@@ -1,9 +1,6 @@
 package com.tim23.fishnchill.cottage.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tim23.fishnchill.cottage.model.Room;
 import com.tim23.fishnchill.general.model.Tag;
-import com.tim23.fishnchill.user.model.CottageOwner;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +14,6 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class NewCottageDto {
 
     private String name;
@@ -40,6 +36,4 @@ public class NewCottageDto {
 
     private List<Integer> rooms;
 
-    @JsonIgnore
-    private CottageOwner owner;
 }

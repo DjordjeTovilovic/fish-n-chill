@@ -3,7 +3,6 @@ package com.tim23.fishnchill.general.service;
 import com.tim23.fishnchill.general.dto.ClientSubscriptionDto;
 import com.tim23.fishnchill.general.dto.NewClientSubscriptionDto;
 import com.tim23.fishnchill.general.model.ClientSubscription;
-import com.tim23.fishnchill.general.model.enums.EntityType;
 import com.tim23.fishnchill.general.repository.ClientSubscriptionRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;

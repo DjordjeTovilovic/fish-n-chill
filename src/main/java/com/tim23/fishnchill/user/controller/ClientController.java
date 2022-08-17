@@ -1,7 +1,5 @@
 package com.tim23.fishnchill.user.controller;
 
-import com.tim23.fishnchill.general.dto.ClientSubscriptionDto;
-import com.tim23.fishnchill.general.dto.NewClientSubscriptionDto;
 import com.tim23.fishnchill.general.dto.RatingDto;
 import com.tim23.fishnchill.general.dto.RatingInfoDto;
 import com.tim23.fishnchill.general.service.ClientSubscriptionService;
@@ -13,7 +11,6 @@ import com.tim23.fishnchill.user.dto.UserResponseDtoInfo;
 import com.tim23.fishnchill.user.service.ClientService;
 import com.tim23.fishnchill.user.service.UserResponseService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

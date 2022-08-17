@@ -1,7 +1,6 @@
 package com.tim23.fishnchill.general.repository;
 
 import com.tim23.fishnchill.general.model.ClientSubscription;
-import com.tim23.fishnchill.general.model.enums.EntityType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

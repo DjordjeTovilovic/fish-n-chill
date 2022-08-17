@@ -1,8 +1,12 @@
 package com.tim23.fishnchill.general.service;
 
+import com.tim23.fishnchill.action.model.AdventureAction;
+import com.tim23.fishnchill.action.model.BoatAction;
 import com.tim23.fishnchill.action.model.CottageAction;
 import com.tim23.fishnchill.general.model.BaseEntity;
 import com.tim23.fishnchill.general.model.VerificationToken;
+import com.tim23.fishnchill.reservation.model.AdventureReservation;
+import com.tim23.fishnchill.reservation.model.BoatReservation;
 import com.tim23.fishnchill.reservation.model.CottageReservation;
 import com.tim23.fishnchill.reservation.model.Reservation;
 import com.tim23.fishnchill.user.model.Client;
@@ -33,16 +37,9 @@ public class MailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    /*
-     * Koriscenje klase za ocitavanje vrednosti iz application.properties fajla
-     */
     @Value("${spring.mail.username}")
     private String email;
 
-    /*
-     * Anotacija za oznacavanje asinhronog zadatka
-     * Vise informacija na: https://docs.spring.io/spring/docs/current/spring-framework-reference/integration.html#scheduling
-     */
     @Async
     public void sendVerificationEmail(VerificationToken verificationToken) throws MailException {
         System.out.println("Sending email...");
@@ -84,6 +81,54 @@ public class MailService {
     }
 
     @Async
+    public void sendBoatReservationEmail(Client client, BoatReservation reservation) throws MailException, InterruptedException{
+        System.out.println("Sending reservation email...");
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(client.getEmail());
+        mail.setFrom(email);
+        mail.setSubject("Cottage reservation information");
+        mail.setText("Hello " + client.getFirstName() + ",\n\n"
+                + "You scheduled a reservation for a boat." + "\n\n"
+                + "This is the following information:" + "\n\n"
+                + "Client: " + client.getFirstName() + " " + client.getLastName() + "\n"
+                + "Email: " + client.getEmail() + "\n\n"
+                + "RESERVATION INFORMATION: \n"
+                + "Boat: " + reservation.getEntity().getName() + "\n"
+                + "Address: " + reservation.getEntity().getAddress() + "\n"
+                + "Number of guests: " + reservation.getNumberOfGuests() + "\n"
+                + "Price: " + reservation.getPrice() + "€\n"
+        );
+        javaMailSender.send(mail);
+
+        System.out.println("Reservation Email sent!");
+    }
+
+    @Async
+    public void sendAdventureReservationEmail(Client client, AdventureReservation reservation) throws MailException, InterruptedException{
+        System.out.println("Sending reservation email...");
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(client.getEmail());
+        mail.setFrom(email);
+        mail.setSubject("Cottage reservation information");
+        mail.setText("Hello " + client.getFirstName() + ",\n\n"
+                + "You scheduled a reservation for an adventure." + "\n\n"
+                + "This is the following information:" + "\n\n"
+                + "Client: " + client.getFirstName() + " " + client.getLastName() + "\n"
+                + "Email: " + client.getEmail() + "\n\n"
+                + "RESERVATION INFORMATION: \n"
+                + "Adventure: " + reservation.getEntity().getName() + "\n"
+                + "Address: " + reservation.getEntity().getAddress() + "\n"
+                + "Number of guests: " + reservation.getNumberOfGuests() + "\n"
+                + "Price: " + reservation.getPrice() + "€\n"
+        );
+        javaMailSender.send(mail);
+
+        System.out.println("Reservation Email sent!");
+    }
+
+    @Async
     public void sendNewCottageActionEmail(Client client, CottageAction cottageAction) throws MailException {
         Integer discount = Math.round(((cottageAction.getActualPrice()-cottageAction.getActionPrice())/cottageAction.getActualPrice())*100);
 
@@ -92,10 +137,10 @@ public class MailService {
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(client.getEmail());
         mail.setFrom(email);
-        mail.setSubject("Subscribed entity action!");
+        mail.setSubject("Subscribed cottage action!");
         mail.setText("Hello " + client.getFirstName() + ",\n\n"
-                + "There is a new action for a entity that you are subscribed to." + "\n\n"
-                + "ENTITY:" + "\n\n"
+                + "There is a new action for a cottage that you are subscribed to." + "\n\n"
+                + "COTTAGE:" + "\n\n"
                 + "Name: " + cottageAction.getEntity().getName() + "\n"
                 + "Address: " + cottageAction.getEntity().getAddress() + "\n\n"
                 + "ACTION: \n"
@@ -108,6 +153,60 @@ public class MailService {
         javaMailSender.send(mail);
 
         System.out.println("New cottage action Email sent!");
+    }
+
+    @Async
+    public void sendNewBoatActionEmail(Client client, BoatAction boatAction) throws MailException{
+        Integer discount = Math.round(((boatAction.getActualPrice()-boatAction.getActionPrice())/boatAction.getActualPrice())*100);
+
+        System.out.println("New boat action email...");
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(client.getEmail());
+        mail.setFrom(email);
+        mail.setSubject("Subscribed boat action!");
+        mail.setText("Hello " + client.getFirstName() + ",\n\n"
+                + "There is a new action for a boat that you are subscribed to." + "\n\n"
+                + "BOAT:" + "\n\n"
+                + "Name: " + boatAction.getEntity().getName() + "\n"
+                + "Address: " + boatAction.getEntity().getAddress() + "\n\n"
+                + "ACTION: \n"
+                + "Actual price: " + boatAction.getActualPrice() + "€\n"
+                + "Action price: " + boatAction.getActionPrice() + "€\n"
+                + "Discount: " + discount + "%\n"
+                + "Reservation start: " + boatAction.getReservationStart() + "\n"
+                + "Reservation end: " + boatAction.getReservationEnd() + "\n"
+        );
+        javaMailSender.send(mail);
+
+        System.out.println("New boat action Email sent!");
+    }
+
+    @Async
+    public void sendNewAdventureActionEmail(Client client, AdventureAction adventureAction) throws MailException{
+        Integer discount = Math.round(((adventureAction.getActualPrice()-adventureAction.getActionPrice())/adventureAction.getActualPrice())*100);
+
+        System.out.println("New adventure action email...");
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(client.getEmail());
+        mail.setFrom(email);
+        mail.setSubject("Subscribed adventure action!");
+        mail.setText("Hello " + client.getFirstName() + ",\n\n"
+                + "There is a new action for an adventure that you are subscribed to." + "\n\n"
+                + "ADVENTURE:" + "\n\n"
+                + "Name: " + adventureAction.getEntity().getName() + "\n"
+                + "Address: " + adventureAction.getEntity().getAddress() + "\n\n"
+                + "ACTION: \n"
+                + "Actual price: " + adventureAction.getActualPrice() + "€\n"
+                + "Action price: " + adventureAction.getActionPrice() + "€\n"
+                + "Discount: " + discount + "%\n"
+                + "Reservation start: " + adventureAction.getReservationStart() + "\n"
+                + "Reservation end: " + adventureAction.getReservationEnd() + "\n"
+        );
+        javaMailSender.send(mail);
+
+        System.out.println("New boat action Email sent!");
     }
 
     @Async
