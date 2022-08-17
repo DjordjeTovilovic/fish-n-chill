@@ -30,6 +30,14 @@ public class OwnerController {
         return ownerService.findAllActiveCottageOwnerReservations(ownerId);
     }
 
+    @GetMapping("/owner/cottages/reservations/past")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<CottageOwnerCottageReservationDto> findAllPastCottageOwnerReservations(HttpServletRequest request) {
+        Long ownerId = tokenUtils.getUserIdFromRequest(request);
+        return ownerService.findAllPastCottageOwnerReservations(ownerId);
+    }
+
     @PostMapping("/cottages/reservations/reports")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
