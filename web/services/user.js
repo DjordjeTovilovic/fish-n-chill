@@ -20,6 +20,9 @@ const deleteMe = async () => {
   await axios.post(baseUrl + 'deleteAccount/')
 }
 
+const deleteById = async (id) => {
+  await axios.delete(baseUrl + 'delete/' + id)
+}
 
 const deleteAccountRequest = async (deleteRequest) => {
   const res = await axios.post(baseUrl + 'deleteAccountRequest', deleteRequest)
@@ -31,7 +34,8 @@ const userService = {
   updateUser,
   updatePassword,
   deleteMe,
-  deleteAccountRequest
+  deleteAccountRequest,
+  deleteById,
 }
 
 export default userService
