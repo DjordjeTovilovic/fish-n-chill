@@ -1,13 +1,13 @@
 import AllActions from 'components/lists/AllActions'
 import { useState, useEffect } from 'react'
-import cottageActionService from 'services/cottagesAction'
+import adventureActionService from 'services/adventureAction'
 import reservationService from 'services/reservation'
 
-const CottageActions = () => {
+const AdventureActions = () => {
   const [actions, setActions] = useState([])
 
   useEffect(() => {
-    cottageActionService
+    adventureActionService
       .getAllActiveActions()
       .then((gotActions) => setActions(gotActions))
       .catch((err) => console.log(err))
@@ -29,9 +29,9 @@ const CottageActions = () => {
   }
   return (
     <>
-      <h1 style={{ textAlign: 'center' }}>Cottage Actions</h1>
-      <AllActions actions={actions} scheduleAction={scheduleAction} entities={'cottages'}></AllActions>
+      <h1 style={{ textAlign: 'center' }}>Adventure Actions</h1>
+      <AllActions actions={actions} scheduleAction={scheduleAction} entities={'adventures'}></AllActions>
     </>
   )
 }
-export default CottageActions
+export default AdventureActions

@@ -6,6 +6,7 @@ const Adventures = () => {
   const [adventures, setAdventures] = useState([])
   const [filter, setFilter] = useState('')
   const [filterProperty, setFilterProperty] = useState('address')
+  const sortFilterItems = ['Name', 'Address', 'Rating', 'Price']
 
   useEffect(() => {
     adventureService.getAll().then((gotAdventures) => setAdventures(gotAdventures))
@@ -58,6 +59,7 @@ const Adventures = () => {
         handleSearchFieldChange={(e) => handleSearchFieldChange(e)}
         handleSearchFilterChange={(e) => handleSearchFilterChange(e)}
         handleSortFilterChange={(e) => handleSortFilterChange(e)}
+        sortFilterItems={sortFilterItems}
         searchForDatePeriod={(datePeriod) => searchForDatePeriod(datePeriod)}
       />
     </>

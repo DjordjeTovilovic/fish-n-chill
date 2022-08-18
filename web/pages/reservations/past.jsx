@@ -72,7 +72,7 @@ const ReservationHistory = () => {
     let newReservations
     switch (e.target.value) {
       case 'name': {
-        newReservations = [...reservations.sort((a, b) => a.entity.name.localeCompare(b.name))]
+        newReservations = [...reservations.sort((a, b) => a.entity.name.localeCompare(b.entity.name))]
         break
       }
       case 'duration': {
@@ -117,6 +117,7 @@ const ReservationHistory = () => {
         submitStatusMessage={submitStatusMessage}
         handleSortFilterChange={handleSortFilterChange}
         sortFilterItems={sortFilterItems}
+        entityType={'Entity'}
       />
     )
   else return <></>

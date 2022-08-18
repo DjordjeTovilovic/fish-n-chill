@@ -36,7 +36,7 @@ INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability
 INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Boat 2', 0, 0, 225, '2022-05-23', '2022-08-15', 7, 'Oficirac, Novi Sad', 'Manji brod valjda');
 INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Boat 3', 0, 0, 225, '2022-05-23', '2022-09-15', 10, 'Oficirac, Novi Sad', 'Veliki brod');
 --inserting for adventures
-INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Adventure 1', 0, 0, 170, '2022-05-23', '2022-09-22', 5, 'Mount OZREN', 'All you need in one adventure!!!');
+INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Adventure 1', 0, 0, 170, '2022-05-23', '2022-09-22', 5, 'Ozren, Doboj', 'All you need in one adventure!!!');
 
 
 INSERT INTO IMAGE (entity_id, url) VALUES (1, 'https://i.ibb.co/gRhpQYk/cottage1.jpg');
@@ -89,14 +89,20 @@ INSERT INTO BOAT (id, owner_id, boat_specification_id) VALUES (5, 3, 1);
 INSERT INTO BOAT (id, owner_id, boat_specification_id) VALUES (6, 3, 2);
 INSERT INTO BOAT (id, owner_id, boat_specification_id) VALUES (7, 3, 2);
 
+INSERT INTO BOAT_ACTION (entity_id, action_price, actual_price, number_of_guests, reservation_start, reservation_end, action_end) VALUES (5, 100, 600, 5, '2022-08-31', '2022-09-07', '2022-08-30');
+INSERT INTO BOAT_ACTION (entity_id, action_price, actual_price, number_of_guests, reservation_start, reservation_end, action_end) VALUES (6, 150, 600, 5, '2022-08-22', '2022-08-26', '2022-08-21');
+
 INSERT INTO ADVENTURE (id, owner_id, biography) VALUES (8, 4, 'Your guide and instructor biography!');
+
+INSERT INTO ADVENTURE_ACTION (entity_id, action_price, actual_price, number_of_guests, reservation_start, reservation_end, action_end) VALUES (8, 100, 150, 5, '2022-08-31', '2022-09-07', '2022-08-30');
+INSERT INTO ADVENTURE_ACTION (entity_id, action_price, actual_price, number_of_guests, reservation_start, reservation_end, action_end) VALUES (8, 250, 300, 5, '2022-08-22', '2022-08-26', '2022-08-21');
 
 INSERT INTO RATING (client_id, entity_id, rating) VALUES (1,1,3.5);
 
-INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (false,true,true,false,1)
-INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,true,true,true,2)
-INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,false,true,false,3)
-INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,false,false,false,4)
-INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,false,true,false,5)
-INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,false,true,true,6)
-INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,false,false,false,7)
+INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (false,true,true,false,1);
+INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,true,true,true,2);
+INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,false,true,false,3);
+INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,false,false,false,4);
+INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,false,true,false,5);
+INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,false,true,true,6);
+INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,false,false,false,7);

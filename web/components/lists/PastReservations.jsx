@@ -12,6 +12,7 @@ const PastReservations = ({
   submitStatusMessage,
   handleSortFilterChange,
   sortFilterItems,
+  entityType,
 }) => {
   return (
     <div
@@ -46,6 +47,7 @@ const PastReservations = ({
           statusMessage={statusMessage}
           submitResponse={submitResponse}
           submitStatusMessage={submitStatusMessage}
+          entityType={entityType}
         />
       ))}
     </div>

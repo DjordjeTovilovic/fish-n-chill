@@ -19,6 +19,7 @@ const PastReservationCard = ({
   statusMessage,
   submitResponse,
   submitStatusMessage,
+  entityType,
 }) => {
   const [isOpenRevisionModal, setIsOpenRevisionModal] = useState(false)
   const [isOpenComplaintModal, setIsOpenComplaintModal] = useState(false)
@@ -107,7 +108,7 @@ const PastReservationCard = ({
         <CardMedia component="img" sx={{ width: 170, height: '100%' }} image={reservation.entity.images[0].url} />
         <CardContent sx={{ display: 'flex', flexDirection: 'column', ml: 3, maxWidth: '30%' }}>
           <Typography borderBottom={1} gutterBottom variant="h5" align="left">
-            COTTAGE
+            {entityType}
           </Typography>
           <Typography gutterBottom align="left">
             Name: {reservation.entity.name}
