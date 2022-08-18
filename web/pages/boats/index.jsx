@@ -24,12 +24,6 @@ const Boats = () => {
     boatService.findByPeriod(datePeriod).then((gotBoats) => setBoats(gotBoats))
   }
 
-  const updateTagFilters = (tag) => {
-    selectedTags.includes(tag)
-      ? setSelectedTags(selectedTags.filter((t) => t !== tag))
-      : setSelectedTags([...selectedTags, tag])
-  }
-
   const handleSearchFieldChange = (e) => {
     setFilter(e.target.value)
   }
@@ -42,6 +36,11 @@ const Boats = () => {
     setSortBy(e.target.value)
   }
 
+  const updateTagFilters = (tag) => {
+    selectedTags.includes(tag)
+      ? setSelectedTags(selectedTags.filter((t) => t !== tag))
+      : setSelectedTags([...selectedTags, tag])
+  }
   return (
     <>
       <AllEntities

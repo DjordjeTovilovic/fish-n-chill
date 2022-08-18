@@ -7,6 +7,7 @@ const Adventures = () => {
   const [filter, setFilter] = useState('')
   const [filterProperty, setFilterProperty] = useState('address')
   const sortFilterItems = ['Name', 'Address', 'Rating', 'Price']
+  const [selectedTags, setSelectedTags] = useState([])
 
   useEffect(() => {
     adventureService.getAll().then((gotAdventures) => setAdventures(gotAdventures))
@@ -51,6 +52,11 @@ const Adventures = () => {
       }
     }
   }
+  const updateTagFilters = (tag) => {
+    selectedTags.includes(tag)
+      ? setSelectedTags(selectedTags.filter((t) => t !== tag))
+      : setSelectedTags([...selectedTags, tag])
+  }
 
   return (
     <>
@@ -61,6 +67,7 @@ const Adventures = () => {
         handleSortFilterChange={(e) => handleSortFilterChange(e)}
         sortFilterItems={sortFilterItems}
         searchForDatePeriod={(datePeriod) => searchForDatePeriod(datePeriod)}
+        updateTagFilters={updateTagFilters}
       />
     </>
   )
