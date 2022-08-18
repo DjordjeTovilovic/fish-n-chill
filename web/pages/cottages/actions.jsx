@@ -30,7 +30,7 @@ const CottageActions = () => {
   return (
     <>
       <h1 style={{ textAlign: 'center' }}>Cottage Actions</h1>
-      <AllActions actions={actions} scheduleAction={scheduleAction} entities={'cottages'}></AllActions>
+      <AllActions actions={actions} scheduleAction={scheduleAction}></AllActions>
     </>
   )
 }
