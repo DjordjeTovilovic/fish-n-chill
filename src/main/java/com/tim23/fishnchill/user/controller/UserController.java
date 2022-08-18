@@ -3,7 +3,6 @@ package com.tim23.fishnchill.user.controller;
 import com.tim23.fishnchill.general.exception.ResourceConflictException;
 import com.tim23.fishnchill.security.TokenUtils;
 import com.tim23.fishnchill.user.dto.*;
-import com.tim23.fishnchill.user.model.Authority;
 import com.tim23.fishnchill.user.model.User;
 import com.tim23.fishnchill.user.service.AuthorityService;
 import com.tim23.fishnchill.user.service.ClientService;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,26 +58,6 @@ public class UserController {
         }
     }
 
-    @GetMapping("/rolerequests")
-    //@PreAuthorize("hasRole('ADMIN')")
-    public List<UserDto> findOwnerRequests() {
-        List<UserDto> userDtos = new ArrayList<UserDto>();
-        List<Authority> authorities = authorityService.findAllContainingRequest();
-        for (Authority auth : authorities) {
-            userDtos.add(userService.findById(auth.getId()));
-        }
-        return userDtos;
-    }
-
-    @PostMapping("/accept-request/{id}")
-    public ResponseEntity<?> acceptOwnerRequest(@PathVariable Long id) throws Exception {
-        authorityService.confirmRequest(id);
-        Map<String, String> result = new HashMap<>();
-        result.put("result", "success");
-        return ResponseEntity.accepted().body(result);
-    }
-
-
     @PostMapping("/update")
     public ResponseEntity<User> addUser(@Valid @RequestBody UpdateDto updateDto, HttpServletRequest request) {
         String token = tokenUtils.getToken(request);
@@ -103,6 +81,11 @@ public class UserController {
             throw new ResourceConflictException("Old pw incorrect");
     }
 
+    @DeleteMapping(value ="/delete/{id}")
+    public void deleteById(@PathVariable("id")Long id){
+        userService.deleteUserById(id);
+    }
+
     @PostMapping(value = "/deleteAccount")
     public void deleteUser(HttpServletRequest request) {
         String token = tokenUtils.getToken(request);
@@ -119,7 +102,7 @@ public class UserController {
 
     @PostMapping(value = "/deleteAccountRequest")
     @ResponseBody
-    public UserResponseDto deleteAccountRequest(@RequestBody UserResponseDtoInfo userResponseDtoInfo) throws Exception {
+    public UserResponseDto deleteAccountRequest(@RequestBody UserResponseDtoInfo userResponseDtoInfo) {
         return userResponseService.deleteAccountRequest(userResponseDtoInfo);
     }
 

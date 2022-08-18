@@ -77,6 +77,19 @@ const LoggedInNavBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
+              {userRole === 'ROLE_ADMIN' && (
+                <MenuItem sx={{ justifyContent: 'center' }}>
+                  <Button
+                    key="Owner requests"
+                    style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
+                    sx={{ color: 'blue' }}
+                    href={'/' + 'users/' + 'admin/' + 'ownerRequest'}
+                  >
+                    Owner requests
+                  </Button>
+                </MenuItem>
+              )}
+
               {userRole === 'ROLE_COTTAGE_OWNER' && (
                 <MenuItem sx={{ justifyContent: 'center' }}>
                   <Button
