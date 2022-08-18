@@ -62,7 +62,7 @@ public class UserService {
         u.setAddress(registrationDTO.getAddress());
         u.setPhoneNumber(registrationDTO.getPhoneNumber());
         // TODO-treba napraviti dio za request ownera koji se salje adminu
-        u.setEnabled(false);
+        u.setEnabled(true);
         List<Authority> auth;
         if (registrationDTO.getRole().equalsIgnoreCase("cottage_owner")) {
             auth = authService.findByName("ROLE_COTTAGE_OWNER");

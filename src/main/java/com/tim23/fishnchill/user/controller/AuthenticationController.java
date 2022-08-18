@@ -13,7 +13,6 @@ import com.tim23.fishnchill.user.model.Client;
 import com.tim23.fishnchill.user.model.User;
 import com.tim23.fishnchill.user.service.ClientService;
 import com.tim23.fishnchill.user.service.CustomUserDetailsService;
-import com.tim23.fishnchill.user.service.OwnerService;
 import com.tim23.fishnchill.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -45,7 +44,6 @@ public class AuthenticationController {
     private final ClientService clientService;
     private MailService emailService;
     private VerificationTokenService verificationTokenService;
-    private OwnerService ownerService;
 
     // Prvi endpoint koji pogadja korisnik kada se loguje.
     // Tada zna samo svoje korisnicko ime i lozinku i to prosledjuje na backend.
@@ -69,7 +67,7 @@ public class AuthenticationController {
 
     // Endpoint za registraciju novog korisnika
     @PostMapping("/signup")
-    public ResponseEntity<?> addUser(@Valid @RequestBody RegistrationDto registrationDTO) {
+    public ResponseEntity<User> addUser(@Valid @RequestBody RegistrationDto registrationDTO) {
         UserDto existUser = this.userService.findByEmail(registrationDTO.getEmail());
         if (existUser != null) {
             throw new ResourceConflictException("User already registered on this email!");
@@ -89,16 +87,9 @@ public class AuthenticationController {
             }
             return new ResponseEntity<>(client, HttpStatus.CREATED);
         } else {
-
-            return new ResponseEntity<>(ownerService.save(registrationDTO), HttpStatus.CREATED);
+            User user = this.userService.save(registrationDTO);
+            return new ResponseEntity<>(null, HttpStatus.CREATED);
         }
-    }
-
-    @PostMapping(value = "/verify-owner-account/{id}")
-    public ResponseEntity<User>confirmOwnerAccount(@PathVariable("id") Long id){
-        User user = userService.findByIdPure(id);
-        user.setEnabled(true);
-        return new ResponseEntity<>(userService.saveUser(user),HttpStatus.OK);
     }
 
     @RequestMapping(value = "/verify-account", method = {RequestMethod.GET, RequestMethod.POST})
