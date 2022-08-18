@@ -15,7 +15,6 @@ import java.util.Set;
 @Getter
 @Setter
 public class BoatOwner extends User {
-    @JsonIgnore
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 
     @JsonIgnore
