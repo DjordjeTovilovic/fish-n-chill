@@ -42,7 +42,7 @@ const LoggedInNavBar = () => {
             underline="none"
             color="inherit"
             variant="h5"
-            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+            sx={{ mr: 2, display: { xs: 'none', md: 'flex' }, ':hover': { color: 'gray' } }}
           >
             FishNChill
           </Link>
@@ -56,6 +56,8 @@ const LoggedInNavBar = () => {
               ))}
             </Box>
           )}
+
+          {userRole === 'ROLE_ADMIN' && <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}></Box>}
 
           {userRole === 'ROLE_COTTAGE_OWNER' && (
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -93,7 +95,6 @@ const LoggedInNavBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-
               {userRole === 'ROLE_ADMIN' && (
                 <MenuItem sx={{ justifyContent: 'center' }}>
                   <Button
@@ -119,7 +120,6 @@ const LoggedInNavBar = () => {
                   </Button>
                 </MenuItem>
               )}
-              
 
               {userRole === 'ROLE_CLIENT' && (
                 <>
