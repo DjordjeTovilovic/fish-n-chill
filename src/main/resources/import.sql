@@ -58,6 +58,17 @@ INSERT INTO COTTAGE (id, owner_id) VALUES (4, 2);
 INSERT INTO ROOM (number_of_beds, cottage_id) VALUES (2, 1);
 INSERT INTO ROOM (number_of_beds, cottage_id) VALUES (3, 1);
 
+INSERT INTO BOAT_SPECIFICATION (boat_type, length, engine_id, engine_power, max_speed) VALUES ('yacht', '15', '3A23FB', '400', '120');
+INSERT INTO BOAT_SPECIFICATION (boat_type, length, engine_id, engine_power, max_speed) VALUES ('smaller boat', '8', 'AA123', '220', '120');
+INSERT INTO BOAT_SPECIFICATION (boat_type, length, engine_id, engine_power, max_speed) VALUES ('bigger boat', '11', 'AA123', '220', '120');
+
+INSERT INTO BOAT (id, owner_id, boat_specification_id) VALUES (5, 3, 1);
+INSERT INTO BOAT (id, owner_id, boat_specification_id) VALUES (6, 3, 2);
+INSERT INTO BOAT (id, owner_id, boat_specification_id) VALUES (7, 3, 2);
+
+INSERT INTO ADVENTURE (id, owner_id, biography) VALUES (8, 4, 'Your guide and instructor biography!');
+
+--cottage reservations
 INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (500, 5, '2022-08-17', '2022-08-19');
 INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (1200, 5, '2022-08-08', '2022-08-12');
 INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (1000, 5, '2022-05-03', '2022-05-07');
@@ -65,7 +76,13 @@ INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation
 INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (600, 5, '2022-06-13', '2022-06-15');
 INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (1000, 5, '2022-05-03', '2022-05-07');
 INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (1000, 5, '2022-08-18', '2022-08-20');
+--boat reservations
+INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (750, 7, '2022-08-23', '2022-08-30');
+INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (1150, 5, '2022-08-18', '2022-08-20');
 
+--adventure reservations
+INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (2000, 14, '2022-05-13', '2022-05-27');
+INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation_end) VALUES (1150, 5, '2022-08-18', '2022-08-20');
 
 INSERT INTO COTTAGE_RESERVATION (id, client_id, entity_id) VALUES (1, 1, 1);
 INSERT INTO COTTAGE_RESERVATION (id, client_id, entity_id) VALUES (2, 1, 2);
@@ -75,24 +92,20 @@ INSERT INTO COTTAGE_RESERVATION (id, client_id, entity_id) VALUES (5, 1, 2);
 INSERT INTO COTTAGE_RESERVATION (id, client_id, entity_id) VALUES (6, 6, 1);
 INSERT INTO COTTAGE_RESERVATION (id, client_id, entity_id) VALUES (7, 6, 4);
 
+INSERT INTO BOAT_RESERVATION (id, client_id, entity_id) VALUES (8, 1, 5);
+INSERT INTO BOAT_RESERVATION (id, client_id, entity_id) VALUES (9, 1, 6);
+
+INSERT INTO ADVENTURE_RESERVATION (id, client_id, entity_id) VALUES (10, 1, 8);
+INSERT INTO ADVENTURE_RESERVATION (id, client_id, entity_id) VALUES (11, 1, 8);
+
 INSERT INTO COTTAGE_ACTION (entity_id, action_price, actual_price, number_of_guests, reservation_start, reservation_end, action_end) VALUES (1, 500, 600, 5, '2022-08-16', '2022-08-19', '2022-08-15');
 INSERT INTO COTTAGE_ACTION (entity_id, action_price, actual_price, number_of_guests, reservation_start, reservation_end, action_end) VALUES (1, 300, 600, 5, '2022-08-22', '2022-08-26', '2022-08-21');
 INSERT INTO COTTAGE_ACTION (entity_id, action_price, actual_price, number_of_guests, reservation_start, reservation_end, action_end) VALUES (1, 500, 600, 5, '2022-08-10', '2022-08-15', '2022-08-09');
 INSERT INTO COTTAGE_ACTION (entity_id, action_price, actual_price, number_of_guests, reservation_start, reservation_end, action_end) VALUES (2, 75, 300, 3, '2022-08-11', '2022-08-14', '2022-08-10');
 INSERT INTO COTTAGE_ACTION (entity_id, action_price, actual_price, number_of_guests, reservation_start, reservation_end, action_end) VALUES (2, 300, 400, 13, '2022-08-27', '2022-08-29', '2022-08-26');
 
-INSERT INTO BOAT_SPECIFICATION (boat_type, length, engine_id, engine_power, max_speed) VALUES ('yacht', '15', '3A23FB', '400', '120');
-INSERT INTO BOAT_SPECIFICATION (boat_type, length, engine_id, engine_power, max_speed) VALUES ('smaller boat', '8', 'AA123', '220', '120');
-INSERT INTO BOAT_SPECIFICATION (boat_type, length, engine_id, engine_power, max_speed) VALUES ('bigger boat', '11', 'AA123', '220', '120');
-
-INSERT INTO BOAT (id, owner_id, boat_specification_id) VALUES (5, 3, 1);
-INSERT INTO BOAT (id, owner_id, boat_specification_id) VALUES (6, 3, 2);
-INSERT INTO BOAT (id, owner_id, boat_specification_id) VALUES (7, 3, 2);
-
 INSERT INTO BOAT_ACTION (entity_id, action_price, actual_price, number_of_guests, reservation_start, reservation_end, action_end) VALUES (5, 100, 600, 5, '2022-08-31', '2022-09-07', '2022-08-30');
 INSERT INTO BOAT_ACTION (entity_id, action_price, actual_price, number_of_guests, reservation_start, reservation_end, action_end) VALUES (6, 150, 600, 5, '2022-08-22', '2022-08-26', '2022-08-21');
-
-INSERT INTO ADVENTURE (id, owner_id, biography) VALUES (8, 4, 'Your guide and instructor biography!');
 
 INSERT INTO ADVENTURE_ACTION (entity_id, action_price, actual_price, number_of_guests, reservation_start, reservation_end, action_end) VALUES (8, 100, 150, 5, '2022-08-31', '2022-09-07', '2022-08-30');
 INSERT INTO ADVENTURE_ACTION (entity_id, action_price, actual_price, number_of_guests, reservation_start, reservation_end, action_end) VALUES (8, 250, 300, 5, '2022-08-22', '2022-08-26', '2022-08-21');

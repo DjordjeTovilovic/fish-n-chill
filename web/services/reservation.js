@@ -21,12 +21,12 @@ const getAllActiveBoatReservationsForClient = async () => {
   return res.data
 }
 
-const getAllPastAdventuresReservationsForClient = async () => {
+const getAllPastAdventureReservationsForClient = async () => {
   const res = await axios.get(baseUrl + 'adventures/whoami/reservations/past')
   return res.data
 }
 
-const getAllActiveAdventuresReservationsForClient = async () => {
+const getAllActiveAdventureReservationsForClient = async () => {
   const res = await axios.get(baseUrl + 'adventures/whoami/reservations/active')
   return res.data
 }
@@ -76,8 +76,8 @@ const reservationService = {
   getAllActiveCottageReservationsForClient,
   getAllPastBoatReservationsForClient,
   getAllActiveBoatReservationsForClient,
-  getAllPastAdventuresReservationsForClient,
-  getAllActiveAdventuresReservationsForClient,
+  getAllPastAdventureReservationsForClient,
+  getAllActiveAdventureReservationsForClient,
   getAllPastReservationsForCottage,
   getAllPastReservationsForBoat,
   getAllPastReservationsForAdventure,

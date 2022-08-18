@@ -12,7 +12,9 @@ const ReservationHistory = () => {
   const [statusMessage, setStatusMessage] = useState('')
   const [submitStatusMessage, setSubmitStatusMessage] = useState('')
   const [sortFilterItems, setSortFilterItems] = useState(['Name', 'Duration', 'Price'])
+  const [typeFilterItems, setTypeFilterItems] = useState(['Adventure', 'Boat', 'Cottage'])
   const [ratings, setRatings] = useState([])
+  const [entityType, setEntityType] = useState('ADVENTURE')
 
   useEffect(() => {
     clientService
@@ -20,7 +22,7 @@ const ReservationHistory = () => {
       .then((gotRatings) => {
         setRatings(gotRatings)
         reservationService
-          .getAllPastCottageReservationsForClient()
+          .getAllPastAdventureReservationsForClient()
           .then((gotReservations) => {
             setReservations(gotReservations)
             let ratingss = new Array(gotReservations.length).fill(0)
@@ -90,6 +92,7 @@ const ReservationHistory = () => {
         break
       }
       default: {
+        newReservations = [...reservations]
         break
       }
     }
@@ -104,23 +107,86 @@ const ReservationHistory = () => {
     setBeginingRatings(ratingss)
   }
 
-  if (ratingsProp.length !== 0)
-    return (
-      <PastReservations
-        reservations={reservations}
-        ratingsProp={ratingsProp}
-        changeRating={changeRating}
-        rateEntity={rateEntity}
-        beginingRatings={beginingRatings}
-        statusMessage={statusMessage}
-        submitResponse={submitResponse}
-        submitStatusMessage={submitStatusMessage}
-        handleSortFilterChange={handleSortFilterChange}
-        sortFilterItems={sortFilterItems}
-        entityType={'Entity'}
-      />
-    )
-  else return <></>
+  const handleTypeFilterChange = (e) => {
+    switch (e.target.value) {
+      case 'adventure': {
+        reservationService
+          .getAllPastAdventureReservationsForClient()
+          .then((gotReservations) => {
+            setReservations(gotReservations)
+            let ratingss = new Array(gotReservations.length).fill(0)
+            gotReservations.forEach((reservation, index) => {
+              ratings.forEach((rating) => {
+                if (reservation.entity.id === rating.entity.id) ratingss[index] = rating.rating
+              })
+            })
+            setRatingsProp(ratingss)
+            setBeginingRatings(ratingss)
+            setEntityType(e.target.value.toUpperCase())
+          })
+          .catch((err) => console.log(err))
+        break
+      }
+      case 'boat': {
+        reservationService
+          .getAllPastBoatReservationsForClient()
+          .then((gotReservations) => {
+            setReservations(gotReservations)
+            let ratingss = new Array(gotReservations.length).fill(0)
+            gotReservations.forEach((reservation, index) => {
+              ratings.forEach((rating) => {
+                if (reservation.entity.id === rating.entity.id) ratingss[index] = rating.rating
+              })
+            })
+            setRatingsProp(ratingss)
+            setBeginingRatings(ratingss)
+            setEntityType(e.target.value.toUpperCase())
+          })
+          .catch((err) => console.log(err))
+        break
+      }
+
+      case 'cottage': {
+        reservationService
+          .getAllPastCottageReservationsForClient()
+          .then((gotReservations) => {
+            setReservations(gotReservations)
+            let ratingss = new Array(gotReservations.length).fill(0)
+            gotReservations.forEach((reservation, index) => {
+              ratings.forEach((rating) => {
+                if (reservation.entity.id === rating.entity.id) ratingss[index] = rating.rating
+              })
+            })
+            setRatingsProp(ratingss)
+            setBeginingRatings(ratingss)
+            setEntityType(e.target.value.toUpperCase())
+          })
+          .catch((err) => console.log(err))
+        break
+      }
+      default: {
+        break
+      }
+    }
+  }
+
+  return (
+    <PastReservations
+      reservations={reservations}
+      ratingsProp={ratingsProp}
+      changeRating={changeRating}
+      rateEntity={rateEntity}
+      beginingRatings={beginingRatings}
+      statusMessage={statusMessage}
+      submitResponse={submitResponse}
+      submitStatusMessage={submitStatusMessage}
+      handleSortFilterChange={handleSortFilterChange}
+      sortFilterItems={sortFilterItems}
+      handleTypeFilterChange={handleTypeFilterChange}
+      typeFilterItems={typeFilterItems}
+      entityType={entityType}
+    />
+  )
 }
 
 export default ReservationHistory
