@@ -16,10 +16,22 @@ const makeReport = async (newObject) => {
   return res.data
 }
 
+const getAllInactiveOwners = async () => {
+  const res = await axios.get(baseUrl + 'owner/all-unactivated-owners')
+  return res.data
+}
+
+const enableOwnerProfile = async (id) => {
+  const res = await axios.post('http://localhost:8080/auth/verify-owner-account/' + id)
+  return res
+}
+
 const ownerService = {
   getAllActiveCottageOwnerReservations,
   getAllPastCottageOwnerReservations,
   makeReport,
+  getAllInactiveOwners,
+  enableOwnerProfile,
 }
 
 export default ownerService
