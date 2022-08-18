@@ -50,7 +50,7 @@ public class AdventureDto {
 
     private Set<AdventureReservationDto> reservations;
 
-    private AdventureOwner owner;
+    private CottageOwner owner;
 
     private Tag tags;
 
