@@ -6,13 +6,13 @@ import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import dateUtils from '../../utils/dateUtils'
 
-const ActiveReservationCard = ({ reservation, index, cancelReservation }) => {
+const ActiveReservationCard = ({ reservation, index, cancelReservation, entityType }) => {
   return (
     <Card sx={{ my: 3, display: 'flex', width: '80%', height: '170px' }} key={reservation.id}>
       <CardMedia component="img" sx={{ width: 170, height: '100%' }} image={reservation.entity.images[0].url} />
       <CardContent sx={{ display: 'flex', flexDirection: 'column', ml: 3, maxWidth: '30%' }}>
         <Typography borderBottom={1} gutterBottom variant="h5" align="left">
-          COTTAGE
+          {entityType}
         </Typography>
         <Typography gutterBottom align="left">
           Name: {reservation.entity.name}

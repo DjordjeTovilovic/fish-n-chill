@@ -19,6 +19,7 @@ const PastReservationCard = ({
   statusMessage,
   submitResponse,
   submitStatusMessage,
+  entityType,
 }) => {
   const [isOpenRevisionModal, setIsOpenRevisionModal] = useState(false)
   const [isOpenComplaintModal, setIsOpenComplaintModal] = useState(false)
@@ -103,11 +104,14 @@ const PastReservationCard = ({
   )
   return (
     <>
-      <Card sx={{ my: 3, display: 'flex', width: '95%', height: '170px' }} key={reservation.id}>
+      <Card
+        sx={{ my: 3, display: 'flex', width: '95%', height: '170px', justifyContent: 'space-between' }}
+        key={reservation.id}
+      >
         <CardMedia component="img" sx={{ width: 170, height: '100%' }} image={reservation.entity.images[0].url} />
         <CardContent sx={{ display: 'flex', flexDirection: 'column', ml: 3, maxWidth: '30%' }}>
           <Typography borderBottom={1} gutterBottom variant="h5" align="left">
-            COTTAGE
+            {entityType}
           </Typography>
           <Typography gutterBottom align="left">
             Name: {reservation.entity.name}
@@ -152,7 +156,7 @@ const PastReservationCard = ({
             disabled={parseFloat(ratingsProp[index]) === parseFloat(beginingRatings[index])}
             onClick={() => rateEntity(reservation.entity.id, ratingsProp[index])}
           >
-            Rate cottage
+            Rate {entityType}
           </Button>
           {statusMessage !== '' && (
             <p style={{ width: '100px', marginTop: '0px', color: 'green', fontSize: '13px', textAlign: 'center' }}>

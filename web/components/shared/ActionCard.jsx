@@ -10,7 +10,7 @@ import Rating from '@mui/material/Rating'
 import Divider from '@mui/material/Divider'
 import { useEffect, useState } from 'react'
 
-const ActionCard = ({ action, scheduleAction }) => {
+const ActionCard = ({ action, scheduleAction, entities }) => {
   const [penalty, setPenalty] = useState(null)
   const [color, setColor] = useState('red')
   useEffect(() => {
@@ -110,7 +110,7 @@ const ActionCard = ({ action, scheduleAction }) => {
             <Rating name="read-only" value={action.entity.ratingAverage ?? 0} precision={0.5} readOnly sx={{ ml: 1 }} />
           </Box>
           <CardActions sx={{ display: 'flex' }}>
-            <Button size="small" href={'/cottages/' + action.entity.id} variant="contained">
+            <Button size="small" href={`/${entities}/${action.entity.id}`} variant="contained">
               View
             </Button>
             {window.localStorage.getItem('role') === 'ROLE_CLIENT' && (

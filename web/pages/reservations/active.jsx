@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react'
 import reservationService from '../../services/reservation'
 const CurrentReservations = () => {
   const [reservations, setReservations] = useState([])
+  const [typeFilterItems, setTypeFilterItems] = useState(['Adventure', 'Boat', 'Cottage'])
+  const [entityType, setEntityType] = useState('ADVENTURE')
 
   useEffect(() => {
     reservationService
-      .getAllActiveCottageReservationsForClient()
+      .getAllActiveAdventureReservationsForClient()
       .then((gotReservations) => {
         setReservations(gotReservations)
       })
@@ -27,7 +29,54 @@ const CurrentReservations = () => {
       .catch((err) => console.log(err))
   }
 
-  return <ActiveReservations reservations={reservations} cancelReservation={cancelReservation} />
+  const handleTypeFilterChange = (e) => {
+    switch (e.target.value) {
+      case 'adventure': {
+        reservationService
+          .getAllActiveAdventureReservationsForClient()
+          .then((gotReservations) => {
+            setReservations(gotReservations)
+            setEntityType(e.target.value.toUpperCase())
+          })
+          .catch((err) => console.log(err))
+        break
+      }
+      case 'boat': {
+        reservationService
+          .getAllActiveBoatReservationsForClient()
+          .then((gotReservations) => {
+            setReservations(gotReservations)
+            setEntityType(e.target.value.toUpperCase())
+          })
+          .catch((err) => console.log(err))
+        break
+      }
+
+      case 'cottage': {
+        reservationService
+          .getAllActiveCottageReservationsForClient()
+          .then((gotReservations) => {
+            setReservations(gotReservations)
+            setEntityType(e.target.value.toUpperCase())
+          })
+          .catch((err) => console.log(err))
+        break
+      }
+      default: {
+        break
+      }
+    }
+  }
+
+  return (
+    <ActiveReservations
+      reservations={reservations}
+      cancelReservation={cancelReservation}
+      typeFilterItems={typeFilterItems}
+      entityType={entityType}
+      handleTypeFilterChange={handleTypeFilterChange}
+    />
+  )
 }
 
 export default CurrentReservations

@@ -11,8 +11,38 @@ const getAllActiveCottageReservationsForClient = async () => {
   return res.data
 }
 
+const getAllPastBoatReservationsForClient = async () => {
+  const res = await axios.get(baseUrl + 'boats/whoami/reservations/past')
+  return res.data
+}
+
+const getAllActiveBoatReservationsForClient = async () => {
+  const res = await axios.get(baseUrl + 'boats/whoami/reservations/active')
+  return res.data
+}
+
+const getAllPastAdventureReservationsForClient = async () => {
+  const res = await axios.get(baseUrl + 'adventures/whoami/reservations/past')
+  return res.data
+}
+
+const getAllActiveAdventureReservationsForClient = async () => {
+  const res = await axios.get(baseUrl + 'adventures/whoami/reservations/active')
+  return res.data
+}
+
 const getAllPastReservationsForCottage = async (id) => {
   const res = await axios.get(baseUrl + `cottages/${id}/reservations/past`)
+  return res.data
+}
+
+const getAllPastReservationsForBoat = async (id) => {
+  const res = await axios.get(baseUrl + `boats/${id}/reservations/past`)
+  return res.data
+}
+
+const getAllPastReservationsForAdventure = async (id) => {
+  const res = await axios.get(baseUrl + `adventures/${id}/reservations/past`)
   return res.data
 }
 
@@ -44,7 +74,13 @@ const setUnavailablePeriod = async (newObject) => {
 const reservationService = {
   getAllPastCottageReservationsForClient,
   getAllActiveCottageReservationsForClient,
+  getAllPastBoatReservationsForClient,
+  getAllActiveBoatReservationsForClient,
+  getAllPastAdventureReservationsForClient,
+  getAllActiveAdventureReservationsForClient,
   getAllPastReservationsForCottage,
+  getAllPastReservationsForBoat,
+  getAllPastReservationsForAdventure,
   scheduleCottageReservation,
   scheduleBoatReservation,
   scheduleAdventureReservation,
