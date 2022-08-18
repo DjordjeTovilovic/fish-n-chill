@@ -34,12 +34,10 @@ public class EntityDto {
 
     private String cancellationTerms;
 
-    // Ovdje kontam da bi trebalo napraviti neki ownerDto umjesto id-a
     private String ownerId;
 
     private Set<Tag> tags;
 
     private Set<Image> images;
 
-    //private Set<Rating> ratings;
 }

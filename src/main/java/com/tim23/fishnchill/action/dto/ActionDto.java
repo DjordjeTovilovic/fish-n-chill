@@ -1,6 +1,5 @@
 package com.tim23.fishnchill.action.dto;
 
-import com.tim23.fishnchill.cottage.dto.CottageDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

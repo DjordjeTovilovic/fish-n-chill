@@ -96,6 +96,17 @@ public class OwnerService {
         return modelMapper.map(reservations, typeToken.getType());
     }
 
+    public List<CottageOwnerCottageReservationDto> findAllPastCottageOwnerReservations(Long ownerId) {
+        CottageOwner owner = cottageOwnerRepository.getById(ownerId);
+        List<Reservation> reservations = new ArrayList<>();
+        owner.getEntities().forEach(cottage -> reservations.addAll(cottageReservationRepository
+                .findAllByEntityIdAndReservationEndBefore(cottage.getId(), LocalDateTime.now()))
+        );
+
+        TypeToken<List<CottageOwnerCottageReservationDto>> typeToken = new TypeToken<>() {};
+        return modelMapper.map(reservations, typeToken.getType());
+    }
+
     public void makeReport(NewReportDto newReportDto) {
         CottageReservation reservation = cottageReservationRepository.getById(newReportDto.getReservationId());
         reservation.setOwnerReport(newReportDto.getOwnerReport());

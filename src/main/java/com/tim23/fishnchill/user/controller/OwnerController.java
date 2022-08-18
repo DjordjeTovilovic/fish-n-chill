@@ -1,8 +1,9 @@
 package com.tim23.fishnchill.user.controller;
 
 import com.tim23.fishnchill.reservation.dto.CottageOwnerCottageReservationDto;
-
 import com.tim23.fishnchill.reservation.dto.NewReportDto;
+import com.tim23.fishnchill.reservation.service.CottageReservationService;
+
 import com.tim23.fishnchill.security.TokenUtils;
 import com.tim23.fishnchill.user.model.User;
 import com.tim23.fishnchill.user.service.OwnerService;
@@ -34,6 +35,14 @@ public class OwnerController {
     public List<CottageOwnerCottageReservationDto> findAllActiveCottageOwnerReservations(HttpServletRequest request) {
         Long ownerId = tokenUtils.getUserIdFromRequest(request);
         return ownerService.findAllActiveCottageOwnerReservations(ownerId);
+    }
+
+    @GetMapping("/owner/cottages/reservations/past")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<CottageOwnerCottageReservationDto> findAllPastCottageOwnerReservations(HttpServletRequest request) {
+        Long ownerId = tokenUtils.getUserIdFromRequest(request);
+        return ownerService.findAllPastCottageOwnerReservations(ownerId);
     }
 
     @PostMapping("/cottages/reservations/reports")

@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import { useState } from 'react'
 import Modal from 'components/modal/Modal'
-import { Divider, Tab, Tabs } from '@mui/material'
+import { Divider, Link, Tab, Tabs } from '@mui/material'
 import { Box } from '@mui/system'
 import ownerService from '../../services/owner'
 import { useSnackbar } from 'notistack'
@@ -122,13 +122,14 @@ const CottagePastReservations = ({ reservations }) => {
                 RESERVATION
               </Typography>
               <Typography gutterBottom align="left">
+                Client:
+                <Link href="#">{reservation.client.username}</Link>
+              </Typography>
+              <Typography gutterBottom align="left">
                 Schedule:{' '}
                 {`${new Date(reservation.reservationStart).toLocaleDateString('en-UK')} - ${new Date(
                   reservation.reservationEnd
                 ).toLocaleDateString('en-UK')}`}
-              </Typography>
-              <Typography gutterBottom align="left">
-                Number of guests: {reservation.numberOfGuests}
               </Typography>
               <Typography gutterBottom align="left">
                 Price: {reservation.price}€

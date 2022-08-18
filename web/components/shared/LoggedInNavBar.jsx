@@ -47,13 +47,29 @@ const LoggedInNavBar = () => {
             FishNChill
           </Link>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button key={page} href={'/' + page} sx={{ my: 2, color: 'white', display: 'block' }}>
-                {page}
+          {userRole === 'ROLE_CLIENT' && (
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              {pages.map((page) => (
+                <Button key={page} href={'/' + page} sx={{ my: 2, color: 'white', display: 'block' }}>
+                  {page}
+                </Button>
+              ))}
+            </Box>
+          )}
+
+          {userRole === 'ROLE_COTTAGE_OWNER' && (
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              <Button href={'/cottages/owned'} sx={{ my: 2, color: 'white', display: 'block' }}>
+                Dashboard
               </Button>
-            ))}
-          </Box>
+              <Button href={'/cottages/owned/active'} sx={{ my: 2, color: 'white', display: 'block' }}>
+                Active Reservations
+              </Button>
+              <Button href={'/cottages/owned/past'} sx={{ my: 2, color: 'white', display: 'block' }}>
+                Past Reservations
+              </Button>
+            </Box>
+          )}
 
           <Box sx={{ minWidth: 'fit-content' }}>
             <Tooltip title="Open settings">
@@ -77,6 +93,7 @@ const LoggedInNavBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
+
               {userRole === 'ROLE_ADMIN' && (
                 <MenuItem sx={{ justifyContent: 'center' }}>
                   <Button
@@ -102,41 +119,41 @@ const LoggedInNavBar = () => {
                   </Button>
                 </MenuItem>
               )}
+              
+
               {userRole === 'ROLE_CLIENT' && (
-                <MenuItem sx={{ justifyContent: 'center' }}>
-                  <Button
-                    key="cottages"
-                    style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
-                    sx={{ color: 'black' }}
-                    href={'/reservations/active'}
-                  >
-                    Active reservations
-                  </Button>
-                </MenuItem>
-              )}
-              {userRole === 'ROLE_CLIENT' && (
-                <MenuItem sx={{ justifyContent: 'center' }}>
-                  <Button
-                    key="cottages"
-                    style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
-                    sx={{ color: 'black' }}
-                    href={'/reservations/past'}
-                  >
-                    Reservation history
-                  </Button>
-                </MenuItem>
-              )}
-              {userRole === 'ROLE_CLIENT' && (
-                <MenuItem sx={{ justifyContent: 'center', borderBottom: '1px solid black' }}>
-                  <Button
-                    key="cottages"
-                    style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
-                    sx={{ color: 'black' }}
-                    href={'/subscriptions'}
-                  >
-                    Subscriptions
-                  </Button>
-                </MenuItem>
+                <>
+                  <MenuItem sx={{ justifyContent: 'center' }}>
+                    <Button
+                      key="cottages"
+                      style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
+                      sx={{ color: 'black' }}
+                      href={'/reservations/active'}
+                    >
+                      Active reservations
+                    </Button>
+                  </MenuItem>
+                  <MenuItem sx={{ justifyContent: 'center' }}>
+                    <Button
+                      key="cottages"
+                      style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
+                      sx={{ color: 'black' }}
+                      href={'/reservations/past'}
+                    >
+                      Reservation history
+                    </Button>
+                  </MenuItem>
+                  <MenuItem sx={{ justifyContent: 'center', borderBottom: '1px solid black' }}>
+                    <Button
+                      key="cottages"
+                      style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
+                      sx={{ color: 'black' }}
+                      href={'/subscriptions'}
+                    >
+                      Subscriptions
+                    </Button>
+                  </MenuItem>
+                </>
               )}
               <MenuItem sx={{ justifyContent: 'center' }}>
                 <Button

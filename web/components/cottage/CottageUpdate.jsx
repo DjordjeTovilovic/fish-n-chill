@@ -1,6 +1,7 @@
 import { Button, TextField } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers'
 import { useRouter } from 'next/router'
+import { useSnackbar } from 'notistack'
 import { useEffect, useState } from 'react'
 import cottageService from '../../services/cottage'
 import cottageAction from '../../services/cottagesAction'
@@ -9,6 +10,7 @@ import Modal from '../modal/Modal'
 
 const CottageUpdate = ({ cottage, updateEntity }) => {
   const router = useRouter()
+  const { enqueueSnackbar } = useSnackbar()
   const [userRole, setUserRole] = useState(null)
   const [isAvailabilityModalOpen, setIsAvailabilityModalOpen] = useState(false)
   const [isActionModalOpen, setIsActionModalOpen] = useState(false)
@@ -38,6 +40,7 @@ const CottageUpdate = ({ cottage, updateEntity }) => {
     }
     updateEntity(entityFieldsToUpdate)
     changeAvailabilityModalState()
+    enqueueSnackbar('Availability successfully changed', { variant: 'success' })
   }
 
   const handleNewAction = async () => {
@@ -55,10 +58,14 @@ const CottageUpdate = ({ cottage, updateEntity }) => {
     await cottageAction.create(action)
 
     const entityFieldsToUpdate = {
-      // actions: [...entity.actions, { startDate: start, endDate: end }],
+      actions: [
+        ...cottage.actions,
+        { reservationStart: checkInDate, reservationEnd: checkOutDate, actionEnd: actionEndDate, price },
+      ],
     }
     updateEntity(entityFieldsToUpdate)
-    changeAvailabilityModalState()
+    changeActionModalState()
+    enqueueSnackbar('Action successfully created', { variant: 'success' })
   }
 
   const handleDelete = async () => {
@@ -219,14 +226,6 @@ const CottageUpdate = ({ cottage, updateEntity }) => {
             sx={{ ml: 3, mb: 3, height: '50px' }}
           >
             See Past Reservations
-          </Button>
-          <Button
-            href={'/cottages/owned/active'}
-            size="large"
-            variant="contained"
-            sx={{ ml: 3, mb: 3, height: '50px' }}
-          >
-            See Active Reservations
           </Button>
           <Button
             onClick={changeDeleteModalState}

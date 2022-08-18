@@ -1,5 +1,7 @@
 package com.tim23.fishnchill.general.service;
 
+import com.tim23.fishnchill.adventure.model.Adventure;
+import com.tim23.fishnchill.boat.model.Boat;
 import com.tim23.fishnchill.cottage.model.Cottage;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,26 @@ public class DateService {
             return false;
         // Testing if date range is overlapping with any cottage reservation time
         return cottage.getReservations().stream().noneMatch(reservation ->
+                doDatePeriodsOverlap(startTime, endTime, reservation.getReservationStart(),
+                        reservation.getReservationEnd()));
+    }
+
+    public boolean isBoatAvailableInPeriod(Boat boat, LocalDateTime startTime, LocalDateTime endTime) {
+        // Testing if date range is within cottage available time
+        if (!isDatePeriodWithinPeriod(startTime, endTime, boat.getAvailabilityStart(), boat.getAvailabilityEnd()))
+            return false;
+        // Testing if date range is overlapping with any cottage reservation time
+        return boat.getReservations().stream().noneMatch(reservation ->
+                doDatePeriodsOverlap(startTime, endTime, reservation.getReservationStart(),
+                        reservation.getReservationEnd()));
+    }
+
+    public boolean isAdventureAvailableInPeriod(Adventure adventure, LocalDateTime startTime, LocalDateTime endTime) {
+        // Testing if date range is within cottage available time
+        if (!isDatePeriodWithinPeriod(startTime, endTime, adventure.getAvailabilityStart(), adventure.getAvailabilityEnd()))
+            return false;
+        // Testing if date range is overlapping with any cottage reservation time
+        return adventure.getReservations().stream().noneMatch(reservation ->
                 doDatePeriodsOverlap(startTime, endTime, reservation.getReservationStart(),
                         reservation.getReservationEnd()));
     }
