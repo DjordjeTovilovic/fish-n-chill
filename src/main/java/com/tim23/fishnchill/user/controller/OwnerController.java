@@ -3,9 +3,7 @@ package com.tim23.fishnchill.user.controller;
 import com.tim23.fishnchill.reservation.dto.CottageOwnerCottageReservationDto;
 import com.tim23.fishnchill.reservation.dto.NewReportDto;
 import com.tim23.fishnchill.reservation.service.CottageReservationService;
-
 import com.tim23.fishnchill.security.TokenUtils;
-import com.tim23.fishnchill.user.model.User;
 import com.tim23.fishnchill.user.service.OwnerService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,12 +20,7 @@ public class OwnerController {
 
     private TokenUtils tokenUtils;
     private OwnerService ownerService;
-
-
-    @GetMapping(value = "/owner/all-unactivated-owners")
-    public List<User> getAllInactiveOwners(){
-        return ownerService.getAllInactiveOwners();
-    }
+    private CottageReservationService cottageReservationService;
 
     @GetMapping("/owner/cottages/reservations/active")
     @ResponseStatus(HttpStatus.OK)

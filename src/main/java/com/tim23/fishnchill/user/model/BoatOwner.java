@@ -17,7 +17,5 @@ import java.util.Set;
 public class BoatOwner extends User {
     @JsonIgnore
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-
-    @JsonIgnore
     private Set<Boat> entities;
 }
