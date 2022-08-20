@@ -4,6 +4,7 @@ import com.tim23.fishnchill.action.repository.CottageActionRepository;
 import com.tim23.fishnchill.cottage.dto.CottageDto;
 import com.tim23.fishnchill.cottage.model.Cottage;
 import com.tim23.fishnchill.cottage.repository.CottageRepository;
+import com.tim23.fishnchill.general.exception.LockingFailureException;
 import com.tim23.fishnchill.general.exception.ResourceNotFoundException;
 import com.tim23.fishnchill.general.model.enums.UserResponseType;
 import com.tim23.fishnchill.general.service.DateService;
@@ -16,7 +17,9 @@ import com.tim23.fishnchill.user.repository.UserResponseRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.dao.PessimisticLockingFailureException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -75,22 +78,30 @@ public class CottageReservationService {
         return modelMapper.map(cottageReservation, CottageReservationDto.class);
     }
 
-    public CottageReservationDto save(NewReservationDto newReservationDto) {
-        CottageReservation cottageReservation = new CottageReservation();
-        cottageReservation.setPrice(newReservationDto.getPrice());
-        cottageReservation.setNumberOfGuests(newReservationDto.getNumberOfGuests());
-        cottageReservation.setReservationStart(newReservationDto.getReservationStart());
-        cottageReservation.setReservationEnd(newReservationDto.getReservationEnd());
-        cottageReservation.setEntity(cottageRepository.getById(newReservationDto.getEntityId()));
-        cottageReservation.setClient(clientRepository.getById(newReservationDto.getClientId()));
-        if (newReservationDto.getActionId() != null)
-            cottageActionRepository.deleteById(newReservationDto.getActionId());
+    @Transactional
+    public CottageReservationDto scheduleReservation(NewReservationDto newReservationDto) {
         try {
-            emailService.sendCottageReservationEmail(cottageReservation.getClient(), cottageReservation);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            Cottage cottage = cottageRepository.findByIdAndLock(newReservationDto.getEntityId());
+
+            CottageReservation cottageReservation = new CottageReservation();
+            cottageReservation.setEntity(cottage);
+            cottageReservation.setPrice(newReservationDto.getPrice());
+            cottageReservation.setNumberOfGuests(newReservationDto.getNumberOfGuests());
+            cottageReservation.setReservationStart(newReservationDto.getReservationStart());
+            cottageReservation.setReservationEnd(newReservationDto.getReservationEnd());
+            cottageReservation.setClient(clientRepository.getById(newReservationDto.getClientId()));
+            if (newReservationDto.getActionId() != null)
+                cottageActionRepository.deleteById(newReservationDto.getActionId());
+            try {
+                emailService.sendCottageReservationEmail(cottageReservation.getClient(), cottageReservation);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return modelMapper.map(cottageReservationRepository.save(cottageReservation), CottageReservationDto.class);
+
+        } catch (PessimisticLockingFailureException e) {
+            throw new LockingFailureException();
         }
-        return modelMapper.map(cottageReservationRepository.save(cottageReservation), CottageReservationDto.class);
     }
 
     public List<CottageDto> findAllCottagesAvailableInPeriod(DatePeriodDto datePeriodDto) {

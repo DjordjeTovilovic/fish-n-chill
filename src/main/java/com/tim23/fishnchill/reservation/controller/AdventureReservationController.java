@@ -51,12 +51,12 @@ public class AdventureReservationController {
     @PostMapping("/adventures/reservations")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public AdventureReservationDto save(HttpServletRequest request, @RequestBody NewReservationDto newReservationDto) {
+    public AdventureReservationDto scheduleReservation(HttpServletRequest request, @RequestBody NewReservationDto newReservationDto) {
         if (newReservationDto.getClientId() == null) {
             Long id = tokenUtils.getUserIdFromRequest(request);
             newReservationDto.setClientId(id);
         }
-        return adventureReservationService.save(newReservationDto);
+        return adventureReservationService.scheduleReservation(newReservationDto);
     }
 
     @PostMapping("/adventures/period")

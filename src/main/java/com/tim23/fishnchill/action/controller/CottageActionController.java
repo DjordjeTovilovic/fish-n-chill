@@ -47,8 +47,8 @@ public class CottageActionController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public CottageActionDto save(@RequestBody NewActionDto newActionDto) {
-        return cottageActionService.save(newActionDto);
+    public CottageActionDto createAction(@RequestBody NewActionDto newActionDto) {
+        return cottageActionService.createAction(newActionDto);
     }
 
     @DeleteMapping(value = "/{id}")

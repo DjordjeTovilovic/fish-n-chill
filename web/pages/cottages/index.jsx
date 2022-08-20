@@ -30,8 +30,8 @@ const Cottages = () => {
       : setSelectedTags([...selectedTags, tag])
   }
 
-  const handleSearchFieldChange = (value) => {
-    setFilter(value)
+  const handleSearchFieldChange = (e) => {
+    setFilter(e.target.value)
   }
 
   const handleSearchFilterChange = (e) => {

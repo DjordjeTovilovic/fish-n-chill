@@ -15,7 +15,7 @@ const SearchField = ({ handleSearchFieldChange, handleSearchFilterChange }) => {
         size="small"
         label="Search"
         inputProps={{ 'aria-label': 'search google maps', style: { fontSize: 22 } }}
-        onChange={(e) => handleSearchFieldChange(e.target.value)}
+        onChange={(e) => handleSearchFieldChange(e)}
       />
 
       <FormControl variant="outlined" sx={{ ml: 0, flex: 1, maxWidth: '10%' }}>

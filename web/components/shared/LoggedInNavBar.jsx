@@ -122,7 +122,7 @@ const LoggedInNavBar = () => {
               )}
 
               {userRole === 'ROLE_CLIENT' && (
-                <>
+                <div>
                   <MenuItem sx={{ justifyContent: 'center' }}>
                     <Button
                       key="cottages"
@@ -153,7 +153,7 @@ const LoggedInNavBar = () => {
                       Subscriptions
                     </Button>
                   </MenuItem>
-                </>
+                </div>
               )}
               <MenuItem sx={{ justifyContent: 'center' }}>
                 <Button

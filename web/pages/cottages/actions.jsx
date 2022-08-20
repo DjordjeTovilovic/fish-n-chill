@@ -23,14 +23,14 @@ const CottageActions = () => {
       entityId: action.entity.id,
     }
     reservationService
-      .scheduleReservation(actionReservation)
+      .scheduleCottageReservation(actionReservation)
       .then((res) => console.log(res))
       .catch((err) => console.log(err))
   }
   return (
     <>
       <h1 style={{ textAlign: 'center' }}>Cottage Actions</h1>
-      <AllActions actions={actions} scheduleAction={scheduleAction}></AllActions>
+      <AllActions actions={actions} scheduleAction={scheduleAction} />
     </>
   )
 }

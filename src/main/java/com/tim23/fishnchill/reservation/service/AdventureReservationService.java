@@ -5,6 +5,8 @@ import com.tim23.fishnchill.action.repository.AdventureActionRepository;
 import com.tim23.fishnchill.adventure.dto.AdventureDto;
 import com.tim23.fishnchill.adventure.model.Adventure;
 import com.tim23.fishnchill.adventure.repository.AdventureRepository;
+import com.tim23.fishnchill.cottage.model.Cottage;
+import com.tim23.fishnchill.general.exception.LockingFailureException;
 import com.tim23.fishnchill.general.exception.ResourceNotFoundException;
 import com.tim23.fishnchill.general.model.enums.UserResponseType;
 import com.tim23.fishnchill.general.service.DateService;
@@ -17,7 +19,9 @@ import com.tim23.fishnchill.user.repository.UserResponseRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.dao.PessimisticLockingFailureException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -74,22 +78,30 @@ public class AdventureReservationService {
         return modelMapper.map(adventureReservation, AdventureReservationDto.class);
     }
 
-    public AdventureReservationDto save(NewReservationDto newReservationDto) {
-        AdventureReservation adventureReservation = new AdventureReservation();
-        adventureReservation.setPrice(newReservationDto.getPrice());
-        adventureReservation.setNumberOfGuests(newReservationDto.getNumberOfGuests());
-        adventureReservation.setReservationStart(newReservationDto.getReservationStart());
-        adventureReservation.setReservationEnd(newReservationDto.getReservationEnd());
-        adventureReservation.setEntity(adventureRepository.getById(newReservationDto.getEntityId()));
-        adventureReservation.setClient(clientRepository.getById(newReservationDto.getClientId()));
-        if (newReservationDto.getActionId() != null)
-            adventureActionRepository.deleteById(newReservationDto.getActionId());
+    @Transactional
+    public AdventureReservationDto scheduleReservation(NewReservationDto newReservationDto) {
         try {
-            emailService.sendAdventureReservationEmail(adventureReservation.getClient(), adventureReservation);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            Adventure adventure = adventureRepository.findByIdAndLock(newReservationDto.getEntityId());
+
+            AdventureReservation adventureReservation = new AdventureReservation();
+            adventureReservation.setEntity(adventure);
+            adventureReservation.setPrice(newReservationDto.getPrice());
+            adventureReservation.setNumberOfGuests(newReservationDto.getNumberOfGuests());
+            adventureReservation.setReservationStart(newReservationDto.getReservationStart());
+            adventureReservation.setReservationEnd(newReservationDto.getReservationEnd());
+            adventureReservation.setClient(clientRepository.getById(newReservationDto.getClientId()));
+            if (newReservationDto.getActionId() != null)
+                adventureActionRepository.deleteById(newReservationDto.getActionId());
+            try {
+                emailService.sendAdventureReservationEmail(adventureReservation.getClient(), adventureReservation);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return modelMapper.map(adventureReservationRepository.save(adventureReservation), AdventureReservationDto.class);
+
+        } catch (PessimisticLockingFailureException e) {
+            throw new LockingFailureException();
         }
-        return modelMapper.map(adventureReservationRepository.save(adventureReservation), AdventureReservationDto.class);
     }
 
     public List<AdventureDto> findAllAdventuresAvailableInPeriod(DatePeriodDto datePeriodDto) {

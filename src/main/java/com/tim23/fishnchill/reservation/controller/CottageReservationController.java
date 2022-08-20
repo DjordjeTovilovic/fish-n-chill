@@ -50,12 +50,12 @@ public class CottageReservationController {
     @PostMapping("/cottages/reservations")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public CottageReservationDto save(HttpServletRequest request, @RequestBody NewReservationDto newReservationDto) {
+    public CottageReservationDto scheduleReservation(HttpServletRequest request, @RequestBody NewReservationDto newReservationDto) {
         if (newReservationDto.getClientId() == null) {
             Long id = tokenUtils.getUserIdFromRequest(request);
             newReservationDto.setClientId(id);
         }
-        return cottageReservationService.save(newReservationDto);
+        return cottageReservationService.scheduleReservation(newReservationDto);
     }
 
     @PostMapping("/cottages/period")
