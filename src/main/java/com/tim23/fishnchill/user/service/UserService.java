@@ -12,6 +12,7 @@ import com.tim23.fishnchill.user.repository.UserResponseRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,14 +20,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@AllArgsConstructor
+//@AllArgsConstructor
 @Service
 public class UserService {
 
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
     private AuthorityService authService;
+    @Autowired
     private ModelMapper modelMapper;
+    @Autowired
     private UserResponseRepository userResponseRepository;
 
 
@@ -102,9 +108,8 @@ public class UserService {
     }
 
     public User findByIdPure(Long id) {
-        User user = userRepository.findById(id)
+        return userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", id));
-        return user;
     }
 
     public User update(UpdateDto updateDto, User user) {

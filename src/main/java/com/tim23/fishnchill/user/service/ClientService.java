@@ -12,6 +12,7 @@ import com.tim23.fishnchill.user.repository.UserResponseRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -21,16 +22,21 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@AllArgsConstructor
+//@AllArgsConstructor
 @Configuration
 @EnableAsync
 @Service
 public class ClientService {
 
+    @Autowired
     private ModelMapper modelMapper;
+    @Autowired
     private ClientRepository clientRepository;
+    @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
     private AuthorityService authService;
+    @Autowired
     private UserResponseRepository userResponseRepository;
 
     public List<ClientDto> findAll() {
@@ -44,13 +50,6 @@ public class ClientService {
         ClientDto clientDto = modelMapper.map(client, ClientDto.class);
         clientDto.setDeleteRequest(userResponseRepository.existsByUserIdAndResponseType(clientDto.getId(), UserResponseType.ACCOUNTDELETIONREQUEST));
         return clientDto;
-    }
-
-    public Client findByIdPure(Long id) {
-        Client client = clientRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Client", id));
-
-        return client;
     }
 
     public Client saveClient(Client c) {
@@ -112,13 +111,13 @@ public class ClientService {
     }
 
     @Async
-    @Scheduled(cron="0 0 0 1 1/1 *")
+    @Scheduled(cron = "0 0 0 1 1/1 *")
     public void resetPenalties() {
         System.out.println("Reseting penalties every 1st in month!");
         clientRepository.resetPenalties();
     }
 
-    public Client penalize(Long id){
+    public Client penalize(Long id) {
         Client client = clientRepository.getById(id);
         client.setPenaltyCount(client.getPenaltyCount() + 1);
         return clientRepository.save(client);
