@@ -1,6 +1,8 @@
 package com.tim23.fishnchill.user.service;
 
+import com.tim23.fishnchill.general.model.Report;
 import com.tim23.fishnchill.general.model.enums.OwnerReportType;
+import com.tim23.fishnchill.general.service.ReportService;
 import com.tim23.fishnchill.reservation.dto.CottageOwnerCottageReservationDto;
 import com.tim23.fishnchill.reservation.dto.NewReportDto;
 import com.tim23.fishnchill.reservation.model.CottageReservation;
@@ -30,6 +32,9 @@ public class OwnerService {
     private AdventureOwnerRepository adventureOwnerRepository;
     private UserRepository userRepository;
     private AuthorityRepository authorityRepository;
+    private ClientService clientService;
+    private ReportService reportService;
+
 
 //TODO: ovo treba prebaciti samo za ownere, sad trazi sve neaktivirane korniske
 
@@ -111,11 +116,15 @@ public class OwnerService {
         CottageReservation reservation = cottageReservationRepository.getById(newReportDto.getReservationId());
         reservation.setOwnerReport(newReportDto.getOwnerReport());
         cottageReservationRepository.save(reservation);
+        Client client = reservation.getClient();
 
         if (newReportDto.getOwnerReportType() == OwnerReportType.DIDNOTCOME) {
-            // TODO penalize client
+            clientService.penalize(client.getId());
         } else if (newReportDto.getOwnerReportType() == OwnerReportType.COMPLAINT) {
-            // TODO sent to admin for review
+            Report report = new Report();
+            report.setReport(newReportDto.getOwnerReport());
+            report.setClient(client);
+            reportService.save(report);
         }
     }
 }

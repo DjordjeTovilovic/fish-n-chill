@@ -24,5 +24,4 @@ public class BoatReservation extends Reservation{
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private Boat entity;
 
-    private String ownerReport;
 }

@@ -69,7 +69,7 @@ INSERT INTO RESERVATION (price, number_of_guests, reservation_start, reservation
 
 INSERT INTO COTTAGE_RESERVATION (id, client_id, entity_id) VALUES (1, 1, 1);
 INSERT INTO COTTAGE_RESERVATION (id, client_id, entity_id) VALUES (2, 1, 2);
-INSERT INTO COTTAGE_RESERVATION (id, client_id, entity_id, owner_report) VALUES (3, 1, 1, 'The client was very friendly');
+INSERT INTO COTTAGE_RESERVATION (id, client_id, entity_id) VALUES (3, 1, 1);
 INSERT INTO COTTAGE_RESERVATION (id, client_id, entity_id) VALUES (4, 1, 2);
 INSERT INTO COTTAGE_RESERVATION (id, client_id, entity_id) VALUES (5, 1, 2);
 INSERT INTO COTTAGE_RESERVATION (id, client_id, entity_id) VALUES (6, 6, 1);
