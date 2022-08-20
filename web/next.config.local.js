@@ -17,7 +17,7 @@ module.exports = withTM({
     return [
       {
         source: '/api/:path*',
-        destination: 'https://fish-n-chill.herokuapp.com/api/:path*',
+        destination: 'https://localhost:8080/api/:path*',
       },
     ]
   },
