@@ -11,8 +11,8 @@ const ReservationHistory = () => {
   const [beginingRatings, setBeginingRatings] = useState([])
   const [statusMessage, setStatusMessage] = useState('')
   const [submitStatusMessage, setSubmitStatusMessage] = useState('')
-  const [sortFilterItems, setSortFilterItems] = useState(['Name', 'Duration', 'Price'])
   const [ratings, setRatings] = useState([])
+  const sortFilterItems = ['Name', 'Duration', 'Price']
 
   useEffect(() => {
     clientService

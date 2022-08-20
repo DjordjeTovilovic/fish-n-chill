@@ -12,7 +12,7 @@ const SignupSchema = Yup.object({
     .oneOf([Yup.ref('newPassword'), null], 'Passwords must match'),
 })
 
-const ChangeUserPasswordForm = ({ handleChange, user }) => (
+const ChangeUserPasswordForm = ({ handleChange }) => (
   <Container component="main" maxWidth="xs">
     <Box
       sx={{
