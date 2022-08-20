@@ -3,14 +3,15 @@ import { Button, TextField } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers'
 import dateUtils from '../../utils/dateUtils'
 import subscriptionService from 'services/subscription'
+import { useSnackbar } from 'notistack'
 
 const ReservationScheduling = ({ entity, scheduleReservation }) => {
+  const { enqueueSnackbar } = useSnackbar()
   const [userRole, setUserRole] = useState(null)
   const [checkInDate, setCheckInDate] = useState(null)
   const [checkOutDate, setCheckOutDate] = useState(null)
   const [numberOfGuests, setNumberOfGuests] = useState(1)
   const [penalty, setPenalty] = useState(null)
-  const [statusMessage, setStatusMessage] = useState({})
   const [subscribed, setSubscribed] = useState(false)
 
   useEffect(() => {
@@ -45,9 +46,17 @@ const ReservationScheduling = ({ entity, scheduleReservation }) => {
       price: entity.price * duration,
       numberOfGuests: numberOfGuests,
     }
+
     scheduleReservation(reservation)
-      .then(() => setStatusMessage({ color: 'green', message: 'Reservation scheduled!' }))
-      .catch((err) => setStatusMessage({ color: 'red', message: 'Somthing went wrong!' }))
+      .then(() => enqueueSnackbar('Reservation successfully made', { variant: 'success' }))
+      .catch((err) => {
+        // TODO treba vidjeti jel ima bolji response status od 404 za kad je period rezervacije zauzet
+        if (err.response.status === 404)
+          enqueueSnackbar('Failed scheduling reservation: reservation period is not available', { variant: 'error' })
+        else if (err.response.status === 409)
+          enqueueSnackbar('Failed scheduling reservation: conflict while scheduling. Try again', { variant: 'error' })
+        else enqueueSnackbar('Failed scheduling reservation', { variant: 'error' })
+      })
   }
 
   const alterSubscription = () => {
@@ -119,18 +128,6 @@ const ReservationScheduling = ({ entity, scheduleReservation }) => {
             >
               Schedule Reservation
             </Button>
-            {statusMessage && (
-              <p
-                style={{
-                  color: statusMessage.color,
-                  fontSize: '13px',
-                  marginLeft: '25px',
-                  marginTop: '5px',
-                }}
-              >
-                {statusMessage.message}
-              </p>
-            )}
             {penalty >= 3 && (
               <p
                 style={{

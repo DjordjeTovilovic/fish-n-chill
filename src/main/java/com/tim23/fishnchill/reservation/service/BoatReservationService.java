@@ -4,6 +4,8 @@ import com.tim23.fishnchill.action.repository.BoatActionRepository;
 import com.tim23.fishnchill.boat.dto.BoatDto;
 import com.tim23.fishnchill.boat.model.Boat;
 import com.tim23.fishnchill.boat.repository.BoatRepository;
+import com.tim23.fishnchill.cottage.model.Cottage;
+import com.tim23.fishnchill.general.exception.LockingFailureException;
 import com.tim23.fishnchill.general.exception.ResourceNotFoundException;
 import com.tim23.fishnchill.general.model.enums.UserResponseType;
 import com.tim23.fishnchill.general.service.DateService;
@@ -16,7 +18,9 @@ import com.tim23.fishnchill.user.repository.UserResponseRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.dao.PessimisticLockingFailureException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -73,22 +77,30 @@ public class BoatReservationService {
         return modelMapper.map(boatReservation, BoatReservationDto.class);
     }
 
-    public BoatReservationDto save(NewReservationDto newReservationDto) {
-        BoatReservation boatReservation = new BoatReservation();
-        boatReservation.setPrice(newReservationDto.getPrice());
-        boatReservation.setNumberOfGuests(newReservationDto.getNumberOfGuests());
-        boatReservation.setReservationStart(newReservationDto.getReservationStart());
-        boatReservation.setReservationEnd(newReservationDto.getReservationEnd());
-        boatReservation.setEntity(boatRepository.getById(newReservationDto.getEntityId()));
-        boatReservation.setClient(clientRepository.getById(newReservationDto.getClientId()));
-        if (newReservationDto.getActionId() != null)
-            boatActionRepository.deleteById(newReservationDto.getActionId());
+    @Transactional
+    public BoatReservationDto scheduleReservation(NewReservationDto newReservationDto) {
         try {
-            emailService.sendBoatReservationEmail(boatReservation.getClient(), boatReservation);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            Boat boat = boatRepository.findByIdAndLock(newReservationDto.getEntityId());
+
+            BoatReservation boatReservation = new BoatReservation();
+            boatReservation.setEntity(boat);
+            boatReservation.setPrice(newReservationDto.getPrice());
+            boatReservation.setNumberOfGuests(newReservationDto.getNumberOfGuests());
+            boatReservation.setReservationStart(newReservationDto.getReservationStart());
+            boatReservation.setReservationEnd(newReservationDto.getReservationEnd());
+            boatReservation.setClient(clientRepository.getById(newReservationDto.getClientId()));
+            if (newReservationDto.getActionId() != null)
+                boatActionRepository.deleteById(newReservationDto.getActionId());
+            try {
+                emailService.sendBoatReservationEmail(boatReservation.getClient(), boatReservation);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return modelMapper.map(boatReservationRepository.save(boatReservation), BoatReservationDto.class);
+
+        } catch (PessimisticLockingFailureException e) {
+            throw new LockingFailureException();
         }
-        return modelMapper.map(boatReservationRepository.save(boatReservation), BoatReservationDto.class);
     }
 
     public List<BoatDto> findAllBoatsAvailableInPeriod(DatePeriodDto datePeriodDto) {
