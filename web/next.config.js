@@ -17,7 +17,7 @@ module.exports = withTM({
     return [
       {
         source: '/api/:path*',
-        destination: 'https://fish-n-chill.herokuapp.com/api/:path*',
+        destination: process.env.NEXT_PUBLIC_API_URL + ':path*',
       },
     ]
   },
