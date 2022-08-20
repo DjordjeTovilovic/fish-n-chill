@@ -1,12 +1,12 @@
 import InactiveOwners from 'components/lists/InactiveOwners'
-import { useRouter } from 'next/router'
+import { useSnackbar } from 'notistack'
 import { useEffect, useState } from 'react'
 import ownerService from 'services/owner'
+import userService from 'services/user'
 
 const Admin = () => {
   const [users, setUsers] = useState([])
-  const router = useRouter()
-
+  const { enqueueSnackbar } = useSnackbar()
   useEffect(() => {
     ownerService
       .getAllInactiveOwners()
@@ -14,13 +14,24 @@ const Admin = () => {
       .catch((err) => console.log(err))
   }, [])
 
+  const removeUserFromList = (id) => {
+    setUsers(users.filter((user) => user.id !== id))
+  }
+
   const handleConfirm = (id) => {
     ownerService.enableOwnerProfile(id)
-    router.push('/')
+    removeUserFromList(id)
+    enqueueSnackbar('New owner is successfully added!', { variant: 'success' })
+  }
+
+  const handleDelete = (id) => {
+    userService.deleteById(id)
+    removeUserFromList(id)
+    enqueueSnackbar('Owner request is successfully deleted!', { variant: 'success' })
   }
   return (
     <>
-      <InactiveOwners users={users} handleConfirm={handleConfirm} />
+      <InactiveOwners users={users} handleConfirm={handleConfirm} handleDelet={handleDelete} />
     </>
   )
 }

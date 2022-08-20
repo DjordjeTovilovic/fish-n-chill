@@ -1,6 +1,7 @@
 package com.tim23.fishnchill.user.model;
 
 import com.tim23.fishnchill.general.model.Rating;
+import com.tim23.fishnchill.general.model.Report;
 import com.tim23.fishnchill.general.model.VerificationToken;
 import com.tim23.fishnchill.reservation.model.CottageReservation;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,8 @@ public class Client extends User {
     @OneToMany(mappedBy = "entity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Rating> ratings;
 
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private Set<Report>reports;
 
     public Client(User u) {
         super(u);

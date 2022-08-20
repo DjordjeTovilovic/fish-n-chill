@@ -35,6 +35,8 @@ public class Reservation {
 
     private Integer numberOfGuests;
 
+    private String ownerReport;
+
     @JsonIgnore
     @OneToMany(mappedBy = "reservation")
     private Set<UserResponse> userResponse;

@@ -86,7 +86,7 @@ public class CottageService {
         return cottageRepository.save(cottage);
     }
 
-    public List<CottageDto> findAll() {
+    public List<CottageDto>findAll() {
         TypeToken<List<CottageDto>> typeToken = new TypeToken<>() {};
         return modelMapper.map(cottageRepository.findAll(), typeToken.getType());
     }

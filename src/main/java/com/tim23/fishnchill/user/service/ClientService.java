@@ -117,4 +117,10 @@ public class ClientService {
         System.out.println("Reseting penalties every 1st in month!");
         clientRepository.resetPenalties();
     }
+
+    public Client penalize(Long id){
+        Client client = clientRepository.getById(id);
+        client.setPenaltyCount(client.getPenaltyCount() + 1);
+        return clientRepository.save(client);
+    }
 }
