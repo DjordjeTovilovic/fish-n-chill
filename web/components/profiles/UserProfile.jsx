@@ -17,7 +17,7 @@ const UserProfile = ({ user, handleDelete, setClientResponse }) => {
         multiline
         rows={10}
         sx={{ minWidth: '500px', mb: 3 }}
-        onChange={(e) => setClientResponse((prevState) => ({ userId: user.id, explanation: e.target.value }))}
+        onChange={(e) => setClientResponse(() => ({ userId: user.id, explanation: e.target.value }))}
       />
       <Button onClick={handleDelete} variant="contained" color="error">
         Request account deletion

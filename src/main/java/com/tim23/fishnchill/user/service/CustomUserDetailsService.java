@@ -4,6 +4,7 @@ import com.tim23.fishnchill.user.model.User;
 import com.tim23.fishnchill.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,14 +17,16 @@ import org.springframework.stereotype.Service;
 
 // Ovaj servis je namerno izdvojen kao poseban u ovom primeru.
 // U opstem slucaju UserServiceImpl klasa bi mogla da implementira UserDetailService interfejs.
-@AllArgsConstructor
 @Slf4j
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final AuthenticationManager authenticationManager;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     // Funkcija koja na osnovu username-a iz baze vraca objekat User-a
     @Override
