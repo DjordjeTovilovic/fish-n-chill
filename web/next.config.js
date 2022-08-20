@@ -17,7 +17,7 @@ module.exports = withTM({
     return [
       {
         source: '/api/:path*',
-        destination: 'https://localhost:8080/api/:path*',
+        destination: process.env.NEXT_PUBLIC_API_URL + ':path*',
       },
     ]
   },

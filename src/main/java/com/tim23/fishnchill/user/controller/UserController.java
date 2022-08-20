@@ -9,6 +9,7 @@ import com.tim23.fishnchill.user.service.ClientService;
 import com.tim23.fishnchill.user.service.UserResponseService;
 import com.tim23.fishnchill.user.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,16 +23,20 @@ import java.util.List;
 import java.util.Map;
 
 // Primer kontrolera cijim metodama mogu pristupiti samo autorizovani korisnici
-@AllArgsConstructor
+//@AllArgsConstructor
 @RestController
 @RequestMapping(value = "/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
 
+    @Autowired
     private UserService userService;
+    @Autowired
     private TokenUtils tokenUtils;
-    private AuthorityService authorityService;
+    @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
     private ClientService clientService;
+    @Autowired
     private UserResponseService userResponseService;
 
     @GetMapping("/")
@@ -81,8 +86,8 @@ public class UserController {
             throw new ResourceConflictException("Old pw incorrect");
     }
 
-    @DeleteMapping(value ="/delete/{id}")
-    public void deleteById(@PathVariable("id")Long id){
+    @DeleteMapping(value = "/delete/{id}")
+    public void deleteById(@PathVariable("id") Long id) {
         userService.deleteUserById(id);
     }
 
