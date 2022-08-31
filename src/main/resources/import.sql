@@ -36,7 +36,7 @@ INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability
 INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Boat 2', 0, 0, 225, '2022-05-23', '2022-08-15', 7, 'Oficirac, Novi Sad', 'Manji brod valjda');
 INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Boat 3', 0, 0, 225, '2022-05-23', '2022-09-15', 10, 'Oficirac, Novi Sad', 'Veliki brod');
 --inserting for adventures
-INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Adventure 1', 0, 0, 170, '2022-05-23', '2022-09-22', 5, 'Mount OZREN', 'All you need in one adventure!!!');
+INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Adventure 1', 0, 0, 170, '2022-05-23', '2022-09-22', 5, 'Jug Bogdana 22, Novi Sad', 'All you need in one adventure!!!');
 
 
 INSERT INTO IMAGE (entity_id, url) VALUES (1, 'https://i.ibb.co/gRhpQYk/cottage1.jpg');
