@@ -45,6 +45,11 @@ const remove = async (id) => {
   await axios.delete(baseUrl + id)
 }
 
+const getAllForOwner = async () => {
+  const res = await axios.get(baseUrl + 'owned')
+  return res.data
+}
+
 const boatService = {
   getAll,
   getByNameContaining,
@@ -52,6 +57,7 @@ const boatService = {
   getByAddressContaining,
   getByAnything,
   getById,
+  getAllForOwner,
   create,
   update,
   remove,

@@ -2,17 +2,27 @@ import axios from 'axios'
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
 const getAllPastCottageReservationsForClient = async () => {
-  const res = await axios.get(baseUrl + 'cottages/whoami/reservations/past')
-  return res.data
+  const cottageReservations = await axios.get(baseUrl + 'cottages/whoami/reservations/past')
+  const boatReservations = await axios.get(baseUrl + 'boats/whoami/reservations/past')
+  const adventureReservations = await axios.get(baseUrl + 'adventures/whoami/reservations/past')
+
+  const reservations = cottageReservations.data.concat(boatReservations.data, adventureReservations.data)
+
+  return reservations
 }
 
 const getAllActiveCottageReservationsForClient = async () => {
-  const res = await axios.get(baseUrl + 'cottages/whoami/reservations/active')
-  return res.data
+  const cottageReservations = await axios.get(baseUrl + 'cottages/whoami/reservations/active')
+  const boatReservations = await axios.get(baseUrl + 'boats/whoami/reservations/active')
+  const adventureReservations = await axios.get(baseUrl + 'adventures/whoami/reservations/active')
+
+  const reservations = cottageReservations.data.concat(boatReservations.data, adventureReservations.data)
+  return reservations
 }
 
 const getAllPastReservationsForCottage = async (id) => {
   const res = await axios.get(baseUrl + `cottages/${id}/reservations/past`)
+
   return res.data
 }
 
