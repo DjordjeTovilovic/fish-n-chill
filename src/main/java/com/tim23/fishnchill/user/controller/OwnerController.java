@@ -1,8 +1,8 @@
 package com.tim23.fishnchill.user.controller;
 
+import com.tim23.fishnchill.reservation.dto.BoatOwnerBoatReservationDto;
 import com.tim23.fishnchill.reservation.dto.CottageOwnerCottageReservationDto;
 import com.tim23.fishnchill.reservation.dto.NewReportDto;
-import com.tim23.fishnchill.reservation.service.CottageReservationService;
 
 import com.tim23.fishnchill.security.TokenUtils;
 import com.tim23.fishnchill.user.model.User;
@@ -27,6 +27,14 @@ public class OwnerController {
     @GetMapping(value = "/owner/all-unactivated-owners")
     public List<User> getAllInactiveOwners(){
         return ownerService.getAllInactiveOwners();
+    }
+
+    @GetMapping("/owner/boats/reservations/active")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<BoatOwnerBoatReservationDto> findAllActiveBoatOwnerReservations(HttpServletRequest request) {
+        Long ownerId = tokenUtils.getUserIdFromRequest(request);
+        return ownerService.findAllActiveBoatOwnerReservations(ownerId);
     }
 
     @GetMapping("/owner/cottages/reservations/active")

@@ -59,15 +59,26 @@ const LoggedInNavBar = () => {
 
           {userRole === 'ROLE_ADMIN' && <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}></Box>}
 
-          {userRole === 'ROLE_COTTAGE_OWNER' && (
+          {(userRole === 'ROLE_COTTAGE_OWNER' ||
+            userRole === 'ROLE_BOAT_OWNER' ||
+            userRole === 'ROLE_ADVENTURE_OWNER') && (
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <Button href={'/cottages/owned'} sx={{ my: 2, color: 'white', display: 'block' }}>
+              <Button
+                href={'/' + userRole.split('_')[1].toLowerCase() + 's/owned'}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
                 Dashboard
               </Button>
-              <Button href={'/cottages/owned/active'} sx={{ my: 2, color: 'white', display: 'block' }}>
+              <Button
+                href={'/' + userRole.split('_')[1].toLowerCase() + 's/owned/active'}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
                 Active Reservations
               </Button>
-              <Button href={'/cottages/owned/past'} sx={{ my: 2, color: 'white', display: 'block' }}>
+              <Button
+                href={'/' + userRole.split('_')[1].toLowerCase() + 's/owned/past'}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
                 Past Reservations
               </Button>
             </Box>
@@ -96,27 +107,41 @@ const LoggedInNavBar = () => {
               onClose={handleCloseUserMenu}
             >
               {userRole === 'ROLE_ADMIN' && (
-                <MenuItem sx={{ justifyContent: 'center' }}>
-                  <Button
-                    key="Owner requests"
-                    style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
-                    sx={{ color: 'blue' }}
-                    href={'/' + 'users/' + 'admin/' + 'ownerRequest'}
-                  >
-                    Owner requests
-                  </Button>
-                </MenuItem>
+                <div>
+                  <MenuItem sx={{ justifyContent: 'center' }}>
+                    <Button
+                      key="Owner requests"
+                      style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
+                      sx={{ color: 'blue' }}
+                      href={'/' + 'users/' + 'admin/' + 'requests'}
+                    >
+                      Owner requests
+                    </Button>
+                  </MenuItem>
+                  <MenuItem sx={{ justifyContent: 'center' }}>
+                    <Button
+                      key="Owner requests"
+                      style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
+                      sx={{ color: 'blue' }}
+                      href={'/' + 'users/' + 'admin/' + 'reports'}
+                    >
+                      Reports
+                    </Button>
+                  </MenuItem>
+                </div>
               )}
 
-              {userRole === 'ROLE_COTTAGE_OWNER' && (
+              {(userRole === 'ROLE_BOAT_OWNER' ||
+                userRole === 'ROLE_ADVENTURE_OWNER' ||
+                userRole === 'ROLE_COTTAGE_OWNER') && (
                 <MenuItem sx={{ justifyContent: 'center' }}>
                   <Button
                     key="ownerCottages"
                     style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
                     sx={{ color: 'blue' }}
-                    href={'/' + 'cottages' + '/owned'}
+                    href={'/' + userRole.split('_')[1].toLowerCase() + 's/owned'}
                   >
-                    Your Cottages
+                    Your {userRole.split('_')[1]}s
                   </Button>
                 </MenuItem>
               )}

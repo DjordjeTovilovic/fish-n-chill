@@ -3,10 +3,12 @@ package com.tim23.fishnchill.user.service;
 import com.tim23.fishnchill.general.model.Report;
 import com.tim23.fishnchill.general.model.enums.OwnerReportType;
 import com.tim23.fishnchill.general.service.ReportService;
+import com.tim23.fishnchill.reservation.dto.BoatOwnerBoatReservationDto;
 import com.tim23.fishnchill.reservation.dto.CottageOwnerCottageReservationDto;
 import com.tim23.fishnchill.reservation.dto.NewReportDto;
 import com.tim23.fishnchill.reservation.model.CottageReservation;
 import com.tim23.fishnchill.reservation.model.Reservation;
+import com.tim23.fishnchill.reservation.repository.BoatReservationRepository;
 import com.tim23.fishnchill.reservation.repository.CottageReservationRepository;
 import com.tim23.fishnchill.user.dto.RegistrationDto;
 import com.tim23.fishnchill.user.model.*;
@@ -34,6 +36,7 @@ public class OwnerService {
     private AuthorityRepository authorityRepository;
     private ClientService clientService;
     private ReportService reportService;
+    private BoatReservationRepository boatReservationRepository;
 
 
 //TODO: ovo treba prebaciti samo za ownere, sad trazi sve neaktivirane korniske
@@ -88,6 +91,18 @@ public class OwnerService {
 
         return new ResponseEntity<>(null, HttpStatus.OK);
 
+    }
+
+
+    public List<BoatOwnerBoatReservationDto>findAllActiveBoatOwnerReservations(Long ownerId) {
+        BoatOwner owner = boatOwnerRepository.getById(ownerId);
+        List<Reservation> reservations = new ArrayList<>();
+        owner.getEntities().forEach(boat -> reservations.addAll(boatReservationRepository
+                .findAllByEntityIdAndReservationStartBeforeAndReservationEndAfter(boat.getId(), LocalDateTime.now(), LocalDateTime.now()))
+        );
+
+        TypeToken<List<BoatOwnerBoatReservationDto>> typeToken = new TypeToken<>() {};
+        return modelMapper.map(reservations, typeToken.getType());
     }
 
     public List<CottageOwnerCottageReservationDto> findAllActiveCottageOwnerReservations(Long ownerId) {
