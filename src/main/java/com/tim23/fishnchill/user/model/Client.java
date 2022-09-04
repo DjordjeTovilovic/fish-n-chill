@@ -18,6 +18,8 @@ public class Client extends User {
 
     private Integer penaltyCount;
 
+    private Integer loyaltyPoints;
+
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<CottageReservation> cottageReservations;
 
@@ -48,6 +50,12 @@ public class Client extends User {
                         "\nphone: " + this.getPhoneNumber() +
                         "\npenalty: " + this.getPenaltyCount());
     }
+
+    public Integer getLoyaltyPoints() {
+        return this.loyaltyPoints;
+    }
+
+    public void setLoyaltyPoints(Integer points){ this.loyaltyPoints = points;}
 
     public Integer getPenaltyCount() {
         return this.penaltyCount;

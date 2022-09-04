@@ -11,6 +11,7 @@ const Login = () => {
       window.localStorage.setItem('id', user.id)
       window.localStorage.setItem('role', user.authorities[0].authority)
       window.localStorage.setItem('penalty', user.penaltyCount)
+      window.localStorage.setItem('loyaltyPoints', user.loyaltyPoints)
       // TODO Ne koristiti ovako url
       window.location.href = 'http://localhost:3000'
     } catch (exception) {

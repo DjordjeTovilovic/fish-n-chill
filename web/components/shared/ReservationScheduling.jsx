@@ -43,12 +43,13 @@ const ReservationScheduling = ({ entity, scheduleReservation }) => {
       entityId: entity.id,
       reservationStart,
       reservationEnd,
-      price: entity.price * duration,
+      price: entity.price * (1 - localStorage.getItem('loyaltyPoints') / 1000) * duration,
       numberOfGuests: numberOfGuests,
     }
 
     scheduleReservation(reservation)
       .then(() => enqueueSnackbar('Reservation successfully made', { variant: 'success' }))
+      .then(localStorage.setItem('loyaltyPoints', parseInt(localStorage.getItem('loyaltyPoints')) + 10))
       .catch((err) => {
         // TODO treba vidjeti jel ima bolji response status od 404 za kad je period rezervacije zauzet
         if (err.response.status === 404)
