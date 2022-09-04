@@ -14,6 +14,7 @@ import com.tim23.fishnchill.general.service.MailService;
 import com.tim23.fishnchill.reservation.dto.*;
 import com.tim23.fishnchill.reservation.model.AdventureReservation;
 import com.tim23.fishnchill.reservation.repository.AdventureReservationRepository;
+import com.tim23.fishnchill.user.model.Client;
 import com.tim23.fishnchill.user.repository.ClientRepository;
 import com.tim23.fishnchill.user.repository.UserResponseRepository;
 import lombok.AllArgsConstructor;
@@ -79,9 +80,16 @@ public class AdventureReservationService {
     }
 
     @Transactional
-    public AdventureReservationDto scheduleReservation(NewReservationDto newReservationDto) {
+    public AdventureReservationDto scheduleReservation(NewReservationDto newReservationDto, Long clientId) {
         try {
             Adventure adventure = adventureRepository.findByIdAndLock(newReservationDto.getEntityId());
+            Client client = clientRepository.getById(clientId);
+
+            if(client.getLoyaltyPoints()<=190)
+                client.setLoyaltyPoints(client.getLoyaltyPoints() + 10);
+            else client.setLoyaltyPoints(200);
+
+            clientRepository.save(client);
 
             AdventureReservation adventureReservation = new AdventureReservation();
             adventureReservation.setEntity(adventure);

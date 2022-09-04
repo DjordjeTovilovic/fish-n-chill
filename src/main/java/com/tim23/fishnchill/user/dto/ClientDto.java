@@ -41,7 +41,9 @@ public class ClientDto {
 
     private Boolean deleteRequest;
 
-    public ClientDto(UserDto userDto, Integer penaltyCount) {
+    private Integer loyaltyPoints;
+
+    public ClientDto(UserDto userDto, Integer penaltyCount, Integer loyaltyPoints) {
         this.id = userDto.getId();
         this.username = userDto.getUsername();
         this.firstName = userDto.getFirstName();
@@ -54,5 +56,6 @@ public class ClientDto {
         this.enabled = userDto.getEnabled();
         this.penaltyCount = penaltyCount;
         this.authorities = userDto.getAuthorities();
+        this.loyaltyPoints = loyaltyPoints;
     }
 }

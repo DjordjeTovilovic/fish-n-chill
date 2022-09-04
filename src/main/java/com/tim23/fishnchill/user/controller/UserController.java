@@ -59,7 +59,7 @@ public class UserController {
         if (userDto.getAuthorities().get(0).getAuthority().equals("ROLE_CLIENT")) {
             return this.clientService.findById(id);
         } else {
-            return new ClientDto(userDto, null);
+            return new ClientDto(userDto, null, null);
         }
     }
 

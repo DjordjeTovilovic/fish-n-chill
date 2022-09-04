@@ -40,4 +40,6 @@ public class UserDto {
     private Boolean deleteRequest;
 
     private Integer penaltyCount;
+
+    private Integer loyaltyPoints;
 }

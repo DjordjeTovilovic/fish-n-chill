@@ -51,11 +51,11 @@ public class BoatReservationController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public BoatReservationDto scheduleReservation(HttpServletRequest request, @RequestBody NewReservationDto newReservationDto) {
+        Long id = tokenUtils.getUserIdFromRequest(request);
         if (newReservationDto.getClientId() == null) {
-            Long id = tokenUtils.getUserIdFromRequest(request);
             newReservationDto.setClientId(id);
         }
-        return boatReservationService.scheduleReservation(newReservationDto);
+        return boatReservationService.scheduleReservation(newReservationDto, id );
     }
 
     @PostMapping("/boats/period")

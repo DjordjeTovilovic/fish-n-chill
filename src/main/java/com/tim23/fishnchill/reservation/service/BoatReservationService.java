@@ -13,6 +13,7 @@ import com.tim23.fishnchill.general.service.MailService;
 import com.tim23.fishnchill.reservation.dto.*;
 import com.tim23.fishnchill.reservation.model.BoatReservation;
 import com.tim23.fishnchill.reservation.repository.BoatReservationRepository;
+import com.tim23.fishnchill.user.model.Client;
 import com.tim23.fishnchill.user.repository.ClientRepository;
 import com.tim23.fishnchill.user.repository.UserResponseRepository;
 import lombok.AllArgsConstructor;
@@ -78,9 +79,17 @@ public class BoatReservationService {
     }
 
     @Transactional
-    public BoatReservationDto scheduleReservation(NewReservationDto newReservationDto) {
+    public BoatReservationDto scheduleReservation(NewReservationDto newReservationDto, Long clientId) {
         try {
             Boat boat = boatRepository.findByIdAndLock(newReservationDto.getEntityId());
+
+            Client client = clientRepository.getById(clientId);
+
+            if(client.getLoyaltyPoints()<=190)
+                client.setLoyaltyPoints(client.getLoyaltyPoints() + 10);
+            else client.setLoyaltyPoints(200);
+
+            clientRepository.save(client);
 
             BoatReservation boatReservation = new BoatReservation();
             boatReservation.setEntity(boat);
