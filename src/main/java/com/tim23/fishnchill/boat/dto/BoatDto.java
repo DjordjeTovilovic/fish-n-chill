@@ -1,6 +1,7 @@
 package com.tim23.fishnchill.boat.dto;
 
 import com.tim23.fishnchill.action.dto.ActionDto;
+import com.tim23.fishnchill.boat.model.BoatSpecification;
 import com.tim23.fishnchill.cottage.model.Room;
 import com.tim23.fishnchill.general.dto.ImageDto;
 import com.tim23.fishnchill.general.dto.UnavailablePeriodDto;
@@ -59,4 +60,6 @@ public class BoatDto {
     private Set<ActionDto> actions;
 
     private Set<UnavailablePeriodDto> unavailablePeriods;
+
+    private BoatSpecification boatSpecification;
 }

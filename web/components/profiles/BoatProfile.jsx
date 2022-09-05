@@ -1,4 +1,5 @@
 import { Box, Paper } from '@mui/material'
+import BoatProfileInfo from 'components/boat/BoatProfileInfo'
 import EntityMainProfileInfo from '../entity/EntityMainProfileInfo'
 import ReservationScheduling from '../shared/ReservationScheduling'
 
@@ -20,6 +21,7 @@ const BoatProfile = ({ boat, scheduleReservation }) => {
           }}
         >
           <EntityMainProfileInfo entity={boat} />
+          <BoatProfileInfo entity={boat} />
           <ReservationScheduling entity={boat} scheduleReservation={scheduleReservation} />
         </Paper>
       </Box>
