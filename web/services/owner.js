@@ -27,7 +27,7 @@ const getAllInactiveOwners = async () => {
 }
 
 const enableOwnerProfile = async (id) => {
-  const res = await axios.post('http://localhost:8080/auth/verify-owner-account/' + id)
+  const res = await axios.post(baseUrl + 'auth/verify-owner-account/' + id)
   return res
 }
 
