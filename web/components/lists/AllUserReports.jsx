@@ -72,7 +72,9 @@ const AllUserReports = ({
             variant="contained"
             color="error"
             onClick={() => {
-              handleComplaintDecline(revisionModalState.reportId)
+              revisionModalState.responseType === 'REVISION'
+                ? handleRevisionDecline(revisionModalState.reportId)
+                : handleComplaintDecline(revisionModalState.reportId)
               setIsRevisionModalOpen(!isOpenRevisionModal)
             }}
           >
