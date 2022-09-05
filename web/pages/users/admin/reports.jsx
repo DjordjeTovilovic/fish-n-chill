@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import reportService from 'services/reports'
-import AllReports from 'components/lists/AllReports'
+import AllOwnerReports from 'components/lists/AllOwnerReports'
 import { useSnackbar } from 'notistack'
 
 const Reports = () => {
@@ -31,7 +31,7 @@ const Reports = () => {
 
   return (
     <>
-      <AllReports reports={reports} handleConfirm={handleConfirm} handleDecline={handleDecline} />
+      <AllOwnerReports reports={reports} handleConfirm={handleConfirm} handleDecline={handleDecline} />
     </>
   )
 }

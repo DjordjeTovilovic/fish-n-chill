@@ -232,7 +232,7 @@ public class MailService {
         System.out.println("Acc deletion Email sent!");
     }
 
-    @Async
+
     public void sendClientRevisionEmail(User owner, User client, String revision, BaseEntity entity, Reservation reservation) throws MailException {
         System.out.println("Sending client revision email...");
 
@@ -263,7 +263,7 @@ public class MailService {
 
         System.out.println("Client revision Email sent!");
     }
-    @Async
+
     public void sendAnswerToClientComplaintEmail(User owner, User client, String answer, String complaint, BaseEntity entity, Reservation reservation) throws MailException {
         System.out.println("Sending client complaint answer email...");
 

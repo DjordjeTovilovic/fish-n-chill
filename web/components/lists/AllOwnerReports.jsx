@@ -8,7 +8,7 @@ import { useState } from 'react'
 import Modal from 'components/modal/Modal'
 import Box from '@mui/material/Box'
 
-const AllReports = ({ reports, handleConfirm, handleDecline }) => {
+const AllOwnerReports = ({ reports, handleConfirm, handleDecline }) => {
   const [isOpenReportModal, setIsReportModalOpen] = useState(false)
   const [reportModalState, setReportModalState] = useState({ reportId: null, reportText: null })
 
@@ -129,4 +129,4 @@ const AllReports = ({ reports, handleConfirm, handleDecline }) => {
     </>
   )
 }
-export default AllReports
+export default AllOwnerReports
