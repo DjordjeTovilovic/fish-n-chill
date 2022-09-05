@@ -5,7 +5,7 @@ import dateUtils from '../../utils/dateUtils'
 import subscriptionService from 'services/subscription'
 import { useSnackbar } from 'notistack'
 
-const ReservationScheduling = ({ entity, scheduleReservation }) => {
+const ReservationScheduling = ({ entity, scheduleReservation, type }) => {
   const { enqueueSnackbar } = useSnackbar()
   const [userRole, setUserRole] = useState(null)
   const [checkInDate, setCheckInDate] = useState(null)
@@ -73,7 +73,7 @@ const ReservationScheduling = ({ entity, scheduleReservation }) => {
           .subscribe({
             clientId: JSON.parse(window.localStorage.getItem('id')),
             entityId: entity.id,
-            type: 'COTTAGE',
+            type: type,
           })
           .then(() => setSubscribed(!subscribed))
           .catch((err) => console.log(err))

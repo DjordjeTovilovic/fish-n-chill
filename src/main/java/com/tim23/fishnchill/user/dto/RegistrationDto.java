@@ -39,16 +39,4 @@ public class RegistrationDto {
 
     private String phoneNumber;
 
-    public void printInfo() {
-        System.out.println(
-                "username: " + this.username +
-                        "\nfn: " + this.firstName +
-                        "\nln: " + this.lastName +
-                        "\nemail: " + this.email +
-                        "\ncountry: " + this.country +
-                        "\ncity: " + this.city +
-                        "\naddress: " + this.address +
-                        "\nphone: " + this.phoneNumber +
-                        "\nrole: " + this.role);
-    }
 }

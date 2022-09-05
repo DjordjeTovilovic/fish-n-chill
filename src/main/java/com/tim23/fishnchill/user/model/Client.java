@@ -36,19 +36,7 @@ public class Client extends User {
     public Client(User u) {
         super(u);
         this.penaltyCount = 0;
-    }
-
-    public void printInfo() {
-        System.out.println(
-                "username: " + this.getUsername() +
-                        "\nfn: " + this.getFirstName() +
-                        "\nln: " + this.getLastName() +
-                        "\nemail: " + this.getEmail() +
-                        "\ncountry: " + this.getCountry() +
-                        "\ncity: " + this.getCity() +
-                        "\naddress: " + this.getAddress() +
-                        "\nphone: " + this.getPhoneNumber() +
-                        "\npenalty: " + this.getPenaltyCount());
+        this.loyaltyPoints = 0;
     }
 
     public Integer getLoyaltyPoints() {

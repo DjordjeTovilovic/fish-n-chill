@@ -3,7 +3,7 @@ import { Typography } from '@mui/material'
 const AdventureProfileInfo = ({ entity }) => {
   console.log(entity)
   return (
-    <>
+    <div style={{ marginBottom: '20px' }}>
       <Typography variant="h4" fontWeight="fontWeightMedium" component="div" sx={{ mb: 3 }}>
         You adventure guide
       </Typography>
@@ -27,7 +27,7 @@ const AdventureProfileInfo = ({ entity }) => {
       <Typography variant="h5" gutterBottom fontWeight="fontWeightLight" component="div" display="inline">
         {entity.owner.phoneNumber ? entity.owner.phoneNumber : '--not available--'}
       </Typography>
-    </>
+    </div>
   )
 }
 export default AdventureProfileInfo

@@ -22,7 +22,7 @@ const BoatProfile = ({ boat, scheduleReservation }) => {
         >
           <EntityMainProfileInfo entity={boat} />
           <BoatProfileInfo entity={boat} />
-          <ReservationScheduling entity={boat} scheduleReservation={scheduleReservation} />
+          <ReservationScheduling entity={boat} scheduleReservation={scheduleReservation} type={'BOAT'} />
         </Paper>
       </Box>
     </>

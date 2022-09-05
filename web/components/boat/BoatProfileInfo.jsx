@@ -2,7 +2,7 @@ import { Typography } from '@mui/material'
 
 const BoatProfileInfo = ({ entity }) => {
   return (
-    <>
+    <div style={{ marginBottom: '20px' }}>
       <Typography variant="h4" fontWeight="fontWeightMedium" component="div" sx={{ mb: 3 }}>
         Boat specification
       </Typography>
@@ -40,7 +40,7 @@ const BoatProfileInfo = ({ entity }) => {
       <Typography variant="h5" gutterBottom fontWeight="fontWeightLight" component="div" display="inline">
         {entity.boatSpecification.maxSpeed}km/h
       </Typography>
-    </>
+    </div>
   )
 }
 export default BoatProfileInfo
