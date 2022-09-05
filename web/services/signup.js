@@ -6,6 +6,11 @@ const signup = async (credentials) => {
   return response.data
 }
 
-const signupService = { signup }
+const verifyClient = async (token) => {
+  const response = await axios.post(process.env.NEXT_PUBLIC_AUTH_URL + `verify-account/${token}`)
+  return response.data
+}
+
+const signupService = { signup, verifyClient }
 
 export default signupService

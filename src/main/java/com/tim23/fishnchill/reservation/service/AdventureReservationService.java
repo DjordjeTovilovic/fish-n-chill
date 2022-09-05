@@ -104,6 +104,7 @@ public class AdventureReservationService {
                 emailService.sendAdventureReservationEmail(adventureReservation.getClient(), adventureReservation);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
             return modelMapper.map(adventureReservationRepository.save(adventureReservation), AdventureReservationDto.class);
 
