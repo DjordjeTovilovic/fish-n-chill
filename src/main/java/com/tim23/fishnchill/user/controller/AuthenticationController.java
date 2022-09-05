@@ -16,6 +16,7 @@ import com.tim23.fishnchill.user.service.CustomUserDetailsService;
 import com.tim23.fishnchill.user.service.OwnerService;
 import com.tim23.fishnchill.user.service.UserService;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,7 @@ import java.util.UUID;
 
 //Kontroler zaduzen za autentifikaciju korisnika
 //@AllArgsConstructor
+@NoArgsConstructor
 @RestController
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {

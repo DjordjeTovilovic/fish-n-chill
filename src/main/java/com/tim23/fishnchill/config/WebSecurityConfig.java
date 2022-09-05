@@ -4,6 +4,7 @@ import com.tim23.fishnchill.security.TokenUtils;
 import com.tim23.fishnchill.security.auth.RestAuthenticationEntryPoint;
 import com.tim23.fishnchill.security.auth.TokenAuthenticationFilter;
 import com.tim23.fishnchill.user.service.CustomUserDetailsService;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
+@NoArgsConstructor
 // Ukljucivanje podrske za anotacije "@Pre*" i "@Post*" koje ce aktivirati autorizacione provere za svaki pristup metodi
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
