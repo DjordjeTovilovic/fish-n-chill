@@ -30,6 +30,7 @@ public class UserResponseService {
     private ReservationRepository reservationRepository;
     private BaseEntityRepository baseEntityRepository;
     private MailService mailService;
+    private ClientService clientService;
 
 
 
@@ -73,6 +74,7 @@ public class UserResponseService {
         User user = userResponseRepository.getById(accDelReqId).getUser();
         mailService.sendAccountDeletionEmail(user);
         userResponseRepository.deleteById(accDelReqId);
+        clientService.deleteClientById(user.getId());
     }
 
     public void deleteResponse(Long id){
@@ -98,7 +100,7 @@ public class UserResponseService {
         String complaint = userResponseRepository.getById(accDelReqId).getExplanation();
         BaseEntity entity = userResponseRepository.getById(accDelReqId).getEntity();
         Reservation reservation = userResponseRepository.getById(accDelReqId).getReservation();
-        
+
         mailService.sendAnswerToClientComplaintEmail(owner, client, answer, complaint, entity, reservation);
         userResponseRepository.deleteById(accDelReqId);
     }
