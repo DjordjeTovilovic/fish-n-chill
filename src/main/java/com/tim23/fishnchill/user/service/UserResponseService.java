@@ -87,11 +87,6 @@ public class UserResponseService {
         String revision = userResponseRepository.getById(accDelReqId).getExplanation();
         BaseEntity entity = userResponseRepository.getById(accDelReqId).getEntity();
         Reservation reservation = userResponseRepository.getById(accDelReqId).getReservation();
-        System.out.println(owner.getId());
-        System.out.println(client.getId());
-        System.out.println(revision);
-        System.out.println(entity.getId());
-        System.out.println(reservation.getId());
 
         mailService.sendClientRevisionEmail(owner, client, revision, entity, reservation);
         userResponseRepository.deleteById(accDelReqId);
@@ -103,12 +98,7 @@ public class UserResponseService {
         String complaint = userResponseRepository.getById(accDelReqId).getExplanation();
         BaseEntity entity = userResponseRepository.getById(accDelReqId).getEntity();
         Reservation reservation = userResponseRepository.getById(accDelReqId).getReservation();
-
-        System.out.println(owner.getId());
-        System.out.println(client.getId());
-        System.out.println(complaint);
-        System.out.println(entity.getId());
-        System.out.println(reservation.getId());
+        
         mailService.sendAnswerToClientComplaintEmail(owner, client, answer, complaint, entity, reservation);
         userResponseRepository.deleteById(accDelReqId);
     }

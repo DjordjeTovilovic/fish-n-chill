@@ -128,6 +128,16 @@ const LoggedInNavBar = () => {
                       Reports
                     </Button>
                   </MenuItem>
+                  <MenuItem sx={{ justifyContent: 'center' }}>
+                    <Button
+                      key="Owner requests"
+                      style={{ minWidth: '100%', maxHeight: '15', minHeight: '15px' }}
+                      sx={{ color: 'blue' }}
+                      href={'/' + 'users/' + 'admin/' + 'user-feedback'}
+                    >
+                      User feedback
+                    </Button>
+                  </MenuItem>
                 </div>
               )}
 
