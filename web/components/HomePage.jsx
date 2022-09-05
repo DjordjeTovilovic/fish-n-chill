@@ -17,7 +17,7 @@ const HomePage = () => {
   const delay = (ms) => new Promise((res) => setTimeout(res, ms))
   let i = 0
   const showSlides = async () => {
-    while (true) {
+    while (i < 4) {
       if (i === 3) i = 0
       setIdx(i)
       i++
