@@ -16,6 +16,7 @@ import com.tim23.fishnchill.user.service.CustomUserDetailsService;
 import com.tim23.fishnchill.user.service.OwnerService;
 import com.tim23.fishnchill.user.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,18 +34,26 @@ import java.util.Calendar;
 import java.util.UUID;
 
 //Kontroler zaduzen za autentifikaciju korisnika
-@AllArgsConstructor
+//@AllArgsConstructor
 @RestController
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {
 
-    private final TokenUtils tokenUtils;
-    private final AuthenticationManager authenticationManager;
-    private final CustomUserDetailsService userDetailsService;
-    private final UserService userService;
-    private final ClientService clientService;
+    @Autowired
+    private TokenUtils tokenUtils;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private CustomUserDetailsService userDetailsService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private ClientService clientService;
+    @Autowired
     private MailService emailService;
+    @Autowired
     private VerificationTokenService verificationTokenService;
+    @Autowired
     private OwnerService ownerService;
 
     // Prvi endpoint koji pogadja korisnik kada se loguje.
@@ -95,10 +104,10 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/verify-owner-account/{id}")
-    public ResponseEntity<User>confirmOwnerAccount(@PathVariable("id") Long id){
+    public ResponseEntity<User> confirmOwnerAccount(@PathVariable("id") Long id) {
         User user = userService.findByIdPure(id);
         user.setEnabled(true);
-        return new ResponseEntity<>(userService.saveUser(user),HttpStatus.OK);
+        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.OK);
     }
 
     @PostMapping(value = "/verify-account/{token}")
