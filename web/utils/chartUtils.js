@@ -1,5 +1,6 @@
 import dateUtils from './dateUtils'
 const _ = require('lodash')
+import { getWeek } from 'date-fns'
 
 const labels = [
   'January',
@@ -15,6 +16,10 @@ const labels = [
   'November',
   'December',
 ]
+
+const weeks = _.range(1, 53)
+
+const years = [2018, 2019, 2020, 2021, 2022]
 
 const randomNum = () => Math.floor(Math.random() * (235 - 52 + 1) + 52)
 
@@ -82,6 +87,130 @@ export const entityReservationsPerMonthData = (reservations) => {
   return { data, options }
 }
 
+const reservationsPerWeek = (reservations) => {
+  const reservedDates = {}
+  const entityNames = {}
+  reservations.forEach((reservation) => {
+    const dateRange = dateUtils.toDateList(reservation.reservationStart, reservation.reservationEnd)
+
+    reservation.entity.id in reservedDates
+      ? reservedDates[reservation.entity.id].concat(dateRange)
+      : (reservedDates[reservation.entity.id] = dateRange)
+
+    entityNames[reservation.entity.id] = reservation.entity.name
+  })
+
+  Object.keys(reservedDates).map((key) => {
+    const reservedDatesByWeek = _.chain(reservedDates[key])
+      .groupBy((date) => weeks[getWeek(date)])
+      .mapValues((val) => val.length)
+      .value()
+    reservedDates[key] = reservedDatesByWeek
+    reservedDates[key].name = entityNames[key]
+  })
+  return reservedDates
+}
+
+export const entityReservationsPerWeekData = (reservations) => {
+  let datasets = []
+  const entityReservationsPerWeek = reservationsPerWeek(reservations)
+
+  Object.keys(entityReservationsPerWeek).map((key) => {
+    const dataset = {
+      label: entityReservationsPerWeek[key].name,
+      data: weeks.map((week) => {
+        if (week in entityReservationsPerWeek[key]) return entityReservationsPerWeek[key][week]
+        return 0
+      }),
+      backgroundColor: randomRGB(),
+      yAxisID: 'y',
+    }
+    datasets.push(dataset)
+  })
+
+  const data = {
+    labels: weeks,
+    datasets,
+  }
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Reservations per week',
+      },
+    },
+  }
+
+  return { data, options }
+}
+
+const reservationsPerYear = (reservations) => {
+  const reservedDates = {}
+  const entityNames = {}
+  reservations.forEach((reservation) => {
+    const dateRange = dateUtils.toDateList(reservation.reservationStart, reservation.reservationEnd)
+
+    reservation.entity.id in reservedDates
+      ? reservedDates[reservation.entity.id].concat(dateRange)
+      : (reservedDates[reservation.entity.id] = dateRange)
+
+    entityNames[reservation.entity.id] = reservation.entity.name
+  })
+
+  Object.keys(reservedDates).map((key) => {
+    const reservedDatesByYear = _.chain(reservedDates[key])
+      .groupBy((date) => date.getFullYear())
+      .mapValues((val) => val.length)
+      .value()
+    reservedDates[key] = reservedDatesByYear
+    reservedDates[key].name = entityNames[key]
+  })
+  return reservedDates
+}
+
+export const entityReservationsPerYearData = (reservations) => {
+  let datasets = []
+  const entityReservationsPerYear = reservationsPerYear(reservations)
+
+  Object.keys(entityReservationsPerYear).map((key) => {
+    const dataset = {
+      label: entityReservationsPerYear[key].name,
+      data: years.map((year) => {
+        if (year in entityReservationsPerYear[key]) return entityReservationsPerYear[key][year]
+        return 0
+      }),
+      backgroundColor: randomRGB(),
+      yAxisID: 'y',
+    }
+    datasets.push(dataset)
+  })
+
+  const data = {
+    labels: years,
+    datasets,
+  }
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Reservations per year',
+      },
+    },
+  }
+
+  return { data, options }
+}
+
 export const revenueForPeriod = (reservations, startDate, endDate) => {
   const revenue = {}
   reservations.forEach((reservation) => {
@@ -122,4 +251,38 @@ export const revenueForPeriod = (reservations, startDate, endDate) => {
   }
 
   return { data }
+}
+
+export const entityRatings = (entities) => {
+  let datasets = []
+
+  entities.map((entity) => {
+    const dataset = {
+      label: entity.name,
+      data: [entity.ratingAverage] ?? [0],
+      backgroundColor: randomRGB(),
+      yAxisID: 'y',
+    }
+    datasets.push(dataset)
+  })
+
+  const data = {
+    labels: ['Average Rating'],
+    datasets,
+  }
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Average rating',
+      },
+    },
+  }
+
+  return { data, options }
 }

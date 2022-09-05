@@ -1,4 +1,4 @@
-import { Container } from '@mui/material'
+import { Box, Container, Paper } from '@mui/material'
 import EntityMainProfileInfo from '../entity/EntityMainProfileInfo'
 import CottageUpdate from '../cottage/CottageUpdate'
 import ReservationCalendar from '../entity/ReservationCalendar'
@@ -7,9 +7,25 @@ const OwnedCottageProfile = ({ cottage, updateEntity }) => {
   return (
     <>
       <Container component="main" maxWidth="lg">
-        <EntityMainProfileInfo entity={cottage} />
-        <CottageUpdate cottage={cottage} updateEntity={updateEntity} />
-        <ReservationCalendar entity={cottage} updateEntity={updateEntity} />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            mb: 8,
+          }}
+        >
+          <Paper
+            sx={{
+              padding: 3,
+            }}
+          >
+            <EntityMainProfileInfo entity={cottage} />
+            <CottageUpdate cottage={cottage} updateEntity={updateEntity} />
+            <ReservationCalendar entity={cottage} updateEntity={updateEntity} />
+          </Paper>
+        </Box>
       </Container>
     </>
   )

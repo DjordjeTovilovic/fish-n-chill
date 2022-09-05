@@ -1,28 +1,50 @@
-import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
-import cottageService from '../../../services/cottage'
+import { useEffect, useState } from 'react'
+import ownerService from '../../../services/owner'
+import { Container } from '@mui/system'
 import dateUtils from '../../../utils/dateUtils'
+import { Box, Tab, Tabs } from '@mui/material'
+import ProfitChart from '../../../components/chart/profitChart'
+import ReservationsChart from '../../../components/chart/reservationsChart'
+import RatingChart from '../../../components/chart/ratingChart'
+import cottageService from '../../../services/cottage'
 
-const Analitycs = () => {
-  const router = useRouter()
-  const { id } = router.query
-  const [entity, setEntity] = useState({})
+const Analytics = () => {
+  const [reservations, setReservations] = useState([])
+  const [tabValue, setTabValue] = useState(1)
+  const [entities, setEntities] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
-      let fetchedEntity = await cottageService.getById(id)
-      // Prebacuje polja u datume jer nisu datumi kad dodju na front
-      fetchedEntity = dateUtils.entityFieldsToDate(fetchedEntity)
-      setEntity(fetchedEntity)
+      let fetchedReservations = await ownerService.getAllPastCottageOwnerReservations()
+      fetchedReservations = dateUtils.reservationListFieldsToDate(fetchedReservations)
+      setReservations(fetchedReservations)
+
+      let fetchedEntites = await cottageService.getAllForOwner()
+      setEntities(fetchedEntites)
     }
-    if (router.isReady) fetchData()
-  }, [router.isReady, id])
+    fetchData()
+  }, [])
 
-  if (Object.keys(entity).length === 0) {
-    return <div>Loading....</div>
-  }
-
-  return <></>
+  return (
+    <Container>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs
+          value={tabValue}
+          onChange={(e, newValue) => {
+            setTabValue(newValue)
+          }}
+          aria-label="basic tabs"
+        >
+          <Tab label="Average rating" />
+          <Tab label="Reservations for period" />
+          <Tab label="Profit for time period" />
+        </Tabs>
+      </Box>
+      {tabValue === 0 && <RatingChart entities={entities} />}
+      {tabValue === 1 && <ReservationsChart reservations={reservations} />}
+      {tabValue === 2 && <ProfitChart reservations={reservations} />}
+    </Container>
+  )
 }
 
-export default Analitycs
+export default Analytics

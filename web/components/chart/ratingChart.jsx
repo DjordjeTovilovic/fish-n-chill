@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Chart as ChartJS, CategoryScale, LinearScale, Title, Tooltip, Legend, BarElement } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
-import { Box, Tab, Tabs } from '@mui/material'
 import { entityRatings } from '../../utils/chartUtils'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)

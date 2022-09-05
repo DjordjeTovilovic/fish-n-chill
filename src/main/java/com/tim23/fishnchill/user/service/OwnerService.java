@@ -2,6 +2,7 @@ package com.tim23.fishnchill.user.service;
 
 import com.tim23.fishnchill.general.model.Report;
 import com.tim23.fishnchill.general.model.enums.OwnerReportType;
+import com.tim23.fishnchill.general.service.DateService;
 import com.tim23.fishnchill.general.service.ReportService;
 import com.tim23.fishnchill.reservation.dto.BoatOwnerBoatReservationDto;
 import com.tim23.fishnchill.reservation.dto.CottageOwnerCottageReservationDto;
@@ -28,6 +29,7 @@ import java.util.List;
 @Service
 public class OwnerService {
     private ModelMapper modelMapper;
+    private DateService dateService;
     private CottageOwnerRepository cottageOwnerRepository;
     private CottageReservationRepository cottageReservationRepository;
     private BoatOwnerRepository boatOwnerRepository;
@@ -41,17 +43,17 @@ public class OwnerService {
 
 //TODO: ovo treba prebaciti samo za ownere, sad trazi sve neaktivirane korniske
 
-    public List<User> getAllInactiveOwners(){
+    public List<User> getAllInactiveOwners() {
         return userRepository.findAllByEnabledFalse();
     }
 
-    public ResponseEntity<?> save(RegistrationDto registrationDto){
-        if(registrationDto.getRole().equals("cottage_owner")){
+    public ResponseEntity<?> save(RegistrationDto registrationDto) {
+        if (registrationDto.getRole().equals("cottage_owner")) {
             CottageOwner cottageOwner = new CottageOwner();
-            modelMapper.map(registrationDto,cottageOwner);
+            modelMapper.map(registrationDto, cottageOwner);
 
             Authority auth = authorityRepository.findByName("ROLE_COTTAGE_OWNER");
-            List<Authority>auths = new ArrayList<>();
+            List<Authority> auths = new ArrayList<>();
             auths.add(auth);
             cottageOwner.setAuthorities(auths);
 
@@ -61,12 +63,12 @@ public class OwnerService {
 
         }
 
-        if(registrationDto.getRole().equals("boat_owner")){
+        if (registrationDto.getRole().equals("boat_owner")) {
             BoatOwner boatOwner = new BoatOwner();
-            modelMapper.map(registrationDto,boatOwner);
+            modelMapper.map(registrationDto, boatOwner);
 
             Authority auth = authorityRepository.findByName("ROLE_BOAT_OWNER");
-            List<Authority>auths = new ArrayList<>();
+            List<Authority> auths = new ArrayList<>();
             auths.add(auth);
             boatOwner.setAuthorities(auths);
 
@@ -75,12 +77,12 @@ public class OwnerService {
         }
 
 
-        if(registrationDto.getRole().equals( "adventure_owner")){
+        if (registrationDto.getRole().equals("adventure_owner")) {
             AdventureOwner adventureOwner = new AdventureOwner();
-            modelMapper.map(registrationDto,adventureOwner);
+            modelMapper.map(registrationDto, adventureOwner);
 
             Authority auth = authorityRepository.findByName("ROLE_ADVENTURE_OWNER");
-            List<Authority>auths = new ArrayList<>();
+            List<Authority> auths = new ArrayList<>();
             auths.add(auth);
             adventureOwner.setAuthorities(auths);
 
@@ -94,7 +96,7 @@ public class OwnerService {
     }
 
 
-    public List<BoatOwnerBoatReservationDto>findAllActiveBoatOwnerReservations(Long ownerId) {
+    public List<BoatOwnerBoatReservationDto> findAllActiveBoatOwnerReservations(Long ownerId) {
         BoatOwner owner = boatOwnerRepository.getById(ownerId);
         List<Reservation> reservations = new ArrayList<>();
         owner.getEntities().forEach(boat -> reservations.addAll(boatReservationRepository

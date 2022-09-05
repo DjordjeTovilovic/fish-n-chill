@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Button, Tab, Tabs, TextField } from '@mui/material'
+import { Button, TextField } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers'
 import { revenueForPeriod } from '../../utils/chartUtils'
 import dateUtils from '../../utils/dateUtils'
@@ -12,12 +12,15 @@ const ProfitChart = ({ reservations }) => {
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
   const [profitChart, setProfitChart] = useState(null)
+  const [maxProfit, setMaxProfit] = useState(0)
 
   const handleDatePeriodChange = () => {
     if (startDate && endDate) {
       const start = dateUtils.toUtcDate(startDate)
       const end = dateUtils.toUtcDate(endDate)
-      setProfitChart(revenueForPeriod(reservations, start, end))
+      const profit = revenueForPeriod(reservations, start, end)
+      setProfitChart(profit)
+      setMaxProfit(Math.max(...profit.data.datasets[0].data) ?? 0)
     }
   }
 
@@ -30,6 +33,7 @@ const ProfitChart = ({ reservations }) => {
             value={startDate}
             onChange={(newValue) => {
               setStartDate(newValue)
+              if (newValue > endDate) setEndDate(newValue)
             }}
             renderInput={(params) => <TextField {...params} />}
           />
@@ -46,7 +50,9 @@ const ProfitChart = ({ reservations }) => {
             See Profit For Period
           </Button>
         </div>
-        {profitChart && <Pie data={profitChart.data} />}
+        <div style={{ width: 550, height: 550 }}>
+          {profitChart && maxProfit > 0 ? <Pie data={profitChart.data} /> : <h1>No revenue for that period</h1>}
+        </div>
       </>
     </div>
   )

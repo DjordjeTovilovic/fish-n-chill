@@ -1,7 +1,18 @@
-import { subMinutes, differenceInDays, isWithinInterval, subDays, addDays, format, isEqual } from 'date-fns'
+import {
+  subMinutes,
+  differenceInDays,
+  isWithinInterval,
+  subDays,
+  addDays,
+  format,
+  isEqual,
+  eachDayOfInterval,
+} from 'date-fns'
 
 // Mislim da treba pozivati samo kad se salje na back, ali nisam jos testirao
 export const toUtcDate = (date) => subMinutes(date, date.getTimezoneOffset())
+
+export const toDateList = (start, end) => eachDayOfInterval({ start, end })
 
 // Ovo je da bi prebacili ta polja u datume jer nisu datumi kad dodju na front
 export const entityFieldsToDate = (entity) => {
@@ -9,7 +20,10 @@ export const entityFieldsToDate = (entity) => {
     entity.availabilityStart = new Date(entity.availabilityStart)
     entity.availabilityEnd = new Date(entity.availabilityEnd)
 
-    if (entity.availabilityStart < new Date()) {
+    if (entity.availabilityEnd < new Date()) {
+      entity.availabilityStart = null
+      entity.availabilityEnd = null
+    } else if (entity.availabilityStart < new Date()) {
       const today = new Date()
       const todayDateStart = new Date(format(today, `yyyy-MM-dd'T'00:00:00`))
       entity.availabilityStart = todayDateStart
@@ -178,6 +192,7 @@ export const fcToEndDate = (date) => {
 
 const dateUtils = {
   toUtcDate,
+  toDateList,
   entityFieldsToDate,
   reservationFieldsToDate,
   reservationListFieldsToDate,
