@@ -15,7 +15,11 @@ import com.tim23.fishnchill.user.repository.UserRepository;
 import com.tim23.fishnchill.user.repository.UserResponseRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 @AllArgsConstructor
 @Service
@@ -26,6 +30,14 @@ public class UserResponseService {
     private ReservationRepository reservationRepository;
     private BaseEntityRepository baseEntityRepository;
     private MailService mailService;
+
+
+
+    public List<UserResponseDto> getAll(){
+        Type listType = new TypeToken<List<UserResponseDto>>(){}.getType();
+        List<UserResponseDto> userResponseDtos = modelMapper.map(userResponseRepository.findAll(),listType);
+        return userResponseDtos;
+    }
 
     public UserResponseDto deleteAccountRequest(UserResponseDtoInfo userResponseDtoInfo) {
         UserResponse userResponse = new UserResponse();
@@ -63,12 +75,24 @@ public class UserResponseService {
         userResponseRepository.deleteById(accDelReqId);
     }
 
+    public void deleteResponse(Long id){
+        userResponseRepository.deleteById(id);
+    }
+
+
+
     public void approveClientRevision(Long accDelReqId) {
         User owner = userResponseRepository.getById(accDelReqId).getOwner();
         User client = userResponseRepository.getById(accDelReqId).getUser();
         String revision = userResponseRepository.getById(accDelReqId).getExplanation();
         BaseEntity entity = userResponseRepository.getById(accDelReqId).getEntity();
         Reservation reservation = userResponseRepository.getById(accDelReqId).getReservation();
+        System.out.println(owner.getId());
+        System.out.println(client.getId());
+        System.out.println(revision);
+        System.out.println(entity.getId());
+        System.out.println(reservation.getId());
+
         mailService.sendClientRevisionEmail(owner, client, revision, entity, reservation);
         userResponseRepository.deleteById(accDelReqId);
     }
@@ -79,6 +103,12 @@ public class UserResponseService {
         String complaint = userResponseRepository.getById(accDelReqId).getExplanation();
         BaseEntity entity = userResponseRepository.getById(accDelReqId).getEntity();
         Reservation reservation = userResponseRepository.getById(accDelReqId).getReservation();
+
+        System.out.println(owner.getId());
+        System.out.println(client.getId());
+        System.out.println(complaint);
+        System.out.println(entity.getId());
+        System.out.println(reservation.getId());
         mailService.sendAnswerToClientComplaintEmail(owner, client, answer, complaint, entity, reservation);
         userResponseRepository.deleteById(accDelReqId);
     }
