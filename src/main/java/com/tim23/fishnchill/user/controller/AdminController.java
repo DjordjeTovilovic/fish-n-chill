@@ -26,7 +26,7 @@ public class AdminController {
         userResponseService.approveClientRevision(id);
     }
 
-    @DeleteMapping(value = "/revision/{id}")
+    @DeleteMapping(value = "/user-request/{id}")
     public void deleteClientRevision(@PathVariable("id") Long id){
         userResponseService.deleteResponse(id);
     }
@@ -36,5 +36,14 @@ public class AdminController {
         System.out.println(response.getResponse());
         userResponseService.answerClientComplaint(id, response.getResponse());
     }
+
+    @PostMapping(value = "delete-request/{id}")
+    public void approveDeletionRequest(@PathVariable("id")Long id){
+        userResponseService.approveAccountDeletionRequest(id);
+    }
+
+
+
+
 
 }

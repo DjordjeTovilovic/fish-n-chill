@@ -17,6 +17,22 @@ const UserReports = () => {
     setReports(reports.filter((request) => request.id !== id))
   }
 
+  const handleDeletionConfirm = (id) => {
+    adminService
+      .approveDeletionRequest(id)
+      .then(removeRequestFromList(id))
+      .catch((err) => console.log(err))
+    enqueueSnackbar('User is succefully deleted!', { variant: 'success' })
+  }
+
+  const handleDeletionDecline = (id) => {
+    adminService
+      .deleteUserRequest(id)
+      .then(removeRequestFromList(id))
+      .catch((err) => console.log(err))
+    enqueueSnackbar('User is succefully deleted!', { variant: 'success' })
+  }
+
   const handleRevisionConfirm = (id) => {
     adminService
       .approveClientRevision(id)
@@ -27,7 +43,7 @@ const UserReports = () => {
 
   const handleRevisionDecline = (id) => {
     adminService
-      .deleteClientRevision(id)
+      .deleteUserRequest(id)
       .then(removeRequestFromList(id))
       .catch((err) => console.log(err))
     enqueueSnackbar('Revision successfully deleted!', { variant: 'success' })
@@ -42,7 +58,7 @@ const UserReports = () => {
 
   const handleComplaintDecline = (id) => {
     adminService
-      .deleteClientRevision(id)
+      .deleteUserRequest(id)
       .then(removeRequestFromList(id))
       .catch((err) => console.log(err))
     enqueueSnackbar('Complaint successfully deleted', { variant: 'success' })
@@ -56,6 +72,8 @@ const UserReports = () => {
         handleRevisionDecline={handleRevisionDecline}
         handleComplaintConfirm={handleComplaintConfirm}
         handleComplaintDecline={handleComplaintDecline}
+        handleDeletionConfirm={handleDeletionConfirm}
+        handleDeletionDecline={handleDeletionDecline}
       />
     </>
   )

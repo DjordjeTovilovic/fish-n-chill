@@ -3,6 +3,8 @@ package com.tim23.fishnchill.user.model;
 import com.tim23.fishnchill.general.model.Rating;
 import com.tim23.fishnchill.general.model.Report;
 import com.tim23.fishnchill.general.model.VerificationToken;
+import com.tim23.fishnchill.reservation.model.AdventureReservation;
+import com.tim23.fishnchill.reservation.model.BoatReservation;
 import com.tim23.fishnchill.reservation.model.CottageReservation;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -22,6 +24,12 @@ public class Client extends User {
 
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<CottageReservation> cottageReservations;
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<BoatReservation> boatReservations;
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<AdventureReservation> adventureReservations;
 
     @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn

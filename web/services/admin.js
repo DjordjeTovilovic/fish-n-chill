@@ -10,8 +10,8 @@ const approveClientRevision = async (id) => {
   return res.data
 }
 
-const deleteClientRevision = async (id) => {
-  const res = await axios.delete(baseUrl + `admin/revision/${id}`)
+const deleteUserRequest = async (id) => {
+  const res = await axios.delete(baseUrl + `admin/user-request/${id}`)
   return res.data
 }
 
@@ -19,10 +19,17 @@ const approveClientComplaint = async (id, response) => {
   const res = await axios.post(baseUrl + `admin/complaint/${id}`, { response: response })
   return res.data
 }
+
+const approveDeletionRequest = async (id) => {
+  const res = await axios.post(baseUrl + `admin/delete-request/${id}`)
+  return res.data
+}
+
 const adminService = {
   getAllUserComplaintAndRevision,
   approveClientRevision,
-  deleteClientRevision,
+  deleteUserRequest,
   approveClientComplaint,
+  approveDeletionRequest,
 }
 export default adminService

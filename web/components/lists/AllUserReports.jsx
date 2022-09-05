@@ -15,6 +15,8 @@ const AllUserReports = ({
   handleRevisionDecline,
   handleComplaintConfirm,
   handleComplaintDecline,
+  handleDeletionDecline,
+  handleDeletionConfirm,
 }) => {
   const [isOpenRevisionModal, setIsRevisionModalOpen] = useState(false)
   const [revisionModalState, setReportModalState] = useState({ reportId: null, reportText: null })
@@ -58,10 +60,11 @@ const AllUserReports = ({
             variant="contained"
             color="success"
             onClick={() => {
-              revisionModalState.modalType === 'REVISION'
-                ? handleRevisionConfirm(revisionModalState.reportId)
-                : handleComplaintConfirm(revisionModalState.reportId, response)
-              setIsRevisionModalOpen(!isOpenRevisionModal)
+              console.log(revisionModalState.modalType)
+              if (revisionModalState.modalType === 'REVISION') handleRevisionConfirm(revisionModalState.reportId)
+              else if (revisionModalState.modalType === 'COMPLAINT')
+                handleComplaintConfirm(revisionModalState.reportId, response)
+              else handleDeletionConfirm(revisionModalState.reportId)
             }}
           >
             Confirm
@@ -72,10 +75,9 @@ const AllUserReports = ({
             variant="contained"
             color="error"
             onClick={() => {
-              revisionModalState.responseType === 'REVISION'
-                ? handleRevisionDecline(revisionModalState.reportId)
-                : handleComplaintDecline(revisionModalState.reportId)
-              setIsRevisionModalOpen(!isOpenRevisionModal)
+              if (revisionModalState.modalType === 'REVISION') handleRevisionDecline(revisionModalState.reportId)
+              else if (revisionModalState.modalType === 'COMPLAINT') handleComplaintDecline(revisionModalState.reportId)
+              else handleDeletionDecline(revisionModalState.reportId)
             }}
           >
             Decline
@@ -103,9 +105,16 @@ const AllUserReports = ({
             <Card sx={{ my: 3, display: 'flex', width: '95%', height: '150' }}>
               <CardMedia component="img" sx={{ width: 200, height: '100%' }} image={'https://picsum.photos/200'} />
               <CardContent sx={{ display: 'flex', flexDirection: 'column', ml: 3, maxWidth: '20%' }}>
-                <Typography borderBottom={1} gutterBottom variant="h4" align="left">
-                  {report.responseType}
-                </Typography>
+                {report.responseType === 'ACCOUNTDELETIONREQUEST' && (
+                  <Typography borderBottom={1} gutterBottom variant="h5" align="left">
+                    DELETE REQUEST
+                  </Typography>
+                )}
+                {(report.responseType === 'REVISION' || report.responseType === 'COMPLAINT') && (
+                  <Typography borderBottom={1} gutterBottom variant="h5" align="left">
+                    {report.responseType}
+                  </Typography>
+                )}
               </CardContent>
               <CardContent sx={{ display: 'flex', flexDirection: 'column', ml: 3, maxWidth: '20%' }}>
                 <Typography borderBottom={1} gutterBottom variant="h4" align="left">
