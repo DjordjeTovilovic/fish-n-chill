@@ -81,6 +81,12 @@ const LoggedInNavBar = () => {
               >
                 Past Reservations
               </Button>
+              <Button
+                href={'/' + userRole.split('_')[1].toLowerCase() + 's/owned/analytics'}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                Analytics
+              </Button>
             </Box>
           )}
 

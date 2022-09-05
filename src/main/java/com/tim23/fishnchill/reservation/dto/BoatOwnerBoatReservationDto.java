@@ -18,7 +18,7 @@ public class BoatOwnerBoatReservationDto {
     private Long id;
 
     private Integer numberOfGuests;
-
+    
     private BigDecimal price;
 
     private LocalDateTime reservationStart;
