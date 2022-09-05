@@ -45,10 +45,14 @@ public class UserController {
         return this.userService.findAll();
     }
 
-    @GetMapping("/{userId}")
-//    @PreAuthorize("hasRole('ADMIN')")
-    public UserDto loadById(@PathVariable Long userId) {
-        return this.userService.findById(userId);
+    @GetMapping("/profile/{id}")
+    public ClientDto user(@PathVariable("id") Long id) {
+        UserDto userDto = this.userService.findById(id);
+        if (userDto.getAuthorities().get(0).getAuthority().equals("ROLE_CLIENT")) {
+            return this.clientService.findById(id);
+        } else {
+            return new ClientDto(userDto, null, null);
+        }
     }
 
     @GetMapping("/whoami")

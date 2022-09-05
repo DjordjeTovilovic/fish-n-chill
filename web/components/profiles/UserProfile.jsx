@@ -94,50 +94,49 @@ const UserProfile = ({ user, handleDelete, setClientResponse }) => {
                 <Typography variant="h6" display="inline" align="left" component="div" sx={{ ml: 1, mr: 1 }}>
                   User type:
                 </Typography>
-                <Typography variant="h5" display="inline" align="left" component="div" sx={{ ml: 1, mr: 1 }}>
-                  {user.authorities[0].authority}
-                </Typography>
               </>
             ) : (
-              <>
-                <Typography variant="h6" display="inline" align="left" component="div" sx={{ ml: 1, mr: 1 }}>
-                  User type:
-                </Typography>
-                <Typography variant="h5" display="inline" align="left" component="div" sx={{ ml: 1, mr: 1 }}>
-                  {user.authorities[0].authority}
-                </Typography>
-              </>
+              <Typography variant="h6" display="inline" align="left" component="div" sx={{ ml: 1, mr: 1 }}>
+                User type:
+              </Typography>
             )}
-            <Divider></Divider>
-            <Button size="small" href="profile/changeInfo" variant="contained" sx={{ ml: 2, mb: 2, mt: 2 }}>
-              Change account information
-            </Button>
-            <Button size="small" href="profile/changePassword" variant="contained" sx={{ ml: 2, mb: 2, mt: 2 }}>
-              Change password
-            </Button>
-            <Button
-              size="small"
-              type="submit"
-              variant="contained"
-              sx={{ ml: 35, mb: 2, mt: 2 }}
-              color="error"
-              disabled={user.deleteRequest}
-              onClick={() => changeModalState()}
-            >
-              Delete account
-            </Button>
-            {user.deleteRequest && (
-              <p
-                style={{
-                  color: 'red',
-                  fontSize: '10px',
-                  marginTop: '0px',
-                  marginLeft: '78%',
-                  maxWidth: '200px',
-                }}
-              >
-                You already requested your account deletion. You need to wait for approval!
-              </p>
+            <Typography variant="h5" display="inline" align="left" component="div" sx={{ ml: 1, mr: 1 }}>
+              {user.authorities[0].authority}
+            </Typography>
+            {parseInt(window.localStorage.getItem('id')) === user.id && (
+              <>
+                <Divider></Divider>
+                <Button size="small" href="profile/changeInfo" variant="contained" sx={{ ml: 2, mb: 2, mt: 2 }}>
+                  Change account information
+                </Button>
+                <Button size="small" href="profile/changePassword" variant="contained" sx={{ ml: 2, mb: 2, mt: 2 }}>
+                  Change password
+                </Button>
+                <Button
+                  size="small"
+                  type="submit"
+                  variant="contained"
+                  sx={{ ml: 35, mb: 2, mt: 2 }}
+                  color="error"
+                  disabled={user.deleteRequest}
+                  onClick={() => changeModalState()}
+                >
+                  Delete account
+                </Button>
+                {user.deleteRequest && (
+                  <p
+                    style={{
+                      color: 'red',
+                      fontSize: '10px',
+                      marginTop: '0px',
+                      marginLeft: '78%',
+                      maxWidth: '200px',
+                    }}
+                  >
+                    You already requested your account deletion. You need to wait for approval!
+                  </p>
+                )}
+              </>
             )}
           </Paper>
         </Box>

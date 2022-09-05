@@ -6,6 +6,11 @@ const getMe = async () => {
   return res.data
 }
 
+const getById = async (id) => {
+  const res = await axios.get(baseUrl + 'profile/' + id)
+  return res.data
+}
+
 const updateUser = async (credentials) => {
   const response = await axios.post(baseUrl + 'update/', credentials)
   return response.data
@@ -31,6 +36,7 @@ const deleteAccountRequest = async (deleteRequest) => {
 
 const userService = {
   getMe,
+  getById,
   updateUser,
   updatePassword,
   deleteMe,

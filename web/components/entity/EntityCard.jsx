@@ -49,19 +49,19 @@ const EntityCard = ({ entity }) => {
           </Typography>
           <Divider variant="middle" />
         </CardContent>
-        <Box>
-          <Typography variant="subtitle2" align="left" sx={{ ml: 1 }} display="inline">
+        <Box sx={{ display: 'flex', pl: 1, pr: 1, justifyContent: 'space-between' }}>
+          <Typography variant="subtitle2" align="left" display="inline">
             {(entity.price * (1 - localStorage.getItem('loyaltyPoints') / 1000)).toFixed(2)}€/day
           </Typography>
-          <Typography variant="subtitle2" display="inline" sx={{ ml: 18 }}>
+          <Typography variant="subtitle2" display="inline">
             {entity.capacity}&#128100;
           </Typography>
         </Box>
-        <CardActions>
+        <CardActions sx={{ display: 'flex', pl: 1, pr: 1, justifyContent: 'space-between' }}>
           <Button size="small" href={asPath + '/' + entity.id} variant="contained">
             View
           </Button>
-          <Rating name="read-only" value={entity.ratingAverage ?? 0} precision={0.5} readOnly sx={{ ml: 7 }} />
+          <Rating name="read-only" value={entity.ratingAverage ?? 0} precision={0.5} readOnly />
         </CardActions>
       </Card>
     </Grid>
