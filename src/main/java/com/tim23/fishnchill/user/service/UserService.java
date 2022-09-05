@@ -107,6 +107,12 @@ public class UserService {
         return this.userRepository.save(user);
     }
 
+    public User enableUser(Long id){
+        User user = userRepository.getById(id);
+        user.setEnabled(true);
+        return userRepository.save(user);
+    }
+
     public User findByIdPure(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", id));

@@ -106,10 +106,8 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/verify-owner-account/{id}")
-    public ResponseEntity<User> confirmOwnerAccount(@PathVariable("id") Long id) {
-        User user = userService.findByIdPure(id);
-        user.setEnabled(true);
-        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.OK);
+    public User confirmOwnerAccount(@PathVariable("id") Long id) {
+        return userService.enableUser(id);
     }
 
     @PostMapping(value = "/verify-account/{token}")

@@ -1,5 +1,6 @@
 import axios from 'axios'
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
+const baseUrlAuth = process.env.NEXT_PUBLIC_AUTH_URL
 
 const getAllActiveCottageOwnerReservations = async () => {
   const res = await axios.get(baseUrl + `owner/cottages/reservations/active`)
@@ -27,7 +28,7 @@ const getAllInactiveOwners = async () => {
 }
 
 const enableOwnerProfile = async (id) => {
-  const res = await axios.post(baseUrl + 'auth/verify-owner-account/' + id)
+  const res = await axios.post(baseUrlAuth + 'verify-owner-account/' + id)
   return res
 }
 
