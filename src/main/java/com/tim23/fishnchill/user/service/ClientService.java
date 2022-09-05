@@ -82,19 +82,19 @@ public class ClientService {
     }
 
     public Client update(UpdateDto updateDto, Client client) {
-        if (!client.getUsername().equals(updateDto.getUsername()) & updateDto.getUsername() != null)
+        if (!client.getUsername().equals(updateDto.getUsername()) && updateDto.getUsername() != null)
             client.setUsername(updateDto.getUsername());
-        if (!client.getFirstName().equals(updateDto.getFirstName()) & updateDto.getFirstName() != null)
+        if (!client.getFirstName().equals(updateDto.getFirstName()) && updateDto.getFirstName() != null)
             client.setFirstName(updateDto.getFirstName());
-        if (!client.getLastName().equals(updateDto.getLastName()) & updateDto.getLastName() != null)
+        if (!client.getLastName().equals(updateDto.getLastName()) && updateDto.getLastName() != null)
             client.setLastName(updateDto.getLastName());
-        if (!client.getCountry().equals(updateDto.getCountry()) & updateDto.getCountry() != null)
+        if (!client.getCountry().equals(updateDto.getCountry()) && updateDto.getCountry() != null)
             client.setCountry(updateDto.getCountry());
-        if (!client.getCity().equals(updateDto.getCity()) & updateDto.getCity() != null)
+        if (!client.getCity().equals(updateDto.getCity()) && updateDto.getCity() != null)
             client.setCity(updateDto.getCity());
-        if (!client.getAddress().equals(updateDto.getAddress()) & updateDto.getAddress() != null)
+        if (!client.getAddress().equals(updateDto.getAddress()) && updateDto.getAddress() != null)
             client.setAddress(updateDto.getAddress());
-        if (!client.getPhoneNumber().equals(updateDto.getPhoneNumber()) & updateDto.getPhoneNumber() != null)
+        if (!client.getPhoneNumber().equals(updateDto.getPhoneNumber()) && updateDto.getPhoneNumber() != null)
             client.setPhoneNumber(updateDto.getPhoneNumber());
 
         return this.clientRepository.save(client);

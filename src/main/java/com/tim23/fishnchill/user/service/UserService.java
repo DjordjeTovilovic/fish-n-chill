@@ -113,19 +113,19 @@ public class UserService {
     }
 
     public User update(UpdateDto updateDto, User user) {
-        if (!user.getUsername().equals(updateDto.getUsername()) & updateDto.getUsername() != null)
+        if (!user.getUsername().equals(updateDto.getUsername()) && updateDto.getUsername() != null)
             user.setUsername(updateDto.getUsername());
-        if (!user.getFirstName().equals(updateDto.getFirstName()) & updateDto.getFirstName() != null)
+        if (!user.getFirstName().equals(updateDto.getFirstName()) && updateDto.getFirstName() != null)
             user.setFirstName(updateDto.getFirstName());
-        if (!user.getLastName().equals(updateDto.getLastName()) & updateDto.getLastName() != null)
+        if (!user.getLastName().equals(updateDto.getLastName()) && updateDto.getLastName() != null)
             user.setLastName(updateDto.getLastName());
-        if (!user.getCountry().equals(updateDto.getCountry()) & updateDto.getCountry() != null)
+        if (!user.getCountry().equals(updateDto.getCountry()) && updateDto.getCountry() != null)
             user.setCountry(updateDto.getCountry());
-        if (!user.getCity().equals(updateDto.getCity()) & updateDto.getCity() != null)
+        if (!user.getCity().equals(updateDto.getCity()) && updateDto.getCity() != null)
             user.setCity(updateDto.getCity());
-        if (!user.getAddress().equals(updateDto.getAddress()) & updateDto.getAddress() != null)
+        if (!user.getAddress().equals(updateDto.getAddress()) && updateDto.getAddress() != null)
             user.setAddress(updateDto.getAddress());
-        if (!user.getPhoneNumber().equals(updateDto.getPhoneNumber()) & updateDto.getPhoneNumber() != null)
+        if (!user.getPhoneNumber().equals(updateDto.getPhoneNumber()) && updateDto.getPhoneNumber() != null)
             user.setPhoneNumber(updateDto.getPhoneNumber());
 
         return this.userRepository.save(user);

@@ -50,7 +50,7 @@ public class MailService {
         mail.setSubject("Account verification");
         mail.setText("Hello " + verificationToken.getClient().getFirstName()
                 + ",\n\nPlease click the following link to verify your account: \n"
-                + "http://localhost:8080/auth/verify-account?token=" + verificationToken.getToken());
+                + "http://localhost:3000/signup/verify/" + verificationToken.getToken());
         javaMailSender.send(mail);
 
         System.out.println("Email sent!");

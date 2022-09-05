@@ -104,6 +104,7 @@ public class BoatReservationService {
                 emailService.sendBoatReservationEmail(boatReservation.getClient(), boatReservation);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
             return modelMapper.map(boatReservationRepository.save(boatReservation), BoatReservationDto.class);
 

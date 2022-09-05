@@ -86,7 +86,7 @@ public class CottageReservationService {
             Client client = clientRepository.getById(clientId);
 
             if(client.getLoyaltyPoints()<=190)
-            client.setLoyaltyPoints(client.getLoyaltyPoints() + 10);
+                client.setLoyaltyPoints(client.getLoyaltyPoints() + 10);
             else client.setLoyaltyPoints(200);
 
             clientRepository.save(client);
@@ -104,6 +104,7 @@ public class CottageReservationService {
                 emailService.sendCottageReservationEmail(cottageReservation.getClient(), cottageReservation);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
             return modelMapper.map(cottageReservationRepository.save(cottageReservation), CottageReservationDto.class);
 

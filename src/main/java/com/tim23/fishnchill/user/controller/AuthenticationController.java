@@ -101,32 +101,23 @@ public class AuthenticationController {
         return new ResponseEntity<>(userService.saveUser(user),HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/verify-account", method = {RequestMethod.GET, RequestMethod.POST})
-    public ResponseEntity<User> confirmUserAccount(@RequestParam("token") String verificationToken) throws Exception {
+    @PostMapping(value = "/verify-account/{token}")
+    public ResponseEntity<String> confirmUserAccount(@PathVariable("token") String verificationToken) {
         VerificationToken token = verificationTokenService.findByToken(verificationToken);
         if (token == null) {
-            URI frontend = new URI("http://localhost:3000/signup/invalid/");
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.setLocation(frontend);
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.SEE_OTHER);
+            return new ResponseEntity<>("invalid", HttpStatus.NOT_FOUND);
         }
         Client client = token.getClient();
         Calendar cal = Calendar.getInstance();
         if ((token.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
             this.clientService.deleteClient(client);
-            URI frontend = new URI("http://localhost:3000/signup/expired/");
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.setLocation(frontend);
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.SEE_OTHER);
+            return new ResponseEntity<>("expired", HttpStatus.CONFLICT);
         }
 
         client.setEnabled(true);
-        client = this.clientService.saveClient(client);
+        this.clientService.saveClient(client);
         this.verificationTokenService.delete(token);
-        URI frontend = new URI("http://localhost:3000/signup/success/");
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setLocation(frontend);
-        return new ResponseEntity<>(client, httpHeaders, HttpStatus.SEE_OTHER);
+        return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
     // U slucaju isteka vazenja JWT tokena, endpoint koji se poziva da se token osvezi
