@@ -9,7 +9,6 @@ import com.tim23.fishnchill.user.model.Authority;
 import com.tim23.fishnchill.user.model.Client;
 import com.tim23.fishnchill.user.repository.ClientRepository;
 import com.tim23.fishnchill.user.repository.UserResponseRepository;
-import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +68,7 @@ public class ClientService {
         c.setAddress(registrationDTO.getAddress());
         c.setPhoneNumber(registrationDTO.getPhoneNumber());
         c.setPenaltyCount(0);
+        c.setLoyaltyPoints(0);
         c.setEnabled(false);
 
         List<Authority> auth = authService.findByName("ROLE_CLIENT");

@@ -23,7 +23,7 @@ const CottageProfile = ({ cottage, scheduleReservation }) => {
           >
             <EntityMainProfileInfo entity={cottage} />
             <CottageProfileInfo entity={cottage} />
-            <ReservationScheduling entity={cottage} scheduleReservation={scheduleReservation} />
+            <ReservationScheduling entity={cottage} scheduleReservation={scheduleReservation} type={'COTTAGE'} />
           </Paper>
         </Box>
       </Container>

@@ -12,7 +12,7 @@ const ActiveReservationCard = ({ reservation, index, cancelReservation }) => {
       <CardMedia component="img" sx={{ width: 170, height: '100%' }} image={reservation.entity.images[0].url} />
       <CardContent sx={{ display: 'flex', flexDirection: 'column', ml: 3, maxWidth: '30%' }}>
         <Typography borderBottom={1} gutterBottom variant="h5" align="left">
-          COTTAGE
+          {reservation.entity.name}
         </Typography>
         <Typography gutterBottom align="left">
           Name: {reservation.entity.name}

@@ -24,6 +24,7 @@ const SubscriptionCard = ({ subscription }) => {
           .subscribe({
             clientId: JSON.parse(window.localStorage.getItem('id')),
             entityId: subscription.entity.id,
+            type: subscription.type,
           })
           .then(() => setSubscribed(!subscribed))
           .catch((err) => console.log(err))

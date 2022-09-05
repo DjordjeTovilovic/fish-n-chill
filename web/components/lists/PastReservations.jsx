@@ -1,3 +1,4 @@
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import PastReservationCard from 'components/shared/PastReservationCard'
 import SortFilter from 'components/shared/SortFilter'
 
@@ -27,7 +28,7 @@ const PastReservations = ({
         style={{
           display: 'flex',
           width: '100%',
-          justifyItems: 'center',
+          justifyContent: 'center',
           alignItems: 'center',
         }}
       >
