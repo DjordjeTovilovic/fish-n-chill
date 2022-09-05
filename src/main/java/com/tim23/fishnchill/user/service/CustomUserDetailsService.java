@@ -3,6 +3,7 @@ package com.tim23.fishnchill.user.service;
 import com.tim23.fishnchill.user.model.User;
 import com.tim23.fishnchill.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 // U opstem slucaju UserServiceImpl klasa bi mogla da implementira UserDetailService interfejs.
 @Slf4j
 @Service
+@NoArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
