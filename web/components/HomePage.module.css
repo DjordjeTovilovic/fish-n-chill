@@ -1,0 +1,9 @@
+.article {
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 10px;
+}
+
+.article:hover {
+  background-color: rgb(220, 250, 240);
+}
