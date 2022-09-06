@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import EntityList from '../../../components/entity/EntityList'
-import boatService from 'services/boat'
+import adventureService from 'services/adventure'
 
 const OwnerBoats = () => {
   const [entities, setEntities] = useState([])
 
   useEffect(() => {
-    boatService.getAllForOwner().then((gotEntities) => setEntities(gotEntities))
+    adventureService.getAllForOwner().then((gotEntities) => setEntities(gotEntities))
   }, [])
 
   return (

@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import adventureService from '../../services/adventure'
-import AdventureProfile from '../../components/profiles/AdventureProfile'
-import dateUtils from '../../utils/dateUtils'
-import reservationService from '../../services/reservation'
+import adventureService from '../../../services/adventure'
+import AdventureProfile from '../../../components/profiles/AdventureProfile'
+import dateUtils from '../../../utils/dateUtils'
+import reservationService from '../../../services/reservation'
 
 const Adventure = () => {
   const router = useRouter()

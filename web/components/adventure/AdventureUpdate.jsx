@@ -3,12 +3,12 @@ import { DatePicker } from '@mui/x-date-pickers'
 import { useRouter } from 'next/router'
 import { useSnackbar } from 'notistack'
 import { useEffect, useState } from 'react'
-import boatService from '../../services/boat'
-import boatAction from '../../services/boatAction'
+import adventureService from '../../services/adventure'
+import adventureAction from '../../services/adventureAction'
 import dateUtils from '../../utils/dateUtils'
 import Modal from '../modal/Modal'
 
-const BoatUpdate = ({ entity, updateEntity }) => {
+const AdventureUpdate = ({ entity, updateEntity }) => {
   const router = useRouter()
   const { enqueueSnackbar } = useSnackbar()
   const [userRole, setUserRole] = useState(null)
@@ -32,7 +32,7 @@ const BoatUpdate = ({ entity, updateEntity }) => {
     const availabilityStart = dateUtils.toUtcDate(newAvailabilityStart)
     const availabilityEnd = dateUtils.toUtcDate(newAvailabilityEnd)
     console.log(entity)
-    await boatService.update(entity.id, { availabilityStart, availabilityEnd })
+    await adventureService.update(entity.id, { availabilityStart, availabilityEnd })
 
     const entityFieldsToUpdate = {
       availabilityStart: newAvailabilityStart,
@@ -56,7 +56,7 @@ const BoatUpdate = ({ entity, updateEntity }) => {
       price,
       actionEnd,
     }
-    await boatAction.create(action)
+    await adventureAction.create(action)
 
     const entityFieldsToUpdate = {
       actions: [
@@ -70,8 +70,8 @@ const BoatUpdate = ({ entity, updateEntity }) => {
   }
 
   const handleDelete = async () => {
-    await boatService.remove(entity.id)
-    router.push('/boats/owned')
+    await adventureService.remove(entity.id)
+    router.push('/adventures/owned')
   }
 
   const changeAvailabilityModalState = () => setIsAvailabilityModalOpen(!isAvailabilityModalOpen)
@@ -194,10 +194,10 @@ const BoatUpdate = ({ entity, updateEntity }) => {
 
   return (
     <>
-      {userRole === 'ROLE_BOAT_OWNER' && (
+      {userRole === 'ROLE_ADVENTURE_OWNER' && (
         <div>
           <Button
-            href={'/boats/update/' + entity.id}
+            href={'/adventures/update/' + entity.id}
             size="large"
             variant="contained"
             sx={{ ml: 3, mb: 3, height: '50px' }}
@@ -221,7 +221,7 @@ const BoatUpdate = ({ entity, updateEntity }) => {
             Make New Action
           </Button>
           <Button
-            href={'/boats/' + entity.id + '/past'}
+            href={'/adventures/' + entity.id + '/past'}
             size="large"
             variant="contained"
             sx={{ ml: 3, mb: 3, height: '50px' }}
@@ -258,4 +258,4 @@ const BoatUpdate = ({ entity, updateEntity }) => {
   )
 }
 
-export default BoatUpdate
+export default AdventureUpdate
