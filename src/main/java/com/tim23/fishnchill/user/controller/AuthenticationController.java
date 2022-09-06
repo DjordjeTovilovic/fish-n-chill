@@ -93,7 +93,6 @@ public class AuthenticationController {
             try {
                 emailService.sendVerificationEmail(verificationToken);
             } catch (Exception e) {
-                e.printStackTrace();
             }
             return new ResponseEntity<>(client, HttpStatus.CREATED);
         } else {

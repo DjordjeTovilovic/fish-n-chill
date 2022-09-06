@@ -77,16 +77,4 @@ class SignupAndLoginIntegrationTest {
                         .content(loginDtoJson))
                 .andExpect(status().is(401)).andDo(print());
     }
-
-//    @Test
-//    @Order(5)
-//    void shouldLogin() throws Exception {
-//        LoginDto loginDto = new LoginDto("TestUsername", "TestPassword");
-//        String loginDtoJson = objectMapper.writeValueAsString(loginDto);
-//        mockMvc.perform(post("/auth/login")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(loginDtoJson))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.accessToken").exists());
-//    }
 }
