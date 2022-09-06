@@ -5,9 +5,7 @@ import Typography from '@mui/material/Typography'
 import CardActions from '@mui/material/CardActions'
 import Button from '@mui/material/Button'
 
-import userService from 'services/user'
-
-const InactiveOwners = ({ users, handleConfirm }) => {
+const InactiveOwners = ({ users, handleConfirm, handleDelete }) => {
   return (
     <div>
       <div
@@ -59,7 +57,7 @@ const InactiveOwners = ({ users, handleConfirm }) => {
             </Button>
           </CardActions>
           <CardActions sx={{ display: 'flex', flexDirection: 'column', mt: 7 }}>
-            <Button size="big" variant="contained" color="error" onClick={() => userService.deleteById(user.id)}>
+            <Button size="big" variant="contained" color="error" onClick={() => handleDelete(user.id)}>
               Decline
             </Button>
           </CardActions>

@@ -60,6 +60,7 @@ const AllUserReports = ({
             variant="contained"
             color="success"
             onClick={() => {
+              changeRevisionModalState()
               console.log(revisionModalState.modalType)
               if (revisionModalState.modalType === 'REVISION') handleRevisionConfirm(revisionModalState.reportId)
               else if (revisionModalState.modalType === 'COMPLAINT')
@@ -75,6 +76,7 @@ const AllUserReports = ({
             variant="contained"
             color="error"
             onClick={() => {
+              changeRevisionModalState()
               if (revisionModalState.modalType === 'REVISION') handleRevisionDecline(revisionModalState.reportId)
               else if (revisionModalState.modalType === 'COMPLAINT') handleComplaintDecline(revisionModalState.reportId)
               else handleDeletionDecline(revisionModalState.reportId)

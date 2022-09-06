@@ -31,7 +31,7 @@ const Admin = () => {
   }
   return (
     <>
-      <InactiveOwners users={users} handleConfirm={handleConfirm} handleDelet={handleDelete} />
+      <InactiveOwners users={users} handleConfirm={handleConfirm} handleDelete={handleDelete} />
     </>
   )
 }
