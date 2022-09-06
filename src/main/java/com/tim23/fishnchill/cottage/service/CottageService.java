@@ -44,7 +44,7 @@ public class CottageService {
         cottage.setOwner(cottageOwner);
         save(cottage);
 
-        if (newCottageDto.getImage() != null && newCottageDto.getImage() != "") {
+        if (newCottageDto.getImage() != null && newCottageDto.getImage().equals("")) {
             Image image = new Image();
             image.setUrl(newCottageDto.getImage());
             image.setEntity(cottage);
