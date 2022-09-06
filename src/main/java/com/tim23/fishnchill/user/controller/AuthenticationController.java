@@ -17,6 +17,7 @@ import com.tim23.fishnchill.user.service.OwnerService;
 import com.tim23.fishnchill.user.service.UserService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,7 @@ public class AuthenticationController {
     @Autowired
     private TokenUtils tokenUtils;
     @Autowired
+    @Lazy
     private AuthenticationManager authenticationManager;
     @Autowired
     private CustomUserDetailsService userDetailsService;
