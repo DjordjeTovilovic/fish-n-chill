@@ -32,4 +32,5 @@ public class NewAdventureDto {
 
     private Tag tags;
 
+    private Long ownerId;
 }
