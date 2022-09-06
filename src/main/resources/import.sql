@@ -32,7 +32,7 @@ INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability
 INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Cottage 3', 0, 0, 150, '2022-09-13', '2022-09-25', 15, 'Sremska Kamenica 26, Novi Sad', 'Dobra cijena, dobar provod!!!');
 INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Cottage 4', 0, 0, 220, '2022-09-06', '2022-09-25', 10 , 'Svetozara Miletica 32, Veternik(Novi Sad)', 'Dobra vikendica i nista vise!');
 --inserting for boats
-INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Boat 1', 0, 0, 225, '2022-09-15', '2022-09-25', 20, 'Ribarac, Novi Sad', 'Dobra cijena, dobar provod(JAHTA)!!!');
+INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Boat 1', 0, 0, 225, '2022-09-02', '2022-09-25', 20, 'Ribarac, Novi Sad', 'Dobra cijena, dobar provod(JAHTA)!!!');
 INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Boat 2', 0, 0, 225, '2022-09-15', '2022-09-25', 7, 'Ribarac, Novi Sad', 'Manji brod valjda');
 INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Boat 3', 0, 0, 225, '2022-09-15', '2022-09-25', 10, 'Ribarac, Novi Sad', 'Veliki brod');
 --inserting for adventures

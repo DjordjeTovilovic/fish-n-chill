@@ -79,13 +79,13 @@ public class BoatReservationService {
     }
 
     @Transactional
-    public BoatReservationDto scheduleReservation(NewReservationDto newReservationDto, Long clientId) {
+    public BoatReservationDto scheduleReservation(NewReservationDto newReservationDto) {
         try {
             Boat boat = boatRepository.findByIdAndLock(newReservationDto.getEntityId());
 
-            Client client = clientRepository.getById(clientId);
+            Client client = clientRepository.getById(newReservationDto.getClientId());
 
-            if(client.getLoyaltyPoints()<=190)
+            if (client.getLoyaltyPoints() <= 190)
                 client.setLoyaltyPoints(client.getLoyaltyPoints() + 10);
             else client.setLoyaltyPoints(200);
 

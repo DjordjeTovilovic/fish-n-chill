@@ -55,7 +55,7 @@ public class BoatReservationController {
         if (newReservationDto.getClientId() == null) {
             newReservationDto.setClientId(id);
         }
-        return boatReservationService.scheduleReservation(newReservationDto, id );
+        return boatReservationService.scheduleReservation(newReservationDto);
     }
 
     @PostMapping("/boats/period")

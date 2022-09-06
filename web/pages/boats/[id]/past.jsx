@@ -4,21 +4,21 @@ import EntityPastReservations from '../../../components/lists/EntityPastReservat
 import ownerService from '../../../services/owner'
 import reservationService from '../../../services/reservation'
 
-const CottageReservationHistory = () => {
+const BoatReservationHistory = () => {
   const router = useRouter()
   const { id } = router.query
   const [reservations, setReservations] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
-      const fetchedReservations = await reservationService.getAllPastReservationsForCottage(id)
+      const fetchedReservations = await reservationService.getAllPastReservationsForBoat(id)
       setReservations(fetchedReservations)
     }
 
     if (router.isReady) fetchData()
   }, [router.isReady, id])
 
-  return <EntityPastReservations reservations={reservations} makeReport={ownerService.makeCottageReport} />
+  return <EntityPastReservations reservations={reservations} makeReport={ownerService.makeBoatReport} />
 }
 
-export default CottageReservationHistory
+export default BoatReservationHistory

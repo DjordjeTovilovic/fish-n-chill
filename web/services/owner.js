@@ -17,8 +17,28 @@ const getAllPastCottageOwnerReservations = async () => {
   return res.data
 }
 
-const makeReport = async (newObject) => {
+const getAllPastBoatOwnerReservations = async () => {
+  const res = await axios.get(baseUrl + `owner/boats/reservations/past`)
+  return res.data
+}
+
+const getAllPastAdventureOwnerReservations = async () => {
+  const res = await axios.get(baseUrl + `owner/adventures/reservations/past`)
+  return res.data
+}
+
+const makeCottageReport = async (newObject) => {
   const res = await axios.post(baseUrl + `cottages/reservations/reports`, newObject)
+  return res.data
+}
+
+const makeBoatReport = async (newObject) => {
+  const res = await axios.post(baseUrl + `boats/reservations/reports`, newObject)
+  return res.data
+}
+
+const makeAdventureReport = async (newObject) => {
+  const res = await axios.post(baseUrl + `adventures/reservations/reports`, newObject)
   return res.data
 }
 
@@ -34,9 +54,13 @@ const enableOwnerProfile = async (id) => {
 
 const ownerService = {
   getAllActiveCottageOwnerReservations,
-  getAllPastCottageOwnerReservations,
   getAllActiveBoatOwnerReservations,
-  makeReport,
+  getAllPastCottageOwnerReservations,
+  getAllPastBoatOwnerReservations,
+  getAllPastAdventureOwnerReservations,
+  makeCottageReport,
+  makeBoatReport,
+  makeAdventureReport,
   getAllInactiveOwners,
   enableOwnerProfile,
 }

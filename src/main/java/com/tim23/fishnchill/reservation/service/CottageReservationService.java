@@ -80,12 +80,12 @@ public class CottageReservationService {
     }
 
     @Transactional
-    public CottageReservationDto scheduleReservation(NewReservationDto newReservationDto, Long clientId) {
+    public CottageReservationDto scheduleReservation(NewReservationDto newReservationDto) {
         try {
             Cottage cottage = cottageRepository.findByIdAndLock(newReservationDto.getEntityId());
-            Client client = clientRepository.getById(clientId);
+            Client client = clientRepository.getById(newReservationDto.getClientId());
 
-            if(client.getLoyaltyPoints()<=190)
+            if (client.getLoyaltyPoints() <= 190)
                 client.setLoyaltyPoints(client.getLoyaltyPoints() + 10);
             else client.setLoyaltyPoints(200);
 

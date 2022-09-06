@@ -1,18 +1,18 @@
 import axios from 'axios'
-const baseUrl = process.env.NEXT_PUBLIC_API_URL + 'cottages/'
+const baseUrl = process.env.NEXT_PUBLIC_API_URL + 'boats/actions'
 
-const getAllForOwner = async () => {
-  const res = await axios.get(baseUrl + 'owned')
-  return res.data
-}
-
-const findByPeriod = async (datePeriod) => {
-  const res = await axios.post(baseUrl + 'findByPeriod/', datePeriod)
+const checkIfAnyExist = async () => {
+  const res = await axios.get(baseUrl + '/exist')
   return res.data
 }
 
 const getAll = async () => {
   const res = await axios.get(baseUrl)
+  return res.data
+}
+
+const getAllActiveActions = async () => {
+  const res = await axios.get(baseUrl + '/active')
   return res.data
 }
 
@@ -35,14 +35,14 @@ const remove = async (id) => {
   await axios.delete(baseUrl + id)
 }
 
-const cottageService = {
+const boatActionService = {
+  checkIfAnyExist,
   getAll,
+  getAllActiveActions,
   getById,
   create,
   update,
   remove,
-  findByPeriod,
-  getAllForOwner,
 }
 
-export default cottageService
+export default boatActionService
