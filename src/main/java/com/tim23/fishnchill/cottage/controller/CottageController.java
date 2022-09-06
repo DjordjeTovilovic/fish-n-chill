@@ -82,6 +82,7 @@ public class CottageController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     public CottageDto update(@RequestBody CottageDto newCottageDto, @PathVariable("id") Long id) throws Exception {
         newCottageDto.setId(id);
         return cottageService.update(newCottageDto);

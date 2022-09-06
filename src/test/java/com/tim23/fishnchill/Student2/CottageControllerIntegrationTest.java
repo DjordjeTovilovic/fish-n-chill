@@ -13,10 +13,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.nio.charset.Charset;
+import java.time.LocalDateTime;
 
 import com.tim23.fishnchill.constants.CottageConstants;
+import com.tim23.fishnchill.cottage.dto.CottageDto;
 import com.tim23.fishnchill.cottage.dto.NewCottageDto;
 import com.tim23.fishnchill.cottage.model.Cottage;
+import com.tim23.fishnchill.reservation.dto.DatePeriodDto;
 import com.tim23.fishnchill.util.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
@@ -89,4 +92,77 @@ public class CottageControllerIntegrationTest {
         String json = TestUtil.json(cottage);
         this.mockMvc.perform(post(URL_PREFIX).contentType(contentType).content(json)).andExpect(status().isCreated());
     }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void testUpdateCottage() throws Exception {
+        CottageDto cottage = new CottageDto();
+        cottage.setId(CottageConstants.DB_ID);
+        cottage.setName(NEW_NAME);
+        cottage.setAddress(NEW_ADDRESS);
+        cottage.setDescription(NEW_DESCRIPTION);
+
+        String json = TestUtil.json(cottage);
+        this.mockMvc.perform(put(URL_PREFIX + CottageConstants.DB_ID).contentType(contentType).content(json)).andExpect(status().isOk());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void testDeleteCottage() throws Exception {
+        this.mockMvc.perform(delete(URL_PREFIX + CottageConstants.DB_ID)).andExpect(status().isOk());
+    }
+
+    @Test
+    public void testGetCottageByName() throws Exception {
+        mockMvc.perform(get(URL_PREFIX + "name/" + DB_NAME)).andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.[*].id").value(hasItem(CottageConstants.DB_ID.intValue())))
+                .andExpect(jsonPath("$.[*].name").value(hasItem(DB_NAME)))
+                .andExpect(jsonPath("$.[*].address").value(hasItem(DB_ADDRESS)))
+                .andExpect(jsonPath("$.[*].description").value(hasItem(DB_DESCRIPTION)));
+    }
+
+    @Test
+    public void testGetCottageByAddress() throws Exception {
+        mockMvc.perform(get(URL_PREFIX + "address/" + DB_ADDRESS)).andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.[*].id").value(hasItem(CottageConstants.DB_ID.intValue())))
+                .andExpect(jsonPath("$.[*].name").value(hasItem(DB_NAME)))
+                .andExpect(jsonPath("$.[*].address").value(hasItem(DB_ADDRESS)))
+                .andExpect(jsonPath("$.[*].description").value(hasItem(DB_DESCRIPTION)));
+    }
+
+    @Test
+    public void testGetCottageByDescription() throws Exception {
+        mockMvc.perform(get(URL_PREFIX + "description/" + DB_DESCRIPTION)).andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.[*].id").value(hasItem(CottageConstants.DB_ID.intValue())))
+                .andExpect(jsonPath("$.[*].name").value(hasItem(DB_NAME)))
+                .andExpect(jsonPath("$.[*].address").value(hasItem(DB_ADDRESS)))
+                .andExpect(jsonPath("$.[*].description").value(hasItem(DB_DESCRIPTION)));
+    }
+
+    @Test
+    public void testGetCottageByPeriod() throws Exception {
+        DatePeriodDto datePeriod = new DatePeriodDto();
+        datePeriod.setStartDate(LocalDateTime.of(2022, 5, 22, 12, 30));
+        datePeriod.setEndDate(LocalDateTime.of(2022, 8, 22, 12, 30));
+
+
+        String json = TestUtil.json(datePeriod);
+        this.mockMvc.perform(post(URL_PREFIX + "findByPeriod/").contentType(contentType).content(json)).andExpect(status().isOk());
+    }
+
+    @Test
+    public void testGetCottageByAnything() throws Exception {
+        mockMvc.perform(get(URL_PREFIX + "anything/" + DB_ADDRESS)).andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.[*].id").value(hasItem(CottageConstants.DB_ID.intValue())))
+                .andExpect(jsonPath("$.[*].name").value(hasItem(DB_NAME)))
+                .andExpect(jsonPath("$.[*].address").value(hasItem(DB_ADDRESS)))
+                .andExpect(jsonPath("$.[*].description").value(hasItem(DB_DESCRIPTION)));
+    }
+
 }
