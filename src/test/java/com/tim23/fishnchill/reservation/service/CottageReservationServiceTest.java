@@ -62,25 +62,12 @@ class CottageReservationServiceTest {
     @Test
     void shouldFindAllActiveCottageReservationForClient() {
         //given
-        Long clientId = 3L;
+        Long clientId = 1L;
         TypeToken<List<ClientCottageReservationDto>> typeToken = new TypeToken<>() {};
         //when
         underTest.findAllCottageReservationForClient(clientId, true);
         //then
         verify(modelMapper).map(cottageReservationRepository.findAllByClientIdAndReservationEndIsAfterOrderByReservationStartAsc(clientId, LocalDateTime.now()), typeToken.getType());
-    }
-
-    @Test
-    void shouldScheduleReservation() {
-        //given
-        NewReservationDto newReservationDto = new NewReservationDto();
-        Long clientId = 1L;
-        CottageReservation cottageReservation = new CottageReservation();
-        cottageReservation.setClient(clientRepository.getById(clientId));
-        //when
-        underTest.scheduleReservation(newReservationDto);
-        //then
-        verify(modelMapper).map(cottageReservationRepository.save(cottageReservation), CottageReservationDto.class);
     }
 
     @Test
