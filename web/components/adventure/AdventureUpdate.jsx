@@ -55,6 +55,8 @@ const AdventureUpdate = ({ entity, updateEntity }) => {
       reservationEnd,
       price,
       actionEnd,
+      actionPrice: price,
+      actualPrice: entity.price,
     }
     await adventureAction.create(action)
 

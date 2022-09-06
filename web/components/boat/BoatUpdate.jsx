@@ -55,6 +55,8 @@ const BoatUpdate = ({ entity, updateEntity }) => {
       reservationEnd,
       price,
       actionEnd,
+      actionPrice: price,
+      actualPrice: entity.price,
     }
     await boatAction.create(action)
 
