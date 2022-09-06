@@ -30,7 +30,6 @@ class SignupAndLoginIntegrationTest {
     private ObjectMapper objectMapper;
 
     @Test
-    @Order(1)
     void shouldThrowBadRequestWhenRegisteringNewUserWithNoUsernameOrPassword() throws Exception {
         RegistrationDto registrationDto = new RegistrationDto();
         registrationDto.setUsername("OnlyUsernameSent");
@@ -43,7 +42,6 @@ class SignupAndLoginIntegrationTest {
     }
 
     @Test
-    @Order(2)
     void shouldRegisterNewUser() throws Exception {
         RegistrationDto registrationDto = new RegistrationDto();
         registrationDto.setUsername("TestUsername");
@@ -59,7 +57,6 @@ class SignupAndLoginIntegrationTest {
     }
 
     @Test
-    @Order(3)
     void shouldThrowBadRequestWhenLoginWithNullFields() throws Exception {
         LoginDto loginDto = new LoginDto();
         loginDto.setUsername("OnlyUsernameSent");
@@ -72,7 +69,6 @@ class SignupAndLoginIntegrationTest {
     }
 
     @Test
-    @Order(4)
     void shouldThrowBadCredentialsWhenInvalidUsernameAndPasswordCombination() throws Exception {
         LoginDto loginDto = new LoginDto("TestUsername", "BadPassword");
         String loginDtoJson = objectMapper.writeValueAsString(loginDto);
@@ -82,16 +78,4 @@ class SignupAndLoginIntegrationTest {
                         .content(loginDtoJson))
                 .andExpect(status().is(401)).andDo(print());
     }
-
-//    @Test
-//    @Order(5)
-//    void shouldLogin() throws Exception {
-//        LoginDto loginDto = new LoginDto("TestUsername", "TestPassword");
-//        String loginDtoJson = objectMapper.writeValueAsString(loginDto);
-//        mockMvc.perform(post("/auth/login")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(loginDtoJson))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.accessToken").exists());
-//    }
 }

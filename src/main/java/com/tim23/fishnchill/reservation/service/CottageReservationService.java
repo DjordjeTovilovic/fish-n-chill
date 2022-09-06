@@ -103,7 +103,6 @@ public class CottageReservationService {
             try {
                 emailService.sendCottageReservationEmail(cottageReservation.getClient(), cottageReservation);
             } catch (InterruptedException e) {
-                e.printStackTrace();
                 Thread.currentThread().interrupt();
             }
             return modelMapper.map(cottageReservationRepository.save(cottageReservation), CottageReservationDto.class);
