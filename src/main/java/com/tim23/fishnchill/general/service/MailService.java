@@ -313,10 +313,10 @@ public class MailService {
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(client.getEmail());
         mail.setFrom(email);
-        mail.setSubject("Client revision");
+        mail.setSubject("Owner report conclusion");
         mail.setText("Hello " + client.getFirstName() + " " + client.getLastName() + ",\n\n"
-                + "A owner has written a report for one of your reservations in period " + start.toLocalDate() + " to " + end.toLocalDate() + "\n\n"
-                + "After detail review we must penalize you for misbehavior. "+ "\n\n"
+                + "An owner has written a report for one of your reservations in period " + start.toLocalDate() + " to " + end.toLocalDate() + "\n\n"
+                + "After a detail review we must penalize you for your misbehavior. "+ "\n\n"
                 + "We hope this won't affect your user experience! \n"
                 + "Best regards," + "\n"
                 + "FishNChill" + "\n"
