@@ -32,13 +32,13 @@ class UserResponseServiceTest {
     @Mock
     private MailService mailService;
     @Mock
-    private ClientService clientService;
+    private UserService userService;
 
     UserResponseService underTest;
 
     @BeforeEach
     void setUp() {
-        underTest = new UserResponseService(userResponseRepository, userRepository, modelMapper, reservationRepository, baseEntityRepository, mailService, clientService);
+        underTest = new UserResponseService(userResponseRepository, userRepository, modelMapper, reservationRepository, baseEntityRepository, mailService, userService);
     }
 
     @Test
