@@ -2,6 +2,7 @@ package com.tim23.fishnchill.reservation.repository;
 
 import com.tim23.fishnchill.reservation.model.AdventureReservation;
 import com.tim23.fishnchill.reservation.model.AdventureReservation;
+import com.tim23.fishnchill.reservation.model.BoatReservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
@@ -15,6 +16,8 @@ public interface AdventureReservationRepository extends JpaRepository<AdventureR
     List<AdventureReservation> findAllByEntityId(Long id);
 
     List<AdventureReservation> findAllByEntityIdAndReservationStartBeforeAndReservationEndAfter(Long id, LocalDateTime date, LocalDateTime date2);
+
+    List<AdventureReservation> findAllByEntityIdAndReservationEndBefore(Long id, LocalDateTime date);
 
     List<AdventureReservation> findAllByEntityIdAndReservationEndIsBeforeOrderByReservationStartDesc(Long id, LocalDateTime date);
 

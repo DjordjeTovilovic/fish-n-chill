@@ -8,13 +8,13 @@ import Typography from '@mui/material/Typography'
 import { useState } from 'react'
 import OwnerNewReservationModal from './OwnerNewReservationModal'
 
-const OwnerActiveReservations = ({ reservations }) => {
+const OwnerActiveReservations = ({ reservations, scheduleReservation }) => {
   const [isReservationModalOpen, setIsReservationModalOpen] = useState(false)
-  const [cottage, setCottage] = useState({})
+  const [entity, setEntity] = useState({})
   const [client, setClient] = useState({})
 
   const handleNewReservationButton = (reservation) => {
-    setCottage(reservation.entity)
+    setEntity(reservation.entity)
     setClient(reservation.client)
     changeReservationModalState()
   }
@@ -80,10 +80,11 @@ const OwnerActiveReservations = ({ reservations }) => {
         </Card>
       ))}
       <OwnerNewReservationModal
-        cottage={cottage}
+        entity={entity}
         client={client}
         isReservationModalOpen={isReservationModalOpen}
         changeReservationModalState={changeReservationModalState}
+        scheduleReservation={scheduleReservation}
       />
     </div>
   )

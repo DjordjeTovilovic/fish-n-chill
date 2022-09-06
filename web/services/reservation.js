@@ -22,7 +22,16 @@ const getAllActiveCottageReservationsForClient = async () => {
 
 const getAllPastReservationsForCottage = async (id) => {
   const res = await axios.get(baseUrl + `cottages/${id}/reservations/past`)
+  return res.data
+}
 
+const getAllPastReservationsForBoat = async (id) => {
+  const res = await axios.get(baseUrl + `boats/${id}/reservations/past`)
+  return res.data
+}
+
+const getAllPastReservationsForAdventure = async (id) => {
+  const res = await axios.get(baseUrl + `adventures/${id}/reservations/past`)
   return res.data
 }
 
@@ -55,6 +64,8 @@ const reservationService = {
   getAllPastCottageReservationsForClient,
   getAllActiveCottageReservationsForClient,
   getAllPastReservationsForCottage,
+  getAllPastReservationsForBoat,
+  getAllPastReservationsForAdventure,
   scheduleCottageReservation,
   scheduleBoatReservation,
   scheduleAdventureReservation,

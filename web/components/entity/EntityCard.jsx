@@ -51,7 +51,10 @@ const EntityCard = ({ entity }) => {
         </CardContent>
         <Box sx={{ display: 'flex', pl: 1, pr: 1, justifyContent: 'space-between' }}>
           <Typography variant="subtitle2" align="left" display="inline">
-            {(entity.price * (1 - localStorage.getItem('loyaltyPoints') / 1000)).toFixed(2)}€/day
+            {localStorage.getItem('loyaltyPoints') !== 'null'
+              ? (entity.price * (1 - localStorage.getItem('loyaltyPoints') / 1000)).toFixed(2)
+              : entity.price}
+            €/day
           </Typography>
           <Typography variant="subtitle2" display="inline">
             {entity.capacity}&#128100;

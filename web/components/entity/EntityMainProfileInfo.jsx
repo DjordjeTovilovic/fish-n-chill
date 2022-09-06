@@ -56,7 +56,10 @@ const EntityMainProfileInfo = ({ entity }) => {
             sx={{ mr: 3 }}
             display="inline"
           >
-            {(entity.price * (1 - localStorage.getItem('loyaltyPoints') / 1000)).toFixed(2)}€/day
+            {localStorage.getItem('loyaltyPoints') !== 'null'
+              ? (entity.price * (1 - localStorage.getItem('loyaltyPoints') / 1000)).toFixed(2)
+              : entity.price}
+            €/day
           </Typography>
           <br />
           <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ mr: 3 }}>

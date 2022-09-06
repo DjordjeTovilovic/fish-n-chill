@@ -2,19 +2,24 @@ import { Button, TextField } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers'
 import { useSnackbar } from 'notistack'
 import { useEffect, useState } from 'react'
-import reservationService from '../../services/reservation'
 import dateUtils from '../../utils/dateUtils'
 import Modal from '../modal/Modal'
 
-const OwnerNewReservationModal = ({ cottage, client, isReservationModalOpen, changeReservationModalState }) => {
+const OwnerNewReservationModal = ({
+  entity,
+  client,
+  isReservationModalOpen,
+  changeReservationModalState,
+  scheduleReservation,
+}) => {
   const { enqueueSnackbar } = useSnackbar()
   const [checkInDate, setCheckInDate] = useState(null)
   const [checkOutDate, setCheckOutDate] = useState(null)
   const [price, setPrice] = useState(0)
 
   useEffect(() => {
-    setPrice(cottage.price)
-  }, [cottage])
+    setPrice(entity.price)
+  }, [entity])
 
   const onReservationButtonClick = () => {
     const reservationStart = dateUtils.toUtcDate(checkInDate)
@@ -22,14 +27,17 @@ const OwnerNewReservationModal = ({ cottage, client, isReservationModalOpen, cha
     const duration = dateUtils.daysBetween(reservationStart, reservationEnd)
 
     const reservation = {
-      entityId: cottage.id,
+      entityId: entity.id,
       reservationStart,
       reservationEnd,
       price: price * duration,
-      numberOfGuests: cottage.numberOfGuests,
+      numberOfGuests: entity.numberOfGuests,
       clientId: client.id,
     }
-    reservationService.scheduleCottageReservation(reservation)
+
+    scheduleReservation(reservation)
+    setCheckInDate(null)
+    setCheckOutDate(null)
     changeReservationModalState()
     enqueueSnackbar('Reservation successfully made', { variant: 'success' })
   }
@@ -47,7 +55,7 @@ const OwnerNewReservationModal = ({ cottage, client, isReservationModalOpen, cha
             setCheckOutDate(null)
           }}
           shouldDisableDate={(dateParam) => {
-            return cottage.reservations.some(
+            return entity.reservations.some(
               (reservation) => dateParam >= reservation.reservationStart && dateParam <= reservation.reservationEnd
             )
           }}
@@ -64,7 +72,7 @@ const OwnerNewReservationModal = ({ cottage, client, isReservationModalOpen, cha
           shouldDisableDate={(dateParam) => {
             return (
               dateParam < checkInDate ||
-              cottage.reservations.reverse().some((reservation) => {
+              entity.reservations.reverse().some((reservation) => {
                 if (checkInDate < reservation.reservationStart) return dateParam >= reservation.reservationStart
               })
             )

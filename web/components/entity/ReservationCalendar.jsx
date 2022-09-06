@@ -74,7 +74,6 @@ const ReservationCalendar = ({ entity, updateEntity }) => {
       entityId: entity.id,
     }
 
-    // Trebalo bi awaitovati i vidjeti da li je prosao zahtjev uspjesno, ali me mrzi
     reservationService.setUnavailablePeriod(unavailablePeriod)
     // Ako datumi ostaju na frontu ne treba prebacivati u utc jer zapravo ne mjenjamo vrmenesku
     // zonu nego samo oduzimamo razliku izmedju vremenskih zona

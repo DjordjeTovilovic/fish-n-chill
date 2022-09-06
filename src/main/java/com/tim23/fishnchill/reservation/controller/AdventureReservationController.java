@@ -53,11 +53,10 @@ public class AdventureReservationController {
     @ResponseBody
     public AdventureReservationDto scheduleReservation(HttpServletRequest request, @RequestBody NewReservationDto newReservationDto) {
         Long id = tokenUtils.getUserIdFromRequest(request);
-
         if (newReservationDto.getClientId() == null) {
             newReservationDto.setClientId(id);
         }
-        return adventureReservationService.scheduleReservation(newReservationDto, id);
+        return adventureReservationService.scheduleReservation(newReservationDto);
     }
 
     @PostMapping("/adventures/period")
