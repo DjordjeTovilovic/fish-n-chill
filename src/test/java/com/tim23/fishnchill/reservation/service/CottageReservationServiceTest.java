@@ -78,7 +78,7 @@ class CottageReservationServiceTest {
         CottageReservation cottageReservation = new CottageReservation();
         cottageReservation.setClient(clientRepository.getById(clientId));
         //when
-        underTest.scheduleReservation(newReservationDto, clientId);
+        underTest.scheduleReservation(newReservationDto);
         //then
         verify(modelMapper).map(cottageReservationRepository.save(cottageReservation), CottageReservationDto.class);
     }
