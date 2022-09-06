@@ -22,6 +22,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -43,7 +44,7 @@ public class OwnerService {
     private AuthorityRepository authorityRepository;
     private ClientService clientService;
     private ReportService reportService;
-
+    private PasswordEncoder passwordEncoder;
 
 //TODO: ovo treba prebaciti samo za ownere, sad trazi sve neaktivirane korniske
 
@@ -55,7 +56,7 @@ public class OwnerService {
         if (registrationDto.getRole().equals("cottage_owner")) {
             CottageOwner cottageOwner = new CottageOwner();
             modelMapper.map(registrationDto, cottageOwner);
-
+            cottageOwner.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
             Authority auth = authorityRepository.findByName("ROLE_COTTAGE_OWNER");
             List<Authority> auths = new ArrayList<>();
             auths.add(auth);
