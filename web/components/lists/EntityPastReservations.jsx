@@ -9,10 +9,9 @@ import { useState } from 'react'
 import Modal from 'components/modal/Modal'
 import { Divider, Link, Tab, Tabs } from '@mui/material'
 import { Box } from '@mui/system'
-import ownerService from '../../services/owner'
 import { useSnackbar } from 'notistack'
 
-const CottagePastReservations = ({ reservations }) => {
+const EntityPastReservations = ({ reservations, makeReport }) => {
   const [isOpenReportModal, setIsOpenReportModal] = useState(false)
   const [tabValue, setTabValue] = useState(0)
   const [reservationId, setReservationId] = useState(0)
@@ -33,7 +32,7 @@ const CottagePastReservations = ({ reservations }) => {
 
   const submitReport = () => {
     const report = { reservationId, ownerReport, ownerReportType: reportTypeEnum[tabValue] }
-    ownerService.makeReport(report)
+    makeReport(report)
     reservations.forEach((reservation) => {
       if (reservation.id === reservationId) reservation.ownerReport = ownerReport
     })
@@ -105,7 +104,7 @@ const CottagePastReservations = ({ reservations }) => {
             <CardMedia component="img" sx={{ width: 170, height: '100%' }} image={reservation.entity.images[0].url} />
             <CardContent sx={{ display: 'flex', flexDirection: 'column', ml: 3, maxWidth: '30%' }}>
               <Typography borderBottom={1} gutterBottom variant="h5" align="left">
-                COTTAGE
+                ENTITY
               </Typography>
               <Typography gutterBottom align="left">
                 Name: {reservation.entity.name}
@@ -123,7 +122,7 @@ const CottagePastReservations = ({ reservations }) => {
               </Typography>
               <Typography gutterBottom align="left">
                 Client:
-                <Link href="#">{reservation.client.username}</Link>
+                <Link href={`/users/profile/${reservation.client.id}`}>{reservation.client.username}</Link>
               </Typography>
               <Typography gutterBottom align="left">
                 Schedule:{' '}
@@ -157,4 +156,4 @@ const CottagePastReservations = ({ reservations }) => {
     </div>
   )
 }
-export default CottagePastReservations
+export default EntityPastReservations

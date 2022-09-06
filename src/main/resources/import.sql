@@ -32,7 +32,7 @@ INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability
 INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Cottage 3', 0, 0, 150, '2022-09-13', '2022-09-25', 15, 'Sremska Kamenica 26, Novi Sad', 'Dobra cijena, dobar provod!!!');
 INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Cottage 4', 0, 0, 220, '2022-09-06', '2022-09-25', 10 , 'Svetozara Miletica 32, Veternik(Novi Sad)', 'Dobra vikendica i nista vise!');
 --inserting for boats
-INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Boat 1', 0, 0, 225, '2022-09-15', '2022-09-25', 20, 'Ribarac, Novi Sad', 'Dobra cijena, dobar provod(JAHTA)!!!');
+INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Boat 1', 0, 0, 225, '2022-09-02', '2022-09-25', 20, 'Ribarac, Novi Sad', 'Dobra cijena, dobar provod(JAHTA)!!!');
 INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Boat 2', 0, 0, 225, '2022-09-15', '2022-09-25', 7, 'Ribarac, Novi Sad', 'Manji brod valjda');
 INSERT INTO BASE_ENTITY (name, rating_average, rating_count, price, availability_start, availability_end, capacity, address, description) VALUES ('Boat 3', 0, 0, 225, '2022-09-15', '2022-09-25', 10, 'Ribarac, Novi Sad', 'Veliki brod');
 --inserting for adventures
@@ -84,9 +84,9 @@ INSERT INTO COTTAGE_ACTION (entity_id, action_price, actual_price, number_of_gue
 INSERT INTO COTTAGE_ACTION (entity_id, action_price, actual_price, number_of_guests, reservation_start, reservation_end, action_end) VALUES (2, 75, 300, 3, '2022-08-11', '2022-08-14', '2022-08-10');
 INSERT INTO COTTAGE_ACTION (entity_id, action_price, actual_price, number_of_guests, reservation_start, reservation_end, action_end) VALUES (2, 300, 400, 13, '2022-08-27', '2022-08-29', '2022-08-26');
 
-INSERT INTO BOAT_SPECIFICATION (boat_type, length, engine_id, engine_power, max_speed) VALUES ('yacht', '15', '3A23FB', '400', '120');
-INSERT INTO BOAT_SPECIFICATION (boat_type, length, engine_id, engine_power, max_speed) VALUES ('smaller boat', '8', 'AA123', '220', '120');
-INSERT INTO BOAT_SPECIFICATION (boat_type, length, engine_id, engine_power, max_speed) VALUES ('bigger boat', '11', 'AA123', '220', '120');
+INSERT INTO BOAT_SPECIFICATION (boat_type, length, engine_model, engine_power, max_speed) VALUES ('yacht', '15', '3A23FB', '400', '120');
+INSERT INTO BOAT_SPECIFICATION (boat_type, length, engine_model, engine_power, max_speed) VALUES ('smaller boat', '8', 'AA123', '220', '120');
+INSERT INTO BOAT_SPECIFICATION (boat_type, length, engine_model, engine_power, max_speed) VALUES ('bigger boat', '11', 'AA123', '220', '120');
 
 INSERT INTO BOAT (id, owner_id, boat_specification_id) VALUES (5, 3, 1);
 INSERT INTO BOAT (id, owner_id, boat_specification_id) VALUES (6, 3, 2);

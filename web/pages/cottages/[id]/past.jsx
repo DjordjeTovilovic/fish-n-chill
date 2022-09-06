@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import CottagePastReservations from '../../../components/lists/CottagePastReservations'
+import EntityPastReservations from '../../../components/lists/EntityPastReservations'
+import ownerService from '../../../services/owner'
 import reservationService from '../../../services/reservation'
 
 const CottageReservationHistory = () => {
@@ -17,7 +18,7 @@ const CottageReservationHistory = () => {
     if (router.isReady) fetchData()
   }, [router.isReady, id])
 
-  return <CottagePastReservations reservations={reservations} />
+  return <EntityPastReservations reservations={reservations} makeReport={ownerService.makeCottageReport} />
 }
 
 export default CottageReservationHistory

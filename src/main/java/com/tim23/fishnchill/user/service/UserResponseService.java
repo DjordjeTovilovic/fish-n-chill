@@ -1,6 +1,7 @@
 package com.tim23.fishnchill.user.service;
 
 
+import com.tim23.fishnchill.general.exception.LockingFailureException;
 import com.tim23.fishnchill.general.model.BaseEntity;
 import com.tim23.fishnchill.general.model.enums.UserResponseType;
 import com.tim23.fishnchill.general.repository.BaseEntityRepository;
@@ -16,7 +17,9 @@ import com.tim23.fishnchill.user.repository.UserResponseRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.dao.PessimisticLockingFailureException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -30,7 +33,7 @@ public class UserResponseService {
     private ReservationRepository reservationRepository;
     private BaseEntityRepository baseEntityRepository;
     private MailService mailService;
-    private ClientService clientService;
+    private UserService userService;
 
 
 
@@ -69,12 +72,17 @@ public class UserResponseService {
         userResponse.setResponseType(UserResponseType.REVISION);
         return modelMapper.map(userResponseRepository.save(userResponse), UserResponseDto.class);
     }
-
-    public void approveAccountDeletionRequest(Long accDelReqId) {
-        User user = userResponseRepository.getById(accDelReqId).getUser();
-        mailService.sendAccountDeletionEmail(user);
-        userResponseRepository.deleteById(accDelReqId);
-        clientService.deleteClientById(user.getId());
+    @Transactional
+    public void approveAccountDeletionRequest(Long id) {
+        try {
+            UserResponse userResponse = userResponseRepository.findByIdAndLock(id);
+            User user = userResponse.getUser();
+            mailService.sendAccountDeletionEmail(user);
+            userResponseRepository.deleteById(id);
+            userService.deleteUserById(user.getId());
+        }catch (PessimisticLockingFailureException e) {
+            throw new LockingFailureException();
+        }
     }
 
     public void deleteResponse(Long id){
@@ -82,26 +90,36 @@ public class UserResponseService {
     }
 
 
+    @Transactional
+    public void approveClientRevision(Long id) {
+        try {
+            UserResponse userResponse = userResponseRepository.findByIdAndLock(id);
+            User owner = userResponse.getOwner();
+            User client = userResponse.getUser();
+            String revision = userResponse.getExplanation();
+            BaseEntity entity = userResponse.getEntity();
+            Reservation reservation = userResponse.getReservation();
 
-    public void approveClientRevision(Long accDelReqId) {
-        User owner = userResponseRepository.getById(accDelReqId).getOwner();
-        User client = userResponseRepository.getById(accDelReqId).getUser();
-        String revision = userResponseRepository.getById(accDelReqId).getExplanation();
-        BaseEntity entity = userResponseRepository.getById(accDelReqId).getEntity();
-        Reservation reservation = userResponseRepository.getById(accDelReqId).getReservation();
-
-        mailService.sendClientRevisionEmail(owner, client, revision, entity, reservation);
-        userResponseRepository.deleteById(accDelReqId);
+            mailService.sendClientRevisionEmail(owner, client, revision, entity, reservation);
+            userResponseRepository.deleteById(id);
+        }catch (PessimisticLockingFailureException e) {
+            throw new LockingFailureException();
+        }
     }
+    @Transactional
+    public void answerClientComplaint(Long id, String answer) {
+        try{
+            UserResponse userResponse = userResponseRepository.findByIdAndLock(id);
+            User owner = userResponse.getOwner();
+            User client = userResponse.getUser();
+            String complaint = userResponse.getExplanation();
+            BaseEntity entity = userResponse.getEntity();
+            Reservation reservation = userResponse.getReservation();
 
-    public void answerClientComplaint(Long accDelReqId, String answer) {
-        User owner = userResponseRepository.getById(accDelReqId).getOwner();
-        User client = userResponseRepository.getById(accDelReqId).getUser();
-        String complaint = userResponseRepository.getById(accDelReqId).getExplanation();
-        BaseEntity entity = userResponseRepository.getById(accDelReqId).getEntity();
-        Reservation reservation = userResponseRepository.getById(accDelReqId).getReservation();
-
-        mailService.sendAnswerToClientComplaintEmail(owner, client, answer, complaint, entity, reservation);
-        userResponseRepository.deleteById(accDelReqId);
+            mailService.sendAnswerToClientComplaintEmail(owner, client, answer, complaint, entity, reservation);
+            userResponseRepository.deleteById(id);
+        }catch (PessimisticLockingFailureException e) {
+            throw new LockingFailureException();
+        }
     }
 }

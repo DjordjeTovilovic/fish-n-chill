@@ -13,14 +13,10 @@ const AddNewCottage = () => {
   const [wifiTag, setWifiTag] = useState(false)
   const { enqueueSnackbar } = useSnackbar()
 
-  const handleChange = (values) => {
-    // TODO jel postoji razlog za prebacivanje u json i odma vracanje
-    values = JSON.stringify(values)
-    const obj = JSON.parse(values)
-    obj.image = base64
-    obj.tags = checkboxToObject()
-    cottageService.create(obj)
-    console.log(obj)
+  const handleChange = (newCottage) => {
+    newCottage.image = base64
+    newCottage.tags = checkboxToObject()
+    cottageService.create(newCottage)
     enqueueSnackbar('Cottage successfully created', { variant: 'success' })
     router.push('/cottages/owned')
   }
@@ -38,6 +34,7 @@ const AddNewCottage = () => {
     }
     reader.readAsDataURL(file)
   }
+
   const handleCheckBox = (event) => {
     if (event.target.value === 'wifi') setWifiTag(!wifiTag)
     if (event.target.value === 'AC') setAcTag(!acTag)

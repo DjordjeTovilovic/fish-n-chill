@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import CottagePastReservations from '../../../components/lists/CottagePastReservations'
+import CottagePastReservations from '../../../components/lists/EntityPastReservations'
 import ownerService from '../../../services/owner'
 
 const CottageReservationHistory = () => {
@@ -14,7 +14,7 @@ const CottageReservationHistory = () => {
     fetchData()
   }, [])
 
-  return <CottagePastReservations reservations={reservations} />
+  return <CottagePastReservations reservations={reservations} makeReport={ownerService.makeCottageReport} />
 }
 
 export default CottageReservationHistory

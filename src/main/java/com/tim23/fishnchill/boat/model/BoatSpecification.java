@@ -24,7 +24,7 @@ public class BoatSpecification {
 
     private String length;
 
-    private String engineId;
+    private String engineModel;
 
     private String enginePower;
 

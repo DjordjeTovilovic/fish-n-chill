@@ -23,6 +23,10 @@ const ChangeCottageInfo = () => {
     router.push(`/cottages/owned/${cottage.id}`)
   }
 
+  if (Object.keys(cottage).length === 0) {
+    return <div>Loading....</div>
+  }
+
   return (
     <>
       <ChangeCottageInfoForm cottage={cottage} handleChange={handleChange} />

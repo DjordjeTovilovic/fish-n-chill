@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import CottagePastReservations from '../../../components/lists/CottagePastReservations'
+import EntityPastReservations from '../../../components/lists/EntityPastReservations'
 import ownerService from '../../../services/owner'
 
 const CottageReservationHistory = () => {
@@ -7,14 +7,14 @@ const CottageReservationHistory = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const fetchedReservations = await ownerService.getAllPastCottageOwnerReservations()
+      const fetchedReservations = await ownerService.getAllPastBoatOwnerReservations()
       setReservations(fetchedReservations)
     }
 
     fetchData()
   }, [])
 
-  return <CottagePastReservations reservations={reservations} />
+  return <EntityPastReservations reservations={reservations} makeReport={ownerService.makeBoatReport} />
 }
 
 export default CottageReservationHistory

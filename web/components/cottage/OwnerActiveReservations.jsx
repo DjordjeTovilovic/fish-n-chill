@@ -8,13 +8,13 @@ import Typography from '@mui/material/Typography'
 import { useState } from 'react'
 import OwnerNewReservationModal from './OwnerNewReservationModal'
 
-const OwnerActiveReservations = ({ reservations }) => {
+const OwnerActiveReservations = ({ reservations, scheduleReservation }) => {
   const [isReservationModalOpen, setIsReservationModalOpen] = useState(false)
-  const [cottage, setCottage] = useState({})
+  const [entity, setEntity] = useState({})
   const [client, setClient] = useState({})
 
   const handleNewReservationButton = (reservation) => {
-    setCottage(reservation.entity)
+    setEntity(reservation.entity)
     setClient(reservation.client)
     changeReservationModalState()
   }
@@ -37,7 +37,7 @@ const OwnerActiveReservations = ({ reservations }) => {
           <CardMedia component="img" sx={{ width: 170, height: '100%' }} image={reservation.entity.images[0].url} />
           <CardContent sx={{ display: 'flex', flexDirection: 'column', ml: 3, maxWidth: '30%' }}>
             <Typography borderBottom={1} gutterBottom variant="h5" align="left">
-              COTTAGE
+              ENTITY
             </Typography>
             <Typography gutterBottom align="left">
               Name: {reservation.entity.name}
@@ -55,7 +55,7 @@ const OwnerActiveReservations = ({ reservations }) => {
             </Typography>
             <Typography gutterBottom align="left">
               Client:
-              <Link href="#">{reservation.client.username}</Link>
+              <Link href={`/users/profile/${reservation.client.id}`}>{reservation.client.username}</Link>
             </Typography>
             <Typography gutterBottom align="left">
               Schedule:{' '}
@@ -80,10 +80,11 @@ const OwnerActiveReservations = ({ reservations }) => {
         </Card>
       ))}
       <OwnerNewReservationModal
-        cottage={cottage}
+        entity={entity}
         client={client}
         isReservationModalOpen={isReservationModalOpen}
         changeReservationModalState={changeReservationModalState}
+        scheduleReservation={scheduleReservation}
       />
     </div>
   )

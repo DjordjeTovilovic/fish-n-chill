@@ -87,6 +87,12 @@ const LoggedInNavBar = () => {
               >
                 Analytics
               </Button>
+              <Button
+                href={'/' + userRole.split('_')[1].toLowerCase() + 's/create'}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                Add new entity
+              </Button>
             </Box>
           )}
 

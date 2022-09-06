@@ -27,9 +27,7 @@ public class ReportController {
 
     @PostMapping(value = "/approved/{id}")
     public void penalizeUser(@PathVariable("id")Long id){
-        Report report = reportService.getById(id);
-        clientService.penalize(report.getClient().getId());
-        reportService.delete(id);
+        reportService.approveReport(id);
     }
 
     @DeleteMapping(value = "/delete/{id}")

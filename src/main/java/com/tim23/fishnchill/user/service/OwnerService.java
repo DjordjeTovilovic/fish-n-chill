@@ -4,11 +4,15 @@ import com.tim23.fishnchill.general.model.Report;
 import com.tim23.fishnchill.general.model.enums.OwnerReportType;
 import com.tim23.fishnchill.general.service.DateService;
 import com.tim23.fishnchill.general.service.ReportService;
+import com.tim23.fishnchill.reservation.dto.AdventureOwnerAdventureReservationDto;
 import com.tim23.fishnchill.reservation.dto.BoatOwnerBoatReservationDto;
 import com.tim23.fishnchill.reservation.dto.CottageOwnerCottageReservationDto;
 import com.tim23.fishnchill.reservation.dto.NewReportDto;
+import com.tim23.fishnchill.reservation.model.AdventureReservation;
+import com.tim23.fishnchill.reservation.model.BoatReservation;
 import com.tim23.fishnchill.reservation.model.CottageReservation;
 import com.tim23.fishnchill.reservation.model.Reservation;
+import com.tim23.fishnchill.reservation.repository.AdventureReservationRepository;
 import com.tim23.fishnchill.reservation.repository.BoatReservationRepository;
 import com.tim23.fishnchill.reservation.repository.CottageReservationRepository;
 import com.tim23.fishnchill.user.dto.RegistrationDto;
@@ -19,6 +23,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -32,14 +37,15 @@ public class OwnerService {
     private DateService dateService;
     private CottageOwnerRepository cottageOwnerRepository;
     private CottageReservationRepository cottageReservationRepository;
+    private BoatReservationRepository boatReservationRepository;
+    private AdventureReservationRepository adventureReservationRepository;
     private BoatOwnerRepository boatOwnerRepository;
     private AdventureOwnerRepository adventureOwnerRepository;
     private UserRepository userRepository;
     private AuthorityRepository authorityRepository;
     private ClientService clientService;
     private ReportService reportService;
-    private BoatReservationRepository boatReservationRepository;
-
+    private PasswordEncoder passwordEncoder;
 
 //TODO: ovo treba prebaciti samo za ownere, sad trazi sve neaktivirane korniske
 
@@ -51,7 +57,7 @@ public class OwnerService {
         if (registrationDto.getRole().equals("cottage_owner")) {
             CottageOwner cottageOwner = new CottageOwner();
             modelMapper.map(registrationDto, cottageOwner);
-
+            cottageOwner.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
             Authority auth = authorityRepository.findByName("ROLE_COTTAGE_OWNER");
             List<Authority> auths = new ArrayList<>();
             auths.add(auth);
@@ -95,18 +101,6 @@ public class OwnerService {
 
     }
 
-
-    public List<BoatOwnerBoatReservationDto> findAllActiveBoatOwnerReservations(Long ownerId) {
-        BoatOwner owner = boatOwnerRepository.getById(ownerId);
-        List<Reservation> reservations = new ArrayList<>();
-        owner.getEntities().forEach(boat -> reservations.addAll(boatReservationRepository
-                .findAllByEntityIdAndReservationStartBeforeAndReservationEndAfter(boat.getId(), LocalDateTime.now(), LocalDateTime.now()))
-        );
-
-        TypeToken<List<BoatOwnerBoatReservationDto>> typeToken = new TypeToken<>() {};
-        return modelMapper.map(reservations, typeToken.getType());
-    }
-
     public List<CottageOwnerCottageReservationDto> findAllActiveCottageOwnerReservations(Long ownerId) {
         CottageOwner owner = cottageOwnerRepository.getById(ownerId);
         List<Reservation> reservations = new ArrayList<>();
@@ -129,19 +123,87 @@ public class OwnerService {
         return modelMapper.map(reservations, typeToken.getType());
     }
 
-    public void makeReport(NewReportDto newReportDto) {
-        CottageReservation reservation = cottageReservationRepository.getById(newReportDto.getReservationId());
-        reservation.setOwnerReport(newReportDto.getOwnerReport());
-        cottageReservationRepository.save(reservation);
-        Client client = reservation.getClient();
+    public List<BoatOwnerBoatReservationDto> findAllActiveBoatOwnerReservations(Long ownerId) {
+        BoatOwner owner = boatOwnerRepository.getById(ownerId);
+        List<Reservation> reservations = new ArrayList<>();
+        owner.getEntities().forEach(boat -> reservations.addAll(boatReservationRepository
+                .findAllByEntityIdAndReservationStartBeforeAndReservationEndAfter(boat.getId(), LocalDateTime.now(), LocalDateTime.now()))
+        );
 
+        TypeToken<List<BoatOwnerBoatReservationDto>> typeToken = new TypeToken<>() {};
+        return modelMapper.map(reservations, typeToken.getType());
+    }
+
+    public List<BoatOwnerBoatReservationDto> findAllPastBoatOwnerReservations(Long ownerId) {
+        BoatOwner owner = boatOwnerRepository.getById(ownerId);
+        List<Reservation> reservations = new ArrayList<>();
+        owner.getEntities().forEach(cottage -> reservations.addAll(boatReservationRepository
+                .findAllByEntityIdAndReservationEndBefore(cottage.getId(), LocalDateTime.now()))
+        );
+
+        TypeToken<List<BoatOwnerBoatReservationDto>> typeToken = new TypeToken<>() {};
+        return modelMapper.map(reservations, typeToken.getType());
+    }
+
+    public List<AdventureOwnerAdventureReservationDto> findAllActiveAdventureOwnerReservations(Long ownerId) {
+        AdventureOwner owner = adventureOwnerRepository.getById(ownerId);
+        List<Reservation> reservations = new ArrayList<>();
+        owner.getEntities().forEach(entity -> reservations.addAll(adventureReservationRepository
+                .findAllByEntityIdAndReservationStartBeforeAndReservationEndAfter(entity.getId(), LocalDateTime.now(), LocalDateTime.now()))
+        );
+
+        TypeToken<List<AdventureOwnerAdventureReservationDto>> typeToken = new TypeToken<>() {};
+        return modelMapper.map(reservations, typeToken.getType());
+    }
+
+    public List<AdventureOwnerAdventureReservationDto> findAllPastAdventureOwnerReservations(Long ownerId) {
+        AdventureOwner owner = adventureOwnerRepository.getById(ownerId);
+        List<Reservation> reservations = new ArrayList<>();
+        owner.getEntities().forEach(entity -> reservations.addAll(adventureReservationRepository
+                .findAllByEntityIdAndReservationEndBefore(entity.getId(), LocalDateTime.now()))
+        );
+
+        TypeToken<List<AdventureOwnerAdventureReservationDto>> typeToken = new TypeToken<>() {};
+        return modelMapper.map(reservations, typeToken.getType());
+    }
+
+
+    private void shouldClientBePenalized(Client client, NewReportDto newReportDto) {
         if (newReportDto.getOwnerReportType() == OwnerReportType.DIDNOTCOME) {
             clientService.penalize(client.getId());
         } else if (newReportDto.getOwnerReportType() == OwnerReportType.COMPLAINT) {
             Report report = new Report();
             report.setReport(newReportDto.getOwnerReport());
             report.setClient(client);
+            report.setReservationId(newReportDto.getReservationId());
             reportService.save(report);
         }
+    }
+
+    public void makeCottageReport(NewReportDto newReportDto) {
+        CottageReservation reservation = cottageReservationRepository.getById(newReportDto.getReservationId());
+        reservation.setOwnerReport(newReportDto.getOwnerReport());
+        cottageReservationRepository.save(reservation);
+        Client client = reservation.getClient();
+
+        shouldClientBePenalized(client, newReportDto);
+    }
+
+    public void makeBoatReport(NewReportDto newReportDto) {
+        BoatReservation reservation = boatReservationRepository.getById(newReportDto.getReservationId());
+        reservation.setOwnerReport(newReportDto.getOwnerReport());
+        boatReservationRepository.save(reservation);
+        Client client = reservation.getClient();
+
+        shouldClientBePenalized(client, newReportDto);
+    }
+
+    public void makeAdventureReport(NewReportDto newReportDto) {
+        AdventureReservation reservation = adventureReservationRepository.getById(newReportDto.getReservationId());
+        reservation.setOwnerReport(newReportDto.getOwnerReport());
+        adventureReservationRepository.save(reservation);
+        Client client = reservation.getClient();
+
+        shouldClientBePenalized(client, newReportDto);
     }
 }

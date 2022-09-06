@@ -12,10 +12,9 @@ const getAll = async () => {
 }
 
 const getAllActiveActions = async () => {
-  const res = await axios.get(baseUrl + "/active")
+  const res = await axios.get(baseUrl + '/active')
   return res.data
 }
-
 
 const getById = async (id) => {
   const res = await axios.get(baseUrl + id)

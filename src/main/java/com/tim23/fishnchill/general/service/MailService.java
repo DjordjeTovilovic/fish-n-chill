@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Configuration
 @AllArgsConstructor
@@ -303,4 +306,24 @@ public class MailService {
 
         System.out.println("Client complaint answer Email sent!");
     }
+
+    public void sendClientOwnerReportAnswer(Client client, LocalDateTime start, LocalDateTime end) throws MailException {
+        System.out.println("Sending client report email...");
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(client.getEmail());
+        mail.setFrom(email);
+        mail.setSubject("Owner report conclusion");
+        mail.setText("Hello " + client.getFirstName() + " " + client.getLastName() + ",\n\n"
+                + "An owner has written a report for one of your reservations in period " + start.toLocalDate() + " to " + end.toLocalDate() + "\n\n"
+                + "After a detail review we must penalize you for your misbehavior. "+ "\n\n"
+                + "We hope this won't affect your user experience! \n"
+                + "Best regards," + "\n"
+                + "FishNChill" + "\n"
+        );
+        javaMailSender.send(mail);
+
+        System.out.println("Client report Email sent!");
+    }
+
 }

@@ -21,6 +21,8 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long reservationId;
+
     private String report;
 
     private Boolean resolved = false;

@@ -1,5 +1,6 @@
 import axios from 'axios'
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
+const baseUrlAuth = process.env.NEXT_PUBLIC_AUTH_URL
 
 const getAllActiveCottageOwnerReservations = async () => {
   const res = await axios.get(baseUrl + `owner/cottages/reservations/active`)
@@ -11,13 +12,38 @@ const getAllActiveBoatOwnerReservations = async () => {
   return res.data
 }
 
+const getAllActiveAdventureOwnerReservations = async () => {
+  const res = await axios.get(baseUrl + `owner/adventures/reservations/active`)
+  return res.data
+}
+
 const getAllPastCottageOwnerReservations = async () => {
   const res = await axios.get(baseUrl + `owner/cottages/reservations/past`)
   return res.data
 }
 
-const makeReport = async (newObject) => {
+const getAllPastBoatOwnerReservations = async () => {
+  const res = await axios.get(baseUrl + `owner/boats/reservations/past`)
+  return res.data
+}
+
+const getAllPastAdventureOwnerReservations = async () => {
+  const res = await axios.get(baseUrl + `owner/adventures/reservations/past`)
+  return res.data
+}
+
+const makeCottageReport = async (newObject) => {
   const res = await axios.post(baseUrl + `cottages/reservations/reports`, newObject)
+  return res.data
+}
+
+const makeBoatReport = async (newObject) => {
+  const res = await axios.post(baseUrl + `boats/reservations/reports`, newObject)
+  return res.data
+}
+
+const makeAdventureReport = async (newObject) => {
+  const res = await axios.post(baseUrl + `adventures/reservations/reports`, newObject)
   return res.data
 }
 
@@ -27,15 +53,20 @@ const getAllInactiveOwners = async () => {
 }
 
 const enableOwnerProfile = async (id) => {
-  const res = await axios.post(baseUrl + 'auth/verify-owner-account/' + id)
+  const res = await axios.post(baseUrlAuth + 'verify-owner-account/' + id)
   return res
 }
 
 const ownerService = {
   getAllActiveCottageOwnerReservations,
-  getAllPastCottageOwnerReservations,
   getAllActiveBoatOwnerReservations,
-  makeReport,
+  getAllActiveAdventureOwnerReservations,
+  getAllPastCottageOwnerReservations,
+  getAllPastBoatOwnerReservations,
+  getAllPastAdventureOwnerReservations,
+  makeCottageReport,
+  makeBoatReport,
+  makeAdventureReport,
   getAllInactiveOwners,
   enableOwnerProfile,
 }

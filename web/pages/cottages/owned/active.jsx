@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import OwnerActiveReservations from '../../../components/cottage/OwnerActiveReservations'
 import ownerService from '../../../services/owner'
+import reservationService from '../../../services/reservation'
 import dateUtils from '../../../utils/dateUtils'
 
 const ActiveOwnerCottageReservations = () => {
@@ -16,7 +17,12 @@ const ActiveOwnerCottageReservations = () => {
     fetchData()
   }, [])
 
-  return <OwnerActiveReservations reservations={reservations} />
+  return (
+    <OwnerActiveReservations
+      reservations={reservations}
+      scheduleReservation={reservationService.scheduleCottageReservation}
+    />
+  )
 }
 
 export default ActiveOwnerCottageReservations

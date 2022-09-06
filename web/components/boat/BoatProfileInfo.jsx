@@ -24,7 +24,7 @@ const BoatProfileInfo = ({ entity }) => {
         Engine model:
       </Typography>
       <Typography variant="h5" gutterBottom fontWeight="fontWeightLight" component="div" display="inline">
-        {entity.boatSpecification.engineId}
+        {entity.boatSpecification.engineModel}
       </Typography>
       <br />
       <Typography variant="h5" fontWeight="fontWeightMedium" sx={{ mr: 3 }} display="inline">

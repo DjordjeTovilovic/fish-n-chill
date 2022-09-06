@@ -3,6 +3,7 @@ package com.tim23.fishnchill.boat.service;
 import com.tim23.fishnchill.boat.dto.BoatDto;
 import com.tim23.fishnchill.boat.dto.NewBoatDto;
 import com.tim23.fishnchill.boat.model.Boat;
+import com.tim23.fishnchill.boat.model.BoatSpecification;
 import com.tim23.fishnchill.boat.repository.BoatRepository;
 import com.tim23.fishnchill.general.exception.ResourceNotFoundException;
 import com.tim23.fishnchill.general.model.Image;
@@ -36,9 +37,13 @@ public class BoatService {
 
         BoatOwner boatOwner = boatOwnerRepository.getById(ownerId);
 
+        BoatSpecification boatSpecification = new BoatSpecification();
+        modelMapper.map(newBoatDto, boatSpecification);
+
         Boat boat = new Boat();
         modelMapper.map(newBoatDto, boat);
         boat.setOwner(boatOwner);
+        boat.setBoatSpecification(boatSpecification);
         save(boat);
 
         Image image = new Image();
@@ -49,7 +54,6 @@ public class BoatService {
         Tag tag = newBoatDto.getTags();
         tag.setEntity(boat);
         tagRepository.save(tag);
-
 
         return boat;
     }
@@ -74,6 +78,22 @@ public class BoatService {
         }
 
         return boatRepository.save(boat);
+    }
+
+    public Boat patch(Long boatId, NewBoatDto boatDto) {
+
+        Boat boat = boatRepository.getById(boatId);
+        BoatSpecification boatSpecification = boat.getBoatSpecification();
+        Long boatSpecificationId = boatSpecification.getId();
+        modelMapper.map(boatDto, boatSpecification);
+        boatSpecification.setId(boatSpecificationId);
+
+        modelMapper.map(boatDto, boat);
+        boat.setBoatSpecification(boatSpecification);
+        boat.setId(boatId);
+        save(boat);
+
+        return boat;
     }
 
     public List<BoatDto> findAll() {

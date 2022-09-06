@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import boatService from '../../services/boat'
-import BoatProfile from '../../components/profiles/BoatProfile'
-import reservationService from '../../services/reservation'
-import dateUtils from '../../utils/dateUtils'
+import boatService from '../../../services/boat'
+import BoatProfile from '../../../components/profiles/BoatProfile'
+import reservationService from '../../../services/reservation'
+import dateUtils from '../../../utils/dateUtils'
 
 const Boat = () => {
   const router = useRouter()
