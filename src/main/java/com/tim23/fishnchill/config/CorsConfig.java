@@ -13,7 +13,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**").allowedOrigins("http://localhost:3000", "https://fish-n-chill.vercel.app")
-                        .allowedMethods("PUT", "DELETE", "GET", "POST");
+                        .allowedMethods("PUT", "DELETE", "GET", "POST", "PATCH");
             }
         };
     }

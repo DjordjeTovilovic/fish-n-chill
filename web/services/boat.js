@@ -21,6 +21,11 @@ const update = async (id, newObject) => {
   return res.data
 }
 
+const patch = async (id, newObject) => {
+  const res = await axios.patch(baseUrl + id, newObject)
+  return res.data
+}
+
 const remove = async (id) => {
   await axios.delete(baseUrl + id)
 }
@@ -36,6 +41,7 @@ const boatService = {
   getAllForOwner,
   create,
   update,
+  patch,
   remove,
 }
 

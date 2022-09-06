@@ -2,6 +2,7 @@ import { Box, Container, Paper } from '@mui/material'
 import EntityMainProfileInfo from '../entity/EntityMainProfileInfo'
 import CottageUpdate from '../cottage/CottageUpdate'
 import ReservationCalendar from '../entity/ReservationCalendar'
+import CottageProfileInfo from '../cottage/CottageProfileInfo'
 
 const OwnedCottageProfile = ({ cottage, updateEntity }) => {
   return (
@@ -22,6 +23,7 @@ const OwnedCottageProfile = ({ cottage, updateEntity }) => {
             }}
           >
             <EntityMainProfileInfo entity={cottage} />
+            <CottageProfileInfo entity={cottage} />
             <CottageUpdate cottage={cottage} updateEntity={updateEntity} />
             <ReservationCalendar entity={cottage} updateEntity={updateEntity} />
           </Paper>

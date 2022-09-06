@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewBoatDto {
+    private Long id;
+
     private String name;
 
     private String address;
@@ -22,14 +24,19 @@ public class NewBoatDto {
 
     private String image = "";
 
-    private LocalDateTime availabilityStart;
-
-    private LocalDateTime availabilityEnd;
-
     private BigDecimal price;
 
     private Integer capacity;
 
     private Tag tags;
 
+    private String boatType;
+
+    private String length;
+
+    private String engineModel;
+
+    private String enginePower;
+
+    private String maxSpeed;
 }
