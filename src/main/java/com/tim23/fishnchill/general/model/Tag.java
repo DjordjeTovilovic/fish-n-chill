@@ -26,6 +26,6 @@ public class Tag {
 
     private Boolean petFriendly;
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY    )
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private BaseEntity entity;
 }

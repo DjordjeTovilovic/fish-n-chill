@@ -95,12 +95,14 @@ public class CottageController {
     }
 
     @PostMapping()
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public Cottage addNewCottage(@RequestBody NewCottageDto newCottageDto, HttpServletRequest request) {
-        Long ownerId = tokenUtils.getUserIdFromRequest(request);
-
-        return cottageService.addNewCottageForOwner(ownerId, newCottageDto);
+        if (newCottageDto.getOwnerId() == null) {
+            Long ownerId = tokenUtils.getUserIdFromRequest(request);
+            newCottageDto.setOwnerId(ownerId);
+        }
+        return cottageService.addNewCottageForOwner(newCottageDto);
     }
 
     @GetMapping(value = "owned")
