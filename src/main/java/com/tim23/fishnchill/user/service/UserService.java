@@ -1,5 +1,6 @@
 package com.tim23.fishnchill.user.service;
 
+import com.tim23.fishnchill.general.exception.LockingFailureException;
 import com.tim23.fishnchill.general.exception.ResourceNotFoundException;
 import com.tim23.fishnchill.general.model.enums.UserResponseType;
 import com.tim23.fishnchill.user.dto.RegistrationDto;
@@ -13,10 +14,12 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.PessimisticLockingFailureException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -106,11 +109,15 @@ public class UserService {
 
         return this.userRepository.save(user);
     }
-
+    @Transactional
     public User enableUser(Long id){
-        User user = userRepository.getById(id);
-        user.setEnabled(true);
-        return userRepository.save(user);
+        try {
+            User user = userRepository.getById(id);
+            user.setEnabled(true);
+            return userRepository.save(user);
+        }catch (PessimisticLockingFailureException e) {
+            throw new LockingFailureException();
+        }
     }
 
     public User findByIdPure(Long id) {
