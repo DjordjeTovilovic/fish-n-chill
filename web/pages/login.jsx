@@ -16,7 +16,7 @@ const Login = () => {
       window.localStorage.setItem('loyaltyPoints', user.loyaltyPoints)
       router.push('/').then(() => router.reload())
     } catch (exception) {
-      console.log(exception)
+      console.log(exception.response)
     }
   }
 

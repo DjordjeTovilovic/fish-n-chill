@@ -20,7 +20,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class SignupAndLoginIntegrationTest {
 
     @Autowired
@@ -30,7 +29,6 @@ class SignupAndLoginIntegrationTest {
     private ObjectMapper objectMapper;
 
     @Test
-    @Order(1)
     void shouldThrowBadRequestWhenRegisteringNewUserWithNoUsernameOrPassword() throws Exception {
         RegistrationDto registrationDto = new RegistrationDto();
         registrationDto.setUsername("OnlyUsernameSent");
@@ -43,7 +41,6 @@ class SignupAndLoginIntegrationTest {
     }
 
     @Test
-    @Order(2)
     void shouldRegisterNewUser() throws Exception {
         RegistrationDto registrationDto = new RegistrationDto();
         registrationDto.setUsername("TestUsername");
@@ -59,7 +56,6 @@ class SignupAndLoginIntegrationTest {
     }
 
     @Test
-    @Order(3)
     void shouldThrowBadRequestWhenLoginWithNullFields() throws Exception {
         LoginDto loginDto = new LoginDto();
         loginDto.setUsername("OnlyUsernameSent");
@@ -72,7 +68,6 @@ class SignupAndLoginIntegrationTest {
     }
 
     @Test
-    @Order(4)
     void shouldThrowBadCredentialsWhenInvalidUsernameAndPasswordCombination() throws Exception {
         LoginDto loginDto = new LoginDto("TestUsername", "BadPassword");
         String loginDtoJson = objectMapper.writeValueAsString(loginDto);

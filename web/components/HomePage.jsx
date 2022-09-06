@@ -12,7 +12,6 @@ import { useRouter } from 'next/router'
 const HomePage = () => {
   const [idx, setIdx] = useState(0)
   const router = useRouter()
-  const redirect = (href) => router.push(href)
 
   const delay = (ms) => new Promise((res) => setTimeout(res, ms))
   let i = 0
@@ -51,7 +50,7 @@ const HomePage = () => {
       <section style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '600px' }}>
         <h2>FishNChill</h2>
         <p>
-          <i>We love music</i>
+          <i>We appreciate your time</i>
         </p>
         <p>
           We have created a fictional band website. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -72,7 +71,7 @@ const HomePage = () => {
         }}
       >
         <article
-          onClick={() => redirect('/adventures')}
+          onClick={() => router.push('/adventures')}
           className={styles.article}
           style={{
             width: '200px',
@@ -85,10 +84,10 @@ const HomePage = () => {
         >
           <b>Adventures</b>
           <img src={adventureImg.src} alt="Random Name" style={{ width: '100%', borderRadius: '50%' }} />
-          <i>The best adventures you are goint to experience</i>
+          <i>The best adventures you are going to experience</i>
         </article>
         <article
-          onClick={() => redirect('/boats')}
+          onClick={() => router.push('/boats')}
           className={styles.article}
           style={{
             width: '200px',
@@ -104,7 +103,7 @@ const HomePage = () => {
           <i>Go fishing or rent a yacht</i>
         </article>
         <article
-          onClick={() => redirect('/cottages')}
+          onClick={() => router.push('/cottages')}
           className={styles.article}
           style={{
             width: '200px',

@@ -17,11 +17,13 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 //@AllArgsConstructor
 @Service
+@Transactional
 public class UserService {
 
     @Autowired
@@ -67,7 +69,6 @@ public class UserService {
         u.setCity(registrationDTO.getCity());
         u.setAddress(registrationDTO.getAddress());
         u.setPhoneNumber(registrationDTO.getPhoneNumber());
-        // TODO-treba napraviti dio za request ownera koji se salje adminu
         u.setEnabled(false);
         List<Authority> auth;
         if (registrationDTO.getRole().equalsIgnoreCase("cottage_owner")) {

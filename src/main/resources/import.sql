@@ -109,3 +109,4 @@ INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUE
 INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,false,true,false,5)
 INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,false,true,true,6)
 INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (true,false,false,false,7)
+INSERT INTO TAG (air_condition, television, wifi, pet_friendly, entity_id) VALUES (false,false,false,true,8)

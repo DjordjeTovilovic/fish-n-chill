@@ -3,9 +3,12 @@ package com.tim23.fishnchill.user.repository;
 import com.tim23.fishnchill.user.model.Client;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.LockModeType;
 
 @Configuration
 public interface ClientRepository extends JpaRepository<Client, Long> {
@@ -13,5 +16,4 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     @Modifying
     @Query("update Client c set c.penaltyCount = 0 where c.penaltyCount>0")
     void resetPenalties();
-
 }
