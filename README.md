@@ -4,7 +4,11 @@
 Fishing, cottage and adventure booking site
 
 
-Starting data (import.sql): 
+#Frontend start:
+Navigirati u 'web' folder i u terminalu "npm run build" i "npm run start"
+
+
+#Starting data (import.sql): 
 
 -- Lozinke su hesovane pomocu BCrypt algoritma https://www.dailycred.com/article/bcrypt-calculator
 -- Lozinka za svakog user-a je 123
