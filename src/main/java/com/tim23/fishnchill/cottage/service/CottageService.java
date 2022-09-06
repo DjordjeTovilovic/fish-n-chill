@@ -74,16 +74,15 @@ public class CottageService {
     }
 
     @Transactional
-    public Cottage update(CottageDto newCottage) {
+    public CottageDto update(CottageDto newCottage) {
         modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
-        Cottage cottage = cottageRepository.getById(newCottage.getId());
+        Cottage cottage = cottageRepository.findByIdAndLock(newCottage.getId());
         modelMapper.map(newCottage, cottage);
 
         if (newCottage.getAvailabilityStart() != null || newCottage.getAvailabilityEnd() != null) {
             unavailablePeriodRepository.deleteAllByEntityId(newCottage.getId());
         }
-
-        return cottageRepository.save(cottage);
+        return modelMapper.map(cottageRepository.save(cottage), CottageDto.class);
     }
 
     public List<CottageDto>findAll() {

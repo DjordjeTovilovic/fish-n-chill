@@ -82,9 +82,9 @@ public class CottageController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody CottageDto newCottageDto, @PathVariable("id") Long id) throws Exception {
+    public CottageDto update(@RequestBody CottageDto newCottageDto, @PathVariable("id") Long id) throws Exception {
         newCottageDto.setId(id);
-        cottageService.update(newCottageDto);
+        return cottageService.update(newCottageDto);
     }
 
     @PostMapping(value = "/findByPeriod")
