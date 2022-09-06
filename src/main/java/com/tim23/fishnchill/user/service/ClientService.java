@@ -9,19 +9,23 @@ import com.tim23.fishnchill.user.model.Authority;
 import com.tim23.fishnchill.user.model.Client;
 import com.tim23.fishnchill.user.repository.ClientRepository;
 import com.tim23.fishnchill.user.repository.UserResponseRepository;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.LockModeType;
 import java.util.List;
 
-//@AllArgsConstructor
+@AllArgsConstructor
 @Configuration
 @EnableAsync
 @Service
@@ -55,6 +59,7 @@ public class ClientService {
         return this.clientRepository.save(c);
     }
 
+    @Transactional
     public Client save(RegistrationDto registrationDTO) {
         Client c = new Client();
         c.setUsername(registrationDTO.getUsername());
