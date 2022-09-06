@@ -1,4 +1,5 @@
 import { Box, Container, Paper } from '@mui/material'
+import BoatProfileInfo from '../boat/BoatProfileInfo'
 import BoatUpdate from '../boat/BoatUpdate'
 import EntityMainProfileInfo from '../entity/EntityMainProfileInfo'
 import ReservationCalendar from '../entity/ReservationCalendar'
@@ -22,6 +23,7 @@ const OwnedBoatProfile = ({ entity, updateEntity }) => {
             }}
           >
             <EntityMainProfileInfo entity={entity} />
+            <BoatProfileInfo entity={entity} />
             <BoatUpdate entity={entity} updateEntity={updateEntity} />
             <ReservationCalendar entity={entity} updateEntity={updateEntity} />
           </Paper>

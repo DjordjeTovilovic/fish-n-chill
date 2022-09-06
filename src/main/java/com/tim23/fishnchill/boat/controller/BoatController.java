@@ -81,9 +81,15 @@ public class BoatController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody BoatDto newBoatDto, @PathVariable("id") Long id) throws Exception {
-        newBoatDto.setId(id);
-        boatService.update(newBoatDto);
+    public void update(@RequestBody BoatDto boatDto, @PathVariable("id") Long id) throws Exception {
+        boatDto.setId(id);
+        boatService.update(boatDto);
+    }
+
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void patch(@RequestBody NewBoatDto boatDto, @PathVariable("id") Long id) throws Exception {
+        boatService.patch(id, boatDto);
     }
 
     @PostMapping(value = "/findByPeriod")

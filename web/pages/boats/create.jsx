@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router'
 import { useSnackbar } from 'notistack'
 import { useState } from 'react'
-import AddNewCottageForm from '../../components/forms/AddNewCottageForm'
-import cottageService from '../../services/cottage'
+import AddNewBoatForm from '../../components/forms/AddNewBoatForm'
+import boatService from '../../services/boat'
 
-const AddNewCottage = () => {
+const AddNewBoat = () => {
   const router = useRouter()
   const [base64, setBase64] = useState()
   const [tvTag, setTvTag] = useState(false)
@@ -13,12 +13,12 @@ const AddNewCottage = () => {
   const [wifiTag, setWifiTag] = useState(false)
   const { enqueueSnackbar } = useSnackbar()
 
-  const handleChange = (newCottage) => {
-    newCottage.image = base64
-    newCottage.tags = checkboxToObject()
-    cottageService.create(newCottage)
-    enqueueSnackbar('Cottage successfully created', { variant: 'success' })
-    router.push('/cottages/owned')
+  const handleChange = (newBoat) => {
+    newBoat.image = base64
+    newBoat.tags = checkboxToObject()
+    boatService.create(newBoat)
+    enqueueSnackbar('Boat successfully created', { variant: 'success' })
+    router.push('/boats/owned')
   }
 
   const setFieldValue = async (e) => {
@@ -48,7 +48,7 @@ const AddNewCottage = () => {
 
   return (
     <>
-      <AddNewCottageForm
+      <AddNewBoatForm
         handleCheckBox={handleCheckBox}
         handleChange={handleChange}
         setFieldValue={(e) => setFieldValue(e)}
@@ -57,4 +57,4 @@ const AddNewCottage = () => {
     </>
   )
 }
-export default AddNewCottage
+export default AddNewBoat

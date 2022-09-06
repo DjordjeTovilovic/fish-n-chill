@@ -21,9 +21,6 @@ const OwnedCottage = () => {
   }, [router.isReady, id])
 
   const updateEntity = (updatedEntity) => {
-    // ...cottage stavi sva polja cottage-a, a poslje toga ...updateEntity stavi svoja polja
-    // koja su istog naziva i overriduje polja koja posjeduje i od svega toga pravi novi objekat
-    // Ne bi trebalo slati sva polja, vec samo izmjenjena
     setCottage({ ...cottage, ...updatedEntity })
   }
 
