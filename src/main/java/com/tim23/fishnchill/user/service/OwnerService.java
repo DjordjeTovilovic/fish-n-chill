@@ -175,6 +175,7 @@ public class OwnerService {
             Report report = new Report();
             report.setReport(newReportDto.getOwnerReport());
             report.setClient(client);
+            report.setReservationId(newReportDto.getReservationId());
             reportService.save(report);
         }
     }
