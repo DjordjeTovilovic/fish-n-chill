@@ -35,31 +35,36 @@ public class CottageService {
     private RoomRepository roomRepository;
     private UnavailablePeriodRepository unavailablePeriodRepository;
 
-    public Cottage addNewCottageForOwner(Long ownerId, NewCottageDto newCottageDto) {
+    public Cottage addNewCottageForOwner(NewCottageDto newCottageDto) {
 
-        CottageOwner cottageOwner = cottageOwnerRepository.getById(ownerId);
+        CottageOwner cottageOwner = cottageOwnerRepository.getById(newCottageDto.getOwnerId());
 
         Cottage cottage = new Cottage();
         modelMapper.map(newCottageDto, cottage);
         cottage.setOwner(cottageOwner);
         save(cottage);
 
-        Image image = new Image();
-        image.setUrl(newCottageDto.getImage());
-        image.setEntity(cottage);
-        imageRepository.save(image);
+        if (newCottageDto.getImage() != null && newCottageDto.getImage() != "") {
+            Image image = new Image();
+            image.setUrl(newCottageDto.getImage());
+            image.setEntity(cottage);
+            imageRepository.save(image);
+        }
 
+        if (newCottageDto.getTags() != null) {
+            Tag tag = newCottageDto.getTags();
+            tag.setEntity(cottage);
+            tagRepository.save(tag);
+        }
 
-        Tag tag = newCottageDto.getTags();
-        tag.setEntity(cottage);
-        tagRepository.save(tag);
-
-        newCottageDto.getRooms().forEach(room -> {
-            Room newRoom = new Room();
-            newRoom.setCottage(cottage);
-            newRoom.setNumberOfBeds(room);
-            roomRepository.save(newRoom);
-        });
+        if (newCottageDto.getRooms() != null) {
+            newCottageDto.getRooms().forEach(room -> {
+                Room newRoom = new Room();
+                newRoom.setCottage(cottage);
+                newRoom.setNumberOfBeds(room);
+                roomRepository.save(newRoom);
+            });
+        }
 
         return cottage;
     }
@@ -85,7 +90,7 @@ public class CottageService {
         return modelMapper.map(cottageRepository.save(cottage), CottageDto.class);
     }
 
-    public List<CottageDto>findAll() {
+    public List<CottageDto> findAll() {
         TypeToken<List<CottageDto>> typeToken = new TypeToken<>() {};
         return modelMapper.map(cottageRepository.findAll(), typeToken.getType());
     }

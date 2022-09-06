@@ -22,6 +22,6 @@ public class Room {
     private Integer numberOfBeds;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Cottage cottage;
 }

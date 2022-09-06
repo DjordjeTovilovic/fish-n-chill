@@ -36,4 +36,6 @@ public class NewCottageDto {
 
     private List<Integer> rooms;
 
+    private Long ownerId;
+
 }
