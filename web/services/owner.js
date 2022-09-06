@@ -12,6 +12,11 @@ const getAllActiveBoatOwnerReservations = async () => {
   return res.data
 }
 
+const getAllActiveAdventureOwnerReservations = async () => {
+  const res = await axios.get(baseUrl + `owner/adventures/reservations/active`)
+  return res.data
+}
+
 const getAllPastCottageOwnerReservations = async () => {
   const res = await axios.get(baseUrl + `owner/cottages/reservations/past`)
   return res.data
@@ -55,6 +60,7 @@ const enableOwnerProfile = async (id) => {
 const ownerService = {
   getAllActiveCottageOwnerReservations,
   getAllActiveBoatOwnerReservations,
+  getAllActiveAdventureOwnerReservations,
   getAllPastCottageOwnerReservations,
   getAllPastBoatOwnerReservations,
   getAllPastAdventureOwnerReservations,

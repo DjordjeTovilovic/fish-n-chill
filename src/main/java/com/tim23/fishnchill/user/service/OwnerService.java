@@ -8,6 +8,7 @@ import com.tim23.fishnchill.reservation.dto.AdventureOwnerAdventureReservationDt
 import com.tim23.fishnchill.reservation.dto.BoatOwnerBoatReservationDto;
 import com.tim23.fishnchill.reservation.dto.CottageOwnerCottageReservationDto;
 import com.tim23.fishnchill.reservation.dto.NewReportDto;
+import com.tim23.fishnchill.reservation.model.AdventureReservation;
 import com.tim23.fishnchill.reservation.model.BoatReservation;
 import com.tim23.fishnchill.reservation.model.CottageReservation;
 import com.tim23.fishnchill.reservation.model.Reservation;
@@ -197,9 +198,9 @@ public class OwnerService {
     }
 
     public void makeAdventureReport(NewReportDto newReportDto) {
-        CottageReservation reservation = cottageReservationRepository.getById(newReportDto.getReservationId());
+        AdventureReservation reservation = adventureReservationRepository.getById(newReportDto.getReservationId());
         reservation.setOwnerReport(newReportDto.getOwnerReport());
-        cottageReservationRepository.save(reservation);
+        adventureReservationRepository.save(reservation);
         Client client = reservation.getClient();
 
         shouldClientBePenalized(client, newReportDto);

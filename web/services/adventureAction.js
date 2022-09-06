@@ -1,8 +1,18 @@
 import axios from 'axios'
-const baseUrl = process.env.NEXT_PUBLIC_API_URL + 'adventures/'
+const baseUrl = process.env.NEXT_PUBLIC_API_URL + 'adventures/actions'
+
+const checkIfAnyExist = async () => {
+  const res = await axios.get(baseUrl + '/exist')
+  return res.data
+}
 
 const getAll = async () => {
   const res = await axios.get(baseUrl)
+  return res.data
+}
+
+const getAllActiveActions = async () => {
+  const res = await axios.get(baseUrl + '/active')
   return res.data
 }
 
@@ -25,18 +35,14 @@ const remove = async (id) => {
   await axios.delete(baseUrl + id)
 }
 
-const getAllForOwner = async () => {
-  const res = await axios.get(baseUrl + 'owned')
-  return res.data
-}
-
-const adventureService = {
+const adventureActionService = {
+  checkIfAnyExist,
   getAll,
+  getAllActiveActions,
   getById,
   create,
   update,
   remove,
-  getAllForOwner,
 }
 
-export default adventureService
+export default adventureActionService

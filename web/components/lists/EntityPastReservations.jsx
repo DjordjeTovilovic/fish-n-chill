@@ -104,7 +104,7 @@ const EntityPastReservations = ({ reservations, makeReport }) => {
             <CardMedia component="img" sx={{ width: 170, height: '100%' }} image={reservation.entity.images[0].url} />
             <CardContent sx={{ display: 'flex', flexDirection: 'column', ml: 3, maxWidth: '30%' }}>
               <Typography borderBottom={1} gutterBottom variant="h5" align="left">
-                COTTAGE
+                ENTITY
               </Typography>
               <Typography gutterBottom align="left">
                 Name: {reservation.entity.name}
@@ -122,7 +122,7 @@ const EntityPastReservations = ({ reservations, makeReport }) => {
               </Typography>
               <Typography gutterBottom align="left">
                 Client:
-                <Link href={`/profiles/${reservation.client.id}`}>{reservation.client.username}</Link>
+                <Link href={`/users/profile/${reservation.client.id}`}>{reservation.client.username}</Link>
               </Typography>
               <Typography gutterBottom align="left">
                 Schedule:{' '}

@@ -4,12 +4,12 @@ import ownerService from '../../../services/owner'
 import reservationService from '../../../services/reservation'
 import dateUtils from '../../../utils/dateUtils'
 
-const ActiveOwnerCottageReservations = () => {
+const ActiveOwnerAdventureReservations = () => {
   const [reservations, setReservations] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
-      let fetchedReservations = await ownerService.getAllActiveCottageOwnerReservations()
+      let fetchedReservations = await ownerService.getAllActiveAdventureOwnerReservations()
       fetchedReservations = dateUtils.reservationListFieldsToDate(fetchedReservations)
       setReservations(fetchedReservations)
     }
@@ -20,9 +20,9 @@ const ActiveOwnerCottageReservations = () => {
   return (
     <OwnerActiveReservations
       reservations={reservations}
-      scheduleReservation={reservationService.scheduleCottageReservation}
+      scheduleReservation={reservationService.scheduleAdventureReservation}
     />
   )
 }
 
-export default ActiveOwnerCottageReservations
+export default ActiveOwnerAdventureReservations

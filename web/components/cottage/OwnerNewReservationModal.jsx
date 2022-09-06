@@ -54,11 +54,7 @@ const OwnerNewReservationModal = ({
             setCheckInDate(newValue)
             setCheckOutDate(null)
           }}
-          shouldDisableDate={(dateParam) => {
-            return entity.reservations.some(
-              (reservation) => dateParam >= reservation.reservationStart && dateParam <= reservation.reservationEnd
-            )
-          }}
+          shouldDisableDate={(dateParam) => dateUtils.shouldDisableStartDate(dateParam, entity)}
           renderInput={(params) => <TextField {...params} />}
         />
         <DatePicker
@@ -69,14 +65,7 @@ const OwnerNewReservationModal = ({
           onChange={(newValue) => {
             setCheckOutDate(newValue)
           }}
-          shouldDisableDate={(dateParam) => {
-            return (
-              dateParam < checkInDate ||
-              entity.reservations.reverse().some((reservation) => {
-                if (checkInDate < reservation.reservationStart) return dateParam >= reservation.reservationStart
-              })
-            )
-          }}
+          shouldDisableDate={(dateParam) => dateUtils.shouldDisableEndDate(dateParam, checkInDate, entity)}
           renderInput={(params) => <TextField {...params} />}
         />
       </div>
